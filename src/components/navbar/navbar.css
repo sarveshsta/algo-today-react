@@ -1,0 +1,134 @@
+.verticle-navbar {
+  width: auto;
+  height: 100%;
+  /* flex-shrink: 0; */
+  border-radius: 0px 20px 20px 0px;
+  background: #3498db;
+  box-shadow: 4px 5px 10px 0px rgba(0, 0, 0, 0.15);
+  /* z-index: 1; */
+  /* box-sizing: border-box; */
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: grid;
+}
+
+.nav-ul {
+    /* display: flex; */
+}
+
+.ul-list {
+  list-style-type: none;
+    margin: 10px;
+    padding: 7px;
+    text-wrap: nowrap;
+    /* list-style-type: none; */
+    position: absolute;
+    height: 40rem;
+    display: grid;
+}
+
+.iconhome {
+  display: flex;
+  width: -webkit-fill-available;
+  height: -moz-fit-content;
+  height: fit-content;
+  border-radius: 0px 50px 50px 0px;
+  /* opacity: 0.7; */
+  background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0) 52.38%);
+  /* border: 2px solid; */
+  /* margin-left: -2.3rem; */
+  justify-content: space-between;
+}
+
+.iconhome svg {
+  width: 30px;
+  height: 31.2px;
+  flex-shrink: 0;
+  fill: #fff;
+  stroke-width: 2px;
+  stroke: #fff;
+  /* margin-top: 18px; */
+}
+
+.iconimg {
+  margin-right: 23px;
+  position: relative;
+  /* top: 10px; */
+  width: 19px;
+  height: 20px;
+
+}
+
+li#home {
+  /* color: #fff; */
+  /* font-family: Montserrat; */
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  align-self: center;
+  position: relative;
+  right: 4.3rem;
+}
+
+li#acc {
+  /* display: flex; */
+}
+
+span.link-text {
+  display: inline-table;
+  width: max-content;
+  color: white !important;
+}
+
+.ul-list {
+  list-style-type: none;
+  width: -webkit-fill-available;
+  margin: 0;
+  text-align: left;
+  display: contents;
+}
+
+.logo {
+  text-align: -webkit-center;
+  margin-top: 1.6vh;
+  height: max-content;
+  width: -webkit-fill-available;
+}
+
+.logo-img{
+  width: 50px;
+}
+
+h1#lg {
+  color: #eef2f2;
+  font-family: Montserrat;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.hamburger {
+  display: none;
+}
+.menu {
+  display: none;
+}
+
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+  .menu {
+    display: none;
+  }
+  .menu.active {
+    display: block;
+  }
+  .verticle-navbar{
+    display: none;
+  }
+}

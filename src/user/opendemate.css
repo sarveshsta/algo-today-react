@@ -1,0 +1,59 @@
+#opendemate-container-first{
+    margin-left: 17%; 
+    padding: 0;
+    margin-right: 0;
+    text-align: center;
+}
+
+.firstLink{
+    width: -webkit-fill-available;
+    margin-left: 17%;
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    gap: 2%;
+    text-align: center;
+}
+
+#firstLink-firstdiv{
+    
+}
+
+#firstLink-firstdiv-firstimg{
+    /* border: 2px solid black; */
+    width: -webkit-fill-available;
+    aspect-ratio: 2;
+    object-fit: cover;
+}
+
+#firstLink-seconddiv{
+    
+}
+
+#firstLink-firstdiv-seconddiv{
+    /* border: 2px solid black; */
+    width: -webkit-fill-available;
+    aspect-ratio: 2;
+    object-fit: cover;
+}
+
+#firstLink-thirddiv{
+
+}
+
+#firstLink-firstdiv-thirdimg{
+    /* border: 2px solid black; */
+    width: -webkit-fill-available;
+    aspect-ratio: 2;
+    object-fit: cover;
+}
+
+#firstLink-fourthdiv{
+
+}
+
+#firstLink-firstdiv-fourthimg{
+    /* border: 2px solid black; */
+    width: -webkit-fill-available;
+    aspect-ratio: 2;
+    object-fit: cover;
+}
