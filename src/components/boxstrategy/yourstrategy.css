@@ -1,0 +1,169 @@
+.MainBox {
+    display: grid;
+    display: -moz-grid;
+    display: -ms-grid;
+    width: -webkit-fill-available;
+    margin-left: 19%;
+    margin-top: 3vh;
+    grid-template-columns: auto auto auto auto;
+    gap: 2vh;
+    padding: 1rem;
+    border-radius: 30px;
+    border: 2px solid #f4f4d0;
+    background: #FFF;
+    box-shadow: 0px 43px 95px 0px rgba(41, 41, 41, 0.10), 0px 173px 173px 0px rgba(41, 41, 41, 0.09), 0px 388px 233px 0px rgba(41, 41, 41, 0.05), 1px 690px 276px 0px rgba(41, 41, 41, 0.01), 1px 1078px 302px 0px rgba(41, 41, 41, 0.00);
+    margin-right: 2%;
+    font: -webkit-small-control;
+}
+
+.SecondBox {
+    display: flex;
+    display: -webkit-flex;
+    width: 83%;
+    height: max-content;
+    /* position: relative; */
+    top: 17rem;
+}
+
+.subbox{
+    height: auto;
+    width: -webkit-fill-available;
+    text-align: center;
+}
+
+#box1 {
+    /* width: 284px;
+    height: 219px; */
+    flex-shrink: 0;
+    border-radius: 25px;
+    opacity: 0.65;
+    background: #F39C12;
+    /* margin: 0px 14px; */
+    /* position: relative; */
+}
+
+#box2 {
+    /* width: 264px;
+    height: 224px; */
+    flex-shrink: 0;
+    border-radius: 25px;
+    opacity: 0.65;
+    background: #27AE60;
+    /* margin: 0px 14px; */
+}
+
+#box3 {
+    /* width: 268px;
+    height: 225px; */
+    flex-shrink: 0;
+    border-radius: 25px;
+    opacity: 0.65;
+    background: #E74;
+    /* margin: 0px 14px; */
+}
+
+#box4 {
+    /* width: 269px;
+    height: 225px; */
+    flex-shrink: 0;
+    border-radius: 25px;
+    opacity: 0.65;
+    background: #9C34DB;
+    /* margin: 0px 14px; */
+}
+
+.boxHeading {
+    color: black;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.boxpara {
+    color: var(--2-c-3-e-50, #2C3E50);
+    text-align: center;
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 127.734%;
+}
+
+#custbtn {
+    border-radius: 31px;
+    border: 1px solid #3498DB;
+    width: 7rem;
+    height: 3rem;
+    /* position: relative; */
+    left: 17vh;
+}
+
+.btn.btn-primary{
+
+}
+
+#custbtn0 {
+    border-radius: 31px;
+    border: 1px solid #3498DB;
+    width: 7rem;
+    height: 3rem;
+    /* position: relative; */
+    left: 17vh;
+}
+
+#custbtn1 {
+    border-radius: 31px;
+    border: 1px solid #3498DB;
+    width: 7rem;
+    height: 3rem;
+    /* position: relative; */
+    left: 17vh;
+}
+
+#custbtn2 {
+    border-radius: 31px;
+    border: 1px solid #3498DB;
+    width: 7rem;
+    height: 3rem;
+    /* position: relative; */
+    left: 17vh;
+}
+
+#custbtn3 {
+    border-radius: 31px;
+    border: 1px solid #3498DB;
+    width: 7rem;
+    height: 3rem;
+    /* position: relative; */
+    left: 17vh;
+}
+
+#custbtn4 {
+    border-radius: 31px;
+    border: 1px solid #3498DB;
+    width: 7rem;
+    height: 3rem;
+    /* position: relative; */
+    left: 17vh;
+}
+
+#custbtn5 {
+    border-radius: 31px;
+    border: 1px solid #3498DB;
+    width: 7rem;
+    height: 3rem;
+    /* position: relative; */
+    left: 17vh;
+}
+
+#custbtn6 {
+    border-radius: 31px;
+    border: 1px solid #3498DB;
+    width: 7rem;
+    height: 3rem;
+    /* position: relative; */
+    left: 17vh;
+}

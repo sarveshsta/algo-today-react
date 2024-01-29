@@ -1,0 +1,3 @@
+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
+https://amanSTA123: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@github.com/sarveshsta/algo-today-react.git
+git remote set-url origin   

@@ -1,0 +1,107 @@
+.home-main-div {
+  margin-left: 17%;
+  width: -webkit-fill-available;
+}
+
+.w-full.max-w-xs{
+  height: -webkit-fill-available;
+  border-radius: inherit;
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+}
+
+.home-heading {
+}
+
+.home-para {
+}
+
+.mb-4 {
+}
+
+.div-btn-submit {
+}
+
+#heading-div {
+}
+
+#heading {
+}
+
+#para-div {
+}
+
+#para {
+}
+
+#form-main-div {
+}
+
+#form-div {
+  height: auto;
+  width: -webkit-fill-available;
+  border-radius: 30px;
+  border: 2px solid #ffffe5;
+  background: #fff;
+  box-shadow: 0px 43px 95px 0px rgba(41, 41, 41, 0.1),
+    0px 173px 173px 0px rgba(41, 41, 41, 0.09),
+    0px 388px 233px 0px rgba(41, 41, 41, 0.05),
+    1px 690px 276px 0px rgba(41, 41, 41, 0.01),
+    1px 1078px 302px 0px rgba(41, 41, 41, 0);
+}
+
+form{
+  width: 50%;
+  border-radius: inherit;
+} 
+
+.formik-error-message{
+  color: red;
+  font-size: 11px;
+    margin: 0;
+    padding: 0;
+}
+
+.css-qbdosj-Input {
+  display: inline-flex !important;
+  /* border: 1px solid #f00;  */
+  border-radius: .25rem !important ; /* Rounded corners */ /* Padding values for top/bottom and left/right */ /* Gray text color */ /* Bottom margin */ /* Adjust leading/tight */
+  outline: none !important ;
+  padding: 2px !important;
+  /* box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.2) !important */
+}
+
+.css-1fdsijx-ValueContainer {
+  padding: 0 !important;
+}
+
+.css-qbdosj-Input {
+  margin: 0 !important;
+} 
+
+.css-1xc3v61-indicatorContainer {
+  padding: 0 !important;
+}
+
+.css-13cymwt-control {
+  appearance: none; /* Red border */
+  border-radius: .25rem; /* Rounded corners */ /* Full width */ /* Padding values for top/bottom and left/right */
+  color: #333; /* Gray text color */
+  margin-bottom: 0.75rem; /* Bottom margin */
+  line-height: 1.5; /* Adjust leading/tight */
+  outline: none; /* Remove default outline on focus */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+@media screen and (max-width:768px){
+  .home-main-div {
+   /* margin-left: 17%; */
+    /* width: -webkit-fill-available; */
+    margin: 0px;
+  }
+  form{
+    width: auto;
+    border-radius: inherit;
+  } 
+}

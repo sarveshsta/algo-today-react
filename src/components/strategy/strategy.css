@@ -1,0 +1,108 @@
+.MyStrategy {
+  /* position: relative; */
+  /* display: flex;
+  top: 7rem;
+  width: 83%;
+  justify-content: space-evenly;
+  margin-left: 17%;
+  box-sizing: border-box; */
+
+  /* display: flex;
+    width: -webkit-fill-available;
+    justify-content: space-evenly;
+    margin-left: 17%;
+    box-sizing: border-box;
+    margin-top: 3vh; */
+
+    /* position: relative;  */
+    display: flex;
+    display: -webkit-flex;
+    width: -webkit-fill-available;
+    justify-content: space-evenly;
+    margin-left: 18.5%;
+    box-sizing: border-box;
+    margin-top: 8vh;
+    gap: 1vw;
+    margin-right: 1vw;
+
+}
+
+.strategy-1 {
+  /* width: 41.5%;
+  height: max-content;
+  flex-shrink: 0;
+  border-radius: 25px;
+  background: linear-gradient( 90deg, rgba(255, 255, 255, 0.75) 0.06%, rgba(255, 255, 255, 0.45) 100% );
+  box-shadow: 0px 28px 62px 0px rgba(0, 0, 0, 0.1), 0px 112px 112px 0px rgba(0, 0, 0, 0.09);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  box-sizing: border-box; */
+    width: auto;
+    height: auto;
+    /* flex-shrink: 0; */
+    border-radius: 25px;
+    background: linear-gradient( 90deg, rgba(255, 255, 255, 0.75) 0.06%, rgba(255, 255, 255, 0.45) 100% );
+    box-shadow: 0px 28px 62px 0px rgba(0, 0, 0, 0.1), 0px 112px 112px 0px rgba(0, 0, 0, 0.09);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    box-sizing: border-box;
+}
+
+.strhead {
+  color: var(--2-c-3-e-50, #2c3e50);
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 600;
+  /* line-height: normal; */
+  /* width: 539px; */
+  box-sizing: border-box;
+
+}
+
+.strpara {
+  color: var(--2-c-3-e-50, #2c3e50);
+  text-align: center;
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  /* line-height: 127.734%; */
+  box-sizing: border-box;
+  border: 2px solid white;
+
+}
+
+.strategybtnn {
+  width: -webkit-fill-available;
+  display: inline-flex;
+  display: -webkit-inline-flex;
+  padding: 9px 33px;
+  justify-content: center;
+  /* align-items: center; */
+  /* gap: 10px; */
+  /* border-radius: 20px; */
+  /* box-sizing: border-box; */
+  /* margin-left: 40vh; */
+  /* border: 2px solid #3498db; */
+}
+
+.btn {
+  color: #3498db;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 127.734%;
+  background-color: white;
+  border: none;
+}
+
+@media screen and (max-width: 620px) {
+           .MyStrategy .strategy-1 .strhead .strpara .strategybtnn .btn {
+            font-size: 16px !important;
+            /* grid-template-columns: max-content; */
+           }
+}
