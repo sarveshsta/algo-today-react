@@ -12,6 +12,7 @@ const Wrapper = styled.div`
     margin-left: 17%;
     height: 86vh;
     display: flex;
+    display: -webkit-flex;
     margin-top: 15px;
     text-align: center;
   }

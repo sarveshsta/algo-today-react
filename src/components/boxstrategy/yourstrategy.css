@@ -1,5 +1,7 @@
 .MainBox {
     display: grid;
+    display: -moz-grid;
+    display: -ms-grid;
     width: -webkit-fill-available;
     margin-left: 19%;
     margin-top: 3vh;
@@ -16,6 +18,7 @@
 
 .SecondBox {
     display: flex;
+    display: -webkit-flex;
     width: 83%;
     height: max-content;
     /* position: relative; */

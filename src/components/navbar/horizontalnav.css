@@ -1,5 +1,6 @@
 .HorizontalNav {
   display: flex;
+  display: -webkit-flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px;
@@ -8,7 +9,7 @@
   position: relative;
   width: -webkit-fill-available;
   height: max-content;
-  margin-left: 15.5%;
+  margin-left: 16.5%;
   }
   
   .Horizontalimg {
@@ -53,10 +54,10 @@
   }
   
   @media only screen and (max-width: 768px) {
-    /* .HorizontalNav {
-      flex-direction: column;
-      align-items: flex-start;
-    } */
+    .HorizontalNav {
+      /* flex-direction: column;
+      align-items: flex-start; */
+    }
   
     .Horizontalimg {
       margin-right: 0;
@@ -64,9 +65,10 @@
     }
   
     .Horizontalheading {
-      margin-right: 0;
+      /* margin-right: 0;
       margin-bottom: 10px;
-      font-size: 15px;
+      font-size: 15px; */
+      top: 7vh;
     }
   
     .Horizontalheading1 {
@@ -75,8 +77,8 @@
     }
   
     .Horizontalimg2 {
-      margin-right: 0;
-      margin-bottom: 10px;
+      /* margin-right: 0;
+      margin-bottom: 10px; */
     }
   }
   

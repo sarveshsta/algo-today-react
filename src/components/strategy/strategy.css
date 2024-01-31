@@ -16,11 +16,14 @@
 
     /* position: relative;  */
     display: flex;
+    display: -webkit-flex;
     width: -webkit-fill-available;
     justify-content: space-evenly;
     margin-left: 18.5%;
     box-sizing: border-box;
     margin-top: 8vh;
+    gap: 1vw;
+    margin-right: 1vw;
 
 }
 
@@ -34,9 +37,9 @@
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   box-sizing: border-box; */
-  width: 50%;
+    width: auto;
     height: auto;
-    flex-shrink: 0;
+    /* flex-shrink: 0; */
     border-radius: 25px;
     background: linear-gradient( 90deg, rgba(255, 255, 255, 0.75) 0.06%, rgba(255, 255, 255, 0.45) 100% );
     box-shadow: 0px 28px 62px 0px rgba(0, 0, 0, 0.1), 0px 112px 112px 0px rgba(0, 0, 0, 0.09);
@@ -74,6 +77,7 @@
 .strategybtnn {
   width: -webkit-fill-available;
   display: inline-flex;
+  display: -webkit-inline-flex;
   padding: 9px 33px;
   justify-content: center;
   /* align-items: center; */

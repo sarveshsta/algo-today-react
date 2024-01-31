@@ -1,13 +1,15 @@
 .StockIndex {
-  width: -webkit-fill-available;
+  width: auto;
     height: auto;
     display: grid;
+    display: -moz-grid;
+    display: -ms-grid;
     grid-template-columns: repeat(6, auto);
     align-items: center;
     justify-content: space-evenly;
     box-sizing: border-box;
     margin-left: 17%;
-    margin-top: 2vh;
+    margin-top: 3vh;
   /* width: 83%;
   height: max-content;
   display: flex;
@@ -21,7 +23,7 @@
 }
 
 .Nifty50 {
-  width: 175px;
+  width: auto;
   height: 127px;
   flex-shrink: 0;
   border-radius: 20px;
@@ -33,7 +35,7 @@
 }
 
 .Sensex {
-  width: 175px;
+  width: auto;
   height: 127px;
   flex-shrink: 0;
   border-radius: 20px;

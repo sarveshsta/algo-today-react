@@ -17,11 +17,11 @@ function App() {
         {/* <Route path="/" element={<Dashbord />} /> */}
         <Route path="/" element={<Home />} />
         <Route path="/opendemate" element={<OpenDemat/>} />
-        {/* <Route path="/wallet" element={<Wallet />} /> */}
-        {/* <Route path="/refer&earn" element={<ReferEarn />} /> */}
-        {/* <Route path="/linkbroker" element={<LinkBroker />} /> */}
-        {/* <Route path="/userhistory" element={<UserHistory />} /> */}
-        {/* <Route path="/managetrading" element={<ManageTrading />} /> */}
+        <Route path="/wallet" element={<Wallet />} />
+        <Route path="/refer&earn" element={<ReferEarn />} />
+        <Route path="/linkbroker" element={<LinkBroker />} />
+        <Route path="/userhistory" element={<UserHistory />} />
+        <Route path="/managetrading" element={<ManageTrading />} />
       </Routes>
     </BrowserRouter>
   );

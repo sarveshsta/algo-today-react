@@ -3,14 +3,13 @@ import Navbar from "../components/navbar/Navbar";
 import HorizontalNav from "../components/navbar/HorizontalNav";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import * as XLSX from "xlsx"; // Import xlsx library
 import "../user/home.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Select from "react-select";
 
 const Home = () => {
-  // const [userData, setUserData] = useState();
-
+  const [selectedState, setSelectedState] = useState(null);
   const navigate = useNavigate();
   const formData = new FormData();
 
@@ -20,15 +19,21 @@ const Home = () => {
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
-    phoneNumber: Yup.string().required("Phone number is required"),
+    phoneNumber: Yup.string()
+      .matches(/^[0-9]+$/, "Must be only digits")
+      .min(10, "Must be exactly 10 digits")
+      .max(10, "Must be exactly 10 digits")
+      .required("Phone Number is required"),
     city: Yup.string().required("City is required"),
-    state: Yup.string().required("State is required"),
+    state: Yup.object().shape({
+      label: Yup.string().required("State is require"),
+      value: Yup.string().required("State is require"),
+    }),
   });
 
   const config = {
     headers: {
       "Content-Type": "multipart/form-data",
-      // Add any other headers as needed
     },
   };
 
@@ -39,7 +44,7 @@ const Home = () => {
       email: "",
       phoneNumber: "",
       city: "",
-      state: "",
+      state: { value: "", label: "" },
     },
 
     validationSchema: validationSchema,
@@ -52,14 +57,10 @@ const Home = () => {
       formData.append("email", values.email);
       formData.append("phoneNumber", values.phoneNumber);
       formData.append("city", values.city);
-      formData.append("state", values.state);
+      formData.append("state", values.state.value);
 
       axios
-        .post(
-          "https://9fc1-2405-201-301d-f83a-6d09-6298-c8eb-486d.ngrok-free.app/form",
-          formData,
-          config
-        )
+        .post("http://127.0.1:8000/form", formData, config)
         .then((response) => {
           console.log("res", response.data);
         })
@@ -69,10 +70,60 @@ const Home = () => {
     },
   });
 
+  const stateOptions = [
+    { value: "Andhra Pradesh", label: "Andhra Pradesh" },
+    { value: "Arunachal Pradesh", label: "Arunachal Pradesh" },
+    { value: "Assam", label: "Assam" },
+    { value: "Bihar", label: "Bihar" },
+    { value: "Chhattisgarh", label: "Chhattisgarh" },
+    { value: "Goa", label: "Goa" },
+    { value: "Gujarat", label: "Gujarat" },
+    { value: "Haryana", label: "Haryana" },
+    { value: "Himachal Pradesh", label: "Himachal Pradesh" },
+    { value: "Jharkhand", label: "Jharkhand" },
+    { value: "Karnataka", label: "Karnataka" },
+    { value: "Kerala", label: "Kerala" },
+    { value: "Madhya Pradesh", label: "Madhya Pradesh" },
+    { value: "Maharashtra", label: "Maharashtra" },
+    { value: "Manipur", label: "Manipur" },
+    { value: "Meghalaya", label: "Meghalaya" },
+    { value: "Mizoram", label: "Mizoram" },
+    { value: "Nagaland", label: "Nagaland" },
+    { value: "Odisha", label: "Odisha" },
+    { value: "Punjab", label: "Punjab" },
+    { value: "Rajasthan", label: "Rajasthan" },
+    { value: "Sikkim", label: "Sikkim" },
+    { value: "Tamil Nadu", label: "Tamil Nadu" },
+    { value: "Telangana", label: "Telangana" },
+    { value: "Tripura", label: "Tripura" },
+    { value: "Uttar Pradesh", label: "Uttar Pradesh" },
+    { value: "Uttarakhand", label: "Uttarakhand" },
+    { value: "West Bengal", label: "West Bengal" },
+
+    // Union Territories
+    {
+      value: "Andaman and Nicobar Islands",
+      label: "Andaman and Nicobar Islands",
+    },
+    { value: "Chandigarh", label: "Chandigarh" },
+    {
+      value: "Dadra and Nagar Haveli and Daman and Diu",
+      label: "Dadra and Nagar Haveli and Daman and Diu",
+    },
+    { value: "Lakshadweep", label: "Lakshadweep" },
+    { value: "Delhi", label: "Delhi" },
+    { value: "Puducherry", label: "Puducherry" },
+  ];
+
+  const handleChange = (selectedOption) => {
+    setSelectedState(selectedOption);
+    formik.setFieldValue("state", selectedOption);
+  };
+
   return (
     <>
-        <HorizontalNav />
-        <Navbar />
+      <HorizontalNav />
+      <Navbar />
       <div className="home-main-div">
         <div
           id="heading-div"
@@ -97,7 +148,10 @@ const Home = () => {
           </p>
         </div>
 
-        <div id="form-main-div" className="container text-center ml-7 mt-4">
+        <div
+          id="form-main-div"
+          className="container text-center ml-7 mt-4 mb-2"
+        >
           <div
             id="form-div"
             className="max-w-md mx-auto my-8 p-6 bg-white shadow-md rounded-md"
@@ -105,24 +159,17 @@ const Home = () => {
             <div
               className="w-full max-w-xs"
               style={{
-                // border: "2px solid red",
                 height: "-webkit-fill-available",
               }}
             >
               <form
-                className="bg-white shadow-md rounded px-8 pt-6 pb-8 mt-3"
+                className="bg-white shadow-md px-8 pt-6 pb-8"
                 onSubmit={formik.handleSubmit}
               >
                 <div>
                   <h2>Registration Form</h2>
                 </div>
                 <div className="mb-3">
-                  {/* <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  for="username"
-                >
-                  Name
-                </label> */}
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="username"
@@ -133,14 +180,11 @@ const Home = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.name}
                   />
+                  {formik.touched.name && formik.errors.name && (
+                    <p className="formik-error-message">{formik.errors.name}</p>
+                  )}
                 </div>
                 <div className="mb-6">
-                  {/* <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  for="password"
-                >
-                  Email
-                </label> */}
                   <input
                     className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="password"
@@ -151,14 +195,13 @@ const Home = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.email}
                   />
+                  {formik.touched.email && formik.errors.email && (
+                    <p className="formik-error-message">
+                      {formik.errors.email}
+                    </p>
+                  )}
                 </div>
                 <div className="mb-6">
-                  {/* <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  for="password"
-                >
-                  PhoneNumber
-                </label> */}
                   <input
                     className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="password"
@@ -169,14 +212,13 @@ const Home = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.phoneNumber}
                   />
+                  {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+                    <p className="formik-error-message">
+                      {formik.errors.phoneNumber}
+                    </p>
+                  )}
                 </div>
                 <div className="mb-6">
-                  {/* <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  for="password"
-                >
-                  PhoneNumber
-                </label> */}
                   <input
                     className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="city"
@@ -187,27 +229,31 @@ const Home = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.city}
                   />
+                  {formik.touched.city && formik.errors.city && (
+                    <p className="formik-error-message">{formik.errors.city}</p>
+                  )}
                 </div>
-                <div className="mb-6">
-                  {/* <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  for="password"
+                <div
+                  className="mb-6"
+                  style={{ display: "inline-block", marginBottom: "8px" }}
                 >
-                  PhoneNumber
-                </label> */}
-                  <input
-                    className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                    id="state"
-                    type="text"
-                    name="state"
-                    placeholder="Enter your State"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.state}
+                  <Select
+                    value={selectedState}
+                    onChange={handleChange}
+                    options={stateOptions}
+                    placeholder="Select a state"
                   />
+                  {formik.touched.state && formik.errors.state && (
+                    <p className="formik-error-message">
+                      {formik.errors.state.label}
+                    </p>
+                  )}
                 </div>
-                <div className="flex items-center justify-between">
-                  <button className="btn btn-primary" type="submit">
+                <div className="d-flex justify-content-around p-1">
+                  <Link to="/opendemate" style={{ textDecoration: "none" }}>
+                    <h3 className="h3-link-skip">SKIP</h3>
+                  </Link>
+                  <button className="btn btn-primary se" type="submit">
                     Submit
                   </button>
                 </div>
