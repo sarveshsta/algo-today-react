@@ -3,11 +3,10 @@ import Navbar from "../components/navbar/Navbar";
 import HorizontalNav from "../components/navbar/HorizontalNav";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import * as XLSX from "xlsx"; // Import xlsx library
 import "../user/home.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Select from 'react-select'
+import Select from "react-select";
 
 const Home = () => {
   const [selectedState, setSelectedState] = useState(null);
@@ -26,7 +25,10 @@ const Home = () => {
       .max(10, "Must be exactly 10 digits")
       .required("Phone Number is required"),
     city: Yup.string().required("City is required"),
-    state: Yup.string().required("State is required"),
+    state: Yup.object().shape({
+      label: Yup.string().required("State is require"),
+      value: Yup.string().required("State is require"),
+    }),
   });
 
   const config = {
@@ -42,7 +44,7 @@ const Home = () => {
       email: "",
       phoneNumber: "",
       city: "",
-      state: "",
+      state: { value: "", label: "" },
     },
 
     validationSchema: validationSchema,
@@ -55,14 +57,10 @@ const Home = () => {
       formData.append("email", values.email);
       formData.append("phoneNumber", values.phoneNumber);
       formData.append("city", values.city);
-      formData.append("state", values.state);
+      formData.append("state", values.state.value);
 
       axios
-        .post(
-          "http://127.0.1:8000/form",
-          formData,
-          config
-        )
+        .post("http://127.0.1:8000/form", formData, config)
         .then((response) => {
           console.log("res", response.data);
         })
@@ -73,49 +71,54 @@ const Home = () => {
   });
 
   const stateOptions = [
-    { value: 'Andhra Pradesh', label: 'Andhra Pradesh' },
-    { value: 'Arunachal Pradesh', label: 'Arunachal Pradesh' },
-    { value: 'Assam', label: 'Assam' },
-    { value: 'Bihar', label: 'Bihar' },
-    { value: 'Chhattisgarh', label: 'Chhattisgarh' },
-    { value: 'Goa', label: 'Goa' },
-    { value: 'Gujarat', label: 'Gujarat' },
-    { value: 'Haryana', label: 'Haryana' },
-    { value: 'Himachal Pradesh', label: 'Himachal Pradesh' },
-    { value: 'Jharkhand', label: 'Jharkhand' },
-    { value: 'Karnataka', label: 'Karnataka' },
-    { value: 'Kerala', label: 'Kerala' },
-    { value: 'Madhya Pradesh', label: 'Madhya Pradesh' },
-    { value: 'Maharashtra', label: 'Maharashtra' },
-    { value: 'Manipur', label: 'Manipur' },
-    { value: 'Meghalaya', label: 'Meghalaya' },
-    { value: 'Mizoram', label: 'Mizoram' },
-    { value: 'Nagaland', label: 'Nagaland' },
-    { value: 'Odisha', label: 'Odisha' },
-    { value: 'Punjab', label: 'Punjab' },
-    { value: 'Rajasthan', label: 'Rajasthan' },
-    { value: 'Sikkim', label: 'Sikkim' },
-    { value: 'Tamil Nadu', label: 'Tamil Nadu' },
-    { value: 'Telangana', label: 'Telangana' },
-    { value: 'Tripura', label: 'Tripura' },
-    { value: 'Uttar Pradesh', label: 'Uttar Pradesh' },
-    { value: 'Uttarakhand', label: 'Uttarakhand' },
-    { value: 'West Bengal', label: 'West Bengal' },
+    { value: "Andhra Pradesh", label: "Andhra Pradesh" },
+    { value: "Arunachal Pradesh", label: "Arunachal Pradesh" },
+    { value: "Assam", label: "Assam" },
+    { value: "Bihar", label: "Bihar" },
+    { value: "Chhattisgarh", label: "Chhattisgarh" },
+    { value: "Goa", label: "Goa" },
+    { value: "Gujarat", label: "Gujarat" },
+    { value: "Haryana", label: "Haryana" },
+    { value: "Himachal Pradesh", label: "Himachal Pradesh" },
+    { value: "Jharkhand", label: "Jharkhand" },
+    { value: "Karnataka", label: "Karnataka" },
+    { value: "Kerala", label: "Kerala" },
+    { value: "Madhya Pradesh", label: "Madhya Pradesh" },
+    { value: "Maharashtra", label: "Maharashtra" },
+    { value: "Manipur", label: "Manipur" },
+    { value: "Meghalaya", label: "Meghalaya" },
+    { value: "Mizoram", label: "Mizoram" },
+    { value: "Nagaland", label: "Nagaland" },
+    { value: "Odisha", label: "Odisha" },
+    { value: "Punjab", label: "Punjab" },
+    { value: "Rajasthan", label: "Rajasthan" },
+    { value: "Sikkim", label: "Sikkim" },
+    { value: "Tamil Nadu", label: "Tamil Nadu" },
+    { value: "Telangana", label: "Telangana" },
+    { value: "Tripura", label: "Tripura" },
+    { value: "Uttar Pradesh", label: "Uttar Pradesh" },
+    { value: "Uttarakhand", label: "Uttarakhand" },
+    { value: "West Bengal", label: "West Bengal" },
 
     // Union Territories
-    { value: 'Andaman and Nicobar Islands', label: 'Andaman and Nicobar Islands' },
-    { value: 'Chandigarh', label: 'Chandigarh' },
-    { value: 'Dadra and Nagar Haveli and Daman and Diu', label: 'Dadra and Nagar Haveli and Daman and Diu' },
-    { value: 'Lakshadweep', label: 'Lakshadweep' },
-    { value: 'Delhi', label: 'Delhi' },
-    { value: 'Puducherry', label: 'Puducherry' },
+    {
+      value: "Andaman and Nicobar Islands",
+      label: "Andaman and Nicobar Islands",
+    },
+    { value: "Chandigarh", label: "Chandigarh" },
+    {
+      value: "Dadra and Nagar Haveli and Daman and Diu",
+      label: "Dadra and Nagar Haveli and Daman and Diu",
+    },
+    { value: "Lakshadweep", label: "Lakshadweep" },
+    { value: "Delhi", label: "Delhi" },
+    { value: "Puducherry", label: "Puducherry" },
   ];
 
   const handleChange = (selectedOption) => {
     setSelectedState(selectedOption);
+    formik.setFieldValue("state", selectedOption);
   };
-
-
 
   return (
     <>
@@ -156,7 +159,6 @@ const Home = () => {
             <div
               className="w-full max-w-xs"
               style={{
-                // border: "2px solid red",
                 height: "-webkit-fill-available",
               }}
             >
@@ -168,12 +170,6 @@ const Home = () => {
                   <h2>Registration Form</h2>
                 </div>
                 <div className="mb-3">
-                  {/* <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  for="username"
-                >
-                  Name
-                </label> */}
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="username"
@@ -189,12 +185,6 @@ const Home = () => {
                   )}
                 </div>
                 <div className="mb-6">
-                  {/* <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  for="password"
-                >
-                  Email
-                </label> */}
                   <input
                     className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="password"
@@ -206,16 +196,12 @@ const Home = () => {
                     value={formik.values.email}
                   />
                   {formik.touched.email && formik.errors.email && (
-                    <p className="formik-error-message">{formik.errors.email}</p>
+                    <p className="formik-error-message">
+                      {formik.errors.email}
+                    </p>
                   )}
                 </div>
                 <div className="mb-6">
-                  {/* <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  for="password"
-                >
-                  PhoneNumber
-                </label> */}
                   <input
                     className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="password"
@@ -227,16 +213,12 @@ const Home = () => {
                     value={formik.values.phoneNumber}
                   />
                   {formik.touched.phoneNumber && formik.errors.phoneNumber && (
-                    <p className="formik-error-message">{formik.errors.phoneNumber}</p>
+                    <p className="formik-error-message">
+                      {formik.errors.phoneNumber}
+                    </p>
                   )}
                 </div>
                 <div className="mb-6">
-                  {/* <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  for="password"
-                >
-                  PhoneNumber
-                </label> */}
                   <input
                     className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     id="city"
@@ -251,41 +233,27 @@ const Home = () => {
                     <p className="formik-error-message">{formik.errors.city}</p>
                   )}
                 </div>
-                <div className="mb-6" style={{display:"inline-block", marginBottom:'8px'}}>
-                  {/* <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  for="password"
+                <div
+                  className="mb-6"
+                  style={{ display: "inline-block", marginBottom: "8px" }}
                 >
-                  PhoneNumber
-                </label> */}
-                  {/* <input
-                    className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                    id="state"
-                    type="text"
-                    name="state"
-                    placeholder="Enter your State"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.state}
-                  /> */}
                   <Select
-                   value={selectedState}
-                   onChange={handleChange}
-                   options={stateOptions}
-                   placeholder="Select a state"
-                  //  styles={customStyles}
+                    value={selectedState}
+                    onChange={handleChange}
+                    options={stateOptions}
+                    placeholder="Select a state"
                   />
                   {formik.touched.state && formik.errors.state && (
-                    <p className="formik-error-message">{formik.errors.state}</p>
+                    <p className="formik-error-message">
+                      {formik.errors.state.label}
+                    </p>
                   )}
                 </div>
-                <div className="flex items-center justify-between">
-                  <Link to='/opendemate'>
-                  <button className="btn btn-primary" type="submit" style={{marginRight:"2vw"}}>
-                    Skip
-                  </button>
+                <div className="d-flex justify-content-around p-1">
+                  <Link to="/opendemate" style={{ textDecoration: "none" }}>
+                    <h3 className="h3-link-skip">SKIP</h3>
                   </Link>
-                  <button className="btn btn-primary" type="submit">
+                  <button className="btn btn-primary se" type="submit">
                     Submit
                   </button>
                 </div>

@@ -3,7 +3,7 @@
   width: -webkit-fill-available;
 }
 
-.w-full.max-w-xs{
+.w-full.max-w-xs {
   height: -webkit-fill-available;
   border-radius: inherit;
   display: flex;
@@ -11,31 +11,8 @@
   justify-content: center;
 }
 
-.home-heading {
-}
-
-.home-para {
-}
-
 .mb-4 {
-}
-
-.div-btn-submit {
-}
-
-#heading-div {
-}
-
-#heading {
-}
-
-#para-div {
-}
-
-#para {
-}
-
-#form-main-div {
+  font-weight: normal;
 }
 
 #form-div {
@@ -51,22 +28,21 @@
     1px 1078px 302px 0px rgba(41, 41, 41, 0);
 }
 
-form{
+form {
   width: 50%;
   border-radius: inherit;
-} 
+}
 
-.formik-error-message{
+.formik-error-message {
   color: red;
   font-size: 11px;
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .css-qbdosj-Input {
   display: inline-flex !important;
-  /* border: 1px solid #f00;  */
-  border-radius: .25rem !important ; /* Rounded corners */ /* Padding values for top/bottom and left/right */ /* Gray text color */ /* Bottom margin */ /* Adjust leading/tight */
+  border-radius: 0.25rem !important ; /* Rounded corners */ /* Padding values for top/bottom and left/right */ /* Gray text color */ /* Bottom margin */ /* Adjust leading/tight */
   outline: none !important ;
   padding: 2px !important;
   /* box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.2) !important */
@@ -78,7 +54,7 @@ form{
 
 .css-qbdosj-Input {
   margin: 0 !important;
-} 
+}
 
 .css-1xc3v61-indicatorContainer {
   padding: 0 !important;
@@ -86,7 +62,7 @@ form{
 
 .css-13cymwt-control {
   appearance: none; /* Red border */
-  border-radius: .25rem; /* Rounded corners */ /* Full width */ /* Padding values for top/bottom and left/right */
+  border-radius: 0.25rem; /* Rounded corners */ /* Full width */ /* Padding values for top/bottom and left/right */
   color: #333; /* Gray text color */
   margin-bottom: 0.75rem; /* Bottom margin */
   line-height: 1.5; /* Adjust leading/tight */
@@ -94,14 +70,30 @@ form{
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-@media screen and (max-width:768px){
+.h3-link-skip {
+  display: inline;
+  opacity: 0.3;
+  margin-right: -9rem;
+}
+
+.btn.btn-primary.se {
+  margin-right: 2rem;
+}
+
+@media screen and (max-width: 768px) {
   .home-main-div {
-   /* margin-left: 17%; */
-    /* width: -webkit-fill-available; */
     margin: 0px;
   }
-  form{
+  form {
     width: auto;
     border-radius: inherit;
-  } 
+  }
+
+  .h3-link-skip {
+    margin-right: 0;
+  }
+
+  .btn.btn-primary.se {
+    margin-right: 0;
+  }
 }

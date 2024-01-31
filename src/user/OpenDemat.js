@@ -15,14 +15,19 @@ const OpenDemat = () => {
         </h1>
       </div>
 
-      <div className="container text-center mt-3">
-        <h2
+      <div className="container text-center mt-5">
+        <p className="embark-para">
+          "Embark on a revolutionary journey into the world of trading with
+          AlgoToday, your gateway to financial freedom. Our platform not only
+          offers the convenience of automated trading but also empowers you to
+          shape your trading destiny by allowing customization of strategies".
+        </p>
+        {/* <h2
           className="text-center"
           style={{ marginLeft: "17%", marginTop: "3%", color: "#3498db" }}
         >
           Algo Users you can start your Trading Journey by clicking on our
           referal link of different brokers.
-          <br /> <br />
           By this link you will get referal benefits.
         </h2>
 
@@ -39,7 +44,65 @@ const OpenDemat = () => {
               Register Here
             </button>
           </Link>
-        </h3>
+        </h3> */}
+      </div>
+
+      <div className="d-flex" id="wanna-flex-this-div">
+        <div className="m-2 p-2 max-w-xs shadow mb-5 bg-white rounded w-100">
+          <h2 className="text-xl font-semibold mb-4 text-center">
+            Automate Your Own Strategy:
+          </h2>
+          <p className="text-gray-700 text-center">
+            At AlgoToday, we understand that every trader is unique, and trading
+            strategies should reflect individual preferences and market
+            insights. With our user-friendly interface, you have the power to
+            automate your own trading strategy effortlessly. Whether you're a
+            seasoned trader with a well-defined approach or a novice exploring
+            strategies, AlgoToday provides the tools to turn your vision into
+            reality.
+          </p>
+        </div>
+
+        <div className="m-2 p-2 max-w-xs shadow mb-5 bg-white rounded w-100">
+          <h2 className="text-xl font-semibold mb-4 text-center">
+            Predefined Strategies for Instant Success
+          </h2>
+          <p className="text-gray-700 text-center">
+            For those seeking a quick start or inspiration, AlgoToday offers a
+            range of predefined strategies crafted by experts. These strategies
+            are meticulously designed to adapt to market conditions, harnessing
+            the power of cutting-edge algorithms. Choose from our library of
+            strategies to align with your financial goals and risk tolerance,
+            giving you the flexibility to trade confidently and strategically.
+          </p>
+        </div>
+
+        <div className="m-2 p-2 max-w-xs shadow mb-5 bg-white rounded w-100">
+          <h2 className="text-xl font-semibold mb-4 text-center">
+            Trade Smarter with Algorithmic Precision
+          </h2>
+          <p className="text-gray-700 text-center">
+            AlgoToday's advanced algorithms empower you to trade smarter by
+            analyzing market data with precision and executing trades at optimal
+            moments. The platform's real-time adaptability ensures that your
+            strategies stay relevant in the ever-evolving market landscape.
+            Imagine having a dedicated trading companion working around the
+            clock to secure opportunities and mitigate risks, allowing you to
+            focus on the bigger picture.
+          </p>
+        </div>
+      </div>
+
+      <div className="container text-center">
+        <Link to="/">
+          <button
+            className="btn btn-primary we"
+            type="submit"
+            style={{ marginRight: "-15vw" }}
+          >
+            Register Here
+          </button>
+        </Link>
       </div>
 
       <div className="firstLink">
@@ -135,13 +198,40 @@ const OpenDemat = () => {
       <div className="container text-center">
         <Link to="/">
           <button
-            className="btn btn-primary"
+            className="btn btn-primary we"
             type="submit"
             style={{ marginRight: "-15vw" }}
           >
             Register Here
           </button>
         </Link>
+      </div>
+
+      <div className="d-flex mt-4" id="wanna-flex-this-div">
+        <div className="m-2 p-2 max-w-xs shadow mb-5 bg-white rounded w-100">
+          <h2 className="text-xl font-semibold mb-4 text-center">
+            Reference Line:
+          </h2>
+          <p className="text-gray-700 text-center">
+            "Supercharge your trading experience! Open your Demat account with
+            any broker through our exclusive referral links. Unlock personalized
+            benefits such as reduced fees, bonus trades, and cash rewards—each
+            tailored to the referral policy of the respective broker. Seize the
+            opportunity for a more rewarding trading journey!"
+          </p>
+        </div>
+
+        <div className="m-2 p-2 max-w-xs shadow mb-5 bg-white rounded w-100">
+          <h2 className="text-xl font-semibold mb-4 text-center">Register:</h2>
+          <p className="text-gray-700 text-center">
+            "Register with us for exclusive updates and stay ahead in the
+            financial game! We promise to keep you informed about upcoming
+            developments without unnecessary disturbances. Your peace of mind is
+            important to us – minimal calls, minimal messages, but maximum
+            value. Join us for a hassle-free and informative experience.
+            Register now!".
+          </p>
+        </div>
       </div>
     </>
   );
