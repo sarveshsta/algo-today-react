@@ -109,4 +109,3 @@ const OpenDemat = () => {
 };
 
 export default OpenDemat;
-      
