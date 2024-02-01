@@ -1,8 +1,8 @@
 import React from "react";
-import Navbar from "../components/navbar/Navbar";
-import HorizontalNav from "../components/navbar/HorizontalNav";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Navbar from "../components/navbar/Navbar";
+import HorizontalNav from "../components/navbar/HorizontalNav";
 
 const Wrapper = styled.div`
   .container {

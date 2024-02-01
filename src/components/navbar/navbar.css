@@ -130,7 +130,7 @@ h1#lg {
   height: -webkit-fill-available;
   background-color: #3498db;
   position: fixed;
-  border-radius: 13px;
+  /* border-radius: 13px; */
   top: 0px;
   left: 0;
   width: auto;
@@ -205,15 +205,29 @@ h1#lg {
   }
 }
 
+.close-btn{
+  display: none;
+}
+
 @media (max-width: 768px) {
   .hamburger-icon {
     display: block;
     position: absolute;
     color: black;
-    top: 5vh;
+    top: 2vh;
     left: 3vh;
+    font-size: xxx-large;
   }
   .verticle-navbar {
     display: none;
+  }
+  .close-btn{
+    display: block;
+    position: absolute;
+    z-index: 1;
+    font-size: xx-large;
+    top: 7px;
+    left: 10.7rem;
+    color: beige;
   }
 }

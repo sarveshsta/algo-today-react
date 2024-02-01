@@ -1,8 +1,8 @@
 import React from "react";
-import Navbar from "../components/navbar/Navbar";
-import HorizontalNav from "../components/navbar/HorizontalNav";
 import "./opendemate.css";
 import { Link } from "react-router-dom";
+import Navbar from "../components/navbar/Navbar";
+import HorizontalNav from "../components/navbar/HorizontalNav";
 
 const OpenDemat = () => {
   return (
@@ -15,39 +15,16 @@ const OpenDemat = () => {
         </h1>
       </div>
 
-      <div className="container text-center mt-5">
+      <div className="container text-center mt-3">
         <p className="embark-para">
           "Embark on a revolutionary journey into the world of trading with
           AlgoToday, your gateway to financial freedom. Our platform not only
           offers the convenience of automated trading but also empowers you to
           shape your trading destiny by allowing customization of strategies".
         </p>
-        {/* <h2
-          className="text-center"
-          style={{ marginLeft: "17%", marginTop: "3%", color: "#3498db" }}
-        >
-          Algo Users you can start your Trading Journey by clicking on our
-          referal link of different brokers.
-          By this link you will get referal benefits.
-        </h2>
-
-        <h3 style={{ marginLeft: "17%", marginTop: "3%", color: "#3498db" }}>
-          You can registed by clicking on the given link, in case if you forgot
-          to registed
-          <br />
-          <Link to="/">
-            <button
-              className="btn btn-primary"
-              type="submit"
-              style={{ marginTop: "3%" }}
-            >
-              Register Here
-            </button>
-          </Link>
-        </h3> */}
       </div>
 
-      <div className="d-flex" id="wanna-flex-this-div">
+      <div className="d-flex mt-3" id="wanna-flex-this-div">
         <div className="m-2 p-2 max-w-xs shadow mb-5 bg-white rounded w-100">
           <h2 className="text-xl font-semibold mb-4 text-center">
             Automate Your Own Strategy:
@@ -100,9 +77,23 @@ const OpenDemat = () => {
             type="submit"
             style={{ marginRight: "-15vw" }}
           >
-            Register Here
+            Register Now
           </button>
         </Link>
+      </div>
+
+      <div className="container text-center mt-5">
+        <h1 className="text-center ml-4" style={{ marginLeft: "10%" }}>
+          {" "}
+          Our Next Must-Have: Download Instantly!{" "}
+        </h1>
+        <p className="embark-para">
+          "Supercharge your trading experience! Open your Demat account with any
+          broker through our exclusive referral links. Unlock personalized
+          benefits such as reduced fees, bonus trades, and cash rewards—each
+          tailored to the referral policy of the respective broker. Seize the
+          opportunity for a more rewarding trading journey!"
+        </p>
       </div>
 
       <div className="firstLink">
@@ -195,34 +186,11 @@ const OpenDemat = () => {
         </div>
       </div>
 
-      <div className="container text-center">
-        <Link to="/">
-          <button
-            className="btn btn-primary we"
-            type="submit"
-            style={{ marginRight: "-15vw" }}
-          >
-            Register Here
-          </button>
-        </Link>
-      </div>
-
       <div className="d-flex mt-4" id="wanna-flex-this-div">
         <div className="m-2 p-2 max-w-xs shadow mb-5 bg-white rounded w-100">
           <h2 className="text-xl font-semibold mb-4 text-center">
-            Reference Line:
+            Step into a World of Possibilities: <Link> Register Now </Link>
           </h2>
-          <p className="text-gray-700 text-center">
-            "Supercharge your trading experience! Open your Demat account with
-            any broker through our exclusive referral links. Unlock personalized
-            benefits such as reduced fees, bonus trades, and cash rewards—each
-            tailored to the referral policy of the respective broker. Seize the
-            opportunity for a more rewarding trading journey!"
-          </p>
-        </div>
-
-        <div className="m-2 p-2 max-w-xs shadow mb-5 bg-white rounded w-100">
-          <h2 className="text-xl font-semibold mb-4 text-center">Register:</h2>
           <p className="text-gray-700 text-center">
             "Register with us for exclusive updates and stay ahead in the
             financial game! We promise to keep you informed about upcoming
@@ -232,6 +200,18 @@ const OpenDemat = () => {
             Register now!".
           </p>
         </div>
+      </div>
+
+      <div className="container text-center">
+        <Link to="/">
+          <button
+            className="btn btn-primary we"
+            type="submit"
+            style={{ marginRight: "-15vw" }}
+          >
+            Register Now
+          </button>
+        </Link>
       </div>
     </>
   );

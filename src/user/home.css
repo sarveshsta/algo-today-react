@@ -64,20 +64,28 @@ form {
   appearance: none; /* Red border */
   border-radius: 0.25rem; /* Rounded corners */ /* Full width */ /* Padding values for top/bottom and left/right */
   color: #333; /* Gray text color */
-  margin-bottom: 0.75rem; /* Bottom margin */
+ /* margin-bottom: 0.75rem;  Bottom margin */
   line-height: 1.5; /* Adjust leading/tight */
   outline: none; /* Remove default outline on focus */
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
+input#react-select-2-input {
+  width: -webkit-fill-available !important;
+}
+
+.css-hlgwow {
+  padding: 0 !important;
+}
+
 .h3-link-skip {
   display: inline;
   opacity: 0.3;
-  margin-right: -9rem;
+  margin-right: -10rem;
 }
 
 .btn.btn-primary.se {
-  margin-right: 2rem;
+  margin-right: 3rem;
 }
 
 @media screen and (max-width: 768px) {

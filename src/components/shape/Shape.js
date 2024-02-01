@@ -1,5 +1,5 @@
-import React from 'react'
 import './shape.css'
+import React from 'react'
 
 const Shape = () => {
     return (

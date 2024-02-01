@@ -1,14 +1,14 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Dashbord from "./user/dashbord/Dashbord";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./user/Home";
-import LinkBroker from "./user/LinkBroker";
 import Wallet from "./user/Wallet";
-import ManageTrading from "./user/ManageTrading";
 import ReferEarn from "./user/ReferEarn";
-import UserHistory from "./user/UserHistory";
 import OpenDemat from "./user/OpenDemat";
+import LinkBroker from "./user/LinkBroker";
+import UserHistory from "./user/UserHistory";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Dashbord from "./user/dashbord/Dashbord";
+import ManageTrading from "./user/ManageTrading";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
