@@ -59,7 +59,7 @@ const Home = () => {
       formData.append("state", values.state.value);
 
       axios
-        .post("http://127.0.0.1:8000/form", formData, config)
+        .post("http://13.234.76.87:8000/form", formData, config)
         .then((response) => {
           console.log("res", response.data);
         })
