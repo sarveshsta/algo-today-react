@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../components/navbar/Navbar";
-import HorizontalNav from "../components/navbar/HorizontalNav";
-import { useFormik } from "formik";
-import * as Yup from "yup";
 import "../user/home.css";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import * as Yup from "yup";
 import Select from "react-select";
+import { useFormik } from "formik";
+import Navbar from "../components/navbar/Navbar";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import HorizontalNav from "../components/navbar/HorizontalNav";
 
 const Home = () => {
   const [selectedState, setSelectedState] = useState(null);
@@ -49,8 +49,7 @@ const Home = () => {
 
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      //  setUserData(values)
-      navigate("/opendemate");
+      console.log("val", values)
 
       // Add form data to FormData
       formData.append("name", values.name);
@@ -60,13 +59,15 @@ const Home = () => {
       formData.append("state", values.state.value);
 
       axios
-        .post("http://127.0.0.1:8000/form", formData, config)
+        .post("http://13.234.76.87:8000/form", formData, config)
         .then((response) => {
           console.log("res", response.data);
         })
         .catch((error) => {
-          console.error("err", error);
+          console.log("err", error);
         });
+
+        navigate("/opendemate");
     },
   });
 
@@ -235,7 +236,8 @@ const Home = () => {
                 </div>
                 <div
                   className="mb-6"
-                  style={{ display: "inline-block", marginBottom: "8px" }}
+                  style={{ display: "flex", marginBottom: "8px", justifyContent: "center"
+                  }}
                 >
                   <Select
                     value={selectedState}

@@ -1,31 +1,39 @@
-import React, { useEffect, useRef, useState } from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
+import { FaBars } from "react-icons/fa";
 import { GrHomeRounded } from "react-icons/gr";
+import { IoIosCloseCircle } from "react-icons/io";
+import React, { useEffect, useRef, useState } from "react";
+
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
 
   const handleToggle = () => {
     setToggle(true);
-
-    if(toggle){
-      setToggle(false)
-    }
-    
   };
 
-const closeWindow = () => {
-  document.addEventListener('close', setToggle(false))
-}  
+  const closeWindow = () => {
+    if (toggle) {
+      setToggle(false);
+    }
+  };
 
   return (
     <>
       <div className={`hamburger-icon`} onClick={handleToggle}>
-        ☰
+        <FaBars/>
       </div>
 
-      <div className={`${toggle ? 'block' : 'verticle-navbar'}`} onClick={closeWindow}>
+
+      <div
+        className={`${toggle ? "block" : "verticle-navbar"}`}
+        onClick={closeWindow}
+      >
+              <div className="close-btn">
+      <IoIosCloseCircle />
+      </div>
+
         <div className="logo">
           <img
             className="logo-img"
@@ -65,12 +73,12 @@ const closeWindow = () => {
               src={require("../../assets/icons/Vector.png")}
               alt="vector"
             />
-            <Link
+            {/* <Link
               to="/linkbroker"
               style={{ textDecorationLine: "none", color: "white" }}
-            >
+            > */}
               <span className="link-text">Link Brokeraccount</span>
-            </Link>
+            {/* </Link> */}
           </li>
           <li className="vertnav-ul-li" id="wallet">
             <img
@@ -78,12 +86,12 @@ const closeWindow = () => {
               src={require("../../assets/icons/Vector2.png")}
               alt="vector"
             />
-            <Link
+            {/* <Link
               to="/wallet"
               style={{ textDecorationLine: "none", color: "white" }}
-            >
+            > */}
               <span className="link-text">Wallet</span>
-            </Link>
+            {/* </Link> */}
           </li>
           <li className="vertnav-ul-li" id="cust">
             <img
@@ -91,12 +99,12 @@ const closeWindow = () => {
               src={require("../../assets/icons/Group 48096030.png")}
               alt="vector"
             />
-            <Link
+            {/* <Link
               to="/custom"
               style={{ textDecorationLine: "none", color: "white" }}
-            >
+            > */}
               <span className="link-text">CustomStrategies</span>
-            </Link>
+            {/* </Link> */}
           </li>
           <li className="vertnav-ul-li" id="mantrad">
             <img
@@ -104,12 +112,12 @@ const closeWindow = () => {
               src={require("../../assets/icons/Group 48096029.png")}
               alt="vector"
             />
-            <Link
+            {/* <Link
               to="/managetrading"
               style={{ textDecorationLine: "none", color: "white" }}
-            >
+            > */}
               <span className="link-text">Managetrading</span>
-            </Link>
+            {/* </Link> */}
           </li>
           <li className="vertnav-ul-li" id="usrhist">
             <img
@@ -117,12 +125,12 @@ const closeWindow = () => {
               src={require("../../assets/icons/Vector (1).png")}
               alt="vector"
             />
-            <Link
+            {/* <Link
               to="/userhistory"
               style={{ textDecorationLine: "none", color: "white" }}
-            >
+            > */}
               <span className="link-text">UserHistory</span>
-            </Link>
+            {/* </Link> */}
           </li>
           <li className="vertnav-ul-li" id="ref&ern">
             <img
@@ -130,12 +138,12 @@ const closeWindow = () => {
               src={require("../../assets/icons/Group 98.png")}
               alt="vector"
             />
-            <Link
+            {/* <Link
               to="/refer&earn"
               style={{ textDecorationLine: "none", color: "white" }}
-            >
+            > */}
               <span className="link-text">Refer&Earn</span>
-            </Link>
+            {/* </Link> */}
           </li>
         </ul>
         {/* </div> */}

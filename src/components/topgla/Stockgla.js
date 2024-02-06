@@ -1,5 +1,5 @@
-import React from "react";
 import "./stockgla.css";
+import React from "react";
 import image from '../../assets/icons/Ellipse 30.png'
 
 const Stockgla = () => {

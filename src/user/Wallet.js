@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Navbar from "../components/navbar/Navbar";
-import HorizontalNav from "../components/navbar/HorizontalNav";
-import { ErrorMessage, Form, Formik, Field } from "formik";
 import * as yup from "yup";
+import styled from "styled-components";
+import React, { useState } from "react";
+import Navbar from "../components/navbar/Navbar";
+import { ErrorMessage, Form, Formik, Field } from "formik";
+import HorizontalNav from "../components/navbar/HorizontalNav";
 
 const Wallet = () => {
   const [cardNumber, setCardNumber] = useState("");
