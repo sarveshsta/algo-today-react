@@ -66,7 +66,6 @@ const Home = () => {
         .catch((error) => {
           console.log("err", error);
         });
-
         navigate("/opendemate");
     },
   });

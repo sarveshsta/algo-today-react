@@ -14,7 +14,7 @@ const HorizontalNav = () => {
         src={require("../../assets/icons/handicon.png")}
         alt="image"
       />
-      <h2 className="Horizontalheading">Algo User</h2>
+      <h2 className="Horizontalheading">Sarvesh</h2>
       <h3 className="Horizontalheading1">Hello</h3>
       <img
         className="Horizontalimg2"
