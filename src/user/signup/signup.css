@@ -133,3 +133,70 @@ height: Hug (52px); */
 .resend-otp-span{
   
 }
+
+.error-message{
+  margin-top: -1rem;
+}
+
+@media only screen and (max-width: 768px) {
+  /* Styles for tablets */
+  .signup-main-div {
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+  }
+
+  .signup-firstdiv {
+    text-align: center;
+  }
+
+  .form-section {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .signup-form-input,
+  .signup-form-button {
+    width: 100%;
+  }
+
+  .signup-form-3-text-div {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  /* Styles for mobile devices */
+  .signup-main-div {
+    padding: 0px;
+  }
+
+  .signup-firstdiv {
+    margin-bottom: 20px;
+    .firstdiv-image{
+      width: 50%;
+    }
+    .firstdiv-h1{
+      font-size: 2.5rem !important;
+      margin: 2rem;
+      margin-top: 0 !important;
+    }
+    .firstdiv-h3{
+      font-size: 2rem !important;
+    }
+  }
+
+  .signup-seconddiv{
+    width: 100% !important;
+  }
+
+  .form-section {
+
+  }
+
+  .signup-form-input,
+  .signup-form-button {
+    width: 100%;
+  }
+}

@@ -1,32 +1,49 @@
 import "./signup.css";
-import React from "react";
+import React, { useEffect } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { signupAPI } from "../features/auth/authAuthentication";
 
 const Signup = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    console.log("data :", signupAPI());
+  })
+
+  const auth = useSelector((state) => state.auth )
+  console.log("state :", auth);
 
   const formik = useFormik({
     initialValues: {
-      username: "",
-      email: "",
+      name: "",
+      phone: "",
+      otp: "",
       password: "",
-      confirmPassword: "",
+      email: "",
     },
+
     validationSchema: Yup.object({
-      username: Yup.string().required("Username is required"),
+      name: Yup.string().required("Name is required"),
+      phone: Yup.string()
+        .matches(/^[0-9]{10}$/, "Enter a valid Number")
+        .required("Mobile Number is required"),
       email: Yup.string()
         .email("Invalid email address")
         .required("Email is required"),
       password: Yup.string()
         .min(6, "Password must be at least 6 characters")
         .required("Password is required"),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Passwords must match")
-        .required("Confirm Password is required"),
+      otp: Yup.string()
+        .matches(/^[0-9]{6}$/, "Enter a valid OTP")
+        .required("OTP is required"),
     }),
+
     onSubmit: (values) => {
-      console.log(values);
+      console.log("val :", values);
+      dispatch(signupAPI(values))
     },
   });
 
@@ -54,30 +71,45 @@ const Signup = () => {
               <input
                 className="signup-form-input"
                 type="text"
-                placeholder="Username"
-                name="username"
+                placeholder="Name"
+                name="name"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.username}
+                value={formik.values.name}
               />
-              {formik.touched.username && formik.errors.username ? (
+              {formik.touched.name && formik.errors.name ? (
                 <div className="error-message" style={{ color: "red" }}>
-                  {formik.errors.username}
+                  {formik.errors.name}
                 </div>
               ) : null}
 
               <input
                 className="signup-form-input"
-                type="email"
-                placeholder="Email"
-                name="email"
+                type="text"
+                placeholder="Mobile Number"
+                name="phone"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.email}
+                value={formik.values.phone}
               />
-              {formik.touched.email && formik.errors.email ? (
+              {formik.touched.phone && formik.errors.phone ? (
                 <div className="error-message" style={{ color: "red" }}>
-                  {formik.errors.email}
+                  {formik.errors.phone}
+                </div>
+              ) : null}
+
+              <input
+                className="signup-form-input"
+                type="text"
+                placeholder="Enter OTP"
+                name="otp"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.otp}
+              />
+              {formik.touched.otp && formik.errors.otp ? (
+                <div className="error-message" style={{ color: "red" }}>
+                  {formik.errors.otp}
                 </div>
               ) : null}
 
@@ -98,25 +130,29 @@ const Signup = () => {
 
               <input
                 className="signup-form-input"
-                type="password"
-                placeholder="Confirm Password"
-                name="confirmPassword"
+                type="email"
+                placeholder="Email"
+                name="email"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.confirmPassword}
+                value={formik.values.email}
               />
-              {formik.touched.confirmPassword &&
-              formik.errors.confirmPassword ? (
+              {formik.touched.email && formik.errors.email ? (
                 <div className="error-message" style={{ color: "red" }}>
-                  {formik.errors.confirmPassword}
+                  {formik.errors.email}
                 </div>
               ) : null}
+
               <button className="signup-form-button" type="submit">
                 Signup
               </button>
             </form>
             <p className="signup-form-already-registered-para">
-              Already registered? <Link className="linking" to='/login'> Login </Link>
+              Already registered?{" "}
+              <Link className="linking" to="/login">
+                {" "}
+                Login{" "}
+              </Link>
             </p>
 
             <div className="signup-form-3-text-div">

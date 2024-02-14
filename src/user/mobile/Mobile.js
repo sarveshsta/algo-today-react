@@ -5,18 +5,8 @@ import React, { useEffect } from "react";
 import { mobileAuthentication } from "../features/auth/authAuthentication";
 import { useNavigate } from "react-router-dom";
 
-const Otp = () => {
-  const navigate = useNavigate()
-
-  // const [phone, setPhone] = useState('');
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState('');
-
-  // useEffect(() => {
-  //     console.log("data2 :",  getAPIdata());
-  // }, []);
-
-  const formData = new FormData
+const Mobile = () => {
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -28,35 +18,33 @@ const Otp = () => {
         .required("Mobile Number is required"),
     }),
     onSubmit: (values) => {
-      console.log("Mobile Number:", values);
-        const fetchData = async () => {
-          try {
-            const formData = new FormData();
-            formData.append('phone', values.number);
-
-            const config = {
-              method: 'post',
-              url: 'https://e76d-2409-40c4-14-5f22-b084-4c0a-5f48-b84c.ngrok-free.app/request-otp/',
-              headers: { 
-                "Content-Type" : "application/json"
-              },
-              data: formData
-            };
-  
-            const response = await axios(config);
-            console.log(JSON.stringify(response.data));
-          } catch (error) {
-            console.error(error);
-          }
-        };
-        fetchData();
-        localStorage.setItem("phone_number", values.number)
-        navigate('/newotp')
+      const fetchData = async () => {
+        try {
+          const formData = new FormData();
+          formData.append("phone", values.number);
+          const config = {
+            method: "post",
+            url: "http://13.127.232.213:8000/request-otp/",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: formData,
+          };
+          const response = await axios(config);
+          console.log(JSON.stringify(response.data));
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      fetchData();
+      localStorage.setItem("phone_number", values.number);
+      navigate("/newotp");
     },
   });
 
   return (
     <>
+    <div style={{padding:'2.3rem', background: "rgba(238, 242, 242, 1)"}}>
       <div className="signup-main-div">
         <div className="signup-firstdiv">
           <img
@@ -106,8 +94,9 @@ const Otp = () => {
           </div>
         </div>
       </div>
+      </div>
     </>
   );
 };
 
-export default Otp;
+export default Mobile;

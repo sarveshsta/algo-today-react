@@ -2,7 +2,7 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const backendUrl =
-  "https://aee2-2409-40c4-14-5f22-b084-4c0a-5f48-b84c.ngrok-free.app";
+  "http://13.127.232.213:8000";
 
 export const mobileAuthentication = createAsyncThunk(
   "auth/mobileauthentication",
@@ -16,3 +16,28 @@ export const mobileAuthentication = createAsyncThunk(
     }
   }
 );
+
+export const signupAPI = createAsyncThunk('auth/signup',
+  async (body, thunkAPI) => {
+    try{
+      const config = {
+        headers: {
+          "Content-Type": 'application/json'
+        }
+      }
+      const res = await axios.post(`${backendUrl}/signup/`,body, config )
+      console.log("res: ", res);
+
+      if (res.data.success) {
+        console.log("res** :", res.data.success);
+        return res.data;
+      } else {
+        console.log("dataapi :");
+        return thunkAPI.rejectWithValue(res.data);
+      }
+    } catch(error){
+        console.log("err :", error);
+        throw error
+    } 
+  }
+)

@@ -5,7 +5,6 @@ import { GrHomeRounded } from "react-icons/gr";
 import { IoIosCloseCircle } from "react-icons/io";
 import React, { useEffect, useRef, useState } from "react";
 
-
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
 
@@ -22,17 +21,16 @@ const Navbar = () => {
   return (
     <>
       <div className={`hamburger-icon`} onClick={handleToggle}>
-        <FaBars/>
+        <FaBars />
       </div>
-
 
       <div
         className={`${toggle ? "block" : "verticle-navbar"}`}
         onClick={closeWindow}
       >
-              <div className="close-btn">
-      <IoIosCloseCircle />
-      </div>
+        <div className="close-btn">
+          <IoIosCloseCircle />
+        </div>
 
         <div className="logo">
           <img
@@ -47,7 +45,7 @@ const Navbar = () => {
             <GrHomeRounded color="white" />
             <li className="vertnav-ul-li" id="home">
               <Link
-                to="/"
+                to="/home"
                 style={{ textDecorationLine: "none", color: "white" }}
               >
                 <span className="link-text">Home</span>
@@ -73,12 +71,12 @@ const Navbar = () => {
               src={require("../../assets/icons/Vector.png")}
               alt="vector"
             />
-            {/* <Link
+            <Link
               to="/linkbroker"
               style={{ textDecorationLine: "none", color: "white" }}
-            > */}
-              <span className="link-text">Link Brokeraccount</span>
-            {/* </Link> */}
+            >
+            <span className="link-text">Link Brokeraccount</span>
+            </Link>
           </li>
           <li className="vertnav-ul-li" id="wallet">
             <img
@@ -86,12 +84,12 @@ const Navbar = () => {
               src={require("../../assets/icons/Vector2.png")}
               alt="vector"
             />
-            {/* <Link
+            <Link
               to="/wallet"
               style={{ textDecorationLine: "none", color: "white" }}
-            > */}
-              <span className="link-text">Wallet</span>
-            {/* </Link> */}
+            >
+            <span className="link-text">Wallet</span>
+            </Link>
           </li>
           <li className="vertnav-ul-li" id="cust">
             <img
@@ -99,12 +97,12 @@ const Navbar = () => {
               src={require("../../assets/icons/Group 48096030.png")}
               alt="vector"
             />
-            {/* <Link
+            <Link
               to="/custom"
               style={{ textDecorationLine: "none", color: "white" }}
-            > */}
-              <span className="link-text">CustomStrategies</span>
-            {/* </Link> */}
+            >
+            <span className="link-text">CustomStrategies</span>
+            </Link>
           </li>
           <li className="vertnav-ul-li" id="mantrad">
             <img
@@ -112,12 +110,12 @@ const Navbar = () => {
               src={require("../../assets/icons/Group 48096029.png")}
               alt="vector"
             />
-            {/* <Link
+            <Link
               to="/managetrading"
               style={{ textDecorationLine: "none", color: "white" }}
-            > */}
-              <span className="link-text">Managetrading</span>
-            {/* </Link> */}
+            >
+            <span className="link-text">Managetrading</span>
+            </Link>
           </li>
           <li className="vertnav-ul-li" id="usrhist">
             <img
@@ -125,12 +123,12 @@ const Navbar = () => {
               src={require("../../assets/icons/Vector (1).png")}
               alt="vector"
             />
-            {/* <Link
+            <Link
               to="/userhistory"
               style={{ textDecorationLine: "none", color: "white" }}
-            > */}
-              <span className="link-text">UserHistory</span>
-            {/* </Link> */}
+            >
+            <span className="link-text">UserHistory</span>
+            </Link>
           </li>
           <li className="vertnav-ul-li" id="ref&ern">
             <img
@@ -138,12 +136,12 @@ const Navbar = () => {
               src={require("../../assets/icons/Group 98.png")}
               alt="vector"
             />
-            {/* <Link
+            <Link
               to="/refer&earn"
               style={{ textDecorationLine: "none", color: "white" }}
-            > */}
-              <span className="link-text">Refer&Earn</span>
-            {/* </Link> */}
+            >
+            <span className="link-text">Refer&Earn</span>
+            </Link>
           </li>
         </ul>
         {/* </div> */}

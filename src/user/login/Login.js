@@ -27,6 +27,7 @@ const Login = () => {
 
   return (
     <>
+      <div style={{padding:'2.3rem', background: "rgba(238, 242, 242, 1)"}}>
       <div className="signup-main-div">
         <div className="signup-firstdiv">
           <img
@@ -106,6 +107,7 @@ const Login = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </>
   );
