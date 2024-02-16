@@ -66,7 +66,6 @@ const Home = () => {
         .catch((error) => {
           console.log("err", error);
         });
-
         navigate("/opendemate");
     },
   });
@@ -134,6 +133,7 @@ const Home = () => {
             {" "}
             Algotoday
           </h1>
+          <Link to="/signup"><button id="signup-button-home" type="button" class="btn btn-primary">Signup</button></Link>
         </div>
 
         <div
