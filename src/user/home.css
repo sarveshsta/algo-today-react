@@ -88,6 +88,11 @@ input#react-select-2-input {
   margin-right: 3rem;
 }
 
+#signup-button-home{
+  position: relative;
+    left: 42%;
+}
+
 @media screen and (max-width: 768px) {
   .home-main-div {
     margin: 0px;
