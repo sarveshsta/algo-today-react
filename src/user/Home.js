@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import Select from "react-select";
 import { useFormik } from "formik";
 import Navbar from "../components/navbar/Navbar";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import HorizontalNav from "../components/navbar/HorizontalNav";
 
@@ -133,7 +133,7 @@ const Home = () => {
             {" "}
             Algotoday
           </h1>
-          <Link to="/signup"><button id="signup-button-home" type="button" class="btn btn-primary">Signup</button></Link>
+          <Link to="/mobile"><button id="signup-button-home" type="button" class="btn btn-primary">Signup</button></Link>
         </div>
 
         <div
