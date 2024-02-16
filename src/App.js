@@ -20,8 +20,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Mobile />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/mobile" element={<Mobile />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/newotp" element={<Newotp />} />
         <Route path="/wallet" element={<Wallet />} />

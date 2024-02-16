@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.e7f40a4b.css",
-    "main.js": "/static/js/main.38ba59f4.js",
+    "main.css": "/static/css/main.1d57c55f.css",
+    "main.js": "/static/js/main.70400fd0.js",
     "static/js/787.b2ded3d7.chunk.js": "/static/js/787.b2ded3d7.chunk.js",
     "static/media/algo logo WHITE.png": "/static/media/algo logo WHITE.28665a9534f4aa241b84.png",
     "static/media/5 pAISA IMG.png": "/static/media/5 pAISA IMG.6eb8071fc701c22e7c6b.png",
     "static/media/zerodha img.png": "/static/media/zerodha img.bb8bf0c06a84db88fe6f.png",
     "static/media/montserrat-latin-400-normal.woff": "/static/media/montserrat-latin-400-normal.b48c3d9a8c0a49c1c7b4.woff",
     "static/media/montserrat-latin-ext-400-normal.woff": "/static/media/montserrat-latin-ext-400-normal.cf42d14e809c6fdc0929.woff",
+    "static/media/upscaler-1.png": "/static/media/upscaler-1.8735fe5cd872910fb441.png",
     "static/media/montserrat-latin-400-normal.woff2": "/static/media/montserrat-latin-400-normal.9ef09180105730e3cb92.woff2",
     "static/media/montserrat-latin-ext-400-normal.woff2": "/static/media/montserrat-latin-ext-400-normal.83d2d15dd908a3cf998f.woff2",
     "static/media/montserrat-cyrillic-ext-400-normal.woff": "/static/media/montserrat-cyrillic-ext-400-normal.183f43730b586802d1a0.woff",
@@ -19,12 +20,12 @@
     "static/media/montserrat-vietnamese-400-normal.woff": "/static/media/montserrat-vietnamese-400-normal.44e6450ead6330cb0b77.woff",
     "static/media/montserrat-vietnamese-400-normal.woff2": "/static/media/montserrat-vietnamese-400-normal.176348415471f3e062e6.woff2",
     "index.html": "/index.html",
-    "main.e7f40a4b.css.map": "/static/css/main.e7f40a4b.css.map",
-    "main.38ba59f4.js.map": "/static/js/main.38ba59f4.js.map",
+    "main.1d57c55f.css.map": "/static/css/main.1d57c55f.css.map",
+    "main.70400fd0.js.map": "/static/js/main.70400fd0.js.map",
     "787.b2ded3d7.chunk.js.map": "/static/js/787.b2ded3d7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e7f40a4b.css",
-    "static/js/main.38ba59f4.js"
+    "static/css/main.1d57c55f.css",
+    "static/js/main.70400fd0.js"
   ]
 }

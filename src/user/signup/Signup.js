@@ -1,20 +1,17 @@
 import "./signup.css";
-import React, { useEffect } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signupAPI } from "../features/auth/authAuthentication";
 
 const Signup = () => {
   const dispatch = useDispatch()
+  const formData = new FormData()
 
-  useEffect(() => {
-    console.log("data :", signupAPI());
-  })
-
-  const auth = useSelector((state) => state.auth )
-  console.log("state :", auth);
+  const auth = useSelector((state) => state.auth)
+  // console.log("auth :", auth);
 
   const formik = useFormik({
     initialValues: {
@@ -30,20 +27,25 @@ const Signup = () => {
       phone: Yup.string()
         .matches(/^[0-9]{10}$/, "Enter a valid Number")
         .required("Mobile Number is required"),
+        otp: Yup.string()
+        .matches(/^[0-9]{6}$/, "Enter a valid OTP")
+        .required("OTP is required"),
+        password: Yup.string()
+        .min(6, "Password must be at least 6 characters")
+        .required("Password is required"),
       email: Yup.string()
         .email("Invalid email address")
         .required("Email is required"),
-      password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
-        .required("Password is required"),
-      otp: Yup.string()
-        .matches(/^[0-9]{6}$/, "Enter a valid OTP")
-        .required("OTP is required"),
     }),
 
     onSubmit: (values) => {
-      console.log("val :", values);
-      dispatch(signupAPI(values))
+      formData.append("name", values.name);
+      formData.append("phone", values.phone);
+      formData.append("otp", values.otp);
+      formData.append("password", values.password);
+      formData.append("email", values.email);
+      
+      dispatch(signupAPI(formData))
     },
   });
 

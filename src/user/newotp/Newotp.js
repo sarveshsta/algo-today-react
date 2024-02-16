@@ -25,7 +25,7 @@ const Newotp = () => {
 
           const config = {
             method: "post",
-            url: "https://e76d-2409-40c4-14-5f22-b084-4c0a-5f48-b84c.ngrok-free.app/verify-otp/",
+            url: "http://13.127.232.213:8000/verify-otp/",
             headers: {
               "Content-Type": "application/json",
             },
@@ -38,7 +38,7 @@ const Newotp = () => {
         }
       };
       fetchData();
-      navigate("/dashbord");
+      navigate("/signup");
     },
   });
 
