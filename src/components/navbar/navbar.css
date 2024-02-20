@@ -91,6 +91,10 @@ span.link-text {
   color: white !important;
 }
 
+span.link-text:active{
+  
+}
+
 .ul-list {
   list-style-type: none;
   width: -webkit-fill-available;

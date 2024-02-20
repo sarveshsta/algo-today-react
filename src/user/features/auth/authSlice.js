@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signupAPI } from "./authAuthentication";
+import { mobileAuthentication, signupAPI } from "./authAuthentication";
 import { loginAPI } from "./authAuthentication";
 
 const initialState = {
@@ -15,6 +15,19 @@ const authSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers:(builder) => {
+      //-----------------mobileAuthentication---------------//
+      builder.addCase(mobileAuthentication.pending, (state, action) => {
+        state.loading = true;
+      })
+      builder.addCase(mobileAuthentication.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+            builder.addCase(mobileAuthentication.rejected, (state, action) => {
+             state.loading = true;
+             state.error = action.error;
+      })
+  
        //------------------Signupcase------------------------// 
        builder.addCase( signupAPI.pending, (state, action) => {
             console.log("pendin-action :", action);
@@ -32,16 +45,18 @@ const authSlice = createSlice({
 
        //----------------------login case--------------------//
        builder.addCase(loginAPI.pending, (state, action)  => {
+        console.log("pendin-action :", action);
         state.loading = true;
-        state.error = true
        })
        builder.addCase(loginAPI.fulfilled, (state, action) => {
+        console.log("fullfieled-action :", action);
         state.loading = false;
         state.user = action.payload 
        })
        builder.addCase(loginAPI.rejected, (state, action) => {
+        console.log("rejected-action :", action);
        state.loading = false;
-       state.error = true
+       state.error = action.payload
        })
     }
 })

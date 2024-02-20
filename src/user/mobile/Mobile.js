@@ -4,8 +4,10 @@ import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import { mobileAuthentication } from "../features/auth/authAuthentication";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Mobile = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -18,6 +20,7 @@ const Mobile = () => {
         .required("Mobile Number is required"),
     }),
     onSubmit: (values) => {
+      dispatch(mobileAuthentication(values))
       const fetchData = async () => {
         try {
           const formData = new FormData();

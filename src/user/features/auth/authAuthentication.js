@@ -1,20 +1,23 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const backendUrl =
-  "http://13.127.232.213:8000";
+const backendUrl = "http://13.127.232.213:8000";
 
+const config = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
 
 //------------------ Mobile Authentication API---------------//
 export const mobileAuthentication = createAsyncThunk(
   "auth/mobileauthentication",
   async (body, thunkAPI) => {
     try {
-     const res = await axios
-        .post(`${backendUrl}/request-otp/`, body)
-        if(res.data){
+      const res = await axios.post(`${backendUrl}/request-otp/`, body, config);
+      console.log("resmobile :", res);
+      return res;
 
-        }
     } catch (error) {
       console.log("error :", error);
     }
@@ -22,15 +25,11 @@ export const mobileAuthentication = createAsyncThunk(
 );
 
 //-----------------------Signup API-------------------------//
-export const signupAPI = createAsyncThunk('auth/signup',
+export const signupAPI = createAsyncThunk(
+  "auth/signup",
   async (body, thunkAPI) => {
-    try{
-      const config = {
-        headers: {
-          "Content-Type": 'application/json'
-        }
-      }
-      const res = await axios.post(`${backendUrl}/signup/`,body, config)
+    try {
+      const res = await axios.post(`${backendUrl}/signup/`, body, config);
       console.log("res111: ", res);
 
       if (res.data) {
@@ -40,27 +39,27 @@ export const signupAPI = createAsyncThunk('auth/signup',
         console.log("dataapi:");
         return thunkAPI.rejectWithValue(res.data);
       }
-    } catch(error){
-        console.log("err :", error);
-        throw error
-    } 
+    } catch (error) {
+      console.log("err :", error);
+      throw error;
+    }
   }
-)
+);
 
 //--------------------------Login API-----------------------//
 export const loginAPI = createAsyncThunk(
-  "user/SignInUser",
+  "user/Login",
   async (body, thunkAPI) => {
     try {
       const response = await axios.post(`${backendUrl}/login/`, body, {
         headers: {
-          "Accept": "application/json",
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
       });
 
-      if (response.data.success) {
-        console.log("***", response.data.success, response.data);
+      if (response.data) {
+        console.log("***", response.data);
         return response.data;
       } else {
         return thunkAPI.rejectWithValue(response.data);
