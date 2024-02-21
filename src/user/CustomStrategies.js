@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import styled from "styled-components";
+import Shape from "../components/shape/Shape";
 import Navbar from "../components/navbar/Navbar";
 import HorizontalNav from "../components/navbar/HorizontalNav";
-import Shape from "../components/shape/Shape";
 
 const option1 = [
   { value: "index", label: "index" },
@@ -83,6 +83,27 @@ const custStyle = {
 };
 
 const CustomStrategies = () => {
+  const [selectedInput, setSelectedInput] = useState([
+    option1,
+    option2,
+    option3,
+    option4,
+    option5,
+  ]);
+  const [checkedCheckBox, setCheckedCheckBox] = useState(false);
+
+  const handleSubmit = (changeinput) => {
+    setSelectedInput(changeinput);
+  };
+
+  const checkBoxChange = () => {
+    setCheckedCheckBox(!checkedCheckBox);
+  };
+
+  const submitButton = () => {
+    console.log("selected", checkedCheckBox);
+  };
+
   return (
     <Wrapper>
       <HorizontalNav />
@@ -93,23 +114,48 @@ const CustomStrategies = () => {
           <h3>Custom Algo-Trading Strategy</h3>
           <div className="customstrategies-flex-select-option">
             <div className="select-container">
-              <Select options={option1} value={option1} styles={custStyle} />
+              <Select
+                options={option1}
+                value={selectedInput[0]}
+                styles={custStyle}
+                onChange={handleSubmit}
+              />
             </div>
 
             <div className="select-container">
-              <Select options={option2} value={option2} styles={custStyle} />
+              <Select
+                options={option2}
+                value={selectedInput[1]}
+                styles={custStyle}
+                onChange={handleSubmit}
+              />
             </div>
 
             <div className="select-container">
-              <Select options={option3} value={option3} styles={custStyle} />
+              <Select
+                options={option3}
+                value={selectedInput[2]}
+                styles={custStyle}
+                onChange={handleSubmit}
+              />
             </div>
 
             <div className="select-container">
-              <Select options={option4} value={option4} styles={custStyle} />
+              <Select
+                options={option4}
+                value={selectedInput[3]}
+                styles={custStyle}
+                onChange={handleSubmit}
+              />
             </div>
 
             <div className="select-container">
-              <Select options={option5} value={option5} styles={custStyle} />
+              <Select
+                options={option5}
+                value={selectedInput[4]}
+                styles={custStyle}
+                onChange={handleSubmit}
+              />
             </div>
           </div>
         </div>
@@ -137,25 +183,30 @@ const CustomStrategies = () => {
         <div className="buying-pre-condition-firstdiv">
           <h2 className="bpc-firstdiv-h2">Buying Pre Conditions</h2>
           <div className="checkbox-div-buy">
-            <div class="checkbox-wrapper-13">
-              <input id="c1-13" type="checkbox" />
+            <div className="checkbox-wrapper-13">
+              <input
+                id="c1-13"
+                type="checkbox"
+                onChange={checkBoxChange}
+                value={checkedCheckBox}
+              />
               <label className="checkbox-label" for="c1-13">
                 Candle OHLC Compare
               </label>
             </div>
-            <div class="checkbox-wrapper-13">
+            <div className="checkbox-wrapper-13">
               <input id="c1-13" type="checkbox" />
               <label className="checkbox-label" for="c1-13">
                 Single Indicator
               </label>
             </div>
-            <div class="checkbox-wrapper-13">
+            <div className="checkbox-wrapper-13">
               <input id="c1-13" type="checkbox" />
               <label className="checkbox-label" for="c1-13">
                 LTP + Candle OHLC
               </label>
             </div>
-            <div class="checkbox-wrapper-13">
+            <div className="checkbox-wrapper-13">
               <input id="c1-13" type="checkbox" />
               <label className="checkbox-label" for="c1-13">
                 Compare 2 Indicators
@@ -164,7 +215,12 @@ const CustomStrategies = () => {
           </div>
 
           <div className="buy-condition-btn">
-            <button type="button" id="buy-btn1" class="btn btn-primary">
+            <button
+              type="button"
+              id="buy-btn1"
+              className="btn btn-primary"
+              onClick={submitButton}
+            >
               Submit
             </button>
             <button type="button" id="buy-btn2" class="btn">
@@ -187,25 +243,25 @@ const CustomStrategies = () => {
         <div className="buying-pre-condition-firstdiv">
           <h2 className="bpc-firstdiv-h2">Selling Pre Conditions</h2>
           <div className="checkbox-div-buy">
-            <div class="checkbox-wrapper-13">
+            <div className="checkbox-wrapper-13">
               <input id="c1-13" type="checkbox" />
               <label className="checkbox-label" for="c1-13">
                 Candle OHLC Compare
               </label>
             </div>
-            <div class="checkbox-wrapper-13">
+            <div className="checkbox-wrapper-13">
               <input id="c1-13" type="checkbox" />
               <label className="checkbox-label" for="c1-13">
                 Single Indicator
               </label>
             </div>
-            <div class="checkbox-wrapper-13">
+            <div className="checkbox-wrapper-13">
               <input id="c1-13" type="checkbox" />
               <label className="checkbox-label" for="c1-13">
                 LTP + Candle OHLC
               </label>
             </div>
-            <div class="checkbox-wrapper-13">
+            <div className="checkbox-wrapper-13">
               <input id="c1-13" type="checkbox" />
               <label className="checkbox-label" for="c1-13">
                 Compare 2 Indicators
@@ -214,10 +270,10 @@ const CustomStrategies = () => {
           </div>
 
           <div className="buy-condition-btn">
-            <button type="button" id="buy-btn1" class="btn btn-primary">
+            <button type="button" id="buy-btn1" className="btn btn-primary">
               Submit
             </button>
-            <button type="button" id="buy-btn2" class="btn">
+            <button type="button" id="buy-btn2" className="btn">
               Add
             </button>
           </div>
@@ -235,24 +291,24 @@ const CustomStrategies = () => {
 
       <div className="buying-pre-condition-thirddiv">
         <div className="thirdddiv">
-        <input
+          <input
             className="cust-inputbtn"
             type="text"
             placeholder="Enter LTP"
           />
-            <input
+          <input
             className="cust-inputbtn"
             type="text"
             placeholder="Enter LTP"
           />
         </div>
         <div className="thirdddiv-btnn">
-        <button type="button" id="thirdddiv-btnn1" class="btn btn-primary">
+          <button type="button" id="thirdddiv-btnn1" className="btn btn-primary">
             Start Amount Trading
-            </button>
-            <button type="button" id="thirdddiv-btnn2" class="btn">
+          </button>
+          <button type="button" id="thirdddiv-btnn2" className="btn">
             Start Paper Trading
-        </button>
+          </button>
         </div>
       </div>
     </Wrapper>
@@ -270,7 +326,8 @@ const Wrapper = styled.div`
 
   ,
   .algo-trading-container {
-    padding: 20px;
+    // padding: 20px;
+    margin-bottom: 1rem;
   }
 
   ,
@@ -296,24 +353,26 @@ const Wrapper = styled.div`
   ,
   .customstrategies-flex-select-option {
     display: flex;
-    justify-content: space-evenly;
+    // justify-content: space-evenly;
     margin-top: 2rem;
+    margin-left: 5px;
   }
 
   ,
   .custom-select {
     // border: 2px solid rgba(52, 152, 219, 1);
     border-radius: 20px;
-    background: linear-gradient(0deg, #60bfff, #ffffff),
-      linear-gradient(0deg, rgba(52, 152, 219, 0.2), rgb(92 154 196 / 20%));
+    // background: linear-gradient(0deg, #60bfff, #ffffff),
+    //   linear-gradient(0deg, rgba(52, 152, 219, 0.2), rgb(92 154 196 / 20%));
     padding: 5px;
   }
 
   ,
   .cust-input-second {
     display: flex;
-    justify-content: space-evenly;
+    // justify-content: space-evenly;
     margin-bottom: 1rem;
+    margin-left: 5px;
   }
   ,
   .cust-inputbtn {
@@ -373,36 +432,41 @@ const Wrapper = styled.div`
       border: 1px solid #3498db;
       border-radius: 31px;
     }
-  },
-
- .buying-pre-condition-thirddiv{
-  margin-left: 17%;
-  margin-top: 2rem;
-
-  .thirdddiv{
-   display: flex;
-   justify-content: space-between;
-   box-shadow: 0px 43px 95px 0px #2929291a;
-   width: 50%;
   }
 
-  .thirdddiv-btnn{
-    display: flex;
-    margin-top: 1rem;
+  ,
+  .buying-pre-condition-thirddiv {
+    margin-left: 17%;
+    margin-top: 2rem;
 
-    #thirdddiv-btnn1{
+    .thirdddiv {
+      display: flex;
+      justify-content: space-between;
+      box-shadow: 0px 43px 95px 0px #2929291a;
       width: 50%;
-      margin-right: 2rem;
-      border: 2px solid #3498DB;
-      border-radius: 100px;
     }
-    #thirdddiv-btnn2{
-      width: 50%;
-      border: 2px solid #3498DB;
-      border-radius: 100px;
+
+    .thirdddiv-btnn {
+      display: flex;
+      margin-top: 1rem;
+
+      #thirdddiv-btnn1 {
+        width: 50%;
+        margin-right: 2rem;
+        border: 2px solid #3498db;
+        border-radius: 100px;
+      }
+      #thirdddiv-btnn2 {
+        width: 50%;
+        border: 2px solid #3498db;
+        border-radius: 100px;
+      }
     }
   }
- }
+
+  .css-15e68av-control {
+    border-color: none;
+  }
 
   .checkbox-wrapper-13 input[type="checkbox"] {
     --active: #275efe;

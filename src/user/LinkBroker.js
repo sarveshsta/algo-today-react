@@ -119,7 +119,7 @@ const LinkBroker = () => {
               alt="Zerodha"
             />
             <div className="box-btnn-div">
-              <button type="button" class="btn btn-primary">
+              <button type="button" className="btn btn-primary">
                 Setup
               </button>
             </div>
@@ -141,7 +141,7 @@ const LinkBroker = () => {
             />
             <div className="box-btnn-div">
               <Link to="https://smartapi.angelbroking.com/publisher-login?api_key=p1X1tdVU">
-                <button type="button" class="btn btn-primary">
+                <button type="button" className="btn btn-primary">
                   Setup
                 </button>
               </Link>
@@ -164,7 +164,7 @@ const LinkBroker = () => {
               alt="Zerodha logo"
             />
             <div id="boxbtndivid1" className="box-btnn-div">
-              <button id="boxbtn-id" type="button" class="btn btn-primary">
+              <button id="boxbtn-id" type="button" className="btn btn-primary">
                 Setup
               </button>
             </div>
@@ -184,7 +184,7 @@ const LinkBroker = () => {
               alt="Zerodha logo"
             />
             <div id="boxbtndivid2" className="box-btnn-div">
-              <button id="boxbtn-id2" type="button" class="btn btn-primary">
+              <button id="boxbtn-id2" type="button" className="btn btn-primary">
                 Setup
               </button>
             </div>

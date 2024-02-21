@@ -12,7 +12,7 @@ const Yourstrategy = () => {
           interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
           facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
         </p>
-        <button type="button" class="btn btn-primary" id="custbtn">
+        <button type="button" className="btn btn-primary" id="custbtn">
           Subscribe
         </button>
       </div>
@@ -24,7 +24,7 @@ const Yourstrategy = () => {
           interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
           facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
         </p>
-        <button type="button" class="btn btn-primary" id="custbtn0">
+        <button type="button" className="btn btn-primary" id="custbtn0">
           Subscribe
         </button>
       </div>
@@ -36,7 +36,7 @@ const Yourstrategy = () => {
           interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
           facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
         </p>
-        <button type="button" class="btn btn-primary" id="custbtn1">
+        <button type="button" className="btn btn-primary" id="custbtn1">
           Subscribe
         </button>
       </div>
@@ -48,7 +48,7 @@ const Yourstrategy = () => {
           interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
           facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
         </p>
-        <button type="button" class="btn btn-primary" id="custbtn2">
+        <button type="button" className="btn btn-primary" id="custbtn2">
           Subscribe
         </button>
       </div>
@@ -61,7 +61,7 @@ const Yourstrategy = () => {
           interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
           facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
         </p>
-        <button type="button" class="btn btn-primary" id="custbtn3">
+        <button type="button" className="btn btn-primary" id="custbtn3">
           Subscribe
         </button>
       </div>
@@ -73,7 +73,7 @@ const Yourstrategy = () => {
           interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
           facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
         </p>
-        <button type="button" class="btn btn-primary" id="custbtn4">
+        <button type="button" className="btn btn-primary" id="custbtn4">
           Subscribe
         </button>
       </div>
@@ -85,7 +85,7 @@ const Yourstrategy = () => {
           interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
           facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
         </p>
-        <button type="button" class="btn btn-primary" id="custbtn5">
+        <button type="button" className="btn btn-primary" id="custbtn5">
           Subscribe
         </button>
       </div>
@@ -97,7 +97,7 @@ const Yourstrategy = () => {
           interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
           facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
         </p>
-        <button type="button" class="btn btn-primary" id="custbtn6">
+        <button type="button" className="btn btn-primary" id="custbtn6">
           Subscribe
         </button>
       </div>

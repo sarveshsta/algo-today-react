@@ -133,7 +133,7 @@ const Home = () => {
             {" "}
             Algotoday
           </h1>
-          <Link to="/signup"><button id="signup-button-home" type="button" class="btn btn-primary">Signup</button></Link>
+          <Link to="/signup"><button id="signup-button-home" type="button" className="btn btn-primary">Signup</button></Link>
         </div>
 
         <div

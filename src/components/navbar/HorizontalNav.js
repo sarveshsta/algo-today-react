@@ -1,5 +1,7 @@
 import React from "react";
 import './horizontalnav.css'
+import { VscBellDot } from "react-icons/vsc";
+import { IoExitOutline } from "react-icons/io5";
 
 const HorizontalNav = () => {
   return (
@@ -16,16 +18,8 @@ const HorizontalNav = () => {
       />
       <h2 className="Horizontalheading">User</h2>
       <h3 className="Horizontalheading1">Hello</h3>
-      <img
-        className="Horizontalimg2"
-        src={require("../../assets/icons/Group 91.png")}
-        alt="image"
-      />
-      <img
-        className="Horizontalimg3"
-        src={require("../../assets/icons/Group 84.png")}
-        alt="image"
-      />
+      <VscBellDot className="Horizontalimg2" />
+      <IoExitOutline className="Horizontalimg3" />
     </div>
   );
 };

@@ -45,7 +45,7 @@ const Navbar = () => {
             <GrHomeRounded color="white" />
             <li className="vertnav-ul-li" id="home">
               <Link
-                to="/home"
+                to="/"
                 style={{ textDecorationLine: "none", color: "white" }}
               >
                 <span className="link-text">Home</span>
