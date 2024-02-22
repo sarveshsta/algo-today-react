@@ -10,11 +10,12 @@ import Mobile from "./user/mobile/Mobile";
 import LinkBroker from "./user/LinkBroker";
 import UserHistory from "./user/UserHistory";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'react-toastify/dist/ReactToastify.css';
 import Dashbord from "./user/dashbord/Dashbord";
 import ManageTrading from "./user/ManageTrading";
+import CustomStrategies from "./user/CustomStrategies";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Forgotpassword from "./user/forgotpassword/Forgotpassword";
-import CustomStrategies from "./user/CustomStrategies";
 
 function App() {
   return (

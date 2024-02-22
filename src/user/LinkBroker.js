@@ -95,6 +95,36 @@ img.box4-img {
     position: relative;
     top: 10.2vh;
 },
+
+.btn.btn-primary:before,
+.btn.btn-primary:after {
+    width: 4.4em;
+    height: 2.95em;
+    position: absolute;
+    content: "";
+    display: inline-block;
+    background: var(--color);
+    border-radius: 50%;
+    transition: transform 1s ease;
+    transform: scale(0);
+    z-index: -1;
+}
+
+.btn.btn-primary:before {
+    top: -25%;
+    left: 20%;
+}
+
+.btn.btn-primary:after {
+    bottom: -25%;
+    right: 20%;
+}
+
+.btn.btn-primary:hover:before,
+.btn.btn-primary:hover:after {
+    transform: none;
+}
+
 `;
 
 const LinkBroker = () => {
@@ -119,7 +149,7 @@ const LinkBroker = () => {
               alt="Zerodha"
             />
             <div className="box-btnn-div">
-              <button type="button" className="btn btn-primary">
+              <button type="button" id="link-btn1" className="btn btn-primary">
                 Setup
               </button>
             </div>
