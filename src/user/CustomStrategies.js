@@ -57,7 +57,6 @@ const custStyle = {
       color: "#0000ff",
     },
   }),
-
   control: (provided) => ({
     ...provided,
     // minHeight: 50,
@@ -416,9 +415,8 @@ const Wrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(2, auto);
     row-gap: 17%;
-  }
+  },
 
-  ,
   .buy-condition-btn {
     margin-top: 1.5rem;
 
@@ -432,9 +430,9 @@ const Wrapper = styled.div`
       border: 1px solid #3498db;
       border-radius: 31px;
     }
-  }
+  },
 
-  ,
+
   .buying-pre-condition-thirddiv {
     margin-left: 17%;
     margin-top: 2rem;

@@ -10,21 +10,11 @@
     box-sizing: border-box;
     margin-left: 17%;
     margin-top: 3vh;
-  /* width: 83%;
-  height: max-content;
-  display: flex;
-  flex-wrap: wrap; */
-  /* position: relative; */
-  /* top: 3rem;
-  align-items: center;
-  justify-content: space-evenly;
-  box-sizing: border-box;
-  margin-left: 17%; */
 }
 
 .Nifty50 {
   width: auto;
-  height: 127px;
+  /* height: 127px; */
   flex-shrink: 0;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.01);
@@ -32,11 +22,12 @@
   -webkit-backdrop-filter: blur(50px);
   backdrop-filter: blur(50px);
   box-sizing: border-box;
+  padding: 0.5rem;
 }
 
 .Sensex {
   width: auto;
-  height: 127px;
+  /* height: 127px; */
   flex-shrink: 0;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.01);
@@ -44,13 +35,14 @@
   -webkit-backdrop-filter: blur(50px);
   backdrop-filter: blur(50px);
   box-sizing: border-box;
+  padding: 0.5rem;
 }
 
 .heading {
-  width: 139px;
+  /* width: 139px; */
   color: var(--2-c-3-e-50, #2C3E50);
   font-family: Montserrat;
-  font-size: 28px;
+  font-size: 22px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -60,7 +52,7 @@
 .subhead {
   color: var(--2-c-3-e-50, #2C3E50);
   font-family: Roboto;
-  font-size: 24px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -71,7 +63,7 @@
 .change {
     color: var(--27-ae-60, #27AE60);
     font-family: Roboto;
-    font-size: 18px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;

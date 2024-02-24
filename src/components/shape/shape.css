@@ -24,13 +24,13 @@
 
   .shape-img2-green{
     display: inline;
-    border: 2px solid;
+    /* border: 2px solid; */
     position: absolute;
     transform: translate(52vw, 20vw);
   }
 
   .shape-img3-blue{
-    border: 2px solid;
+    /* border: 2px solid; */
     display: inline;
     position: absolute;
     right: 0;

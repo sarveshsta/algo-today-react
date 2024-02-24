@@ -12,7 +12,7 @@ const Dashbord = () => {
   return (
     <div className="Container">
     <HorizontalNav/>
-      <Shape />
+      {/* <Shape /> */}
       <Navbar />
       <Indices />
       <Strategy />

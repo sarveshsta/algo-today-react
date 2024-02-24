@@ -13,7 +13,8 @@ const Wrapper = styled.div`
       rgba(255, 255, 255, 0.75) 0.06%,
       rgba(255, 255, 255, 0.45) 100%
     );
-    box-shadow: 0px 0px 158px 161px rgba(8, 7, 5, 0.1);
+    // box-shadow: 0px 0px 158px 161px rgba(8, 7, 5, 0.1);
+    box-shadow: 0px 28px 62px 0px rgba(0, 0, 0, 0.1);
     margin-left: 17%;
     padding: 2rem;
     margin-top: 1rem;
@@ -22,7 +23,7 @@ const Wrapper = styled.div`
 
     .refer-sub-div {
       width: -webkit-fill-available;
-      border-bottom: 2px solid rgba(217, 217, 217, 1);
+      // border-bottom: 2px solid rgba(217, 217, 217, 1);
 
       .refer&earn-text {
         .re-text {
@@ -62,7 +63,7 @@ const Wrapper = styled.div`
       margin: 0;
       font-size: 1.2rem;
       font-weight: 400;
-      padding: 4px;
+      padding: 10px;
     }
 
     .section2-h2 {
@@ -79,13 +80,14 @@ const Wrapper = styled.div`
 
   .copy-text {
     position: absolute;
-    right: 5rem;
-    margin-top: 0px;
+    right: 5.5rem;
+    margin-top: 4px;
     background: rgba(52, 152, 219, 1);
     border-radius: 46px;
-    padding: 4px;
+    padding: 6px;
     border: none;
     color: white;
+    width: 8%;
   }
 
   .copy-text:before {
@@ -151,29 +153,44 @@ const Wrapper = styled.div`
       background-position: 0 0;
     }
   }
+
+  .refes-blue-abs-div {
+    position: absolute;
+    bottom: 0;
+    width: 794px;
+    height: 794px;
+    top: 380px;
+    left: 1192px;
+    opacity: 0.3;
+    background: rgba(52, 152, 219, 1);
+    z-index: -1;
+  }
+
+  .refer-earn-text {
+    border-bottom: 2px solid rgba(217, 217, 217, 1);
+  }
 `;
 
 const ReferEarn = () => {
+
+ const toastProperty = {
+  position: "top-right",
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  theme: "light",
+  transition: Bounce,
+}
+
   const copyText = () => {
     const copied = document.getElementById("inp-input");
     const textarea = document.createElement("textarea");
-
     textarea.value = copied.innerHTML;
     document.body.appendChild(textarea);
     textarea.select();
     document.execCommand("copy");
     document.body.removeChild(textarea);
-    toast.success("Text Copied", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition:  Bounce,
-    });
+    toast.success("Text Copied", toastProperty);
   };
 
   return (
@@ -183,7 +200,7 @@ const ReferEarn = () => {
       <Navbar />
       <div className="refer-main-div">
         <div className="refer-sub-div">
-          <div className="refer&earn-text">
+          <div className="refer-earn-text">
             <h2 className="re-text">Refer & Earn</h2>
             <p className="re-para">
               Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -216,6 +233,7 @@ const ReferEarn = () => {
           </div>
         </div>
       </div>
+      {/* <div className="refes-blue-abs-div"></div> */}
     </Wrapper>
   );
 };

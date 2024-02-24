@@ -1,5 +1,5 @@
 import "./navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { GrHomeRounded } from "react-icons/gr";
 import { IoIosCloseCircle } from "react-icons/io";
@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
+  const navigate = useNavigate()
 
   const handleToggle = () => {
     setToggle(true);
@@ -52,6 +53,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
+          <div>
           <li className="vertnav-ul-li" id="opendemat">
             <img
               className="iconimg"
@@ -65,6 +67,8 @@ const Navbar = () => {
               <span className="link-text">Open Demat Account</span>
             </Link>
           </li>
+          </div>
+          <div>
           <li className="vertnav-ul-li" id="acc">
             <img
               className="iconimg"
@@ -78,6 +82,8 @@ const Navbar = () => {
             <span className="link-text">Link Brokeraccount</span>
             </Link>
           </li>
+          </div>
+          <div>
           <li className="vertnav-ul-li" id="wallet">
             <img
               className="iconimg"
@@ -91,6 +97,8 @@ const Navbar = () => {
             <span className="link-text">Wallet</span>
             </Link>
           </li>
+          </div>
+          <div>
           <li className="vertnav-ul-li" id="cust">
             <img
               className="iconimg"
@@ -104,6 +112,8 @@ const Navbar = () => {
             <span className="link-text">CustomStrategies</span>
             </Link>
           </li>
+          </div>
+          <div>
           <li className="vertnav-ul-li" id="mantrad">
             <img
               className="iconimg"
@@ -117,6 +127,8 @@ const Navbar = () => {
             <span className="link-text">Managetrading</span>
             </Link>
           </li>
+          </div>
+          <div>
           <li className="vertnav-ul-li" id="usrhist">
             <img
               className="iconimg"
@@ -130,6 +142,8 @@ const Navbar = () => {
             <span className="link-text">UserHistory</span>
             </Link>
           </li>
+          </div>
+          <div>
           <li className="vertnav-ul-li" id="ref&ern">
             <img
               className="iconimg"
@@ -143,6 +157,7 @@ const Navbar = () => {
             <span className="link-text">Refer&Earn</span>
             </Link>
           </li>
+          </div>
         </ul>
         {/* </div> */}
       </div>
