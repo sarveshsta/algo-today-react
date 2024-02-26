@@ -23,11 +23,10 @@ const Newotp = () => {
         .matches(/^[0-9]{6}$/, "Enter a valid OTP")
         .required("OTP is required"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async(values) => {
       const getItem = localStorage.getItem("authdetail");
-      const parseData = JSON.parse(getItem);
+      const parseData = await JSON.parse(getItem);
       const { otp, phone } = parseData;
-
       formData.append("phone", phone);
       formData.append("otp", otp);
 

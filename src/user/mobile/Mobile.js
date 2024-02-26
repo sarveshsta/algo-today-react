@@ -12,7 +12,6 @@ const Mobile = () => {
   const navigate = useNavigate();
 
   const mobileAuth = useSelector((store) => store?.auth?.user?.data);
-  console.log("moboobfbffd => ", mobileAuth);
   const { message, success } = mobileAuth || {};
 
   const formik = useFormik({
@@ -25,18 +24,17 @@ const Mobile = () => {
         .required("Mobile Number is required"),
     }),
     onSubmit: (values) => {
-      console.log("val-mobile :", values);
       const formData = new FormData();
       formData.append("phone", values.number);
       dispatch(mobileAuthentication(formData));
     },
   });
 
-  useEffect(() => {
-    if (message) {
-      toast.success(message);
-    }
-  }, [message]);
+  // useEffect(() => {
+  //   if (message) {
+  //     toast.success(message);
+  //   }
+  // }, [message]);
 
   return (
     <>
