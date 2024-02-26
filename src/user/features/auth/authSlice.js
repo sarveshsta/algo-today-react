@@ -30,9 +30,11 @@ const authSlice = createSlice({
       if (action.payload.status === 200) {
         const localSavePayload = {
           otp: action?.payload?.data?.data?.otp,
-          phone: JSON.parse(action?.payload?.config?.data),
+          ...JSON.parse(action?.payload?.config?.data)
         };
-        localStorage.setItem("authdetail",JSON.stringify(localSavePayload).replace(/\\"/g, '"')
+        localStorage.setItem(
+          "authdetail",
+          JSON.stringify(localSavePayload).replace(/\\"/g, '"')
         );
       }
     });

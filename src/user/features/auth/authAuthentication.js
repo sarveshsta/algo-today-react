@@ -15,7 +15,6 @@ export const mobileAuthentication = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const res = await axios.post(`${backendUrl}/request-otp/`, body, config);
-
       if (res.data) {
         return res;
       } else {
@@ -33,7 +32,6 @@ export const otpVerificationAPI = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const res = await axios.post(`${backendUrl}/verify-otp/`, body, config);
-
       if (res.data) {
         return res;
       } else {

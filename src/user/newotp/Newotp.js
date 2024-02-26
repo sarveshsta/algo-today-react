@@ -1,17 +1,18 @@
 import React from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { otpVerificationAPI } from "../features/auth/authAuthentication";
 
 const Newotp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const otpState = useSelector((store) => store.auth);
 
-  const getItem = localStorage.getItem("authdetail")
-  console.log(getItem);
+  const otpState = useSelector((store) => store.auth);
+  console.log("otpstate => ", otpState);
+
+  const formData = new FormData();
 
   const formik = useFormik({
     initialValues: {
@@ -23,8 +24,14 @@ const Newotp = () => {
         .required("OTP is required"),
     }),
     onSubmit: (values) => {
-      // const formData = new FormData();
-      // formData.append();
+      const getItem = localStorage.getItem("authdetail");
+      const parseData = JSON.parse(getItem);
+      const { otp, phone } = parseData;
+
+      formData.append("phone", phone);
+      formData.append("otp", otp);
+
+      dispatch(otpVerificationAPI(formData));
     },
   });
 

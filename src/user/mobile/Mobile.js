@@ -28,12 +28,6 @@ const Mobile = () => {
       console.log("val-mobile :", values);
       const formData = new FormData();
       formData.append("phone", values.number);
-
-      // Retrieve the 'phone' value from FormData
-      const phoneValue = formData.get("phone");
-      // Now you can use 'phoneValue' as a regular string
-      console.log("phphph = ", phoneValue);
-
       dispatch(mobileAuthentication(formData));
     },
   });
