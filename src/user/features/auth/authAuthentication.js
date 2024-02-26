@@ -15,9 +15,30 @@ export const mobileAuthentication = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const res = await axios.post(`${backendUrl}/request-otp/`, body, config);
-      console.log("resmobile :", res);
-      return res;
 
+      if (res.data) {
+        return res;
+      } else {
+        console.log("No data in res, API not called");
+      }
+    } catch (error) {
+      console.log("error :", error);
+    }
+  }
+);
+
+//------------------ OTP Verification API---------------//
+export const otpVerificationAPI = createAsyncThunk(
+  "auth/otpverification",
+  async (body, thunkAPI) => {
+    try {
+      const res = await axios.post(`${backendUrl}/verify-otp/`, body, config);
+
+      if (res.data) {
+        return res;
+      } else {
+        console.log("No data in res, API not called");
+      }
     } catch (error) {
       console.log("error :", error);
     }
