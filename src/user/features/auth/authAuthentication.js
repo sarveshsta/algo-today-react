@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 const backendUrl = "http://13.127.232.213:8000";
 
@@ -21,7 +22,7 @@ export const mobileAuthentication = createAsyncThunk(
         console.log("No data in res, API not called");
       }
     } catch (error) {
-      console.log("error :", error);
+      return error
     }
   }
 );
@@ -60,7 +61,7 @@ export const signupAPI = createAsyncThunk(
       }
     } catch (error) {
       console.log("err :", error);
-      throw error;
+      return error;
     }
   }
 );
@@ -78,13 +79,12 @@ export const loginAPI = createAsyncThunk(
       });
 
       if (response.data) {
-        console.log("***", response.data);
-        return response.data;
+        return response;
       } else {
-        return thunkAPI.rejectWithValue(response.data);
+        return thunkAPI.rejectWithValue(response);
       }
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );

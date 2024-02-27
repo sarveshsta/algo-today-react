@@ -225,4 +225,4 @@ const LinkBroker = () => {
   );
 };
 
-export default LinkBroker;
+export default React.memo(LinkBroker);

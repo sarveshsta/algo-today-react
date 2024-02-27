@@ -573,4 +573,4 @@ const Wrapper = styled.div`
   }
 `;
 
-export default CustomStrategies;
+export default React.memo(CustomStrategies);

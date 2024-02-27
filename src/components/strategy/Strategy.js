@@ -44,4 +44,4 @@ const Strategy = () => {
   );
 };
 
-export default Strategy;
+export default React.memo(Strategy);

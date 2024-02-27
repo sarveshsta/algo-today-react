@@ -1,18 +1,20 @@
-import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import React, { useEffect } from "react";
-import { mobileAuthentication } from "../features/auth/authAuthentication";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import { mobileAuthentication } from "../features/auth/authAuthentication";
 
 const Mobile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const mobileAuth = useSelector((store) => store?.auth?.user?.data);
-  const { message, success } = mobileAuth || {};
+  const mobileAuth = useSelector((store) => store?.auth?.user.response);
+  const mobileAuth2 = useSelector((store) => store?.auth?.user);
+
+  const {status, data} = mobileAuth || {};
+  const {message} = data || {}
 
   const formik = useFormik({
     initialValues: {
@@ -30,15 +32,29 @@ const Mobile = () => {
     },
   });
 
-  // useEffect(() => {
-  //   if (message) {
-  //     toast.success(message);
-  //   }
-  // }, [message]);
+  useEffect(() => {
+    if (mobileAuth2.status === 200) {
+      toast.success(mobileAuth2.data.message, {
+        onClose: () => {
+          navigate("/newotp");
+        },
+      });
+    } else if(status === 400){
+      toast.error(message)
+    }else{
+      toast(message)
+    }
+  }, [message, navigate, status]);
 
   return (
     <>
-      <ToastContainer autoClose={2000} />
+      <ToastContainer
+        autoClose={2000}
+        pauseOnFocusLoss={true}
+        closeOnClick={true}
+        draggable={true}
+        theme="colored"
+      />
       <div style={{ padding: "2.3rem", background: "rgba(238, 242, 242, 1)" }}>
         <div className="signup-main-div">
           <div className="signup-firstdiv">
@@ -96,4 +112,4 @@ const Mobile = () => {
   );
 };
 
-export default Mobile;
+export default React.memo(Mobile);

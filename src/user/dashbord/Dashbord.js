@@ -22,4 +22,4 @@ const Dashbord = () => {
   );
 };
 
-export default Dashbord;
+export default React.memo(Dashbord);

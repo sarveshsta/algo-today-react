@@ -1,4 +1,5 @@
 import "./App.css";
+import React from "react";
 import Home from "./user/Home";
 import Wallet from "./user/Wallet";
 import Login from "./user/login/Login";
@@ -40,4 +41,4 @@ function App() {
   );
 }
 
-export default App;
+export default React.memo(App);

@@ -229,4 +229,4 @@ const Wrapper = styled.div`
   }
 `;
 
-export default ManageTrading;
+export default React.memo(ManageTrading);

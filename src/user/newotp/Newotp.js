@@ -1,18 +1,18 @@
-import React from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 import { otpVerificationAPI } from "../features/auth/authAuthentication";
 
 const Newotp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const otpState = useSelector((store) => store.auth);
-  console.log("otpstate => ", otpState);
-
   const formData = new FormData();
+
+  const otpState = useSelector((store) => store?.auth?.user?.data);
+  const { message, success } = otpState || {};
 
   const formik = useFormik({
     initialValues: {
@@ -23,19 +23,32 @@ const Newotp = () => {
         .matches(/^[0-9]{6}$/, "Enter a valid OTP")
         .required("OTP is required"),
     }),
-    onSubmit: async(values) => {
+    onSubmit: (values) => {
       const getItem = localStorage.getItem("authdetail");
-      const parseData = await JSON.parse(getItem);
+      const parseData = JSON.parse(getItem);
       const { otp, phone } = parseData;
       formData.append("phone", phone);
       formData.append("otp", otp);
 
       dispatch(otpVerificationAPI(formData));
+      
+      toast.success("Login Succesfull", {
+        onClose: () => {
+          navigate("/signup");
+        },
+      });
     },
   });
 
   return (
     <>
+      <ToastContainer
+        autoClose={3000}
+        pauseOnFocusLoss={true}
+        closeOnClick={true}
+        draggable={true}
+        theme="colored"
+      />
       <div style={{ padding: "2.3rem", background: "rgba(238, 242, 242, 1)" }}>
         <div className="signup-main-div">
           <div className="signup-firstdiv">
@@ -91,4 +104,4 @@ const Newotp = () => {
   );
 };
 
-export default Newotp;
+export default React.memo(Newotp);

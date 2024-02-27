@@ -9,7 +9,7 @@ import {
 const initialState = {
   loading: false,
   error: "",
-  user: null,
+  user: "",
   message: "",
   token: "",
 };
@@ -24,7 +24,6 @@ const authSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(mobileAuthentication.fulfilled, (state, action) => {
-      console.log("mobauth :", action.payload);
       state.loading = false;
       state.user = action.payload;
       if (action.payload.status === 200) {
@@ -41,6 +40,7 @@ const authSlice = createSlice({
     builder.addCase(mobileAuthentication.rejected, (state, action) => {
       state.loading = true;
       state.error = action.error;
+      state.user = action.payload
     });
 
     //-----------------OTP Verification case---------------//
@@ -65,7 +65,8 @@ const authSlice = createSlice({
       state.user = action.payload;
     });
     builder.addCase(signupAPI.rejected, (state, action) => {
-      state.error = action.payload;
+      state.error = action.error;
+      state.user = action.payload;
     });
 
     //----------------------login case--------------------//
@@ -78,7 +79,8 @@ const authSlice = createSlice({
     });
     builder.addCase(loginAPI.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.error = action.error;
+      state.user = action.payload;
     });
   },
 });

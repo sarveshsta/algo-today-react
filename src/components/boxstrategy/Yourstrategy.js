@@ -105,4 +105,4 @@ const Yourstrategy = () => {
     // </div>
   );
 };
-export default Yourstrategy;
+export default React.memo(Yourstrategy);

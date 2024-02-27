@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useNavigate } from 'react-router-dom';
@@ -45,7 +44,7 @@ const Forgotpassword = () => {
             <input
               className="signup-form-input"
               type="text"
-              placeholder="Enter Password"
+              placeholder="Enter your Email"
               name="password"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -79,4 +78,4 @@ const Forgotpassword = () => {
   )
 }
 
-export default Forgotpassword
+export default React.memo(Forgotpassword)

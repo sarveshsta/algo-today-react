@@ -38,4 +38,4 @@ const Indices = () => {
   );
 };
 
-export default Indices;
+export default React.memo(Indices);

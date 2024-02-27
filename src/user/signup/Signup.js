@@ -4,14 +4,18 @@ import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 import { signupAPI } from "../features/auth/authAuthentication";
 
 const Signup = () => {
-  const dispatch = useDispatch()
-  const formData = new FormData()
+  const dispatch = useDispatch();
+  const formData = new FormData();
 
-  const auth = useSelector((state) => state.auth)
-  // console.log("auth :", auth);
+  const auth = useSelector((state) => state.auth);
+  // console.log("Signupauth :", auth);
+
+  const errorMessage = auth.user?.response?.data;
+  const { message, success } = errorMessage || {};
 
   const formik = useFormik({
     initialValues: {
@@ -27,10 +31,10 @@ const Signup = () => {
       phone: Yup.string()
         .matches(/^[0-9]{10}$/, "Enter a valid Number")
         .required("Mobile Number is required"),
-        otp: Yup.string()
+      otp: Yup.string()
         .matches(/^[0-9]{6}$/, "Enter a valid OTP")
         .required("OTP is required"),
-        password: Yup.string()
+      password: Yup.string()
         .min(6, "Password must be at least 6 characters")
         .required("Password is required"),
       email: Yup.string()
@@ -44,13 +48,21 @@ const Signup = () => {
       formData.append("otp", values.otp);
       formData.append("password", values.password);
       formData.append("email", values.email);
-      
-      dispatch(signupAPI(formData))
+
+      dispatch(signupAPI(formData));
+      toast.error(message);
     },
   });
 
   return (
     <>
+      <ToastContainer
+        autoClose={2000}
+        pauseOnFocusLoss={true}
+        closeOnClick={true}
+        draggable={true}
+        theme="colored"
+      />
       <div className="signup-main-div">
         <div className="signup-firstdiv">
           <img
@@ -152,8 +164,7 @@ const Signup = () => {
             <p className="signup-form-already-registered-para">
               Already registered?{" "}
               <Link className="linking" to="/login">
-                {" "}
-                Login{" "}
+                Login
               </Link>
             </p>
 
@@ -169,4 +180,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default React.memo(Signup);

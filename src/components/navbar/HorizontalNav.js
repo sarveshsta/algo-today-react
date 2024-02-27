@@ -49,4 +49,4 @@ const HorizontalNav = () => {
   );
 };
 
-export default HorizontalNav;
+export default React.memo(HorizontalNav);

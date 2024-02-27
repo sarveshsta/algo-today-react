@@ -70,4 +70,4 @@ const Stockgla = () => {
   );
 };
 
-export default Stockgla;
+export default React.memo(Stockgla);

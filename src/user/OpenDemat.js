@@ -217,4 +217,4 @@ const OpenDemat = () => {
   );
 };
 
-export default OpenDemat;
+export default React.memo(OpenDemat);

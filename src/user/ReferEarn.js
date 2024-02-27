@@ -238,4 +238,4 @@ const ReferEarn = () => {
   );
 };
 
-export default ReferEarn;
+export default React.memo(ReferEarn);

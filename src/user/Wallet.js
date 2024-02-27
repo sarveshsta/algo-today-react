@@ -476,4 +476,4 @@ const Wrapper = styled.div`
     margin-top: 7px;
   }
 `;
-export default Wallet;
+export default React.memo(Wallet);
