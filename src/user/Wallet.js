@@ -21,7 +21,10 @@ const Wallet = () => {
   };
 
   const validationSchema = yup.object({
-    cardNumber: yup.string().required("Card number is required"),
+    cardNumber: yup
+      .string()
+      .matches(/^[0-9]{16}$/, "Enter a valid card Number")
+      .required("Card number is required"),
     cardHolderName: yup.string().required("Card holder name is required"),
     expiry: yup.string().required("Expiry date is required"),
     cvvNumber: yup.string().required("CVV number is required"),
@@ -203,7 +206,12 @@ const Wallet = () => {
               style={{ margin: "0px" }}
             >
               <h2> Spin & Multiply </h2>
-              <p> "Simply click on the 'Activate Spin' button, deposit a small amount, and unlock the feature to start multiplying your funds with ease." </p>
+              <p>
+                {" "}
+                "Simply click on the 'Activate Spin' button, deposit a small
+                amount, and unlock the feature to start multiplying your funds
+                with ease."{" "}
+              </p>
             </div>
           </div>
         </div>

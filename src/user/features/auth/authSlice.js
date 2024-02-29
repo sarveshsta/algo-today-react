@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginAPI } from "./authAuthentication";
+import { forgotAPI, loginAPI, logoutAPI } from "./authAuthentication";
 import {
   mobileAuthentication,
   otpVerificationAPI,
@@ -78,6 +78,39 @@ const authSlice = createSlice({
       state.user = action.payload;
     });
     builder.addCase(loginAPI.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error;
+      state.user = action.payload;
+    });
+    
+    //-----------------forgotpassword case---------------//
+    builder.addCase(forgotAPI.pending, (state,action) => {
+      state.loading = true;
+      state.error = action.payload;
+    });
+    builder.addCase(forgotAPI.fulfilled, (state, action) => {
+      state.loading = false;
+      state.user = action.payload;
+    });
+    builder.addCase(forgotAPI.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error;
+      state.user = action.payload;
+    });
+
+    //-----------------logout case-----------------------//
+    builder.addCase(logoutAPI.pending, (state,action) => {
+      state.loading = true;
+      state.error = action.payload;
+    });
+    builder.addCase(logoutAPI.fulfilled, (state, action) => {
+      state.loading = false;
+      state.user = action.payload;
+      if(action.payload.status === 200){
+        localStorage.removeItem("authdetail")
+      }
+    });
+    builder.addCase(logoutAPI.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error;
       state.user = action.payload;

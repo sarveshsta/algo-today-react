@@ -6,10 +6,13 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { loginAPI } from "../features/auth/authAuthentication";
+import Formbutton from "../../components/formcomponent/Formbutton";
+import Formcomp from "../../components/formcomponent/Formcomp";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth.user.response);
+  const auth = useSelector((state) => state?.auth?.user);
+  console.log("loginAuth", auth);
   const { status, data } = auth || {};
 
   const formik = useFormik({
@@ -37,11 +40,11 @@ const Login = () => {
     onSubmit: (values) => {
       dispatch(loginAPI(values));
 
-      if (status === 400) {
-        toast.error(data.message);
-      } else if (status === 200) {
-        toast.success(data.message);
-      }
+      // if (status === 400) {
+      //   toast.error(data.message);
+      // } else if (status === 200) {
+      //   toast.success(data.message);
+      // }
     },
   });
 
@@ -71,58 +74,42 @@ const Login = () => {
               <h2 className="signup-form-h2">Login</h2>
               <p className="signup-form-small-text">Glad you’re back.!</p>
               <form className="form-form" onSubmit={formik.handleSubmit}>
-                {/* <input
-                className="signup-form-input"
-                type="text"
-                placeholder="Username"
-                name="username"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.username}
-              />
-              {formik.touched.username && formik.errors.username ? (
-                <div className="error-message" style={{ color: "red" }}>
-                  {formik.errors.username}
-                </div>
-              ) : null} */}
-                <input
-                  className="signup-form-input"
+              
+               <Formcomp
                   type="text"
                   placeholder="Mobile Number"
                   name="phone"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.phone}
-                />
+              />
                 {formik.touched.phone && formik.errors.phone ? (
                   <div className="error-message" style={{ color: "red" }}>
                     {formik.errors.phone}
                   </div>
                 ) : null}
 
-                <input
-                  className="signup-form-input"
-                  type="text"
-                  placeholder="Enter OTP"
-                  name="otp"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.otp}
-                />
+             <Formcomp
+                type="text"
+                placeholder="Enter OTP"
+                name="otp"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.otp}
+             />
                 {formik.touched.otp && formik.errors.otp ? (
                   <div className="error-message" style={{ color: "red" }}>
                     {formik.errors.otp}
                   </div>
                 ) : null}
 
-                <input
-                  className="signup-form-input"
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.password}
+                <Formcomp
+                   type="password"
+                   placeholder="Password"
+                   name="password"
+                   onChange={formik.handleChange}
+                   onBlur={formik.handleBlur}
+                   value={formik.values.password}
                 />
                 {formik.touched.password && formik.errors.password ? (
                   <div className="error-message" style={{ color: "red" }}>
@@ -147,9 +134,7 @@ const Login = () => {
                 ) : null}
               </div> */}
 
-                <button className="signup-form-button" type="submit">
-                  Login
-                </button>
+                <Formbutton type="submit" text="Login"/>
               </form>
               <p className="signup-form-already-registered-para">
                 <Link className="linking" to="/forgotpassword">

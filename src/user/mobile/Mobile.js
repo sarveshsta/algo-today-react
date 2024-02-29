@@ -4,17 +4,20 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import Formcomp from "../../components/formcomponent/Formcomp";
 import { mobileAuthentication } from "../features/auth/authAuthentication";
 
 const Mobile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const mobileAuth = useSelector((store) => store?.auth?.user.response);
-  const mobileAuth2 = useSelector((store) => store?.auth?.user);
+  const mobileAuth = useSelector((store) => store?.auth?.user);
+  // const mobileAuth2 = useSelector((store) => store?.auth?.user);
+  // console.log("mobauth2 ==>> ", mobileAuth2);
+  console.log("mobauth ==>> ", mobileAuth);
 
-  const {status, data} = mobileAuth || {};
-  const {message} = data || {}
+  const { status, data } = mobileAuth || {};
+  const { message } = data || {};
 
   const formik = useFormik({
     initialValues: {
@@ -29,22 +32,20 @@ const Mobile = () => {
       const formData = new FormData();
       formData.append("phone", values.number);
       dispatch(mobileAuthentication(formData));
+
+      if (status === 200) {
+        return toast.success(message, {
+          onClose: () => {
+            navigate("/newotp");
+          },
+        });
+      } else if (status === 400) {
+        return toast.error(message);
+      } else {
+        return toast(message);
+      }
     },
   });
-
-  useEffect(() => {
-    if (mobileAuth2.status === 200) {
-      toast.success(mobileAuth2.data.message, {
-        onClose: () => {
-          navigate("/newotp");
-        },
-      });
-    } else if(status === 400){
-      toast.error(message)
-    }else{
-      toast(message)
-    }
-  }, [message, navigate, status]);
 
   return (
     <>
@@ -75,14 +76,13 @@ const Mobile = () => {
                 Authorize for your saftey
               </p>
               <form className="form-form" onSubmit={formik.handleSubmit}>
-                <input
-                  className="signup-form-input"
-                  type="text"
-                  placeholder="Mobile Number"
-                  name="number"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.number}
+                <Formcomp
+                   type="text"
+                   placeholder="Mobile Number"
+                   name="number"
+                   onChange={formik.handleChange}
+                   onBlur={formik.handleBlur}
+                   value={formik.values.number}
                 />
                 {formik.touched.number && formik.errors.number ? (
                   <div className="error-message" style={{ color: "red" }}>

@@ -1,28 +1,34 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 
 const backendUrl = "http://13.127.232.213:8000";
 
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-  },
-};
+// const config = {
+//   headers: {
+//     "Content-type": "application/json",
+//   },
+// };
 
 //------------------ Mobile Authentication API---------------//
 export const mobileAuthentication = createAsyncThunk(
   "auth/mobileauthentication",
   async (body, thunkAPI) => {
     try {
-      const res = await axios.post(`${backendUrl}/request-otp/`, body, config);
+      const res = await axios.post(`${backendUrl}/request-otp/`, body, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      } );
       if (res.data) {
+        console.log("res** -=>", res);
         return res;
       } else {
-        console.log("No data in res, API not called");
+        return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
-      return error
+      console.log("res-err** -=>",error);
+      return error;
     }
   }
 );
@@ -32,14 +38,19 @@ export const otpVerificationAPI = createAsyncThunk(
   "auth/otpverification",
   async (body, thunkAPI) => {
     try {
-      const res = await axios.post(`${backendUrl}/verify-otp/`, body, config);
+      const res = await axios.post(`${backendUrl}/verify-otp/`, body, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      } );
       if (res.data) {
         return res;
       } else {
-        console.log("No data in res, API not called");
+        return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
-      console.log("error :", error);
+      return error;
     }
   }
 );
@@ -49,18 +60,19 @@ export const signupAPI = createAsyncThunk(
   "auth/signup",
   async (body, thunkAPI) => {
     try {
-      const res = await axios.post(`${backendUrl}/signup/`, body, config);
-      console.log("res111: ", res);
+      const res = await axios.post(`${backendUrl}/signup/`, body, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      } );
 
       if (res.data) {
-        console.log("res** :", res.data);
         return res.data;
       } else {
-        console.log("dataapi:");
         return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
-      console.log("err :", error);
       return error;
     }
   }
@@ -88,3 +100,45 @@ export const loginAPI = createAsyncThunk(
     }
   }
 );
+
+//----------------------Forgot-PasswordAPI------------------//
+export const forgotAPI = createAsyncThunk("forgotpassword",
+  async (body, thunkAPI) => {
+    try {
+      const response = await axios.post(`${backendUrl}/update-password/`, body, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.data) {
+        return response;
+      } else {
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+)
+
+//---------------------Logout API---------------------------//
+export const logoutAPI = createAsyncThunk("logout",
+  async (body, thunkAPI) => {
+    try {
+      const response = await axios.post(`${backendUrl}/logout/`, body, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.data) {
+        return response;
+      } else {
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+)

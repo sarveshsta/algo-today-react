@@ -3,10 +3,13 @@ import React, { useState } from "react";
 import { VscBellDot } from "react-icons/vsc";
 import { IoExitOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutAPI } from "../../user/features/auth/authAuthentication";
 
 const HorizontalNav = () => {
   const [showNotification, setShowNotification] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const iconClick = () => {
     setShowNotification(true);
@@ -19,6 +22,14 @@ const HorizontalNav = () => {
       setShowNotification(false);
     }, 6000);
   };
+
+  const handleLogout = async() => {
+    try{
+      await dispatch(logoutAPI())
+    } catch(error){
+       console.log("err** =>>",error);
+    }
+  }
 
   return (
     <div className="HorizontalNav">
@@ -40,7 +51,7 @@ const HorizontalNav = () => {
       />
       <IoExitOutline
         className="Horizontalimg3"
-        onClick={() => navigate("/login")}
+        onClick={handleLogout}
       />
 
       {/* Notification */}

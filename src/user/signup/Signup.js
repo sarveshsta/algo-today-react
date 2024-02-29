@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import Formcomp from "../../components/formcomponent/Formcomp";
 import { signupAPI } from "../features/auth/authAuthentication";
+import Formbutton from "../../components/formcomponent/Formbutton";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -82,8 +84,7 @@ const Signup = () => {
               Just some details to get you in !
             </p>
             <form className="form-form" onSubmit={formik.handleSubmit}>
-              <input
-                className="signup-form-input"
+              <Formcomp
                 type="text"
                 placeholder="Name"
                 name="name"
@@ -97,8 +98,7 @@ const Signup = () => {
                 </div>
               ) : null}
 
-              <input
-                className="signup-form-input"
+              <Formcomp
                 type="text"
                 placeholder="Mobile Number"
                 name="phone"
@@ -106,14 +106,14 @@ const Signup = () => {
                 onBlur={formik.handleBlur}
                 value={formik.values.phone}
               />
+
               {formik.touched.phone && formik.errors.phone ? (
                 <div className="error-message" style={{ color: "red" }}>
                   {formik.errors.phone}
                 </div>
               ) : null}
 
-              <input
-                className="signup-form-input"
+              <Formcomp
                 type="text"
                 placeholder="Enter OTP"
                 name="otp"
@@ -127,8 +127,7 @@ const Signup = () => {
                 </div>
               ) : null}
 
-              <input
-                className="signup-form-input"
+              <Formcomp
                 type="password"
                 placeholder="Password"
                 name="password"
@@ -142,8 +141,7 @@ const Signup = () => {
                 </div>
               ) : null}
 
-              <input
-                className="signup-form-input"
+              <Formcomp
                 type="email"
                 placeholder="Email"
                 name="email"
@@ -157,9 +155,7 @@ const Signup = () => {
                 </div>
               ) : null}
 
-              <button className="signup-form-button" type="submit">
-                Signup
-              </button>
+              <Formbutton type="submit" text="Signup" />
             </form>
             <p className="signup-form-already-registered-para">
               Already registered?{" "}
