@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { IoTriangle } from "react-icons/io5";
-import Navbar from "../components/navbar/Navbar";
-import HorizontalNav from "../components/navbar/HorizontalNav";
+import Navbar from "../../components/navbar/Navbar";
+import HorizontalNav from "../../components/navbar/HorizontalNav";
 
 const ManageTrading = () => {
   return (

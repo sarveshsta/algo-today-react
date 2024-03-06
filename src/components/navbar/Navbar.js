@@ -1,8 +1,8 @@
 import "./navbar.css";
-import { Link, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { GrHomeRounded } from "react-icons/gr";
 import { IoIosCloseCircle } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 
 const Navbar = () => {

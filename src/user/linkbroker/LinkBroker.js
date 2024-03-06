@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Navbar from "../components/navbar/Navbar";
-import HorizontalNav from "../components/navbar/HorizontalNav";
+import Navbar from "../../components/navbar/Navbar";
+import HorizontalNav from "../../components/navbar/HorizontalNav";
 
 const Wrapper = styled.div`
   .container {
@@ -50,54 +50,75 @@ const Wrapper = styled.div`
     font-style: normal;
     font-weight: 400;
     margin: 0;
-  },
+  }
+  ,
   img.box1-img {
     position: relative;
     top: 4vh;
-},
-.box-btnn-div {
+  }
+  ,
+  .box-btnn-div {
     border-radius: inherit;
     position: relative;
     top: 14vh;
-},
-button.btn.btn-primary {
+  }
+  ,
+  button.btn.btn-primary {
     border-radius: 13px;
-},
-img.box2-img {
+  }
+  ,
+  img.box2-img {
     position: relative;
     top: 4vh;
-},
-img.box3-img {
+  }
+  ,
+  img.box3-img {
     position: relative;
     top: 4vh;
-},
-img.box4-img {
+  }
+  ,
+  img.box4-img {
     position: relative;
     top: 4vh;
-},
-#row-box-3 {
+  }
+  ,
+  #row-box-3 {
     border-radius: 1.25rem;
     background: rgba(255, 255, 255, 0.01);
-    box-shadow: 0px 1px 40px 0px rgba(52, 152, 219, 0.20) inset, 0px 4px 18px 0px #3498DB inset, 0px 98px 100px -48px rgba(52, 152, 219, 0.30) inset, 0px -82px 68px -64px rgba(52, 152, 219, 0.30) inset, 0px 11px 10.9px -4px #FFF inset, 0px 39px 56px -36px rgba(255, 255, 255, 0.50) inset;
+    box-shadow: 0px 1px 40px 0px rgba(52, 152, 219, 0.2) inset,
+      0px 4px 18px 0px #3498db inset,
+      0px 98px 100px -48px rgba(52, 152, 219, 0.3) inset,
+      0px -82px 68px -64px rgba(52, 152, 219, 0.3) inset,
+      0px 11px 10.9px -4px #fff inset,
+      0px 39px 56px -36px rgba(255, 255, 255, 0.5) inset;
     backdrop-filter: blur(50px);
-},
-#row2-box-2 {
+  }
+  ,
+  #row2-box-2 {
     border-radius: 1.25rem;
     background: rgba(255, 255, 255, 0.01);
-    box-shadow: 0px 1px 40px 0px rgba(52, 152, 219, 0.20) inset, 0px 4px 18px 0px #3498DB inset, 0px 98px 100px -48px rgba(52, 152, 219, 0.30) inset, 0px -82px 68px -64px rgba(52, 152, 219, 0.30) inset, 0px 11px 10.9px -4px #FFF inset, 0px 39px 56px -36px rgba(255, 255, 255, 0.50) inset;
+    box-shadow: 0px 1px 40px 0px rgba(52, 152, 219, 0.2) inset,
+      0px 4px 18px 0px #3498db inset,
+      0px 98px 100px -48px rgba(52, 152, 219, 0.3) inset,
+      0px -82px 68px -64px rgba(52, 152, 219, 0.3) inset,
+      0px 11px 10.9px -4px #fff inset,
+      0px 39px 56px -36px rgba(255, 255, 255, 0.5) inset;
     backdrop-filter: blur(50px);
-},
-#boxbtndivid1 {
+  }
+  ,
+  #boxbtndivid1 {
     position: relative;
     top: 10.2vh;
-},
-#boxbtndivid2 {
+  }
+  ,
+  #boxbtndivid2 {
     position: relative;
     top: 10.2vh;
-},
+  }
 
-.btn.btn-primary:before,
-.btn.btn-primary:after {
+  ,
+  .btn.btn-primary:before,
+  .btn.btn-primary:after {
     width: 4.4em;
     height: 2.95em;
     position: absolute;
@@ -108,23 +129,22 @@ img.box4-img {
     transition: transform 1s ease;
     transform: scale(0);
     z-index: -1;
-}
+  }
 
-.btn.btn-primary:before {
+  .btn.btn-primary:before {
     top: -25%;
     left: 20%;
-}
+  }
 
-.btn.btn-primary:after {
+  .btn.btn-primary:after {
     bottom: -25%;
     right: 20%;
-}
+  }
 
-.btn.btn-primary:hover:before,
-.btn.btn-primary:hover:after {
+  .btn.btn-primary:hover:before,
+  .btn.btn-primary:hover:after {
     transform: none;
-}
-
+  }
 `;
 
 const LinkBroker = () => {
@@ -140,12 +160,12 @@ const LinkBroker = () => {
             </div>
             <img
               className="box1-img"
-              src={require("../assets/Group.png")}
+              src={require("../../assets/Group.png")}
               alt="Zerodha logo"
             />
             <img
               className="box1-img"
-              src={require("../assets/Group (1).png")}
+              src={require("../../assets/Group (1).png")}
               alt="Zerodha"
             />
             <div className="box-btnn-div">
@@ -161,12 +181,12 @@ const LinkBroker = () => {
             </div>
             <img
               className="box2-img"
-              src={require("../assets/Group.png")}
+              src={require("../../assets/Group.png")}
               alt="Zerodha logo"
             />
             <img
               className="box2-img"
-              src={require("../assets/Group (1).png")}
+              src={require("../../assets/Group (1).png")}
               alt="Zerodha"
             />
             <div className="box-btnn-div">
@@ -174,7 +194,7 @@ const LinkBroker = () => {
                 <button type="button" className="btn btn-primary">
                   Setup
                 </button>
-              </Link>     
+              </Link>
             </div>
           </div>
         </div>
@@ -190,7 +210,7 @@ const LinkBroker = () => {
             </div>
             <img
               className="box3-img"
-              src={require("../assets/angel-one-logos-id-Z21xHlt.png")}
+              src={require("../../assets/angel-one-logos-id-Z21xHlt.png")}
               alt="Zerodha logo"
             />
             <div id="boxbtndivid1" className="box-btnn-div">
@@ -210,7 +230,7 @@ const LinkBroker = () => {
             </div>
             <img
               className="box4-img"
-              src={require("../assets/angel-one-logos-id-Z21xHlt.png")}
+              src={require("../../assets/angel-one-logos-id-Z21xHlt.png")}
               alt="Zerodha logo"
             />
             <div id="boxbtndivid2" className="box-btnn-div">

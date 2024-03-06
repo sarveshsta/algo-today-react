@@ -1,9 +1,13 @@
-import React, { useState } from "react";
 import Select from "react-select";
 import styled from "styled-components";
-import Shape from "../components/shape/Shape";
-import Navbar from "../components/navbar/Navbar";
-import HorizontalNav from "../components/navbar/HorizontalNav";
+import { useDispatch, useSelector } from "react-redux";
+import Shape from "../../components/shape/Shape";
+import React, { useEffect, useState } from "react";
+import Navbar from "../../components/navbar/Navbar";
+import Newshape from "../../components/shape/custshape/Newshape"
+import HorizontalNav from "../../components/navbar/HorizontalNav";
+import Orangenewshape from "../../components/shape/custshape/Orangenewshape";
+import { getBankniftyDataApi } from "../features/auth/authAuthentication";
 
 const option1 = [
   { value: "index", label: "index" },
@@ -48,8 +52,8 @@ const autoData = [
 const custStyle = {
   option: (provided, state) => ({
     ...provided,
-    backgroundColor: state.isSelected ? "#ff00ff" : "#ffd1dc",
-    color: "white",
+    // backgroundColor: state.isSelected ? "#ff00ff" : "#ffd1dc",
+    color: "black",
     padding: 20,
     border: state.isSelected ? "2px solid #32CD32" : "1px solid #0000ff",
     "&:hover": {
@@ -60,23 +64,25 @@ const custStyle = {
   control: (provided) => ({
     ...provided,
     // minHeight: 50,
-    textAlign: "center",
-    backgroundColor: "#3498DB",
+    extAlign: "center",
+    // backgroundColor: "#3498DB",
     borderRadius: 25,
+    backgroundColor: "rgba(52, 152, 219, 0.2)",
+    border: "1px solid rgba(52, 152, 219, 1)",
     // border: "2px solid #ff00ff",
     // fontSize: 20,
     "&:hover": {
-      borderColor: "#7fffd4",
+      // borderColor: "#7fffd4",
     },
   }),
   singleValue: (provided) => ({
     ...provided,
-    color: "white",
+    color: "black",
     fontSize: 20,
   }),
   placeholder: (provided) => ({
     ...provided,
-    color: "white",
+    color: "black",
     fontSize: 20,
   }),
 };
@@ -88,8 +94,12 @@ const CustomStrategies = () => {
     option3,
     option4,
     option5,
+    autoData,
   ]);
   const [checkedCheckBox, setCheckedCheckBox] = useState(false);
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.auth)
+  console.log("state", state);
 
   const handleSubmit = (changeinput) => {
     setSelectedInput(changeinput);
@@ -103,11 +113,18 @@ const CustomStrategies = () => {
     console.log("selected", checkedCheckBox);
   };
 
+  useEffect(() => {
+    dispatch(getBankniftyDataApi())
+  },[])
+
   return (
     <Wrapper>
       <HorizontalNav />
       <Navbar />
       {/* <Shape/> */}
+      <Orangenewshape/>
+      <Newshape/>
+      
       <div className="customstrategies-main-container">
         <div className="algo-trading-container">
           <h3>Custom Algo-Trading Strategy</h3>
@@ -164,8 +181,18 @@ const CustomStrategies = () => {
             type="text"
             placeholder="No. of shares/Amount"
           />
-          <Select options={autoData} value={autoData} styles={custStyle} />
-          <Select options={autoData} value={autoData} styles={custStyle} />
+          <Select
+            options={autoData}
+            value={selectedInput[5]}
+            styles={custStyle}
+            onChange={handleSubmit}
+          />
+          <Select
+            options={autoData}
+            value={selectedInput[5]}
+            styles={custStyle}
+            onChange={handleSubmit}
+          />
         </div>
         <div className="cust-input-second">
           <input
@@ -173,8 +200,18 @@ const CustomStrategies = () => {
             type="text"
             placeholder="No. of shares/Amount"
           />
-          <Select options={autoData} value={autoData} styles={custStyle} />
-          <Select options={autoData} value={autoData} styles={custStyle} />
+          <Select
+            options={autoData}
+            value={selectedInput[5]}
+            styles={custStyle}
+            onChange={handleSubmit}
+          />
+          <Select
+            options={autoData}
+            value={selectedInput[5]}
+            styles={custStyle}
+            onChange={handleSubmit}
+          />
         </div>
       </div>
 
@@ -222,7 +259,7 @@ const CustomStrategies = () => {
             >
               Submit
             </button>
-            <button type="button" id="buy-btn2" class="btn">
+            <button type="button" id="buy-btn2" className="btn">
               Add
             </button>
           </div>
@@ -279,7 +316,7 @@ const CustomStrategies = () => {
         </div>
 
         <div className="buying-pre-condition-seconddiv">
-          <h2> selling Value</h2>
+          <h2> Selling Value</h2>
           <input
             className="cust-inputbtn"
             type="text"
@@ -290,19 +327,27 @@ const CustomStrategies = () => {
 
       <div className="buying-pre-condition-thirddiv">
         <div className="thirdddiv">
-          <input
-            className="cust-inputbtn"
-            type="text"
-            placeholder="Enter LTP"
-          />
-          <input
-            className="cust-inputbtn"
-            type="text"
-            placeholder="Enter LTP"
-          />
+          <div className="thirdddiv">
+            <input
+              className="cust-inputbtn"
+              type="text"
+              placeholder="Enter LTP"
+            />
+          </div>
+          <div>
+            <input
+              className="cust-inputbtn"
+              type="text"
+              placeholder="Enter LTP"
+            />
+          </div>
         </div>
         <div className="thirdddiv-btnn">
-          <button type="button" id="thirdddiv-btnn1" className="btn btn-primary">
+          <button
+            type="button"
+            id="thirdddiv-btnn1"
+            className="btn btn-primary"
+          >
             Start Amount Trading
           </button>
           <button type="button" id="thirdddiv-btnn2" className="btn">
@@ -316,11 +361,17 @@ const CustomStrategies = () => {
 
 const Wrapper = styled.div`
   .customstrategies-main-container {
+    background: linear-gradient(
+      90.3deg,
+      rgba(255, 255, 255, 0.75) 0.06%,
+      rgba(255, 255, 255, 0.45) 100%
+    );
     box-shadow: 0px 28px 62px 0px #0000001a;
     border-radius: 8px;
     text-align: center;
     margin-left: 16%;
     margin-top: 1rem;
+    padding:2rem;
   }
 
   ,
@@ -375,7 +426,7 @@ const Wrapper = styled.div`
   }
   ,
   .cust-inputbtn {
-    padding: 10px;
+    padding: 6px;
     border-radius: 31px;
     border: 1px solid #3498db;
     color: #3498db;
@@ -415,8 +466,9 @@ const Wrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(2, auto);
     row-gap: 17%;
-  },
+  }
 
+  ,
   .buy-condition-btn {
     margin-top: 1.5rem;
 
@@ -430,9 +482,9 @@ const Wrapper = styled.div`
       border: 1px solid #3498db;
       border-radius: 31px;
     }
-  },
+  }
 
-
+  ,
   .buying-pre-condition-thirddiv {
     margin-left: 17%;
     margin-top: 2rem;
@@ -537,6 +589,7 @@ const Wrapper = styled.div`
     vertical-align: middle;
     cursor: pointer;
     margin-left: 4px;
+    margin-bottom: 8px;
   }
 
   .checkbox-wrapper-13 input[type="checkbox"]:not(.switch) {

@@ -1,15 +1,16 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import Formcomp from "../../components/formcomponent/Formcomp";
+import Formbutton from "../../components/formcomponent/Formbutton";
 import {
   forgotAPI,
   mobileAuthentication,
   otpVerificationAPI,
 } from "../features/auth/authAuthentication";
-import Formbutton from "../../components/formcomponent/Formbutton";
-import Formcomp from "../../components/formcomponent/Formcomp";
 
 const Forgotpassword = () => {
   const [logapicalled, setLogApiCalled] = useState(false);
@@ -19,7 +20,7 @@ const Forgotpassword = () => {
   const navigate = useNavigate();
   const formData = new FormData();
 
-  const forAuth = useSelector((state) => state.auth.user);
+  const forAuth = useSelector((state) => state?.auth?.user);
   console.log("forauth** =>>", forAuth);
 
   const formik = useFormik({
@@ -53,13 +54,15 @@ const Forgotpassword = () => {
         }),
     }),
     onSubmit: async (values) => {
+      console.log("val** =>>", values);
       if (!logapicalled) {
         formData.append("phone", values.number);
         try {
-          await dispatch(mobileAuthentication(formData));
-          if (forAuth.data && forAuth.data.success === true) {
-            setLogApiCalled(true);
-          }
+          dispatch(mobileAuthentication(formData));
+          // if (forAuth?.data && forAuth?.data?.success === true) {
+          setLogApiCalled(true);
+          //   toast.success(forAuth?.data?.message);
+          // }
         } catch (error) {
           console.log("mobile-error** =>>", error);
         }
@@ -67,18 +70,17 @@ const Forgotpassword = () => {
         formData.append("otp", values.otp);
         formData.append("phone", values.number);
         try {
-          await dispatch(otpVerificationAPI(formData));
+          dispatch(otpVerificationAPI(formData));
           setOtpApiCalled(true);
         } catch (error) {
           console.log("otp-error** =>>", error);
         }
       }
       if (Otpapicalled) {
-        formData.append("password", values.password);
-        formData.append("confirmpassword", values.confirmpassword);
+        formData.append("password", values?.password);
+        formData.append("confirmpassword", values?.confirmpassword);
         try {
-          await dispatch(forgotAPI(formData));
-          // setOtpApiCalled(true);
+          dispatch(forgotAPI(formData));
         } catch (error) {
           console.log("otp-error** =>>", error);
         }
@@ -86,8 +88,24 @@ const Forgotpassword = () => {
     },
   });
 
+  useEffect(() => {
+    if (forAuth?.data) {
+      toast.success(forAuth.data.message);
+    } else if (forAuth?.data && logapicalled) {
+      toast.success(forAuth.data.message);
+    } else if (forAuth?.data && logapicalled && Otpapicalled) {
+      toast.success(forAuth.data.message);
+    }
+  }, [forAuth?.data, logapicalled, Otpapicalled]);
+
   return (
     <>
+      <ToastContainer
+        autoClose={2000}
+        pauseOnFocusLoss={true}
+        closeOnClick={true}
+        draggable={true}
+      />
       <div
         className="forgotpass-main-section"
         style={{ padding: "2.3rem", background: "rgba(238, 242, 242, 1)" }}
@@ -118,13 +136,13 @@ const Forgotpassword = () => {
                       type="text"
                       placeholder="Mobile Number"
                       name="number"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.number}
+                      onChange={formik?.handleChange}
+                      onBlur={formik?.handleBlur}
+                      value={formik?.values?.number}
                     />
-                    {formik.touched.number && formik.errors.number ? (
+                    {formik?.touched?.number && formik?.errors?.number ? (
                       <div className="error-message" style={{ color: "red" }}>
-                        {formik.errors.number}
+                        {formik?.errors?.number}
                       </div>
                     ) : null}
 

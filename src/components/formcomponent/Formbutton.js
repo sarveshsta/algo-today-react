@@ -10,4 +10,4 @@ const Formbutton = ({ type, text }) => {
   );
 };
 
-export default Formbutton;
+export default React.memo(Formbutton);

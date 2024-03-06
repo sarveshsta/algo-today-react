@@ -2,18 +2,19 @@ import React from "react";
 import * as Yup from "yup";
 import "../signup/signup.css";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { loginAPI } from "../features/auth/authAuthentication";
-import Formbutton from "../../components/formcomponent/Formbutton";
 import Formcomp from "../../components/formcomponent/Formcomp";
+import Formbutton from "../../components/formcomponent/Formbutton";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const auth = useSelector((state) => state?.auth?.user);
-  console.log("loginAuth", auth);
-  const { status, data } = auth || {};
+  const { status, data, response } = auth || {};
 
   const formik = useFormik({
     initialValues: {
@@ -40,11 +41,12 @@ const Login = () => {
     onSubmit: (values) => {
       dispatch(loginAPI(values));
 
-      // if (status === 400) {
-      //   toast.error(data.message);
-      // } else if (status === 200) {
-      //   toast.success(data.message);
-      // }
+      if(data){
+        toast.success(data.message);
+        navigate("/dashbord")
+      }else if(response) {
+        toast.error(response.data.message);
+      }
     },
   });
 
@@ -138,8 +140,7 @@ const Login = () => {
               </form>
               <p className="signup-form-already-registered-para">
                 <Link className="linking" to="/forgotpassword">
-                  {" "}
-                  Forgot Password?{" "}
+                  Forgot Password?
                 </Link>
               </p>
 

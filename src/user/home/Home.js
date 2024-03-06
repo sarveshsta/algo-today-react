@@ -1,12 +1,12 @@
-import "../user/home.css";
+import "./home.css";
 import axios from "axios";
 import * as Yup from "yup";
 import Select from "react-select";
 import { useFormik } from "formik";
-import Navbar from "../components/navbar/Navbar";
+import Navbar from "../../components/navbar/Navbar";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import HorizontalNav from "../components/navbar/HorizontalNav";
+import HorizontalNav from "../../components/navbar/HorizontalNav";
 
 const Home = () => {
   const [selectedState, setSelectedState] = useState(null);

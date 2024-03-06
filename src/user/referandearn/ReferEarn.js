@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Bounce, ToastContainer, toast } from "react-toastify";
-import Navbar from "../components/navbar/Navbar";
-import HorizontalNav from "../components/navbar/HorizontalNav";
+import Navbar from "../../components/navbar/Navbar";
+import HorizontalNav from "../../components/navbar/HorizontalNav";
 
 const Wrapper = styled.div`
   .refer-main-div {
@@ -213,7 +213,7 @@ const ReferEarn = () => {
             <div className="ref-section1">
               <img
                 className="ref-image"
-                src={require("../assets/icons/undraw_share_link.png")}
+                src={require("../../assets/icons/undraw_share_link.png")}
               />
             </div>
             <div className="ref-section2">

@@ -1,9 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { forgotAPI, loginAPI, logoutAPI } from "./authAuthentication";
 import {
+  getBankniftyDataApi,
   mobileAuthentication,
   otpVerificationAPI,
   signupAPI,
+} from "./authAuthentication";
+import { 
+  forgotAPI, 
+  loginAPI, 
+  logoutAPI 
 } from "./authAuthentication";
 
 const initialState = {
@@ -12,6 +17,7 @@ const initialState = {
   user: "",
   message: "",
   token: "",
+  data:[]
 };
 
 const authSlice = createSlice({
@@ -29,7 +35,7 @@ const authSlice = createSlice({
       if (action.payload.status === 200) {
         const localSavePayload = {
           otp: action?.payload?.data?.data?.otp,
-          ...JSON.parse(action?.payload?.config?.data)
+          ...JSON.parse(action?.payload?.config?.data),
         };
         localStorage.setItem(
           "authdetail",
@@ -40,7 +46,7 @@ const authSlice = createSlice({
     builder.addCase(mobileAuthentication.rejected, (state, action) => {
       state.loading = true;
       state.error = action.error;
-      state.user = action.payload
+      state.user = action.payload;
     });
 
     //-----------------OTP Verification case---------------//
@@ -82,9 +88,9 @@ const authSlice = createSlice({
       state.error = action.error;
       state.user = action.payload;
     });
-    
+
     //-----------------forgotpassword case---------------//
-    builder.addCase(forgotAPI.pending, (state,action) => {
+    builder.addCase(forgotAPI.pending, (state, action) => {
       state.loading = true;
       state.error = action.payload;
     });
@@ -99,21 +105,39 @@ const authSlice = createSlice({
     });
 
     //-----------------logout case-----------------------//
-    builder.addCase(logoutAPI.pending, (state,action) => {
+    builder.addCase(logoutAPI.pending, (state, action) => {
       state.loading = true;
       state.error = action.payload;
     });
     builder.addCase(logoutAPI.fulfilled, (state, action) => {
       state.loading = false;
       state.user = action.payload;
-      if(action.payload.status === 200){
-        localStorage.removeItem("authdetail")
+      if (action.payload.status === 200) {
+        localStorage.removeItem("authdetail");
       }
     });
     builder.addCase(logoutAPI.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error;
       state.user = action.payload;
+    });
+
+    //----------------- Banknifty data case -----------------------//
+    builder.addCase(getBankniftyDataApi.pending, (state, action) => {
+      console.log("getBankniftyDataApi.pending** =>",action);
+      state.loading = true;
+      state.error = action.payload;
+    });
+    builder.addCase(getBankniftyDataApi.fulfilled, (state, action) => {
+      console.log("getBankniftyDataApi.fulfilled** =>",action.payload);
+      state.loading = false;
+      state.data = action.payload;
+    });
+    builder.addCase(getBankniftyDataApi.rejected, (state, action) => {
+      console.log("getBankniftyDataApi.rejected** =>",action);
+      state.loading = false;
+      state.error = action.error;
+      state.data = action.payload;
     });
   },
 });

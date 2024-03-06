@@ -19,15 +19,14 @@ export const mobileAuthentication = createAsyncThunk(
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-      } );
-      if (res.data) {
-        console.log("res** -=>", res);
+      });
+      if (res) {
         return res;
       } else {
         return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
-      console.log("res-err** -=>",error);
+      console.log("res-err** -=>", error);
       return error;
     }
   }
@@ -43,8 +42,8 @@ export const otpVerificationAPI = createAsyncThunk(
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-      } );
-      if (res.data) {
+      });
+      if (res) {
         return res;
       } else {
         return thunkAPI.rejectWithValue(res.data);
@@ -65,7 +64,7 @@ export const signupAPI = createAsyncThunk(
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-      } );
+      });
 
       if (res.data) {
         return res.data;
@@ -102,16 +101,21 @@ export const loginAPI = createAsyncThunk(
 );
 
 //----------------------Forgot-PasswordAPI------------------//
-export const forgotAPI = createAsyncThunk("forgotpassword",
+export const forgotAPI = createAsyncThunk(
+  "forgotpassword",
   async (body, thunkAPI) => {
     try {
-      const response = await axios.post(`${backendUrl}/update-password/`, body, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.data) {
+      const response = await axios.post(
+        `${backendUrl}/update-password/`,
+        body,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response) {
         return response;
       } else {
         return thunkAPI.rejectWithValue(response);
@@ -120,25 +124,49 @@ export const forgotAPI = createAsyncThunk("forgotpassword",
       return thunkAPI.rejectWithValue(error);
     }
   }
-)
+);
 
 //---------------------Logout API---------------------------//
-export const logoutAPI = createAsyncThunk("logout",
+export const logoutAPI = createAsyncThunk("logout", async (body, thunkAPI) => {
+  try {
+    const response = await axios.post(`${backendUrl}/logout/`, body, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.data) {
+      return response;
+    } else {
+      return thunkAPI.rejectWithValue(response);
+    }
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+//------------------ Banknifty data API---------------//
+export const getBankniftyDataApi = createAsyncThunk(
+  "bankniftyindexdata",
   async (body, thunkAPI) => {
     try {
-      const response = await axios.post(`${backendUrl}/logout/`, body, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.data) {
+      const response = await axios.get(
+        "https://4e21-2405-201-301d-f84d-9125-5eba-99a0-17c3.ngrok-free.app/tokens/BANKNIFTY",
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response) {
+        console.log("res** =>>", response);
         return response;
       } else {
-        return thunkAPI.rejectWithValue(response);
+        return response;
       }
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      thunkAPI.rejectWithValue(error);
     }
   }
-)
+);

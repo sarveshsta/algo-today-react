@@ -55,7 +55,7 @@ const HorizontalNav = () => {
       />
 
       {/* Notification */}
-      {showNotification && <div className="icon-notification-div"></div>}
+      {showNotification && <div className="icon-notification-div"> This is Notification Pop-Up</div>}
     </div>
   );
 };

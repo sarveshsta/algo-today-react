@@ -16,7 +16,7 @@ const Mobile = () => {
   // console.log("mobauth2 ==>> ", mobileAuth2);
   console.log("mobauth ==>> ", mobileAuth);
 
-  const { status, data } = mobileAuth || {};
+  const { status, data, } = mobileAuth || {};
   const { message } = data || {};
 
   const formik = useFormik({
@@ -39,7 +39,7 @@ const Mobile = () => {
             navigate("/newotp");
           },
         });
-      } else if (status === 400) {
+      } else if (status === 401) {
         return toast.error(message);
       } else {
         return toast(message);

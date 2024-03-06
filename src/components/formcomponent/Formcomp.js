@@ -15,4 +15,4 @@ const Formcomp = ({ type, placeholder, name, onChange, onBlur, value }) => {
     </>
   );
 };
-export default Formcomp;
+export default React.memo(Formcomp);

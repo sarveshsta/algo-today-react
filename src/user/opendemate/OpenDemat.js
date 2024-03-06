@@ -1,8 +1,8 @@
 import React from "react";
 import "./opendemate.css";
 import { Link } from "react-router-dom";
-import Navbar from "../components/navbar/Navbar";
-import HorizontalNav from "../components/navbar/HorizontalNav";
+import Navbar from "../../components/navbar/Navbar";
+import HorizontalNav from "../../components/navbar/HorizontalNav";
 
 const OpenDemat = () => {
   return (
@@ -105,7 +105,7 @@ const OpenDemat = () => {
             <img
               id="firstLink-firstdiv-firstimg"
               className="w-full h-48 object-cover object-center"
-              src={require("../assets/icons/zerodha img.png")}
+              src={require("../../assets/icons/zerodha img.png")}
               alt="Zerodha"
             />
             <div className="px-6 py-4">
@@ -127,7 +127,7 @@ const OpenDemat = () => {
             <img
               id="firstLink-firstdiv-seconddiv"
               className="w-full h-48 object-cover object-center"
-              src={require("../assets/icons/angel img.webp")}
+              src={require("../../assets/icons/angel img.webp")}
               alt="Card Image"
             />
             <div className="px-6 py-4">
@@ -149,7 +149,7 @@ const OpenDemat = () => {
             <img
               id="firstLink-firstdiv-thirdimg"
               className="w-full h-48 object-cover object-center"
-              src={require("../assets/icons/kotak securities.webp")}
+              src={require("../../assets/icons/kotak securities.webp")}
               alt="Card Image"
             />
             <div className="px-6 py-4">
@@ -171,7 +171,7 @@ const OpenDemat = () => {
             <img
               id="firstLink-firstdiv-fourthimg"
               className="w-full h-48 object-cover object-center"
-              src={require("../assets/icons/5 pAISA IMG.png")}
+              src={require("../../assets/icons/5 pAISA IMG.png")}
               alt="Card Image"
             />
             <div className="px-6 py-4">
