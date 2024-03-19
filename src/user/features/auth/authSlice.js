@@ -1,14 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  getBankniftyDataApi,
   mobileAuthentication,
   otpVerificationAPI,
   signupAPI,
-} from "./authAuthentication";
-import { 
-  forgotAPI, 
-  loginAPI, 
-  logoutAPI 
+  forgotAPI,
+  loginAPI,
+  logoutAPI,
 } from "./authAuthentication";
 
 const initialState = {
@@ -17,13 +14,28 @@ const initialState = {
   user: "",
   message: "",
   token: "",
-  data:[]
+  data: [],
+  status: "",
+  statusText:"",
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    addUser : () => {
+
+    },
+    deleteUser : () => {
+      
+    },
+    updateUser : () => {
+      
+    },
+    storageLocal: () => {
+
+    },
+  },
   extraReducers: (builder) => {
     //-----------------mobileAuthentication case---------------//
     builder.addCase(mobileAuthentication.pending, (state, action) => {
@@ -106,10 +118,12 @@ const authSlice = createSlice({
 
     //-----------------logout case-----------------------//
     builder.addCase(logoutAPI.pending, (state, action) => {
+      console.log("logout-pending", action.payload);
       state.loading = true;
       state.error = action.payload;
     });
     builder.addCase(logoutAPI.fulfilled, (state, action) => {
+      console.log("logout-fulfilled", action.payload);
       state.loading = false;
       state.user = action.payload;
       if (action.payload.status === 200) {
@@ -117,27 +131,10 @@ const authSlice = createSlice({
       }
     });
     builder.addCase(logoutAPI.rejected, (state, action) => {
+      console.log("logout-rejected", action.payload);
       state.loading = false;
       state.error = action.error;
       state.user = action.payload;
-    });
-
-    //----------------- Banknifty data case -----------------------//
-    builder.addCase(getBankniftyDataApi.pending, (state, action) => {
-      console.log("getBankniftyDataApi.pending** =>",action);
-      state.loading = true;
-      state.error = action.payload;
-    });
-    builder.addCase(getBankniftyDataApi.fulfilled, (state, action) => {
-      console.log("getBankniftyDataApi.fulfilled** =>",action.payload);
-      state.loading = false;
-      state.data = action.payload;
-    });
-    builder.addCase(getBankniftyDataApi.rejected, (state, action) => {
-      console.log("getBankniftyDataApi.rejected** =>",action);
-      state.loading = false;
-      state.error = action.error;
-      state.data = action.payload;
     });
   },
 });

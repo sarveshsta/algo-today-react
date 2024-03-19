@@ -1,3 +1,4 @@
+import "./wallet.css";
 import * as yup from "yup";
 import styled from "styled-components";
 import React, { useState } from "react";
@@ -6,18 +7,18 @@ import { ErrorMessage, Form, Formik, Field } from "formik";
 import HorizontalNav from "../../components/navbar/HorizontalNav";
 
 const Wallet = () => {
-  const [cardNumber, setCardNumber] = useState("");
   const [cardHolderName, setCardHolderName] = useState("");
-  const [expiry, setExpiry] = useState("");
-  const [cvvNumber, setCvvNumber] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
   const [depositing, setDepositing] = useState("");
+  const [cvvNumber, setCvvNumber] = useState("");
+  const [expiry, setExpiry] = useState("");
 
   const initialValues = {
-    cardNumber: "",
     cardHolderName: "",
-    expiry: "",
+    cardNumber: "",
     cvvNumber: "",
     depositing: 0,
+    expiry: "",
   };
 
   const validationSchema = yup.object({
@@ -25,16 +26,16 @@ const Wallet = () => {
       .string()
       .matches(/^[0-9]{16}$/, "Enter a valid card Number")
       .required("Card number is required"),
-    cardHolderName: yup.string().required("Card holder name is required"),
     expiry: yup.string().required("Expiry date is required"),
     cvvNumber: yup.string().required("CVV number is required"),
     depositing: yup.number().required("Depositing amount is required"),
+    cardHolderName: yup.string().required("Card holder name is required"),
   });
 
   const handleSubmit = () => {};
   return (
     <>
-      <Wrapper>
+      <div>
         <HorizontalNav />
         <Navbar />
         <div id="wallet-container" className="container">
@@ -215,273 +216,8 @@ const Wallet = () => {
             </div>
           </div>
         </div>
-      </Wrapper>
+      </div>
     </>
   );
 };
-
-const Wrapper = styled.div`
-  #wallet-container {
-    // border: 2px solid;
-    margin-left: 17%;
-    width: -webkit-fill-available;
-    display: flex;
-    display: -webkit-flex;
-    height: 89vh;
-  }
-
-  ,
-  #container-div3-3 {
-    text-align: center;
-    display: block;
-    margin: 0px;
-    border-radius: 30px;
-    border: 2px solid var(--Linear, #ffffe5);
-    background: #fff;
-    box-shadow: 0px 18px 40px 0px rgba(148, 94, 0, 0.1),
-      0px 73px 73px 0px rgba(148, 94, 0, 0.09),
-      0px 164px 98px 0px rgba(148, 94, 0, 0.05),
-      0px 291px 116px 0px rgba(148, 94, 0, 0.01),
-      0px 455px 127px 0px rgba(148, 94, 0, 0);
-  }
-
-  ,
-  .container-div1-1-h2 {
-    // border: 2px solid;
-    display: inline;
-    height: max-content;
-  }
-
-  ,
-  .container-div1-1-para {
-    // border: 2px solid;
-    display: inline;
-    height: max-content;
-    // margin-top: -15%;
-  }
-
-  ,
-  #container-div1-1 {
-    width: -webkit-fill-available;
-    margin: 1px;
-    text-align: center;
-    border-radius: 1.875rem;
-    background: #fff;
-    box-shadow: 0px 43px 95px 0px rgba(41, 41, 41, 0.1),
-      0px 173px 173px 0px rgba(41, 41, 41, 0.09),
-      0px 388px 233px 0px rgba(41, 41, 41, 0.05),
-      1px 690px 276px 0px rgba(41, 41, 41, 0.01),
-      1px 1078px 302px 0px rgba(41, 41, 41, 0);
-    padding: 4px;
-    // margin-top: 2%;
-    // margin-bottom: 1%;
-    margin-right: 0.5%;
-  }
-  ,
-  #container-div2-2 {
-    width: -webkit-fill-available;
-    /* margin: 12px; */
-    // border: 2px solid;
-    margin: 0;
-  }
-  ,
-  .container-div1-1-form {
-    // border: 1px solid purple;
-    border-radius: inherit;
-    height: 79%;
-  }
-  ,
-  #wallet-form {
-    // border: 2px solid red;
-    height: -webkit-fill-available;
-  }
-
-  ,
-  #wallet-form-firstrow {
-    display: grid;
-    display: -ms-grid;
-    display: -moz-grid;
-    margin-bottom: 5px;
-    //  border: 2px solid;
-  }
-
-  ,
-  #firstrow-firstdiv {
-    display: block;
-    width: auto;
-    border-radius: 100px;
-    // border: 2px solid var(--3498-db, #3498db);
-    padding: 0;
-    margin: 1vh;
-  }
-
-  ,
-  #firstrow-firstdiv-input {
-    display: block;
-    width: -webkit-fill-available;
-    border-radius: 100px;
-    border: 2px solid var(--3498-db, #3498db);
-    // padding: 0;
-  }
-
-  ,
-  #firstrow-seconddiv {
-    width: -webkit-fill-available;
-    border-radius: 100px;
-    // border: 2px solid var(--3498-db, #3498db);
-    padding: 0;
-    margin: 1vh;
-  }
-
-  ,
-  #firstrow-seconddiv-input {
-    padding: 0;
-    border-radius: 100px;
-    border: 2px solid var(--3498-db, #3498db);
-    display: block;
-    padding: 0.375rem 0.75rem;
-  }
-
-  ,
-  #wallet-form-secondrow {
-    display: flex;
-    display: -webkit-flex;
-    justify-content: space-between;
-  }
-
-  ,
-  #secondrow-firstdiv {
-    display: block;
-    width: auto;
-    border-radius: 100px;
-    // border: 2px solid var(--3498-db, #3498db);
-    padding: 0;
-    margin: 1vh;
-  }
-
-  ,
-  #secondrow-firstdiv-input {
-    display: block;
-    width: -webkit-fill-available;
-    border-radius: 100px;
-    border: 2px solid var(--3498-db, #3498db);
-  }
-
-  ,
-  #secondrow-seconddiv {
-    display: block;
-    width: auto;
-    border-radius: 100px;
-    // border: 2px solid var(--3498-db, #3498db);
-    padding: 0;
-    margin: 1vh;
-  }
-
-  ,
-  #secondrow-seconddiv-input {
-    display: block;
-    width: -webkit-fill-available;
-    border-radius: 100px;
-    border: 2px solid var(--3498-db, #3498db);
-  }
-
-  ,
-  #wallet-form-thirdrow {
-    //border: 2px solid;
-    width: -webkit-fill-available;
-    display: grid;
-    display: -ms-grid;
-    display: -moz-grid;
-    // margin: 1vh;
-  }
-
-  ,
-  #thirdrow-firstdiv {
-    width: -webkit-fill-available;
-    padding: 0;
-    margin: 1vh;
-  }
-
-  #thirdrow-firstdiv-input {
-    display: block;
-    width: -webkit-fill-available;
-    border-radius: 100px;
-    border: 2px solid var(--3498-db, #3498db);
-  }
-
-  ,
-  #form-depositbtn-div {
-    border-radius: 100px;
-    // border: 2px solid var(--3498-db, #3498db);
-    background: var(--3498-db, #3498db);
-  }
-
-  ,
-  #form-depositbtn {
-    width: -webkit-fill-available;
-    border-radius: 100px;
-    border: 2px solid var(--3498-db, #3498db);
-    background: var(--3498-db, #3498db);
-  }
-
-  ,
-  #form-activebtn-div {
-    border-radius: 100px;
-    border: 2px solid var(--3498-db, #3498db);
-  }
-
-  ,
-  #form-activebtn {
-    border: none;
-    color: var(--3498-db, #3498db);
-    text-align: center;
-    // font-family: Roboto;
-    // font-size: 32px;
-    font-style: normal;
-    font-weight: 600;
-    // line-height: 127.734%;
-  }
-
-  ,
-  #div2-container {
-  }
-
-  ,
-  #div2-subcontainer {
-  }
-
-  ,
-  #div2-h2 {
-  }
-
-  ,
-  #div3-container {
-    padding: 0;
-  }
-
-  ,
-  #div3-subcontainer {
-    margin: 0;
-    width: -webkit-fill-available;
-  }
-
-  ,
-  #div3-h4 {
-    margin: 0;
-    margin-top: 4px;
-    text-align: end;
-  }
-
-  ,
-  #div4-subcontainer {
-    margin: 0;
-    width: -webkit-fill-available;
-  }
-
-  ,
-  #div4-h4 {
-    margin: 0;
-    margin-top: 7px;
-  }
-`;
 export default React.memo(Wallet);

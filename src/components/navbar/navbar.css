@@ -67,6 +67,7 @@
   /* top: 10px; */
   width: 19px;
   height: 20px;
+  z-index: -1;
 }
 
 li#home {
@@ -138,6 +139,7 @@ h1#lg {
   top: 0px;
   left: 0;
   width: auto;
+  z-index: 1;
 
   .logo {
     text-align: -webkit-center;
@@ -232,7 +234,7 @@ h1#lg {
     display: block;
     position: absolute;
     color: black;
-    top: 2vh;
+    top: 1vh;
     left: 3vh;
     font-size: xxx-large;
   }

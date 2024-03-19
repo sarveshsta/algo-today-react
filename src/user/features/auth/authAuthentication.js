@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+
 const backendUrl = "http://13.127.232.213:8000";
 
 // const config = {
@@ -127,7 +128,8 @@ export const forgotAPI = createAsyncThunk(
 );
 
 //---------------------Logout API---------------------------//
-export const logoutAPI = createAsyncThunk("logout", async (body, thunkAPI) => {
+export const logoutAPI = createAsyncThunk("logout", 
+ async (body, thunkAPI) => {
   try {
     const response = await axios.post(`${backendUrl}/logout/`, body, {
       headers: {
@@ -144,29 +146,3 @@ export const logoutAPI = createAsyncThunk("logout", async (body, thunkAPI) => {
     return thunkAPI.rejectWithValue(error);
   }
 });
-
-//------------------ Banknifty data API---------------//
-export const getBankniftyDataApi = createAsyncThunk(
-  "bankniftyindexdata",
-  async (body, thunkAPI) => {
-    try {
-      const response = await axios.get(
-        "https://4e21-2405-201-301d-f84d-9125-5eba-99a0-17c3.ngrok-free.app/tokens/BANKNIFTY",
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (response) {
-        console.log("res** =>>", response);
-        return response;
-      } else {
-        return response;
-      }
-    } catch (error) {
-      thunkAPI.rejectWithValue(error);
-    }
-  }
-);

@@ -1,13 +1,15 @@
 import "./horizontalnav.css";
 import React, { useState } from "react";
 import { VscBellDot } from "react-icons/vsc";
-import { IoExitOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { IoExitOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutAPI } from "../../user/features/auth/authAuthentication";
 
 const HorizontalNav = () => {
   const [showNotification, setShowNotification] = useState(false);
+  const state = useSelector((state) => state.auth);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -23,13 +25,9 @@ const HorizontalNav = () => {
     }, 6000);
   };
 
-  const handleLogout = async() => {
-    try{
-      await dispatch(logoutAPI())
-    } catch(error){
-       console.log("err** =>>",error);
-    }
-  }
+  const handleLogout = async () => {
+    dispatch(logoutAPI());
+  };
 
   return (
     <div className="HorizontalNav">
@@ -41,7 +39,7 @@ const HorizontalNav = () => {
       <img
         className="Horiimg1"
         src={require("../../assets/icons/handicon.png")}
-        alt="image"
+        alt="icon"
       />
       <h2 className="Horizontalheading">User</h2>
       <h3 className="Horizontalheading1">Hello</h3>
@@ -49,13 +47,14 @@ const HorizontalNav = () => {
         className={`Horizontalimg2 ${showNotification ? "bg-color" : ""}`}
         onClick={iconClick}
       />
-      <IoExitOutline
-        className="Horizontalimg3"
-        onClick={handleLogout}
-      />
+      <IoExitOutline className="Horizontalimg3" onClick={handleLogout} />
 
       {/* Notification */}
-      {showNotification && <div className="icon-notification-div"> This is Notification Pop-Up</div>}
+      {showNotification && (
+        <div className="icon-notification-div">
+          This is Notification Pop-Up
+        </div>
+      )}
     </div>
   );
 };

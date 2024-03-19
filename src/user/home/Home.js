@@ -49,7 +49,7 @@ const Home = () => {
 
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log("val", values)
+      console.log("val", values);
 
       // Add form data to FormData
       formData.append("name", values.name);
@@ -66,7 +66,7 @@ const Home = () => {
         .catch((error) => {
           console.log("err", error);
         });
-        navigate("/opendemate");
+      // navigate("/opendemate");
     },
   });
 
@@ -133,7 +133,15 @@ const Home = () => {
             {" "}
             Algotoday
           </h1>
-          <Link to="/signup"><button id="signup-button-home" type="button" className="btn btn-primary">Signup</button></Link>
+          <Link to="/signup">
+            <button
+              id="signup-button-home"
+              type="button"
+              className="btn btn-primary"
+            >
+              Signup
+            </button>
+          </Link>
         </div>
 
         <div
@@ -236,7 +244,10 @@ const Home = () => {
                 </div>
                 <div
                   className="mb-6"
-                  style={{ display: "flex", marginBottom: "8px", justifyContent: "center"
+                  style={{
+                    display: "flex",
+                    marginBottom: "8px",
+                    justifyContent: "center",
                   }}
                 >
                   <Select

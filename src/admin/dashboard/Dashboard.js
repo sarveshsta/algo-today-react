@@ -54,11 +54,36 @@ const userlistData = [
     currestatus: "Current Status",
     Expir: "Expires on",
   },
+  {
+    userimg: require("../../assets/icons/IMG_0399.jpg"),
+    username: "Aman Jain(ALGO124)",
+    stra1: "Expert Streategies",
+    stra2: "Custom Streategies",
+    coinbala: "Coin Balance",
+    currestatus: "Current Status",
+    Expir: "Expires on",
+  },
+  {
+    userimg: require("../../assets/icons/IMG_0399.jpg"),
+    username: "Aman Jain(ALGO124)",
+    stra1: "Expert Streategies",
+    stra2: "Custom Streategies",
+    coinbala: "Coin Balance",
+    currestatus: "Current Status",
+    Expir: "Expires on",
+  },
 ];
 
+
+
 const Dashboard = () => {
+  const [showNotification, setShowNotification] = useState(false);
   const [isKeyPressed, setIsKeyPressed] = useState(false);
+  const [showEmail, setShowWEmail] = useState(false);
   const [toggle, setToggle] = useState(false);
+
+  const [maxContentOnPage, setMaxContentOnPage] = useState(6);
+  const [page, setPage] = useState(1);
 
   const handleToggle = () => {
     setToggle(true);
@@ -73,10 +98,40 @@ const Dashboard = () => {
       setToggle(false);
     }
   };
+
+  const belliconClick = () => {
+    setShowNotification(true);
+
+    if (showNotification) {
+      setShowNotification(false);
+    }
+
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 6000);
+  };
+
+  const emailIconClick = () => {
+    setShowWEmail(true);
+
+    if (showEmail) {
+      setShowWEmail(false);
+    }
+
+    setTimeout(() => {
+      setShowWEmail(false);
+    }, 6000);
+  };
+
+  const loadMore = () => {
+    // setPage(page + maxContentOnPage);
+    setMaxContentOnPage(maxContentOnPage + page);
+  };
+
   return (
     <>
       <div className="admin-dashbord">
-{/*------------------------------Vertical-admin-nav----------------------------- */}
+        {/*------------------------------Vertical-admin-nav----------------------------- */}
         <div className={`hamburger-icon`} onClick={handleToggle}>
           <FaBars />
         </div>
@@ -162,7 +217,7 @@ const Dashboard = () => {
           {/* </div> */}
         </div>
 
-{/*------------------------------Horizontal-admin-nav----------------------------- */}
+        {/*------------------------------Horizontal-admin-nav----------------------------- */}
         <div className="admin-dash-horizontal-nav-maindiv">
           <div className="dash-horizontal-nav-subdiv">
             <ul className="dash-horizontal-nav-ul">
@@ -170,9 +225,8 @@ const Dashboard = () => {
                 <li className="dash-horizontal-nav-li">
                   {!isKeyPressed && (
                     <CiSearch
-                      className={`horizontal-nav-li-icon ${
-                        isKeyPressed ? "icon-hidden" : ""
-                      }`}
+                      className={`horizontal-nav-li-icon ${isKeyPressed ? "icon-hidden" : ""
+                        }`}
                     />
                   )}
                   <input
@@ -185,11 +239,19 @@ const Dashboard = () => {
                 <div className="waana-flex-this-li">
                   <li className="dash-horizontal-nav-li">
                     {/* <h5 className="email-top-number-show">7</h5> */}
-                    <LuMail className="dash-hori-icon" />
+                    <LuMail
+                      className={`dash-hori-icon ${showEmail ? "bg-color" : ""
+                        }`}
+                      onClick={emailIconClick}
+                    />
                   </li>
                   <li className="dash-horizontal-nav-li">
-                  {/* <h5 className="email-top-number-show2">3</h5> */}
-                    <IoNotificationsOutline className="dash-hori-icon" />
+                    {/* <h5 className="email-top-number-show2">3</h5> */}
+                    <IoNotificationsOutline
+                      className={`dash-hori-icon ${showNotification ? "bg-color" : ""
+                        }`}
+                      onClick={belliconClick}
+                    />
                   </li>
                 </div>
               </div>
@@ -209,7 +271,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-{/*------------------------------Dashboard-User-List----------------------------- */}
+        {/*------------------------------Dashboard-User-List----------------------------- */}
         <div className="dashbord-userlist-div">
           <div className="userlist-main-div">
             <ul className="userlist-ui">
@@ -231,17 +293,24 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="userlist-input-search-div">
+                {!isKeyPressed && (
+                  <CiSearch
+                    className={`userlist-search-icon ${isKeyPressed ? "icon-hidden" : ""
+                      }`}
+                  />
+                )}
                 <input
                   className="userlist-input-search"
                   type="search"
                   placeholder="Search user, coin, broker amt...."
+                  onChange={handleKeyPress}
                 />
               </div>
             </ul>
           </div>
           <div className="wanna-grid-user-list">
             <div className="user-list">
-              {userlistData.map((item) => {
+              {userlistData.slice(0, maxContentOnPage).map((item) => {
                 const {
                   userimg,
                   username,
@@ -299,9 +368,41 @@ const Dashboard = () => {
               })}
             </div>
           </div>
+
+          {/*------------------------------Pagination-thingss----------------------------- */}
+          {userlistData.length >= maxContentOnPage && (
+            <div className="pagination-main-div">
+              <div className="pagination-1stdiv">
+                <div className="firstdiv-ofh3">
+                  <h3 className="ofh3">Results per Page</h3>
+                </div>
+                <div className="seconddiv-ofh4">
+                  <h4 className="ofh4">{maxContentOnPage}</h4>
+                </div>
+              </div>
+              <div className="pagination-2nddiv">
+                <button className="page-more-button" onClick={loadMore}>
+                  See More
+                </button>
+              </div>
+              <div className="pagination-3rddiv"></div>
+            </div>
+          )}
         </div>
       </div>
+
+      {/*-----------------------Notification pop-up------------------------ */}
+      {showNotification && (
+        <div className="icon-notification-div">This is Notification Pop-Up</div>
+      )}
+
+      {/*-----------------------Email pop-up------------------------ */}
+      {showEmail && (
+        <div className="icon-notification-div">
+          This is Email Notification Pop-Up
+        </div>
+      )}
     </>
   );
 };
-export default Dashboard;
+export default React.memo(Dashboard);

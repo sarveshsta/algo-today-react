@@ -32,6 +32,7 @@
   padding: 6px;
   border: rgba(214, 234, 248, 1);
   width: 20rem;
+  outline: none;
 }
 
 .dash-hori-inp::placeholder {
@@ -57,10 +58,14 @@
 }
 
 .dash-horizontal-nav-ul {
+  position: relative;
   display: flex;
   list-style: none;
   align-items: center;
   margin: 0;
+}
+
+.dash-horizontal-nav-li {
   position: relative;
 }
 
@@ -104,7 +109,7 @@
 
 .horizontal-nav-li-icon {
   position: absolute;
-  top: 1.7rem;
+  top: 0.4rem;
   font-size: 1.5rem;
   z-index: 1;
 }
@@ -113,34 +118,34 @@
   display: none;
 }
 
-.email-top-number-show{
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    right: 23.5rem;
-    top: 1rem;
-    width: 1.3rem;
-    border-radius: 50px;
-    height: 1.3rem;
-    text-align: center;
-    background: rgba(52, 152, 219, 1);
-    color: white;
-    font-size: 16px;
+.email-top-number-show {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 23.5rem;
+  top: 1rem;
+  width: 1.3rem;
+  border-radius: 50px;
+  height: 1.3rem;
+  text-align: center;
+  background: rgba(52, 152, 219, 1);
+  color: white;
+  font-size: 16px;
 }
 
-.email-top-number-show2{
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    right: 21.1rem;
-    top: 1.1rem;
-    width: 1.2rem;
-    border-radius: 50px;
-    height: 1.2rem;
-    text-align: center;
-    background: rgba(52, 152, 219, 1);
-    color: white;
-    font-size: 14px;
+.email-top-number-show2 {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 21.1rem;
+  top: 1.1rem;
+  width: 1.2rem;
+  border-radius: 50px;
+  height: 1.2rem;
+  text-align: center;
+  background: rgba(52, 152, 219, 1);
+  color: white;
+  font-size: 14px;
 }
 
 /*-------------------Dashbord listing user CSS------------------------------------ */
@@ -160,6 +165,7 @@
   display: flex;
   list-style: none;
   justify-content: space-between;
+  padding-right: 2rem;
 }
 
 .userlist-div {
@@ -178,14 +184,19 @@
 
 .userlist-input-search-div {
   background: rgba(214, 234, 248, 1);
+  position: relative;
   border-radius: 8px;
+  padding-left: 1rem;
   border: none;
+  outline: none;
+
   .userlist-input-search {
     background: rgba(214, 234, 248, 1);
     border-radius: 8px;
     border: none;
     width: 15rem;
     padding: 5px;
+    outline: none;
   }
   .userlist-input-search::placeholder {
     font-family: Roboto;
@@ -196,6 +207,12 @@
     color: rgba(44, 62, 80, 1);
     text-align: right;
   }
+}
+
+.userlist-search-icon {
+  position: absolute;
+  top: 0.65rem;
+  left: 0.2rem;
 }
 
 /*--------------------The List of user data CSS---------------------------------- */
@@ -224,8 +241,8 @@
 }
 
 .list-div1-img {
-  width: 118px;
-  height: 118px;
+  width: 100px;
+  height: 100px;
   border: 1px;
   border-radius: 85px;
 }
@@ -244,12 +261,14 @@
       letter-spacing: 0em;
       /* text-align: left; */
       color: rgba(44, 62, 80, 1);
+      margin: 0
     }
   }
   .user-list-div2-subdiv2 {
     /* border: 1px solid rgb(127, 5, 127); */
     display: flex;
     justify-content: space-evenly;
+    height: fit-content;
 
     .subdiv2-h3 {
       font-size: 14px;
@@ -273,6 +292,7 @@
       padding: 6px;
       align-content: center;
       justify-content: center;
+      height: max-content;
     }
     .div2-subdiv2-2 {
       display: grid;
@@ -283,6 +303,7 @@
       padding: 6px;
       align-content: center;
       justify-content: center;
+      height: max-content;
     }
     .div2-subdiv2-3 {
       display: grid;
@@ -296,6 +317,7 @@
       background: rgba(255, 255, 184, 0.5);
       align-content: center;
       justify-content: center;
+      height: max-content;
     }
     .div2-subdiv2-4 {
       display: grid;
@@ -305,6 +327,7 @@
       padding: 6px;
       align-content: center;
       justify-content: center;
+      height: max-content;
     }
   }
 }
@@ -323,4 +346,74 @@
 
 #h3-4-subdiv {
   color: rgba(52, 152, 219, 1);
+}
+
+/*-----------------------Pagination----------------------*/
+.pagination-main-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.pagination-1stdiv {
+  display: flex;
+  align-items: center;
+}
+
+.firstdiv-ofh3 {
+  margin-right: 10px;
+}
+
+.ofh3 {
+  font-size: 1rem;
+  margin: 0;
+  color: rgba(44, 62, 80, 1);
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0em;
+}
+
+.seconddiv-ofh4 {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 1);
+  align-self: end;
+  padding-right: 14px;
+  padding-left: 14px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.ofh4 {
+  font-size: 0.8rem;
+  margin: 0;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0em;
+}
+
+.pagination-2nddiv {
+  display: flex;
+  align-items: center;
+  color: rgba(52, 152, 219, 1);
+  border-radius: 100px;
+}
+
+.page-more-button {
+  color: rgba(52, 152, 219, 1);
+  border-radius: 100px;
+  border: 2px solid rgba(52, 152, 219, 1);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  letter-spacing: 0em;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+.pagination-3rddiv {
+  display: flex;
+  align-items: center;
 }
