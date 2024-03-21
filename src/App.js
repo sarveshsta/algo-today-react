@@ -9,6 +9,7 @@ import Mobile from "./user/mobile/Mobile";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import Dashbord from "./user/dashbord/Dashbord";
+import Dashboard from "./admin/dashboard/Dashboard";
 import OpenDemat from "./user/opendemate/OpenDemat";
 import LinkBroker from "./user/linkbroker/LinkBroker";
 import ReferEarn from "./user/referandearn/ReferEarn";
@@ -17,13 +18,14 @@ import ManageTrading from "./user/managetrading/ManageTrading";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Forgotpassword from "./user/forgotpassword/Forgotpassword";
 import CustomStrategies from "./user/customstrategies/CustomStrategies";
-import Dashboard from "./admin/dashboard/Dashboard";
+import Homee from "./components/homee/Homee";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+      <Route path="/" element={<Homee />} />
+        {/* <Route path="/" element={<Home />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/wallet" element={<Wallet />} />
         <Route path="/signup" element={<Signup />} />

@@ -3,13 +3,16 @@ import axios from "axios";
 import * as Yup from "yup";
 import Select from "react-select";
 import { useFormik } from "formik";
-import Navbar from "../../components/navbar/Navbar";
 import React, { useEffect, useState } from "react";
+import Navbar from "../../components/navbar/Navbar";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import HorizontalNav from "../../components/navbar/HorizontalNav";
 
 const Home = () => {
+  const [formResponse, setFormResponse] = useState([]);
   const [selectedState, setSelectedState] = useState(null);
+  
   const navigate = useNavigate();
   const formData = new FormData();
 
@@ -46,11 +49,9 @@ const Home = () => {
       city: "",
       state: { value: "", label: "" },
     },
-
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log("val", values);
-
+      setFormResponse(...values);
       // Add form data to FormData
       formData.append("name", values.name);
       formData.append("email", values.email);
@@ -61,12 +62,28 @@ const Home = () => {
       axios
         .post("http://13.234.76.87:8000/form", formData, config)
         .then((response) => {
-          console.log("res", response.data);
+          if (response.data.message === "Success") {
+            toast.success("Response Saved Succesfully", {
+              onClose: () => {
+                navigate("/opendemate")
+              }
+            }
+            );
+          }
         })
         .catch((error) => {
-          console.log("err", error);
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            alert(`Server Error: ${error.response.status}`);
+          } else if (error.request) {
+            // The request was made but no response was received
+            alert('Network Error: Please check your internet connection');
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            alert('Error: ' + error.message);
+          }
         });
-      // navigate("/opendemate");
     },
   });
 
@@ -122,6 +139,12 @@ const Home = () => {
 
   return (
     <>
+      <ToastContainer
+        autoClose={2000}
+        pauseOnFocusLoss={true}
+        closeOnClick={true}
+        draggable={true}
+      />
       <HorizontalNav />
       <Navbar />
       <div className="home-main-div">

@@ -1,41 +1,19 @@
-import './customstrategies.css'
+import "./customstrategies.css";
 import Select from "react-select";
-import styled from "styled-components";
 import Shape from "../../components/shape/Shape";
-import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useMemo, useState } from "react";
 import Newshape from "../../components/shape/custshape/Newshape";
 import HorizontalNav from "../../components/navbar/HorizontalNav";
 import Orangenewshape from "../../components/shape/custshape/Orangenewshape";
 import { getBankniftyDataApi } from "../features/customdata/custAuthentication";
 
-// const option1 = [
-//   { value: "Index", label: "Index" },
-//   { value: "Nifty 50", label: "Nifty 50" },
-//   { value: "BANKNIFTY", label: "BANKNIFTY" },
-// ];
 
-// const option2 = [
-//   { value: "Expiry Date", label: "Expiry Date" },
-//   { value: "Nifty 50", label: "Nifty 50" },
-//   { value: "S&P 50", label: "S&P 50" },
-//   { value: "S&P 50", label: "S&P 50" },
-// ];
-
-// const option3 = [
-//   { value: "Strike Price", label: "Strike Price" },
-//   { value: "Nifty 50", label: "Nifty 50" },
-//   { value: "S&P 50", label: "S&P 50" },
-//   { value: "S&P 50", label: "S&P 50" },
-// ];
-
-// const option4 = [
-//   { value: "CE / PE", label: "CE / PE" },
-//   { value: "Nifty 50", label: "Nifty 50" },
-//   { value: "S&P 50", label: "S&P 50" },
-//   { value: "S&P 50", label: "S&P 50" },
-// ];
+const option4 = [
+  { value: "CE", label: "CE" },
+  { value: "PE", label: "PE" },
+];
 
 // const option5 = [
 //   { value: "Chart Time", label: "Chart Time" },
@@ -98,23 +76,32 @@ const custStyle = {
 };
 
 const CustomStrategies = () => {
-  const [selectedInput, setSelectedInput] = useState([
-  ]);
+  const [selectedInput, setSelectedInput] = useState("");
   const [checkedCheckBox, setCheckedCheckBox] = useState(false);
 
   const dispatch = useDispatch();
-  const state = useSelector((state) => state?.index?.data?.data);
-  // console.log("sdafdzfrget",state);
+  const state = useSelector((state) => state?.index?.data?.data || []);
 
-  // const mappedData = Object.values(state)
-  // console.log("dfsdsfgtn=>>", mappedData);
+  const mappedData = useMemo(
+    () => Object.values(state).map((item) => item?.expiry),
+    [state]
+  );
+
+  const strikePrice = useMemo(
+    () => Object.values(state).map((item) => item?.symbol),
+    [state]
+  );
+
+  const subsymbols = strikePrice.map((symbol) =>
+    symbol?.substring(15, 20)
+  );
 
   useEffect(() => {
-    dispatch(getBankniftyDataApi())
-  },[])
+    dispatch(getBankniftyDataApi());
+  }, [dispatch]);
 
   const handleSubmit = (changeinput) => {
-    setSelectedInput(changeinput);
+    // setSelectedInput(changeinput);
   };
 
   const checkBoxChange = () => {
@@ -139,8 +126,11 @@ const CustomStrategies = () => {
           <div className="customstrategies-flex-select-option">
             <div className="select-container">
               <Select
-                // options={option1}
-                value={selectedInput[0]}
+                options={[
+                  { value: "Nifty 50", label: "Nifty 50" },
+                  { value: "BANKNIFTY", label: "BANKNIFTY" },
+                ]}
+                // value={selectedInput[0]}
                 styles={custStyle}
                 onChange={handleSubmit}
                 placeholder="Index"
@@ -149,28 +139,37 @@ const CustomStrategies = () => {
 
             <div className="select-container">
               <Select
-                // options={option2}
-                value={selectedInput[1]}
+                options={subsymbols.map((item) => ({
+                  value: item,
+                  label: item,
+                }))}
+                // value={mappedData}
                 styles={custStyle}
                 onChange={handleSubmit}
+                placeholder="Strike Price"
               />
             </div>
 
             <div className="select-container">
               <Select
-                // options={option3}
-                value={selectedInput[2]}
+                options={mappedData.map((item) => ({
+                  value: item,
+                  label: item,
+                }))}
+                // value={selectedInput[2]}
                 styles={custStyle}
                 onChange={handleSubmit}
+                placeholder="Expiry"
               />
             </div>
 
             <div className="select-container">
               <Select
-                // options={option4}
-                value={selectedInput[3]}
+                options={option4}
+                // value={selectedInput[3]}
                 styles={custStyle}
                 onChange={handleSubmit}
+                placeholder="CE/PE"
               />
             </div>
 
@@ -180,6 +179,7 @@ const CustomStrategies = () => {
                 value={selectedInput[4]}
                 styles={custStyle}
                 onChange={handleSubmit}
+                placeholder="Chart Time"
               />
             </div>
           </div>
@@ -368,4 +368,3 @@ const CustomStrategies = () => {
   );
 };
 export default React.memo(CustomStrategies);
-
