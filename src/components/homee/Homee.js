@@ -1,8 +1,18 @@
 import "./homee.css";
 import React from "react";
 import * as Yup from "yup";
+import Faq from "../faq/Faq";
 import { useFormik } from "formik";
+import Mainnav from "../navbar/Mainnav";
 import { Link } from "react-router-dom";
+import { BsTelephone } from "react-icons/bs";
+import { FaInstagram } from "react-icons/fa";
+import { RxTwitterLogo } from "react-icons/rx";
+import Numberdata from "../numberdata/Numberdata";
+import { MdAlternateEmail } from "react-icons/md";
+import { SlSocialFacebook } from "react-icons/sl";
+import Testimonial from "../testinomial/Testimonial";
+import { Faqq, numberData } from "../../arraydata/Arraydata";
 
 const Homee = () => {
   // Define the validation schema using Yup
@@ -17,6 +27,7 @@ const Homee = () => {
       .min(10, "Must be exactly 10 digits")
       .max(10, "Must be exactly 10 digits")
       .required("Phone Number is required"),
+    text: Yup.string().required("Enter a text"),
   });
 
   const formik = useFormik({
@@ -25,6 +36,7 @@ const Homee = () => {
       lastname: "",
       email: "",
       phoneNumber: "",
+      text: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -35,34 +47,7 @@ const Homee = () => {
   return (
     <>
       <div style={{ background: "#FFFFFF" }}>
-        <div className="web-home-navbar-section">
-          <div className="web-home-navbar-firstdiv">
-            <img className="web-home-navbar-img" />
-            <h2 className="web-home-navbar-h2">Algo Today</h2>
-          </div>
-          <div className="web-home-navbar-seconddiv">
-            <ul className="web-home-navbar-ul">
-              <li className="web-home-navbar-li">
-                <Link className="linking">Home</Link>
-              </li>
-              <li className="web-home-navbar-li">
-                <Link className="linking">Services</Link>
-              </li>
-              <li className="web-home-navbar-li">
-                <Link className="linking">Contact Us</Link>
-              </li>
-              <li className="web-home-navbar-li">
-                <Link className="linking">About Us</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="web-home-navbar-butoon">
-            <button className="navbaarr-butoon" type="button">
-              <Link className="linking">Sign in</Link>
-            </button>
-          </div>
-        </div>
-
+        <Mainnav />
         <div className="web-home-content-main">
           <div className="web-home-content-firstdiv">
             <h2 className="homecontent-h2">
@@ -234,62 +219,135 @@ const Homee = () => {
           </div>
           <div className="form-seconddiv-mainform">
             <div className="form-formdiv">
-              <form className="formis-form">
+              <form className="formis-form" onSubmit={formik.handleSubmit}>
                 <div className="formdiv-h3">
                   <h3 className="h33">Send a message</h3>
                 </div>
                 <div className="form-inputs-main">
                   <div className="form-firstinputs">
                     <label className="form-inputss-label">First Name</label>
-                    <input className="inputsss" type="text" name="name" />
+                    <input
+                      className="inputsss"
+                      type="text"
+                      name="name"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.name}
+                    />
+                    {formik.touched.name && formik.errors.name && (
+                      <p className="formik-error-message">
+                        {formik.errors.name}
+                      </p>
+                    )}
                   </div>
                   <div className="form-firstinputs">
                     <label className="form-inputss-label">Last Name</label>
-                    <input className="inputsss" type="text" name="lastname" />
+                    <input
+                      className="inputsss"
+                      type="text"
+                      name="lastname"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.lastname}
+                    />
+                    {formik.touched.lastname && formik.errors.lastname && (
+                      <p className="formik-error-message">
+                        {formik.errors.lastname}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="form-inputs-main">
                   <div className="form-firstinputs">
                     <label className="form-inputss-label">Phone</label>
-                    <input className="inputsss" type="number" name="phoneNumber" />
+                    <input
+                      className="inputsss"
+                      type="number"
+                      name="phoneNumber"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.phoneNumber}
+                    />
+                    {formik.touched.phoneNumber &&
+                      formik.errors.phoneNumber && (
+                        <p className="formik-error-message">
+                          {formik.errors.phoneNumber}
+                        </p>
+                      )}
                   </div>
                   <div className="form-firstinputs">
                     <label className="form-inputss-label">Email</label>
-                    <input className="inputsss" type="email" name="email" />
+                    <input
+                      className="inputsss"
+                      type="email"
+                      name="email"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.email}
+                    />
+                    {formik.touched.email && formik.errors.email && (
+                      <p className="formik-error-message">
+                        {formik.errors.email}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div>
-                  <textarea />
+                  <textarea
+                    className="form-text"
+                    name="text"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.text}
+                  />
+                  {formik.touched.text && formik.errors.text && (
+                    <p className="formik-error-message">{formik.errors.text}</p>
+                  )}
                 </div>
                 <div className="batannn">
-                  <button>Submit</button>
+                  <button className="formm-batannn" type="submit">
+                    Submit
+                  </button>
                 </div>
               </form>
             </div>
             <div className="mapp-div">
-              <div>
-                <h3>Contact info</h3>
+              <div className="mapp-contact-div">
+                <h3 className="mapp-contact-h3">Contact info</h3>
               </div>
-              <div>
-                <img />
-                <h4>+91 12345 6789</h4>
+              <div className="mapp-phone-div">
+                <BsTelephone className="mapp-phone-icon" />
+                <h4 className="mapp-contact-h4">+91 12345 6789</h4>
               </div>
-              <div>
-                <img />
-                <h4>+91 12345 6789</h4>
+              <div className="mapp-email-div">
+                <MdAlternateEmail className="mapp-phone-icon" />
+                <h4 className="mapp-contact-h4">example@email.com</h4>
               </div>
-              <div>
-                <img />
-                <img />
-                <img />
+              <div className="mapp-social-icons">
+                <div className="mapp-social-icons-div">
+                  <RxTwitterLogo className="social-icons" />
+                </div>
+                <div className="mapp-social-icons-div">
+                  <SlSocialFacebook className="social-icons" />
+                </div>
+                <div className="mapp-social-icons-div">
+                  <FaInstagram className="social-icons" />
+                </div>
               </div>
               <div></div>
             </div>
           </div>
         </div>
+        <Testimonial />
+        <div className="blue-abso-color2"></div>
+        <Faq faquiz={Faqq} />
+        <Numberdata
+          webdata={numberData}
+          text1="Unleash the full power of data"
+          para1="Everything you need to convert, engage, and retain more users."
+        />
       </div>
     </>
   );
 };
-
 export default Homee;

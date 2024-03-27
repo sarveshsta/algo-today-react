@@ -22,12 +22,14 @@
   margin: 0;
   font-size: 1.6rem;
   cursor: pointer;
+  transition: all 0.3s ease 0s;
 }
 
-.web-home-navbar-h2:hover{
-  color: #3498DB;
+.web-home-navbar-h2:hover {
+  color: #3498db;
   transition: ease-in-out 0.2ms;
   transition-property: padding;
+  transition: all 0.3s ease 0s;
 }
 
 .web-home-navbar-seconddiv {
@@ -49,13 +51,14 @@
 .web-home-navbar-li {
   cursor: pointer;
 
-  .linking:hover{
-    color: #3498DB;
+  .linking:hover {
+    color: #3498db;
+    transition: all 0.3s ease 0s;
   }
 }
 
-.web-home-navbar-li:hover{
-  color: #3498DB;
+.web-home-navbar-li:hover {
+  color: #3498db;
   cursor: pointer;
 }
 
@@ -66,10 +69,19 @@
 }
 
 .navbaarr-butoon {
+  position: relative;
   background: #3498db;
   border-radius: 50px;
   border: 2px solid #3498db;
   color: white;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 28px;
+  transition: ease-in-out 0.5ms;
+}
+
+.navbaarr-butoon:hover{
+  transition: padding ;
 }
 
 .web-home-content-main {
@@ -106,33 +118,108 @@
 }
 
 .homecontent-h2 {
+  font-size: 45px;
+  font-weight: 700;
+  text-align: center;
 }
 
 .homecontent-para {
   width: 73%;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
 }
 
 .homecontent-bttn {
+  position: relative;
   background: #3498db;
   border-radius: 50px;
   border: 2px solid #3498db;
   color: white;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 28px;
 }
 
-.web-home-image-display-content{
- margin-top: 1rem;
- display: flex;
- justify-content: center;
- align-items: center;
- /* Define first background image */
- background-image: url('../../assets/icons/Rectangle\ 3009.png'), url('../../assets/icons/Rectangle\ 3010.png');
- /* Position and repeat the background images as needed */
- background-position: center, left;
- background-size: cover, cover;
- background-repeat: no-repeat, no-repeat;
+.homecontent-bttn:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
 }
 
-.image-display-content{
+.homecontent-bttn:active {
+  color: #000;
+}
+
+.homecontent-bttn:active:after {
+  background: transparent;
+}
+
+.homecontent-bttn:hover:before {
+  opacity: 1;
+}
+
+.homecontent-bttn:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* // background: #111; */
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.web-home-image-display-content {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Define first background image */
+  background-image: url("../../assets/icons/Rectangle\ 3009.png"),
+    url("../../assets/icons/Rectangle\ 3010.png");
+  /* Position and repeat the background images as needed */
+  background-position: center, left;
+  background-size: cover, cover;
+  background-repeat: no-repeat, no-repeat;
+}
+
+.image-display-content {
   width: 55%;
 }
 
@@ -146,24 +233,24 @@
 }
 
 .star-container:after {
-  content:"";
-  position:absolute;
-  background:#EE7744;
-  width:1em;
-  height:1.15em;
-  transform:rotate(45deg) skewX(22deg) skewY(22deg);
+  content: "";
+  position: absolute;
+  background: #ee7744;
+  width: 1em;
+  height: 1.15em;
+  transform: rotate(45deg) skewX(22deg) skewY(22deg);
 }
 
 .star-container:before {
-  content:"";
-  position:absolute;
-  background:#EE7744;
-  width:1em;
-  height:1.15em;
-  transform:rotate(-45deg) skewX(22deg) skewY(22deg);
+  content: "";
+  position: absolute;
+  background: #ee7744;
+  width: 1em;
+  height: 1.15em;
+  transform: rotate(-45deg) skewX(22deg) skewY(22deg);
 }
 
-.web-home-pricing-section{
+.web-home-pricing-section {
   display: grid;
   justify-content: center;
   align-items: center;
@@ -172,240 +259,292 @@
   margin-top: 2.5rem;
   padding: 1rem;
   color: white;
-  background: #3498DB;
-  box-shadow: 0px 6.650102138519287px 5.32008171081543px 0px #0000000A;
-  box-shadow: 0px 16px 45.599998474121094px 0px #0000001A;
+  background: #3498db;
+  box-shadow: 0px 6.650102138519287px 5.32008171081543px 0px #0000000a;
+  box-shadow: 0px 16px 45.599998474121094px 0px #0000001a;
 }
 
-.pricing-section-heading{
-  .heading-bestprice{
-
+.pricing-section-heading {
+  .heading-bestprice {
+    font-size: 46px;
+    font-weight: 700;
+    text-align: center;
   }
 }
 
-.pricing-section-para{
-  .para-lorem{
-
+.pricing-section-para {
+  .para-lorem {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 28px;
   }
 }
 
-.pricing-section-track{
+.pricing-section-track {
   /* background-color: black; */
 }
 
-.pricing-section-mainprice{
+.pricing-section-mainprice {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   align-self: center;
 
-  .pricing-gold{
-    background-image: url('../../assets/icons/Rectangle\ 3012.png');
-    background-position:right top;
+  .pricing-gold {
+    background-image: url("../../assets/icons/Rectangle\ 3012.png");
+    background-position: right top;
     /* background-size: cover; */
     background-repeat: no-repeat;
-   display: grid;
-   align-items: center;
-   align-self: center;
-   justify-content: center;
-   gap: 1rem;
-   background: #2C3E50;
-   border-radius: 30px;
-   display: grid;
+    display: grid;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    gap: 1rem;
+    background: #2c3e50;
+    border-radius: 30px;
+    display: grid;
     align-items: center;
     align-self: center;
     justify-content: center;
     gap: 2rem;
-    background: #2C3E50;
+    background: #2c3e50;
     border-radius: 30px;
     text-align: left;
     padding: 1rem;
     width: 25%;
   }
-  .pricing-silver{
+  .pricing-silver {
     display: grid;
     align-items: center;
     align-self: center;
     justify-content: center;
     gap: 1rem;
-    background: #2C3E50;
+    background: #2c3e50;
     border-radius: 30px;
     display: grid;
-     align-items: center;
-     align-self: center;
-     justify-content: center;
-     gap: 2rem;
-     background: #2C3E50;
-     border-radius: 30px;
-     text-align: left;
-     padding: 1rem;
-     width: 25%;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    gap: 2rem;
+    background: #2c3e50;
+    border-radius: 30px;
+    text-align: left;
+    padding: 1rem;
+    width: 25%;
   }
-  .pricing-platinum{
+  .pricing-platinum {
     display: grid;
     align-items: center;
     align-self: center;
     justify-content: center;
     gap: 1rem;
-    background: #2C3E50;
+    background: #2c3e50;
     border-radius: 30px;
     display: grid;
-     align-items: center;
-     align-self: center;
-     justify-content: center;
-     gap: 2rem;
-     background: #2C3E50;
-     border-radius: 30px;
-     text-align: left;
-     padding: 1rem;
-     width: 25%;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    gap: 2rem;
+    background: #2c3e50;
+    border-radius: 30px;
+    text-align: left;
+    padding: 1rem;
+    width: 25%;
   }
 }
-.pricing-section{
-  border-bottom: 2px solid #27272A;
+.pricing-section {
+  border-bottom: 2px solid #27272a;
   display: grid;
   gap: 0.3rem;
 }
-.pricing-h5-div{
-
+.pricing-h5-div {
 }
-.pricing-h5{
-
+.pricing-h5 {
 }
-.pricing-h4-div{
-
+.pricing-h4-div {
 }
-.pricing-h4{
+.pricing-h4 {
   font-family: Lato;
-font-size: 60px;
-font-weight: 400;
-line-height: 66px;
-text-align: left;
+  font-size: 60px;
+  font-weight: 400;
+  line-height: 66px;
+  text-align: left;
 }
-.pricing-span{
+.pricing-span {
   font-family: Lato;
-font-size: 16px;
-font-weight: 400;
-line-height: 24px;
-text-align: left;
-  color: #71717A;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  color: #71717a;
 }
-.pricing-para-div{
-
+.pricing-para-div {
 }
-.pricing-para{
-
+.pricing-para {
 }
-.pricing-super-list-div{
+.pricing-super-list-div {
   display: grid;
   gap: 0.5rem;
 }
-.pricing-orderlist-div{
+.pricing-orderlist-div {
   display: grid;
   gap: 0.5rem;
 }
-.pricing-orderlist{
+.pricing-orderlist {
   display: grid;
   gap: 0.5rem;
 }
-.pricing-li{
-
+.pricing-li {
 }
-.pricing-button-div{
+.pricing-button-div {
   display: flex;
   justify-content: center;
 }
-.pricing-btnn{
-border-radius: 38px ;
-padding: 16px;
-border: 1px solid #3498DB;
-background: transparent;
-color: white;
+.pricing-btnn {
+  border-radius: 38px;
+  padding: 16px;
+  border: 1px solid #3498db;
+  background: transparent;
+  color: white;
+  transition: all 0.3s ease 0s;
 }
-.pricing-silver{
+.pricing-btnn:hover{
+  background-color: #3498DB;
+  transition: all 0.3s ease 0s;
+}
 
+.pricing-silver {
 }
-.pricing-platinum{
-
+.pricing-platinum {
 }
-.progress-barr{
+.progress-barr {
   width: 80%;
   background-color: black;
 }
 
-.web-home-form-section{
+.web-home-form-section {
   display: grid;
   align-items: center;
   justify-content: center;
   margin-top: 2.5rem;
-  border: 2px solid green;
-} 
-.form-firstdiv{
+  /* border: 2px solid green; */
+}
+.form-firstdiv {
   text-align: center;
   display: grid;
   justify-items: center;
 }
-.form-firstdiv-h3{
-
+.form-firstdiv-h3 {
+font-size: 45px;
+font-weight: 700;
+text-align: center;
 }
-.form-firstdiv-para{
+.form-firstdiv-para {
   width: 80%;
+font-size: 15px;
+font-weight: 600;
+text-align: center;
 }
-.form-seconddiv-mainform{
+.form-seconddiv-mainform {
   display: flex;
+  margin-top: 2rem;
 }
-.form-formdiv{
+.form-formdiv {
   display: grid;
   justify-content: center;
-  background: #3498DB;
+  background: #3498db;
   gap: 1rem;
   padding: 1rem;
   width: 70%;
-} 
-.formis-form{
+}
+.formis-form {
   width: -webkit-fill-available;
   display: grid;
   gap: 1rem;
   color: white;
 }
-.h33{
-
+.h33 {
 }
-.form-inputs-main{
+.form-inputs-main {
   display: flex;
   gap: 3rem;
 }
-.form-firstinputs{
+.form-firstinputs {
   display: grid;
   gap: 0.3rem;
 }
-.form-inputss-label{
-
+.form-inputss-label {
 }
-.inputsss{
+.inputsss {
   background: transparent;
-  border: 1.5px solid #78A5C3;
+  border: 1.5px solid #78a5c3;
   border-radius: 20px;
   height: 3rem;
   width: 20rem;
+  color: white;
+  outline: none;
 }
 
-
-
-
-
-.batannn{
-
+.form-text {
+  width: -webkit-fill-available;
+  height: 6rem;
+  background: transparent;
+  border: 1.5px solid #78a5c3;
+  border-radius: 20px;
+  color: white;
+  outline: none;
 }
-
-
-
-.mapp-div{
+.batannn {
+}
+.formm-batannn {
+  width: -webkit-fill-available;
+  border-radius: 30px;
+  background: white;
+  padding: 6px;
+  color: #3498db;
+  border: none;
+}
+.mapp-div {
   display: grid;
   align-items: center;
   text-align: left;
-  background: #001F3F;
+  background: #001f3f;
   padding: 1rem;
   color: white;
   width: 30%;
+}
+.mapp-contact-div {
+}
+.mapp-contact-h3 {
+}
+.mapp-phone-div {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.mapp-phone-icon {
+}
+.mapp-contact-h4 {
+  margin: 0;
+}
+.mapp-email-div {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.mapp-email-icon {
+}
+.mapp-email-h4 {
+}
+.mapp-social-icons {
+  display: flex;
+  gap: 2rem;
+}
+.mapp-social-icons-div {
+  background: #1e293b;
+  padding: 10px;
+  border-radius: 30px;
+}
+.social-icons {
+  font-size: 2rem;
 }
