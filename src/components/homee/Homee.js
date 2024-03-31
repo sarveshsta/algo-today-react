@@ -13,8 +13,18 @@ import { MdAlternateEmail } from "react-icons/md";
 import { SlSocialFacebook } from "react-icons/sl";
 import Testimonial from "../testinomial/Testimonial";
 import { Faqq, numberData } from "../../arraydata/Arraydata";
+import Footer from "../footer/Footer";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 
 const Homee = () => {
+  const formData = new FormData();
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  };
+
   // Define the validation schema using Yup
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
@@ -41,11 +51,43 @@ const Homee = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log("vallsld", values);
+      formData.append("name", values.name);
+      formData.append("lastname", values.lastname);
+      formData.append("email", values.email);
+      formData.append("phoneNumber", values.phoneNumber);
+      formData.append("text", values.text);
+
+      axios
+        .post("http://13.234.76.87:8000/form", formData, config)
+        .then((response) => {
+          if (response.data.message === "Success") {
+            toast.success("Response Saved Succesfully");
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            alert(`Server Error: ${error.response.status}`);
+          } else if (error.request) {
+            // The request was made but no response was received
+            alert("Network Error: Please check your internet connection");
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            alert("Error: " + error.message);
+          }
+        });
     },
   });
 
   return (
     <>
+      <ToastContainer
+        autoClose={2000}
+        pauseOnFocusLoss={true}
+        closeOnClick={true}
+        draggable={true}
+      />
       <div style={{ background: "#FFFFFF" }}>
         <Mainnav />
         <div className="web-home-content-main">
@@ -64,7 +106,7 @@ const Homee = () => {
           </div>
           <div className="web-home-content-thirddiv">
             <button className="homecontent-bttn">
-              <Link to="" className="linking">
+              <Link to="/signup" className="linking">
                 Sign Up
               </Link>
             </button>
@@ -346,6 +388,7 @@ const Homee = () => {
           text1="Unleash the full power of data"
           para1="Everything you need to convert, engage, and retain more users."
         />
+        <Footer />
       </div>
     </>
   );

@@ -22,7 +22,7 @@ const Faq = ({ faquiz }) => {
       <div className="faq-containt-box">
         {faquiz.map((item, index) => (
           <>
-            <div className="faq-griding-here">
+            <div key={index} className="faq-griding-here">
               <div
                 className="faq-inner-box"
                 onClick={() => handleToggle(index)}

@@ -1,0 +1,96 @@
+.mainfooter{
+    /* background: rgba(15, 23, 42, 1);
+    color: rgba(228, 228, 231, 1);
+    display: flex;
+    padding: 4rem;
+    justify-content: space-between; */
+    gap: 2rem; 
+    background: rgba(15, 23, 42, 1);
+    color: rgba(228, 228, 231, 1);
+    display: grid;
+    padding: 4rem;
+    justify-items: center;
+    margin-top: 2rem;
+}
+.footer-subb1{
+    gap: 3rem;
+    padding: 1rem;
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-between;
+    border-bottom: 1.2px solid rgba(30, 41, 59, 1)
+}
+.footer-content-div{
+    /* width: 25%; */
+    display: grid;
+    margin-right: 1rem;
+}
+.algo-img-footer{
+
+}
+.footer-paraa{
+
+}
+.footer-icons-show{
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  /* justify-self: center;
+  justify-content: center;
+  align-content: center;
+  justify-items: center; */
+} 
+.footer-icn{
+    background: black;
+    display: flex;
+    justify-content: center;
+    border-radius: 88px;
+    padding: 10px;
+    transition: all 0.3s ease 0s;
+    
+}
+.footer-icn:hover{
+    background: rgba(37, 99, 235, 1);
+    transition: all 0.3s ease 0s;
+}
+.footer-firstof-h4{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.8px;
+    text-align: left;
+}
+.logooo-imagee{
+    width: 30%;
+}
+.footer-subb2{
+
+}
+.footer-firstof-h5{
+    font-size: 12.6px;
+    font-weight: 400;
+    line-height: 19.8px;
+    text-align: left;    
+    color: rgba(161, 161, 170, 1);
+}
+.store-img{
+    width: 70%;
+}
+.paa-para{
+font-size: 15px;
+font-weight: 400;
+line-height: 28px;
+text-align: left;
+}
+
+#comp-blue-col{
+    color: rgba(52, 152, 219, 1);
+}
+#help-blue-col{
+    color: rgba(52, 152, 219, 1);
+}
+#res-blue-col{
+    color: rgba(52, 152, 219, 1);
+}
+#inst-blue-col{
+    color: rgba(52, 152, 219, 1);
+}

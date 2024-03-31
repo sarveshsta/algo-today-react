@@ -1,7 +1,30 @@
-import React from "react";
 import "./testimonial.css";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
+import React, { useEffect, useRef, useState } from "react";
+import { sliderData } from "../../arraydata/Arraydata";
 
 const Testimonial = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [totalSlides, setTotalSlides] = useState();
+  const sliderContentRef = useRef(null);
+
+  useEffect(() => {
+    const totalSlides = sliderContentRef.current.children.length;
+    setTotalSlides(totalSlides);
+  }, []);
+
+  const handlePrevSlide = () => {
+    setCurrentSlide((prevSlide) =>
+      prevSlide === 0 ? totalSlides - 1 : prevSlide - 1
+    );
+  };
+
+  const handleNextSlide = () => {
+    setCurrentSlide((prevSlide) =>
+      prevSlide === totalSlides - 1 ? 0 : prevSlide + 1
+    );
+  };
   return (
     <>
       <div className="testimonial-main-div">
@@ -18,33 +41,34 @@ const Testimonial = () => {
         </div>
         <div className="testimonial-Slider-div">
           <div className="this-is-the-slider">
-            <div className="sliderr-container">
-              <div className="sliderr-sub-container">
-                <div className="img-of-slider">
-                  <img
-                    className="imagee"
-                    src={require("../../assets/icons/Image.png")}
-                  />
-                </div>
-                <div className="sliderr-boxof-heading">
-                  <div className="sliderr-heading">
-                    <h3 className="heading-h3">Esther Hills </h3>
+            {sliderData.map((item) => (
+              <>
+                <div
+                  className="sliderr-container"
+                  ref={sliderContentRef}
+                  style={{ transform: `translateX(${currentSlide * 50}%)` }}
+                >
+                  <div className="sliderr-sub-container">
+                    <div className="img-of-slider">{item.img}</div>
+                    <div className="sliderr-boxof-heading">
+                      <div className="sliderr-heading">
+                        <h3 className="heading-h3">{item.text1}</h3>
+                      </div>
+                      <div className="sliderr-boxof-para">
+                        <p className="paraa-p">{item.para1}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="sliderr-boxof-para">
-                    <p className="paraa-p">Lead Intranet Technician</p>
+                  <div className="sliderr-sub-container2">
+                    <p className="sliderr-sub-container2-para">{item.para2}</p>
                   </div>
                 </div>
-              </div>
-              <div>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book.
-                </p>
-              </div>
-            </div>
+              </>
+            ))}
+          </div>
+          <div className="slider-arrows">
+            <IoIosArrowBack className="arrows" onClick={handlePrevSlide} />
+            <IoIosArrowForward className="arrows" onClick={handleNextSlide} />
           </div>
         </div>
       </div>

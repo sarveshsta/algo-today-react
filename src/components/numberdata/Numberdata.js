@@ -1,3 +1,4 @@
+import './numberdata.css'
 import React from "react";
 
 const Numberdata = ({ webdata, text1, para1 }) => {

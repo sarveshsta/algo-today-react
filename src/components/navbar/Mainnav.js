@@ -6,7 +6,7 @@ const Mainnav = () => {
     <>
         <div className="web-home-navbar-section">
           <div className="web-home-navbar-firstdiv">
-            <img className="web-home-navbar-img" />
+            <img className="web-home-navbar-img" src={require("../../assets/icons/upscaler-1.png")} alt='AlgoToday Logo'/>
             <h2 className="web-home-navbar-h2">Algo Today</h2>
           </div>
           <div className="web-home-navbar-seconddiv">
@@ -27,7 +27,7 @@ const Mainnav = () => {
           </div>
           <div className="web-home-navbar-butoon">
             <button className="navbaarr-butoon" type="button">
-              <Link className="linking">Sign in</Link>
+              <Link to="/login" className="linking">Sign in</Link>
             </button>
           </div>
         </div>
