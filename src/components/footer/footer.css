@@ -1,37 +1,36 @@
-.mainfooter{
-    /* background: rgba(15, 23, 42, 1);
+.mainfooter {
+  position: relative;
+  /* background: rgba(15, 23, 42, 1);
     color: rgba(228, 228, 231, 1);
     display: flex;
     padding: 4rem;
     justify-content: space-between; */
-    gap: 2rem; 
-    background: rgba(15, 23, 42, 1);
-    color: rgba(228, 228, 231, 1);
-    display: grid;
-    padding: 4rem;
-    justify-items: center;
-    margin-top: 2rem;
+  gap: 2rem;
+  background: rgba(15, 23, 42, 1);
+  color: rgba(228, 228, 231, 1);
+  display: grid;
+  padding: 4rem;
+  justify-items: center;
+  margin-top: 12rem;
 }
-.footer-subb1{
-    gap: 3rem;
-    padding: 1rem;
-    display: flex;
-    /* align-items: center; */
-    justify-content: space-between;
-    border-bottom: 1.2px solid rgba(30, 41, 59, 1)
+.footer-subb1 {
+  gap: 3rem;
+  padding: 1rem;
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  border-bottom: 1.2px solid rgba(30, 41, 59, 1);
 }
-.footer-content-div{
-    /* width: 25%; */
-    display: grid;
-    margin-right: 1rem;
+.footer-content-div {
+  /* width: 25%; */
+  display: grid;
+  margin-right: 1rem;
 }
-.algo-img-footer{
-
+.algo-img-footer {
 }
-.footer-paraa{
-
+.footer-paraa {
 }
-.footer-icons-show{
+.footer-icons-show {
   display: flex;
   align-items: center;
   gap: 3rem;
@@ -39,58 +38,101 @@
   justify-content: center;
   align-content: center;
   justify-items: center; */
-} 
-.footer-icn{
-    background: black;
-    display: flex;
-    justify-content: center;
-    border-radius: 88px;
-    padding: 10px;
-    transition: all 0.3s ease 0s;
-    
 }
-.footer-icn:hover{
-    background: rgba(37, 99, 235, 1);
-    transition: all 0.3s ease 0s;
+.footer-icn {
+  background: black;
+  display: flex;
+  justify-content: center;
+  border-radius: 88px;
+  padding: 10px;
+  transition: all 0.3s ease 0s;
 }
-.footer-firstof-h4{
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 19.8px;
-    text-align: left;
+.footer-icn:hover {
+  background: rgba(37, 99, 235, 1);
+  transition: all 0.3s ease 0s;
 }
-.logooo-imagee{
-    width: 30%;
+.footer-firstof-h4 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.8px;
+  text-align: left;
 }
-.footer-subb2{
-
+.logooo-imagee {
+  width: 30%;
 }
-.footer-firstof-h5{
-    font-size: 12.6px;
-    font-weight: 400;
-    line-height: 19.8px;
-    text-align: left;    
-    color: rgba(161, 161, 170, 1);
+.footer-subb2 {
 }
-.store-img{
-    width: 70%;
+.footer-firstof-h5 {
+  font-size: 12.6px;
+  font-weight: 400;
+  line-height: 19.8px;
+  text-align: left;
+  color: rgba(161, 161, 170, 1);
 }
-.paa-para{
-font-size: 15px;
-font-weight: 400;
-line-height: 28px;
-text-align: left;
+.store-img {
+  width: 70%;
+}
+.paa-para {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 28px;
+  text-align: left;
 }
 
-#comp-blue-col{
-    color: rgba(52, 152, 219, 1);
+#comp-blue-col {
+  color: rgba(52, 152, 219, 1);
 }
-#help-blue-col{
-    color: rgba(52, 152, 219, 1);
+#help-blue-col {
+  color: rgba(52, 152, 219, 1);
 }
-#res-blue-col{
-    color: rgba(52, 152, 219, 1);
+#res-blue-col {
+  color: rgba(52, 152, 219, 1);
 }
-#inst-blue-col{
-    color: rgba(52, 152, 219, 1);
+#inst-blue-col {
+  color: rgba(52, 152, 219, 1);
+}
+.footer-newsletter {
+  display: grid;
+  gap: 2rem;
+  padding: 4rem;
+  background: rgba(52, 152, 219, 1);
+  position: absolute;
+  border-radius: 20px;
+  bottom: 28rem;
+}
+.footer-newsletter-firstdiv {
+  text-align: center;
+}
+.footer-newsletter-h2 {
+}
+.newsletter {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 2rem;
+}
+.newsletter-inputs {
+  background: transparent;
+  color: white;
+  padding-right: 1rem;
+    padding-left: 1rem;
+  border-radius: 5px;
+  border: 0.98px solid rgba(212, 212, 216, 1);
+  outline: none;
+}
+.newsletter-inputs::placeholder {
+  color: white;
+  font-size: 15.73px;
+  font-weight: 400;
+  line-height: 25.57px;
+  text-decoration-color: white;
+}
+.newsletter-btn {
+    border-radius: 8px;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    background: rgba(0, 31, 63, 1);
+    color: white;
+    line-height: 35px;
+    outline: none;
+    border: none;
 }

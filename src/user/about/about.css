@@ -1,0 +1,73 @@
+.about-firstdiv{
+  margin-top: 2rem;  
+ display: grid;
+ gap: 1rem;
+ justify-content: center;
+ align-items: center;
+ text-align: center;
+}
+.about-heading{
+    font-size: 45px;
+    font-weight: 700;
+    line-height: 65px;
+    text-align: center;    
+}
+.about-para{
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 28px;
+    text-align: center;    
+}
+.about-images{
+  display: flex;
+  padding: 2rem;
+  margin-top: 4rem;
+  position: relative;
+}
+.image1{
+    position: relative;
+}
+.image2{
+    position: relative;
+    bottom: 3rem;
+}
+.image3{
+    position: relative;
+    top: 3rem;
+}
+.image4{
+    position: relative;
+}
+.image5{
+    position: relative;
+    bottom: 6rem;
+}
+.image6{
+    position: relative;
+}
+.image7{
+    position: relative;
+    margin-top: 3rem;
+}
+.img-of-about{
+    width: 90%;
+}
+.about-mission{
+ display: grid;
+ gap: 1rem;
+ justify-content: center;
+ text-align: center;
+ margin-top: 2rem;
+}
+.mission-heading{
+    font-size: 45px;
+    font-weight: 700;
+    line-height: 65px;
+    text-align: center;   
+}
+.mission-para{
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 28px;
+    text-align: center;   
+}

@@ -116,10 +116,12 @@ const Homee = () => {
         </div>
 
         <div className="web-home-image-display-content">
+        <div class="star-container1"></div>
           <img
             className="image-display-content"
             src={require("../../assets/icons/Content.png")}
           />
+          <div class="star-container2"></div>
         </div>
 
         <div className="web-home-pricing-section">
@@ -359,11 +361,11 @@ const Homee = () => {
               </div>
               <div className="mapp-phone-div">
                 <BsTelephone className="mapp-phone-icon" />
-                <h4 className="mapp-contact-h4">+91 12345 6789</h4>
+                <h4 className="mapp-contact-h4">+918950829103</h4>
               </div>
               <div className="mapp-email-div">
                 <MdAlternateEmail className="mapp-phone-icon" />
-                <h4 className="mapp-contact-h4">example@email.com</h4>
+                <h4 className="mapp-contact-h4">Support@algotoday.com</h4>
               </div>
               <div className="mapp-social-icons">
                 <div className="mapp-social-icons-div">

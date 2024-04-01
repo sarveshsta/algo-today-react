@@ -232,6 +232,22 @@
   left: 16rem;
   bottom: 4.2rem;
 }
+.star-container1{
+  position: relative;
+  margin: 1em auto;
+  width: 1em;
+  font-size: 1.5em;
+  left: 1rem;
+  bottom: -9.8rem;
+}
+.star-container2{
+  position: relative;
+  margin: 1em auto;
+  width: 1em;
+  font-size: 1.5em;
+  left: 0rem;
+  bottom: -9.8rem;
+}
 
 .star-container:after {
   content: "";
@@ -246,6 +262,42 @@
   content: "";
   position: absolute;
   background: #ee7744;
+  width: 1em;
+  height: 1.15em;
+  transform: rotate(-45deg) skewX(22deg) skewY(22deg);
+}
+
+.star-container1:after {
+  content: "";
+  position: absolute;
+  background:rgba(44, 62, 80, 1);
+  width: 1em;
+  height: 1.15em;
+  transform: rotate(45deg) skewX(22deg) skewY(22deg);
+}
+
+.star-container1:before {
+  content: "";
+  position: absolute;
+  background:rgba(44, 62, 80, 1);
+  width: 1em;
+  height: 1.15em;
+  transform: rotate(-45deg) skewX(22deg) skewY(22deg);
+}
+
+.star-container2:after {
+  content: "";
+  position: absolute;
+  background: rgba(39, 174, 96, 1);
+  width: 1em;
+  height: 1.15em;
+  transform: rotate(45deg) skewX(22deg) skewY(22deg);
+}
+
+.star-container2:before {
+  content: "";
+  position: absolute;
+  background: rgba(39, 174, 96, 1);
   width: 1em;
   height: 1.15em;
   transform: rotate(-45deg) skewX(22deg) skewY(22deg);
@@ -545,6 +597,11 @@ text-align: center;
   background: #1e293b;
   padding: 10px;
   border-radius: 30px;
+  transition: all 0.3s ease 0s;
+}
+.mapp-social-icons-div:hover{
+  transition: all 0.3s ease 0s;
+  background: rgba(37, 99, 235, 1);
 }
 .social-icons {
   font-size: 2rem;

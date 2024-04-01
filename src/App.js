@@ -19,6 +19,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Forgotpassword from "./user/forgotpassword/Forgotpassword";
 import CustomStrategies from "./user/customstrategies/CustomStrategies";
 import Homee from "./components/homee/Homee";
+import About from "./user/about/About";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         {/* <Route path="/" element={<Home />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/wallet" element={<Wallet />} />
+        <Route path="/about" element={<About/>} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/mobile" element={<Mobile />} />
         <Route path="/newotp" element={<Newotp />} />

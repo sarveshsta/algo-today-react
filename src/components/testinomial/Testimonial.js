@@ -12,7 +12,11 @@ const Testimonial = () => {
   useEffect(() => {
     const totalSlides = sliderContentRef.current.children.length;
     setTotalSlides(totalSlides);
-  }, []);
+    const interval = setInterval(() => {
+      handleNextSlide();
+    }, 5000); // Change 5000 to adjust the auto-slide interval
+    return () => clearInterval(interval); // Cleanup function to clear interval
+  }, [currentSlide]);
 
   const handlePrevSlide = () => {
     setCurrentSlide((prevSlide) =>
@@ -25,6 +29,7 @@ const Testimonial = () => {
       prevSlide === totalSlides - 1 ? 0 : prevSlide + 1
     );
   };
+
   return (
     <>
       <div className="testimonial-main-div">

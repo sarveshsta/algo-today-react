@@ -21,7 +21,7 @@ const Mainnav = () => {
                 <Link className="linking">Contact Us</Link>
               </li>
               <li className="web-home-navbar-li">
-                <Link className="linking">About Us</Link>
+                <Link className="linking" to='/about'>About Us</Link>
               </li>
             </ul>
           </div>
