@@ -12,7 +12,7 @@ const Mainnav = () => {
           <div className="web-home-navbar-seconddiv">
             <ul className="web-home-navbar-ul">
               <li className="web-home-navbar-li">
-                <Link className="linking">Home</Link>
+                <Link className="linking" to='/'>Home</Link>
               </li>
               <li className="web-home-navbar-li">
                 <Link className="linking">Services</Link>
