@@ -395,4 +395,4 @@ const Homee = () => {
     </>
   );
 };
-export default Homee;
+export default React.memo(Homee);

@@ -11,7 +11,6 @@ const About = () => {
   const onHover = (e) => {
     e.preventDefault();
     setHover(true); // turn true
-    console.log("hovered");
   };
 
   const onHoverOver = (e) => {
@@ -164,4 +163,4 @@ const About = () => {
     </>
   );
 };
-export default About;
+export default React.memo(About);

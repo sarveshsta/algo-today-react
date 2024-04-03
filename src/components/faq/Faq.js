@@ -3,7 +3,6 @@ import React, { useState } from "react";
 
 const Faq = ({ faquiz }) => {
   const [activeIndex, setActiveIndex] = useState(null);
-
   const handleToggle = (index) => {
     setActiveIndex(index === activeIndex ? null : index);
   };
@@ -43,4 +42,4 @@ const Faq = ({ faquiz }) => {
     </>
   );
 };
-export default Faq;
+export default React.memo(Faq);

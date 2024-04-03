@@ -32,4 +32,4 @@ const Numberdata = ({ webdata, text1, para1 }) => {
   );
 };
 
-export default Numberdata;
+export default React.memo(Numberdata);
