@@ -97,9 +97,12 @@ height: Hug (52px); */
       text-align: center;
     }
 
-    .signup-form-already-registered-para .linking:hover{
-      box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    .linking:hover{
+      border-radius: 10px;
+      border: 2px solid;
+      padding: 5px;
     }
+
     .signup-form-3-text-div {
       display: flex;
       justify-content: space-evenly;
@@ -128,6 +131,7 @@ height: Hug (52px); */
   color: white;
   text-decoration: none;
   cursor: pointer;
+  transition: padding 0.3s ease-in-out;
 }
 
 .resend-otp-span{

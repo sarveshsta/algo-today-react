@@ -1,0 +1,10 @@
+.userhistory-dataa{
+    margin-left: 17%;
+}
+
+.blue-point{
+    width: 1rem;
+  height: 1rem;
+  border-radius: 50px;
+    background: #3498DB;
+}

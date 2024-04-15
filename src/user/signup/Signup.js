@@ -2,6 +2,7 @@ import "./signup.css";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import { useDispatch } from "react-redux";
 import { signupAPI } from "../features/auth/authAuthentication";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +15,24 @@ const Signup = () => {
   // const auth = useSelector((state) => state.auth)
   // const [showPassword, setShowPassword] = useState(false);
   // console.log("auth :", auth);
+=======
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import Formcomp from "../../components/formcomponent/Formcomp";
+import { signupAPI } from "../features/auth/authAuthentication";
+import Formbutton from "../../components/formcomponent/Formbutton";
+
+const Signup = () => {
+  const dispatch = useDispatch();
+  const formData = new FormData();
+
+  const auth = useSelector((state) => state.auth);
+  // console.log("Signupauth :", auth);
+
+  const errorMessage = auth.user?.response?.data;
+  const { message, success } = errorMessage || {};
+>>>>>>> ba8360d05838d71fa28993da6e94134f4c359410
 
   const formik = useFormik({
     initialValues: {
@@ -25,6 +44,7 @@ const Signup = () => {
     },
 
     validationSchema: Yup.object({
+<<<<<<< HEAD
       name: Yup.string().required("Name is required"),
       email: Yup.string()
       .email("Invalid email address")
@@ -34,6 +54,25 @@ const Signup = () => {
       confirmPassword: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Confirm Password is required"),
+=======
+      name: Yup.string()
+        .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
+        .required("Name is required"),
+      phone: Yup.string()
+        .matches(/^[0-9]{10}$/, "Enter a valid Number")
+        .required("Mobile Number is required"),
+      otp: Yup.string()
+        .matches(/^[0-9]{6}$/, "Enter a valid OTP")
+        .required("OTP is required"),
+      password: Yup.string()
+        .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
+        .min(6, "Password must be at least 6 characters")
+        .required("Password is required"),
+      email: Yup.string()
+        .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
+        .email("Invalid email address")
+        .required("Email is required"),
+>>>>>>> ba8360d05838d71fa28993da6e94134f4c359410
     }),
 
     onSubmit: (values) => {
@@ -42,9 +81,15 @@ const Signup = () => {
       formData.append("otp", localStorage.getItem('otp'));
       formData.append("password", values.password);
       formData.append("email", values.email);
+<<<<<<< HEAD
       
       dispatch(signupAPI(formData))
       navigate("/dashboard");
+=======
+
+      dispatch(signupAPI(formData));
+      toast.error(message);
+>>>>>>> ba8360d05838d71fa28993da6e94134f4c359410
     },
       
   });
@@ -53,6 +98,13 @@ const Signup = () => {
   // };
   return (
     <>
+      <ToastContainer
+        autoClose={2000}
+        pauseOnFocusLoss={true}
+        closeOnClick={true}
+        draggable={true}
+        theme="colored"
+      />
       <div className="signup-main-div">
         <div className="signup-firstdiv">
           <img
@@ -72,8 +124,7 @@ const Signup = () => {
               Just some details to get you in !
             </p>
             <form className="form-form" onSubmit={formik.handleSubmit}>
-              <input
-                className="signup-form-input"
+              <Formcomp
                 type="text"
                 placeholder="Name"
                 name="name"
@@ -87,8 +138,55 @@ const Signup = () => {
                 </div>
               ) : null}
 
+<<<<<<< HEAD
               <input
                 className="signup-form-input"
+=======
+              <Formcomp
+                type="text"
+                placeholder="Mobile Number"
+                name="phone"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.phone}
+              />
+
+              {formik.touched.phone && formik.errors.phone ? (
+                <div className="error-message" style={{ color: "red" }}>
+                  {formik.errors.phone}
+                </div>
+              ) : null}
+
+              <Formcomp
+                type="text"
+                placeholder="Enter OTP"
+                name="otp"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.otp}
+              />
+              {formik.touched.otp && formik.errors.otp ? (
+                <div className="error-message" style={{ color: "red" }}>
+                  {formik.errors.otp}
+                </div>
+              ) : null}
+
+              <Formcomp
+                type="password"
+                placeholder="Password"
+                name="password"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.password}
+              />
+              {formik.touched.password && formik.errors.password ? (
+                <div className="error-message" style={{ color: "red" }}>
+                  {formik.errors.password}
+                </div>
+              ) : null}
+
+              <Formcomp
+>>>>>>> ba8360d05838d71fa28993da6e94134f4c359410
                 type="email"
                 placeholder="Email"
                 name="email"
@@ -102,6 +200,7 @@ const Signup = () => {
                 </div>
               ) : null}
 
+<<<<<<< HEAD
               {/* Password input field */}
               <div className="password-input-container">
                 <input
@@ -141,12 +240,14 @@ const Signup = () => {
               <button className="signup-form-button" type="submit">
                 Signup
               </button>
+=======
+              <Formbutton type="submit" text="Signup" />
+>>>>>>> ba8360d05838d71fa28993da6e94134f4c359410
             </form>
             <p className="signup-form-already-registered-para">
               Already registered?{" "}
               <Link className="linking" to="/login">
-                {" "}
-                Login{" "}
+                Login
               </Link>
             </p>
 
@@ -162,4 +263,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default React.memo(Signup);

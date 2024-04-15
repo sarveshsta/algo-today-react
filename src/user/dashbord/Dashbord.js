@@ -12,7 +12,7 @@ const Dashbord = () => {
   return (
     <div className="Container">
     <HorizontalNav/>
-      <Shape />
+      {/* <Shape /> */}
       <Navbar />
       <Indices />
       <Strategy />
@@ -22,4 +22,4 @@ const Dashbord = () => {
   );
 };
 
-export default Dashbord;
+export default React.memo(Dashbord);

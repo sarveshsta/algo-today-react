@@ -1,6 +1,6 @@
 import "./stockgla.css";
 import React from "react";
-import image from '../../assets/icons/Ellipse 30.png'
+import image from "../../assets/icons/Ellipse 30.png";
 
 const Stockgla = () => {
   const GlaList = ["Top Gainer", "Top Losers", "Active"];
@@ -52,11 +52,15 @@ const Stockgla = () => {
             const { img, heading, para, price, change } = item;
             return (
               <div className="StackCard">
-                <img className="stockimg" src={img} alt="" />
-                <h2 className="stockheading" >{heading}</h2>
-                <p className="stockpara" >{para}</p>
-                <span className="stockprice" >${price}</span>
-                <span className="stockchang" >{change}</span>
+                <div className="st-card-1">
+                  <img className="stockimg" src={img} alt="" />
+                </div>
+                <div className="st-card-2">
+                  <h2 className="stockheading">{heading}</h2>
+                  <p className="stockpara">{para}</p>
+                  <span className="stockprice">${price}</span>
+                  <span className="stockchang">{change}</span>
+                </div>
               </div>
             );
           })}
@@ -66,4 +70,4 @@ const Stockgla = () => {
   );
 };
 
-export default Stockgla;
+export default React.memo(Stockgla);

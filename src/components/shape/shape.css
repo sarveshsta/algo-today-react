@@ -1,18 +1,30 @@
 .orange {
-    width: 288px;
+    /* width: 288px;
     height: 288px;
     flex-shrink: 0;
     position: absolute;
     border-radius: 288px;
     background: #f39c12;
     left: 12rem;
-    top: 15rem;
+    top: 15rem; */
+
+    width: 288px;
+    height: 288px;
+    flex-shrink: 0;
+    position: absolute;
+    border-radius: 288px;
+    background: #f39c12;
+    top: 6rem;
+    right: 0;
+    z-index: -1;
+    filter: blur(60px);
   }
   
   .green {
       /* width: 184px;
       height: 184px; */
       transform: rotate(1.977deg);
+      filter: blur(15px);
       /* flex-shrink: 0;
       position: absolute;
       fill: var(--27-ae-60, #27ae60);
@@ -24,13 +36,13 @@
 
   .shape-img2-green{
     display: inline;
-    border: 2px solid;
+    /* border: 2px solid; */
     position: absolute;
     transform: translate(52vw, 20vw);
   }
 
   .shape-img3-blue{
-    border: 2px solid;
+    /* border: 2px solid; */
     display: inline;
     position: absolute;
     right: 0;
@@ -41,6 +53,15 @@
     /* position: absolute;
     right: -30rem;
     top: 25rem; */
+}
+
+.new-shape-cust{
+  /* border: 2px solid; */
+  display: inline;
+  position: absolute;
+  z-index: -1;
+  left: 10rem;
+  top: 7.8rem;
 }
 
 @media (max-width: 768px) {

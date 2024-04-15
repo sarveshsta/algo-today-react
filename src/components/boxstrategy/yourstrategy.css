@@ -5,7 +5,7 @@
     width: -webkit-fill-available;
     margin-left: 19%;
     margin-top: 3vh;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto;
     gap: 2vh;
     padding: 1rem;
     border-radius: 30px;
@@ -27,8 +27,10 @@
 
 .subbox{
     height: auto;
-    width: -webkit-fill-available;
+    width: auto;
     text-align: center;
+    padding: 1rem;
+    opacity: 0.71;
 }
 
 #box1 {
@@ -36,7 +38,6 @@
     height: 219px; */
     flex-shrink: 0;
     border-radius: 25px;
-    opacity: 0.65;
     background: #F39C12;
     /* margin: 0px 14px; */
     /* position: relative; */
@@ -47,7 +48,6 @@
     height: 224px; */
     flex-shrink: 0;
     border-radius: 25px;
-    opacity: 0.65;
     background: #27AE60;
     /* margin: 0px 14px; */
 }
@@ -57,7 +57,6 @@
     height: 225px; */
     flex-shrink: 0;
     border-radius: 25px;
-    opacity: 0.65;
     background: #E74;
     /* margin: 0px 14px; */
 }
@@ -67,17 +66,36 @@
     height: 225px; */
     flex-shrink: 0;
     border-radius: 25px;
-    opacity: 0.65;
     background: #9C34DB;
     /* margin: 0px 14px; */
+}
+#box5 {
+    flex-shrink: 0;
+    border-radius: 25px;
+    background: #9C34DB;
+}
+#box6 {
+    flex-shrink: 0;
+    border-radius: 25px;
+    background: #F39C12;
+}
+#box7 {
+    flex-shrink: 0;
+    border-radius: 25px;
+    background: #27AE60;
+}
+#box8 {
+    flex-shrink: 0;
+    border-radius: 25px;
+    background: #E74;
 }
 
 .boxHeading {
     color: black;
-    text-align: center;
+    /* text-align: center;
     font-family: Montserrat;
     font-size: 36px;
-    font-style: normal;
+    font-style: normal; */
     font-weight: 600;
     line-height: normal;
 }
@@ -85,9 +103,9 @@
 .boxpara {
     color: var(--2-c-3-e-50, #2C3E50);
     text-align: center;
-    font-family: Roboto;
+    /* font-family: Roboto;
     font-size: 18px;
-    font-style: normal;
+    font-style: normal; */
     font-weight: 400;
     line-height: 127.734%;
 }

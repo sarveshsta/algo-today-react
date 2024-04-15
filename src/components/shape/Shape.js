@@ -4,7 +4,7 @@ import React from 'react'
 const Shape = () => {
     return (
         <>
-            {/* <div className="orange"></div>
+            <div className="orange"></div>
             <div className='shape-img2-green' >
                 <img
                     className="green"
@@ -16,9 +16,9 @@ const Shape = () => {
                     className="blue"
                     src={require("../../assets/icons/Ellipse 29.png")}
                 />
-            </div> */}
+            </div>
         </>
     )
 }
 
-export default Shape
+export default React.memo(Shape)
