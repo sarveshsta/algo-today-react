@@ -1,21 +1,21 @@
 import "./homee.css";
-import React, { useMemo, useState } from "react";
+import axios from "axios";
 import * as Yup from "yup";
 import Faq from "../faq/Faq";
 import { useFormik } from "formik";
+import Footer from "../footer/Footer";
 import Mainnav from "../navbar/Mainnav";
 import { Link } from "react-router-dom";
 import { BsTelephone } from "react-icons/bs";
 import { FaInstagram } from "react-icons/fa";
 import { RxTwitterLogo } from "react-icons/rx";
+import React, { useMemo, useState } from "react";
 import Numberdata from "../numberdata/Numberdata";
 import { MdAlternateEmail } from "react-icons/md";
 import { SlSocialFacebook } from "react-icons/sl";
 import Testimonial from "../testinomial/Testimonial";
-import { Faqq, numberData } from "../../arraydata/Arraydata";
-import Footer from "../footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
-import axios from "axios";
+import { Faqq, numberData } from "../../arraydata/Arraydata";
 
 const Homee = () => {
   const [progressValue, setProgressValue] = useState(0)
@@ -35,6 +35,7 @@ const Homee = () => {
         name: Yup.string().required("Name is required"),
         lastname: Yup.string().required("Last Name is required"),
         email: Yup.string()
+          .matches(/^[a-zA-Z]+$/, 'Email must contain only alphabetic characters')
           .email("Invalid email address")
           .required("Email is required"),
         phoneNumber: Yup.string()
