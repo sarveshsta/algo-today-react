@@ -3,13 +3,8 @@ import axios from "axios";
 import * as Yup from "yup";
 import Select from "react-select";
 import { useFormik } from "formik";
-<<<<<<< HEAD:src/user/Home.js
-import Navbar from "../components/navbar/Navbar";
-import React, { useState } from "react";
-=======
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
->>>>>>> ba8360d05838d71fa28993da6e94134f4c359410:src/user/home/Home.js
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import HorizontalNav from "../../components/navbar/HorizontalNav";
@@ -161,9 +156,6 @@ const Home = () => {
             {" "}
             Algotoday
           </h1>
-<<<<<<< HEAD:src/user/Home.js
-          <Link to="/mobile"><button id="signup-button-home" type="button" class="btn btn-primary">Signup</button></Link>
-=======
           <Link to="/signup">
             <button
               id="signup-button-home"
@@ -173,7 +165,6 @@ const Home = () => {
               Signup
             </button>
           </Link>
->>>>>>> ba8360d05838d71fa28993da6e94134f4c359410:src/user/home/Home.js
         </div>
 
         <div

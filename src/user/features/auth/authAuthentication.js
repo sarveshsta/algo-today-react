@@ -1,13 +1,5 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
-<<<<<<< HEAD
-const backendUrl =
-  "http://13.127.232.213:8000";
-  // "https://862e-2409-40c4-3030-1662-59b2-ecfe-c96d-d41.ngrok-free.app";
-=======
->>>>>>> ba8360d05838d71fa28993da6e94134f4c359410
-
 const backendUrl = "http://13.127.232.213:8000";
 
 // const config = {

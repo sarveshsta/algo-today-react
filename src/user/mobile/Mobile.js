@@ -1,11 +1,6 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-<<<<<<< HEAD
-// import React, { useEffect } from "react";
-// import { mobileAuthentication } from "../features/auth/authAuthentication";
-=======
 import React, { useEffect } from "react";
->>>>>>> ba8360d05838d71fa28993da6e94134f4c359410
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -34,30 +29,6 @@ const Mobile = () => {
         .required("Mobile Number is required"),
     }),
     onSubmit: (values) => {
-<<<<<<< HEAD
-      const fetchData = async () => {
-        try {
-          const formData = new FormData();
-          formData.append("phone", values.number);
-          const config = {
-            method: "post",
-            url: "http://13.127.232.213:8000/request-otp/",
-            // url: "https://862e-2409-40c4-3030-1662-59b2-ecfe-c96d-d41.ngrok-free.app/request-otp/",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            data: formData,
-          };
-          const response = await axios(config);
-          console.log(JSON.stringify(response.data));
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchData();
-      localStorage.setItem("phone_number", values.number);
-      navigate("/newotp");
-=======
       const formData = new FormData();
       formData.append("phone", values.number);
       dispatch(mobileAuthentication(formData));
@@ -73,25 +44,11 @@ const Mobile = () => {
       } else {
         return toast(message);
       }
->>>>>>> ba8360d05838d71fa28993da6e94134f4c359410
     },
   });
 
   return (
     <>
-<<<<<<< HEAD
-    <div style={{padding:'2.3rem', background: "rgba(238, 242, 242, 1)"}}>
-      <div className="signup-main-div">
-        <div className="signup-firstdiv">
-          <img
-            className="firstdiv-image"
-            src={require("../../assets/icons/upscaler-1.png")}
-            alt="Algo-Today img"
-          />
-          <h1 className="firstdiv-h1">Algo Today</h1>
-          <h3 className="firstdiv-h3">Trade Smarter.Live Free</h3>
-        </div>
-=======
       <ToastContainer
         autoClose={2000}
         pauseOnFocusLoss={true}
@@ -110,7 +67,6 @@ const Mobile = () => {
             <h1 className="firstdiv-h1">Algo Today</h1>
             <h3 className="firstdiv-h3">Trade Smarter.Live Free</h3>
           </div>
->>>>>>> ba8360d05838d71fa28993da6e94134f4c359410
 
           {/* -----------------Form-section------------ */}
           <div className="form-section">

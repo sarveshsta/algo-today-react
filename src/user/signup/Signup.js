@@ -2,20 +2,6 @@ import "./signup.css";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-import { useDispatch } from "react-redux";
-import { signupAPI } from "../features/auth/authAuthentication";
-import { useNavigate } from "react-router-dom";
-
-const Signup = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate();
-  const formData = new FormData()
-
-  // const auth = useSelector((state) => state.auth)
-  // const [showPassword, setShowPassword] = useState(false);
-  // console.log("auth :", auth);
-=======
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -32,7 +18,6 @@ const Signup = () => {
 
   const errorMessage = auth.user?.response?.data;
   const { message, success } = errorMessage || {};
->>>>>>> ba8360d05838d71fa28993da6e94134f4c359410
 
   const formik = useFormik({
     initialValues: {
@@ -44,17 +29,6 @@ const Signup = () => {
     },
 
     validationSchema: Yup.object({
-<<<<<<< HEAD
-      name: Yup.string().required("Name is required"),
-      email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-      password: Yup.string().min(8, "Password must be at least 8 characters")
-        .required("Password is required"),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Passwords must match")
-        .required("Confirm Password is required"),
-=======
       name: Yup.string()
         .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
         .required("Name is required"),
@@ -72,7 +46,6 @@ const Signup = () => {
         .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
         .email("Invalid email address")
         .required("Email is required"),
->>>>>>> ba8360d05838d71fa28993da6e94134f4c359410
     }),
 
     onSubmit: (values) => {
@@ -81,15 +54,9 @@ const Signup = () => {
       formData.append("otp", localStorage.getItem('otp'));
       formData.append("password", values.password);
       formData.append("email", values.email);
-<<<<<<< HEAD
-      
-      dispatch(signupAPI(formData))
-      navigate("/dashboard");
-=======
 
       dispatch(signupAPI(formData));
       toast.error(message);
->>>>>>> ba8360d05838d71fa28993da6e94134f4c359410
     },
       
   });
@@ -138,10 +105,6 @@ const Signup = () => {
                 </div>
               ) : null}
 
-<<<<<<< HEAD
-              <input
-                className="signup-form-input"
-=======
               <Formcomp
                 type="text"
                 placeholder="Mobile Number"
@@ -186,7 +149,6 @@ const Signup = () => {
               ) : null}
 
               <Formcomp
->>>>>>> ba8360d05838d71fa28993da6e94134f4c359410
                 type="email"
                 placeholder="Email"
                 name="email"
@@ -200,49 +162,7 @@ const Signup = () => {
                 </div>
               ) : null}
 
-<<<<<<< HEAD
-              {/* Password input field */}
-              <div className="password-input-container">
-                <input
-                  className="signup-form-input password-input"
-                  type={"password"}
-                  placeholder="Password"
-                  name="password"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.password}
-                />
-              </div>
-              {formik.touched.password && formik.errors.password ? (
-                <div className="error-message" style={{ color: "red" }}>
-                  {formik.errors.password}
-                </div>
-              ) : null}
-
-              {/* Confirm password input field */}
-              <input
-                className="signup-form-input"
-                type="password"
-                placeholder="Confirm Password"
-                name="confirmPassword"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.confirmPassword}
-              />
-              {formik.touched.confirmPassword &&
-              formik.errors.confirmPassword ? (
-                <div className="error-message" style={{ color: "red" }}>
-                  {formik.errors.confirmPassword}
-                </div>
-              ) : null}
-
-              
-              <button className="signup-form-button" type="submit">
-                Signup
-              </button>
-=======
               <Formbutton type="submit" text="Signup" />
->>>>>>> ba8360d05838d71fa28993da6e94134f4c359410
             </form>
             <p className="signup-form-already-registered-para">
               Already registered?{" "}
