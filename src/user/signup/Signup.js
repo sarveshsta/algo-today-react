@@ -29,7 +29,9 @@ const Signup = () => {
     },
 
     validationSchema: Yup.object({
-      name: Yup.string().required("Name is required"),
+      name: Yup.string()
+        .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
+        .required("Name is required"),
       phone: Yup.string()
         .matches(/^[0-9]{10}$/, "Enter a valid Number")
         .required("Mobile Number is required"),
@@ -37,9 +39,11 @@ const Signup = () => {
         .matches(/^[0-9]{6}$/, "Enter a valid OTP")
         .required("OTP is required"),
       password: Yup.string()
+        .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
         .min(6, "Password must be at least 6 characters")
         .required("Password is required"),
       email: Yup.string()
+        .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
         .email("Invalid email address")
         .required("Email is required"),
     }),

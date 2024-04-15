@@ -1,10 +1,11 @@
-import "./faq.css";
 import React, { useState } from "react";
+import "./faq.css";
 
 const Faq = ({ faquiz }) => {
   const [activeIndex, setActiveIndex] = useState(null);
+
   const handleToggle = (index) => {
-    setActiveIndex(index === activeIndex ? null : index);
+    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
   return (
@@ -20,8 +21,8 @@ const Faq = ({ faquiz }) => {
       </div>
       <div className="faq-containt-box">
         {faquiz.map((item, index) => (
-          <>
-            <div key={index} className="faq-griding-here">
+          <React.Fragment key={index}>
+            <div className="faq-griding-here">
               <div
                 className="faq-inner-box"
                 onClick={() => handleToggle(index)}
@@ -29,17 +30,18 @@ const Faq = ({ faquiz }) => {
               >
                 <div className="wanna-flex-this-icon">
                   <h3 className="faq-h33">{item.question}</h3>
-                  <h5 className="faq-h55">{activeIndex ? "-" : "+"}</h5>
+                  <h5 className="faq-h55">{index === activeIndex ? "-" : "+"}</h5>
                 </div>
                 {index === activeIndex && (
                   <p className="faq-paraa">{item.answer}</p>
                 )}
               </div>
             </div>
-          </>
+          </React.Fragment>
         ))}
       </div>
     </>
   );
 };
+
 export default React.memo(Faq);

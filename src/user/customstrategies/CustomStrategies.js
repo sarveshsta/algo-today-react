@@ -3,12 +3,11 @@ import Select from "react-select";
 import Shape from "../../components/shape/Shape";
 import Navbar from "../../components/navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect, useMemo, useState } from "react";
 import Newshape from "../../components/shape/custshape/Newshape";
 import HorizontalNav from "../../components/navbar/HorizontalNav";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Orangenewshape from "../../components/shape/custshape/Orangenewshape";
 import { getBankniftyDataApi } from "../features/customdata/custAuthentication";
-
 
 const option4 = [
   { value: "CE", label: "CE" },
@@ -92,25 +91,26 @@ const CustomStrategies = () => {
     [state]
   );
 
-  const subsymbols = strikePrice.map((symbol) =>
-    symbol?.substring(15, 20)
+  const subsymbols = useMemo(
+    () => strikePrice.map((symbol) => symbol?.substring(15, 20)),
+    [strikePrice]
   );
 
   useEffect(() => {
     dispatch(getBankniftyDataApi());
   }, [dispatch]);
 
-  const handleSubmit = (changeinput) => {
-    // setSelectedInput(changeinput);
-  };
+  const handleSubmit = useCallback((changeinput) => {
+    setSelectedInput(changeinput);
+  }, []);
 
-  const checkBoxChange = () => {
-    setCheckedCheckBox(!checkedCheckBox);
-  };
+  const checkBoxChange = useCallback(() => {
+    setCheckedCheckBox((prevState) => !prevState);
+  }, []);
 
-  const submitButton = () => {
-    // console.log("selected", checkedCheckBox);
-  };
+  const submitButton = useCallback(() => {
+    console.log("selected", checkedCheckBox);
+  }, [checkedCheckBox]);
 
   return (
     <div>

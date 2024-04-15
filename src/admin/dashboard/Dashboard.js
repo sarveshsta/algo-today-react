@@ -310,7 +310,7 @@ const Dashboard = () => {
           </div>
           <div className="wanna-grid-user-list">
             <div className="user-list">
-              {userlistData.slice(0, maxContentOnPage).map((item) => {
+              {userlistData.slice(0, maxContentOnPage).map((item,index) => {
                 const {
                   userimg,
                   username,
@@ -322,7 +322,7 @@ const Dashboard = () => {
                 } = item;
                 return (
                   <>
-                    <div className="wanna-flex-do-it">
+                    <div className="wanna-flex-do-it" key={index}>
                       <div className="user-list-div1">
                         <img className="list-div1-img" src={userimg} />
                       </div>

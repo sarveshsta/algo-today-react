@@ -1,5 +1,5 @@
 import "./homee.css";
-import React from "react";
+import React, { useMemo, useState } from "react";
 import * as Yup from "yup";
 import Faq from "../faq/Faq";
 import { useFormik } from "formik";
@@ -18,6 +18,9 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 const Homee = () => {
+  const [progressValue, setProgressValue] = useState(0)
+  const [progressMax, setProgressMax] = useState(100)
+
   const formData = new FormData();
   const config = {
     headers: {
@@ -26,19 +29,23 @@ const Homee = () => {
   };
 
   // Define the validation schema using Yup
-  const validationSchema = Yup.object({
-    name: Yup.string().required("Name is required"),
-    lastname: Yup.string().required("Last Name is required"),
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    phoneNumber: Yup.string()
-      .matches(/^[0-9]+$/, "Must be only digits")
-      .min(10, "Must be exactly 10 digits")
-      .max(10, "Must be exactly 10 digits")
-      .required("Phone Number is required"),
-    text: Yup.string().required("Enter a text"),
-  });
+  const validationSchema = useMemo(
+    () =>
+      Yup.object({
+        name: Yup.string().required("Name is required"),
+        lastname: Yup.string().required("Last Name is required"),
+        email: Yup.string()
+          .email("Invalid email address")
+          .required("Email is required"),
+        phoneNumber: Yup.string()
+          .matches(/^[0-9]+$/, "Must be only digits")
+          .min(10, "Must be exactly 10 digits")
+          .max(10, "Must be exactly 10 digits")
+          .required("Phone Number is required"),
+        text: Yup.string().required("Enter a text"),
+      }),
+    []
+  );
 
   const formik = useFormik({
     initialValues: {
@@ -68,13 +75,13 @@ const Homee = () => {
           if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
-            alert(`Server Error: ${error.response.status}`);
+            toast.error(`Server Error: ${error.response.status}`);
           } else if (error.request) {
             // The request was made but no response was received
-            alert("Network Error: Please check your internet connection");
+            toast.error("Network Error: Please check your internet connection");
           } else {
             // Something happened in setting up the request that triggered an Error
-            alert("Error: " + error.message);
+            toast.error("Error: " + error.message);
           }
         });
     },
@@ -116,7 +123,7 @@ const Homee = () => {
         </div>
 
         <div className="web-home-image-display-content">
-        <div class="star-container1"></div>
+          <div class="star-container1"></div>
           <img
             className="image-display-content"
             src={require("../../assets/icons/Content.png")}
@@ -137,7 +144,7 @@ const Homee = () => {
             </p>
           </div>
           <div className="pricing-section-track">
-            <progress className="progress-barr" value={0} max={100} />
+            <progress className="progress-barr" value={30} max={100} />
           </div>
           <div className="pricing-section-mainprice">
             <div className="pricing-gold">
@@ -278,6 +285,7 @@ const Homee = () => {
                       onBlur={formik.handleBlur}
                       value={formik.values.name}
                     />
+
                     {formik.touched.name && formik.errors.name && (
                       <p className="formik-error-message">
                         {formik.errors.name}
@@ -356,29 +364,45 @@ const Homee = () => {
               </form>
             </div>
             <div className="mapp-div">
-              <div className="mapp-contact-div">
-                <h3 className="mapp-contact-h3">Contact info</h3>
-              </div>
-              <div className="mapp-phone-div">
-                <BsTelephone className="mapp-phone-icon" />
-                <h4 className="mapp-contact-h4">+918950829103</h4>
-              </div>
-              <div className="mapp-email-div">
-                <MdAlternateEmail className="mapp-phone-icon" />
-                <h4 className="mapp-contact-h4">Support@algotoday.com</h4>
-              </div>
-              <div className="mapp-social-icons">
-                <div className="mapp-social-icons-div">
-                  <RxTwitterLogo className="social-icons" />
+              <div className="mapp-grid-this">
+                <div className="mapp-contact-div">
+                  <h3 className="mapp-contact-h3">Contact info</h3>
                 </div>
-                <div className="mapp-social-icons-div">
-                  <SlSocialFacebook className="social-icons" />
+                <div className="mapp-phone-div">
+                  <BsTelephone className="mapp-phone-icon" />
+                  <h4 className="mapp-contact-h4">+918950829103</h4>
                 </div>
-                <div className="mapp-social-icons-div">
-                  <FaInstagram className="social-icons" />
+                <div className="mapp-email-div">
+                  <MdAlternateEmail className="mapp-phone-icon" />
+                  <h4 className="mapp-contact-h4">Support@algotoday.com</h4>
+                </div>
+                <div className="mapp-social-icons">
+                  <div className="mapp-social-icons-div">
+                    <RxTwitterLogo className="social-icons" />
+                  </div>
+                  <div className="mapp-social-icons-div">
+                    <SlSocialFacebook className="social-icons" />
+                  </div>
+                  <div className="mapp-social-icons-div">
+                    <FaInstagram className="social-icons" />
+                  </div>
                 </div>
               </div>
-              <div></div>
+              <div className="the-map">
+                <div style={{ width: "100%" }}>
+                  <iframe
+                    width="100%"
+                    // height="600"
+                    frameborder="0"
+                    scrolling="no"
+                    marginheight="0"
+                    marginwidth="0"
+                    src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Sky%20Corporate%20Indore+(AlgoToday)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                  >
+                    <a href="https://www.gps.ie/">gps devices</a>
+                  </iframe>
+                </div>
+              </div>
             </div>
           </div>
         </div>

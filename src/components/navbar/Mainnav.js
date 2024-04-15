@@ -15,10 +15,10 @@ const Mainnav = () => {
                 <Link className="linking" to='/'>Home</Link>
               </li>
               <li className="web-home-navbar-li">
-                <Link className="linking">Services</Link>
+                <Link className="linking" to='/service'>Services</Link>
               </li>
               <li className="web-home-navbar-li">
-                <Link className="linking">Contact Us</Link>
+                <Link className="linking" to='/contact-us'>Contact Us</Link>
               </li>
               <li className="web-home-navbar-li">
                 <Link className="linking" to='/about'>About Us</Link>

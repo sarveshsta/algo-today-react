@@ -84,7 +84,7 @@ const Mobile = () => {
                    onBlur={formik.handleBlur}
                    value={formik.values.number}
                 />
-                {formik.touched.number && formik.errors.number ? (
+                {formik.touched.number && formik.errors.number? (
                   <div className="error-message" style={{ color: "red" }}>
                     {formik.errors.number}
                   </div>

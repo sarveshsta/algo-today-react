@@ -19,8 +19,8 @@ const Navbar = () => {
     }
   };
 
-  const addClass = async (event) => {
-    return await event.currentTarget.classList.toggle("iconhome");
+  const addClass = (event) => {
+    return event.currentTarget.classList.toggle("iconhome");
   };
 
   return (
@@ -57,7 +57,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
-          <div onClick={addClass}>
+          <div className="iconhome" onClick={addClass}>
             <li className="vertnav-ul-li" id="opendemat">
               <img
                 className="iconimg"
@@ -72,7 +72,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
-          <div onClick={addClass}>
+          <div className="iconhome" onClick={addClass}>
             <li className="vertnav-ul-li" id="acc">
               <img
                 className="iconimg"
@@ -87,7 +87,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
-          <div onClick={addClass}>
+          <div className="iconhome" onClick={addClass}>
             <li className="vertnav-ul-li" id="wallet">
               <img
                 className="iconimg"
@@ -102,7 +102,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
-          <div onClick={addClass}>
+          <div className="iconhome" onClick={addClass}>
             <li className="vertnav-ul-li" id="cust">
               <img
                 className="iconimg"
@@ -117,7 +117,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
-          <div onClick={addClass}>
+          <div className="iconhome" onClick={addClass}>
             <li className="vertnav-ul-li" id="mantrad">
               <img
                 className="iconimg"
@@ -132,7 +132,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
-          <div onClick={addClass}>
+          <div className="iconhome" onClick={addClass}>
             <li className="vertnav-ul-li" id="usrhist">
               <img
                 className="iconimg"
@@ -147,7 +147,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
-          <div onClick={addClass}>
+          <div className="iconhome" onClick={addClass}>
             <li className="vertnav-ul-li" id="ref&ern">
               <img
                 className="iconimg"

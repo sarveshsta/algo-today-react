@@ -44,7 +44,7 @@ const authSlice = createSlice({
     builder.addCase(mobileAuthentication.fulfilled, (state, action) => {
       state.loading = false;
       state.user = action.payload;
-      if (action.payload.status === 200) {
+       if (action.payload.status === 200) {
         const localSavePayload = {
           otp: action?.payload?.data?.data?.otp,
           ...JSON.parse(action?.payload?.config?.data),

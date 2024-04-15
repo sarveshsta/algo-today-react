@@ -1,9 +1,9 @@
 import "./footer.css";
 import React from "react";
+import { Link } from "react-router-dom";
 import { FiFacebook } from "react-icons/fi";
 import { FaInstagram } from "react-icons/fa";
 import { RxTwitterLogo } from "react-icons/rx";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -71,13 +71,19 @@ const Footer = () => {
               </Link>
             </div>
             <div>
+            <Link className="linking" to='/about' >
               <h4 className="footer-firstof-h4">Features</h4>
+              </Link>
             </div>
             <div>
+            <Link className="linking" to='/about' >
               <h4 className="footer-firstof-h4">Works</h4>
+              </Link>
             </div>
             <div>
+            <Link className="linking" to='/about' >
               <h4 className="footer-firstof-h4">Career</h4>
+              </Link>
             </div>
           </div>
           <div className="footer-content-div">

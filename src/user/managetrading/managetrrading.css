@@ -9,6 +9,8 @@
 }
 
 .box {
+  display: grid;
+  gap: 1rem;
   width: -webkit-fill-available;
   margin: 20px;
   padding: 20px;

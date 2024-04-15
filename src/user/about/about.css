@@ -147,3 +147,25 @@
     justify-content: center;
     align-items: center;
 }
+
+@media screen and (max-width: 768px) {
+  .about-team-div{
+    padding: 10px;
+  }
+  .team-image {
+     display: grid;
+     grid-template-columns: repeat(2,auto);
+  }
+  .card-data-about{
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    padding: 10px;
+  }
+  .main-carddiv{
+    width: -webkit-fill-available;
+    padding: 5px;
+  }
+  .people-img {
+    width: 7rem;
+}
+}

@@ -1,108 +1,35 @@
 import React from "react";
 import "./yourstrategy.css";
 
-const Yourstrategy = () => {
+const StrategyBox = ({ id, title, buttonText }) => {
   return (
-    <div className="MainBox">
-      
-      <div className="subbox" id="box1">
-        <h2 className="boxHeading">Strategy - 1</h2>
-        <p className="boxpara">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
-          facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
-        </p>
-        <button type="button" className="btn btn-primary" id="custbtn">
-          Subscribe
-        </button>
-      </div>
-
-      <div className="subbox" id="box2">
-        <h2 className="boxHeading">Strategy - 2</h2>
-        <p className="boxpara">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
-          facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
-        </p>
-        <button type="button" className="btn btn-primary" id="custbtn0">
-          Subscribe
-        </button>
-      </div>
-
-      <div className="subbox" id="box3">
-        <h2 className="boxHeading">Strategy - 3</h2>
-        <p className="boxpara">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
-          facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
-        </p>
-        <button type="button" className="btn btn-primary" id="custbtn1">
-          Subscribe
-        </button>
-      </div>
-
-      <div className="subbox" id="box4">
-        <h2 className="boxHeading">Strategy - 4</h2>
-        <p className="boxpara">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
-          facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
-        </p>
-        <button type="button" className="btn btn-primary" id="custbtn2">
-          Subscribe
-        </button>
-      </div>
-
-      {/* <div className="SecondBox"> */}
-      <div className="subbox" id="box4">
-        <h2 className="boxHeading">Strategy - 5</h2>
-        <p className="boxpara">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
-          facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
-        </p>
-        <button type="button" className="btn btn-primary" id="custbtn3">
-          Subscribe
-        </button>
-      </div>
-
-      <div className="subbox" id="box3">
-        <h2 className="boxHeading">Strategy - 6</h2>
-        <p className="boxpara">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
-          facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
-        </p>
-        <button type="button" className="btn btn-primary" id="custbtn4">
-          Subscribe
-        </button>
-      </div>
-      
-      <div className="subbox" id="box2">
-        <h2 className="boxHeading">Strategy - 7</h2>
-        <p className="boxpara">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
-          facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
-        </p>
-        <button type="button" className="btn btn-primary" id="custbtn5">
-          Subscribe
-        </button>
-      </div>
-
-      <div className="subbox" id="box1">
-        <h2 className="boxHeading">Strategy - 8</h2>
-        <p className="boxpara">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
-          facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
-        </p>
-        <button type="button" className="btn btn-primary" id="custbtn6">
-          Subscribe
-        </button>
-      </div>
+    <div className="subbox" id={id}>
+      <h2 className="boxHeading">{title}</h2>
+      <p className="boxpara">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+        interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
+        facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
+      </p>
+      <button type="button" className="btn btn-primary">
+        {buttonText}
+      </button>
     </div>
-    // </div>
   );
 };
-export default React.memo(Yourstrategy);
+
+const YourStrategy = () => {
+  return (
+    <div className="MainBox">
+      <StrategyBox id="box1" title="Strategy - 1" buttonText="Subscribe" />
+      <StrategyBox id="box2" title="Strategy - 2" buttonText="Subscribe" />
+      <StrategyBox id="box3" title="Strategy - 3" buttonText="Subscribe" />
+      <StrategyBox id="box4" title="Strategy - 4" buttonText="Subscribe" />
+      <StrategyBox id="box5" title="Strategy - 5" buttonText="Subscribe" />
+      <StrategyBox id="box6" title="Strategy - 6" buttonText="Subscribe" />
+      <StrategyBox id="box7" title="Strategy - 7" buttonText="Subscribe" />
+      <StrategyBox id="box8" title="Strategy - 8" buttonText="Subscribe" />
+    </div>
+  );
+};
+
+export default React.memo(YourStrategy);

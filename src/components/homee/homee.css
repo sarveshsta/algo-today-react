@@ -81,8 +81,8 @@
   transition: ease-in-out 0.5ms;
 }
 
-.navbaarr-butoon:hover{
-  transition: padding ;
+.navbaarr-butoon:hover {
+  transition: padding;
 }
 
 .web-home-content-main {
@@ -232,7 +232,7 @@
   left: 16rem;
   bottom: 4.2rem;
 }
-.star-container1{
+.star-container1 {
   position: relative;
   margin: 1em auto;
   width: 1em;
@@ -240,7 +240,7 @@
   left: 1rem;
   bottom: -9.8rem;
 }
-.star-container2{
+.star-container2 {
   position: relative;
   margin: 1em auto;
   width: 1em;
@@ -270,7 +270,7 @@
 .star-container1:after {
   content: "";
   position: absolute;
-  background:rgba(44, 62, 80, 1);
+  background: rgba(44, 62, 80, 1);
   width: 1em;
   height: 1.15em;
   transform: rotate(45deg) skewX(22deg) skewY(22deg);
@@ -279,7 +279,7 @@
 .star-container1:before {
   content: "";
   position: absolute;
-  background:rgba(44, 62, 80, 1);
+  background: rgba(44, 62, 80, 1);
   width: 1em;
   height: 1.15em;
   transform: rotate(-45deg) skewX(22deg) skewY(22deg);
@@ -344,10 +344,9 @@
   align-self: center;
 
   .pricing-gold {
-    background-image: url("../../assets/icons/Rectangle\ 3012.png");
-    background-position: right top;
-    /* background-size: cover; */
-    background-repeat: no-repeat;
+    background-image: url("../../assets/icons/Rectangle\ 3012.png") !important;
+    background-position: right top !important;
+    background-repeat: no-repeat !important;
     display: grid;
     align-items: center;
     align-self: center;
@@ -367,6 +366,9 @@
     width: 25%;
   }
   .pricing-silver {
+    background-image: url("../../assets/icons/Rectangle\ 3013.png") !important;
+    background-position: right top !important;
+    background-repeat: no-repeat !important;
     display: grid;
     align-items: center;
     align-self: center;
@@ -386,6 +388,9 @@
     width: 25%;
   }
   .pricing-platinum {
+    background-image: url("../../assets/icons/Rectangle\ 3014.png") !important;
+    background-position: right top !important;
+    background-repeat: no-repeat !important;
     display: grid;
     align-items: center;
     align-self: center;
@@ -461,8 +466,8 @@
   color: white;
   transition: all 0.3s ease 0s;
 }
-.pricing-btnn:hover{
-  background-color: #3498DB;
+.pricing-btnn:hover {
+  background-color: #3498db;
   transition: all 0.3s ease 0s;
 }
 
@@ -472,7 +477,15 @@
 }
 .progress-barr {
   width: 80%;
-  background-color: black;
+  /* background-color: black; */
+  height: 2rem;
+}
+.progress-barr::-webkit-progress-bar {
+  background-color: #974747 !important; /* default background color */
+}
+/* CSS to style the progress bar value color */
+.progress-barr::-webkit-progress-value {
+  background-color: #007bff !important; /* default value color */
 }
 
 .web-home-form-section {
@@ -488,15 +501,15 @@
   justify-items: center;
 }
 .form-firstdiv-h3 {
-font-size: 45px;
-font-weight: 700;
-text-align: center;
+  font-size: 45px;
+  font-weight: 700;
+  text-align: center;
 }
 .form-firstdiv-para {
   width: 80%;
-font-size: 15px;
-font-weight: 600;
-text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
 }
 .form-seconddiv-mainform {
   display: flex;
@@ -599,10 +612,160 @@ text-align: center;
   border-radius: 30px;
   transition: all 0.3s ease 0s;
 }
-.mapp-social-icons-div:hover{
+.mapp-social-icons-div:hover {
   transition: all 0.3s ease 0s;
   background: rgba(37, 99, 235, 1);
 }
 .social-icons {
   font-size: 2rem;
+}
+.the-map {
+}
+.mapp-grid-this {
+  display: grid;
+  gap: 1rem;
+}
+
+/*---------------------------Responsive CSS----------------- */
+@media screen and (max-width: 768px) {
+  .web-home-navbar-section {
+    justify-content: space-between;
+  }
+
+  .web-home-navbar-firstdiv {
+  }
+
+  .web-home-navbar-img {
+  }
+
+  .web-home-navbar-h2 {
+  }
+
+  .web-home-navbar-h2:hover {
+  }
+
+  .web-home-navbar-seconddiv {
+    display: none;
+  }
+
+  .web-home-navbar-ul {
+  }
+
+  .web-home-navbar-li {
+  }
+
+  .web-home-navbar-li:hover {
+  }
+
+  .web-home-navbar-butoon {
+  }
+
+  .navbaarr-butoon {
+  }
+
+  .navbaarr-butoon:hover {
+  }
+
+  .web-home-content-main {
+  }
+
+  .web-home-content-firstdiv {
+  }
+
+  .web-home-content-seconddiv {
+  }
+  .web-home-content-thirddiv {
+  }
+  .form-seconddiv-mainform {
+    display: grid;
+  }
+  .form-formdiv {
+    width: 100%;
+  }
+  .mapp-div {
+    gap: 2rem;
+    width: 100%;
+  }
+  .mapp-grid-this {
+    display: grid;
+    gap: 1rem;
+  }
+  .social-icons {
+    font-size: 1.2rem;
+  }
+  .form-inputs-main {
+    display: block;
+  }
+  .pricing-section-mainprice {
+    .pricing-gold {
+      display: block;
+      width: -webkit-fill-available;
+    }
+    .pricing-silver {
+      display: block;
+      width: -webkit-fill-available;
+    }
+    .pricing-platinum {
+      display: block;
+      width: -webkit-fill-available;
+    }
+  }
+  .pricing-section {
+    gap: 0;
+  }
+  .pricing-h5-div {
+  }
+  .pricing-h5 {
+  }
+  .pricing-h4-div {
+  }
+  .pricing-h4 {
+    font-size: 25px;
+  }
+  .pricing-span {
+  }
+  .pricing-para-div {
+  }
+  .pricing-para {
+    font-size: 10px;
+  }
+  .pricing-super-list-div {
+  }
+  .pricing-orderlist-div {
+  }
+  .pricing-orderlist {
+  }
+  .pricing-li {
+    font-size: 10px;
+  }
+  .pricing-button-div {
+  }
+  .pricing-btnn {
+    padding: 6px;
+    font-size: 13px;
+  }
+  .pricing-btnn:hover {
+  }
+  .pricing-silver {
+  }
+  .pricing-platinum {
+  }
+  .form-firstdiv-h3 {
+    font-size: 25px;
+  }
+  .form-firstdiv-para {
+    width: 100%;
+    font-size: 10px;
+  }
+  .form-seconddiv-mainform {
+    margin-top: 1rem;
+  }
+  .star-container {
+    margin: 2em auto;
+    width: 1em;
+    font-size: 12px;
+    left: 16rem;
+    bottom: 4.2rem;
+    position: static;
+  }
 }

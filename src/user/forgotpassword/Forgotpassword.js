@@ -1,6 +1,5 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,6 +10,7 @@ import {
   mobileAuthentication,
   otpVerificationAPI,
 } from "../features/auth/authAuthentication";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 const Forgotpassword = () => {
   const [logapicalled, setLogApiCalled] = useState(false);
@@ -21,7 +21,39 @@ const Forgotpassword = () => {
   const formData = new FormData();
 
   const forAuth = useSelector((state) => state?.auth?.user);
-  console.log("forauth** =>>", forAuth);
+  // console.log("forauth** =>>", forAuth);
+
+  const handleSubmit = useCallback(
+    async (values) => {
+      if (!logapicalled) {
+        formData.append("phone", values.number);
+        try {
+          dispatch(mobileAuthentication(formData));
+          setLogApiCalled(true);
+        } catch (error) {
+          console.log("mobile-error** =>>", error);
+        }
+      } else if (!Otpapicalled) {
+        formData.append("otp", values.otp);
+        formData.append("phone", values.number);
+        try {
+          dispatch(otpVerificationAPI(formData));
+          setOtpApiCalled(true);
+        } catch (error) {
+          console.log("otp-error** =>>", error);
+        }
+      } else {
+        formData.append("password", values.password);
+        formData.append("confirmpassword", values.confirmPassword);
+        try {
+          dispatch(forgotAPI(formData));
+        } catch (error) {
+          console.log("forgot-error** =>>", error);
+        }
+      }
+    },
+    [dispatch, formData, logapicalled, Otpapicalled]
+  );
 
   const formik = useFormik({
     initialValues: {
@@ -41,51 +73,20 @@ const Forgotpassword = () => {
           then: () => Yup.string().required("OTP is required"),
         }),
       password: Yup.string()
-        .matches()
+      .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
         .when("otp", {
           is: (otp) => otp && Otpapicalled,
           then: () => Yup.string().required("Password is required"),
         }),
       confirmpassword: Yup.string()
-        .matches()
+      .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
         .when("otp", {
           is: (otp) => otp && Otpapicalled,
           then: () => Yup.string().required("Confirm Password is required"),
         }),
     }),
-    onSubmit: async (values) => {
-      console.log("val** =>>", values);
-      if (!logapicalled) {
-        formData.append("phone", values.number);
-        try {
-          dispatch(mobileAuthentication(formData));
-          // if (forAuth?.data && forAuth?.data?.success === true) {
-          setLogApiCalled(true);
-          //   toast.success(forAuth?.data?.message);
-          // }
-        } catch (error) {
-          console.log("mobile-error** =>>", error);
-        }
-      } else {
-        formData.append("otp", values.otp);
-        formData.append("phone", values.number);
-        try {
-          dispatch(otpVerificationAPI(formData));
-          setOtpApiCalled(true);
-        } catch (error) {
-          console.log("otp-error** =>>", error);
-        }
-      }
-      if (Otpapicalled) {
-        formData.append("password", values?.password);
-        formData.append("confirmpassword", values?.confirmpassword);
-        try {
-          dispatch(forgotAPI(formData));
-        } catch (error) {
-          console.log("otp-error** =>>", error);
-        }
-      }
-    },
+    onSubmit: handleSubmit,
   });
 
   useEffect(() => {
@@ -224,5 +225,4 @@ const Forgotpassword = () => {
     </>
   );
 };
-
 export default React.memo(Forgotpassword);
