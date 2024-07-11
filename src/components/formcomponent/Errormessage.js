@@ -6,4 +6,4 @@ const Errormessage = () => {
   )
 }
 
-export default Errormessage
+export default React.memo(Errormessage)

@@ -145,4 +145,4 @@ const UserHistory = () => {
   );
 };
 
-export default UserHistory;
+export default React.memo(UserHistory);

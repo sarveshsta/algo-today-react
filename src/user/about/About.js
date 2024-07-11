@@ -22,11 +22,10 @@ const About = () => {
     <>
       <Mainnav />
       <div className="about-firstdiv">
-        <h2 className="about-heading">How we make a difference</h2>
+        <h2 className="about-heading">Trade Smarter. Live Free </h2>
         <p className="about-para">
-          Navigate the markets with confidence using our algorithmic trading
-          platform, where precision meets performance. Empower your financial
-          journey with data-driven decisions and seamless execution
+          Say goodbye to trading stress with our expert strategies, liberating
+          you to enjoy life while your investments work for you.
         </p>
       </div>
       <div className="about-images">
@@ -100,7 +99,7 @@ const About = () => {
       <div className="about-team-div">
         <div className="about-content">
           <h3 className="about-h3">Meet our Team</h3>
-          <p className="about-para"> 
+          <p className="about-para">
             Navigate the markets with confidence using our algorithmic trading
             platform, where precision meets performance. Empower your financial
             journey with data-driven decisions and seamless execution
@@ -120,20 +119,20 @@ const About = () => {
             />
           </div>
           <div className="team-img">
-          <img
-            className="people-img"
-            src={require("../../assets/icons/3.png")}
-          />
+            <img
+              className="people-img"
+              src={require("../../assets/icons/3.png")}
+            />
           </div>
           <div className="team-img">
-          {hover && 
-            <div className="hover-divv">
-            <p className="waanshowtext">She is the CEO</p>
-            </div>
-            }
+            {hover && (
+              <div className="hover-divv">
+                <p className="waanshowtext">She is the CEO</p>
+              </div>
+            )}
             <img
-               onMouseEnter={(e) => onHover(e)}
-               onMouseLeave={(e) => onHoverOver(e)}
+              onMouseEnter={(e) => onHover(e)}
+              onMouseLeave={(e) => onHoverOver(e)}
               className="people-img"
               src={require("../../assets/icons/4.png")}
             />
@@ -158,8 +157,10 @@ const About = () => {
           </div>
         </div>
       </div>
-      <Testimonial/>
-      <Footer/>
+      <Testimonial />
+      <div style={{ marginTop: "20px" }}>
+        <Footer />
+      </div>
     </>
   );
 };

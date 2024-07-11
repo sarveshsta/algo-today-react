@@ -1,5 +1,6 @@
 import React from "react";
 import "./yourstrategy.css";
+import { Link } from "react-router-dom";
 
 const StrategyBox = ({ id, title, buttonText }) => {
   return (
@@ -20,7 +21,9 @@ const StrategyBox = ({ id, title, buttonText }) => {
 const YourStrategy = () => {
   return (
     <div className="MainBox">
-      <StrategyBox id="box1" title="Strategy - 1" buttonText="Subscribe" />
+      <Link className="linking" to="/My-strategy">
+        <StrategyBox id="box1" title="Strategy - 1" buttonText="Subscribe" />
+      </Link>
       <StrategyBox id="box2" title="Strategy - 2" buttonText="Subscribe" />
       <StrategyBox id="box3" title="Strategy - 3" buttonText="Subscribe" />
       <StrategyBox id="box4" title="Strategy - 4" buttonText="Subscribe" />

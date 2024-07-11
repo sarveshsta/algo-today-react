@@ -6,12 +6,13 @@ import { IoExitOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAPI } from "../../user/features/auth/authAuthentication";
 
-const HorizontalNav = () => {
+const HorizontalNav = ({ showBtnOnClick }) => {
+  // console.log("sd=",showBtnOnClick);
   const [showNotification, setShowNotification] = useState(false);
   const state = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
 
   const iconClick = () => {
     setShowNotification(true);
@@ -43,6 +44,16 @@ const HorizontalNav = () => {
       />
       <h2 className="Horizontalheading">User</h2>
       <h3 className="Horizontalheading1">Hello</h3>
+
+      {showBtnOnClick && (
+        <>
+         <div className="strat-btn">
+          <button id="stry-btn1" className="strat-button">Broker Amt 5,00,000</button>
+          <button id="stry-btn2" className="strat-button">Broker Amt 5,00,000</button>
+        </div> 
+        </>
+      )}
+
       <VscBellDot
         className={`Horizontalimg2 ${showNotification ? "bg-color" : ""}`}
         onClick={iconClick}
@@ -51,12 +62,9 @@ const HorizontalNav = () => {
 
       {/* Notification */}
       {showNotification && (
-        <div className="icon-notification-div">
-          This is Notification Pop-Up
-        </div>
+        <div className="icon-notification-div">This is Notification Pop-Up</div>
       )}
     </div>
   );
 };
-
 export default React.memo(HorizontalNav);

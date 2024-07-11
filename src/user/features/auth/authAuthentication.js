@@ -1,27 +1,21 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-
-const backendUrl = "http://13.127.232.213:8000";
-
-// const config = {
-//   headers: {
-//     "Content-type": "application/json",
-//   },
-// };
+   const userUrl = "http://65.0.101.156:8080"
 
 //------------------ Mobile Authentication API---------------//
 export const mobileAuthentication = createAsyncThunk(
   "auth/mobileauthentication",
   async (body, thunkAPI) => {
     try {
-      const res = await axios.post(`${backendUrl}/request-otp/`, body, {
+      const res = await axios.post(`${userUrl}/request-otp/`, body, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
       });
       if (res) {
+        console.log("ressss",res);
         return res;
       } else {
         return thunkAPI.rejectWithValue(res.data);
@@ -38,7 +32,7 @@ export const otpVerificationAPI = createAsyncThunk(
   "auth/otpverification",
   async (body, thunkAPI) => {
     try {
-      const res = await axios.post(`${backendUrl}/verify-otp/`, body, {
+      const res = await axios.post(`${userUrl}/verify-otp/`, body, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -60,7 +54,7 @@ export const signupAPI = createAsyncThunk(
   "auth/signup",
   async (body, thunkAPI) => {
     try {
-      const res = await axios.post(`${backendUrl}/signup/`, body, {
+      const res = await axios.post(`${userUrl}/signup/`, body, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -68,6 +62,7 @@ export const signupAPI = createAsyncThunk(
       });
 
       if (res.data) {
+        console.log("ressss",res.data);
         return res.data;
       } else {
         return thunkAPI.rejectWithValue(res.data);
@@ -83,7 +78,7 @@ export const loginAPI = createAsyncThunk(
   "user/Login",
   async (body, thunkAPI) => {
     try {
-      const response = await axios.post(`${backendUrl}/login/`, body, {
+      const response = await axios.post(`${userUrl}/login/`, body, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -107,7 +102,7 @@ export const forgotAPI = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const response = await axios.post(
-        `${backendUrl}/update-password/`,
+        `${userUrl}/update-password/`,
         body,
         {
           headers: {
@@ -128,10 +123,9 @@ export const forgotAPI = createAsyncThunk(
 );
 
 //---------------------Logout API---------------------------//
-export const logoutAPI = createAsyncThunk("logout", 
- async (body, thunkAPI) => {
+export const logoutAPI = createAsyncThunk("logout", async (body, thunkAPI) => {
   try {
-    const response = await axios.post(`${backendUrl}/logout/`, body, {
+    const response = await axios.post(`${userUrl}/logout/`, body, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",

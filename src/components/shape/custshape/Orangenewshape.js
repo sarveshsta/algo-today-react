@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Orangenewshape = () => {
-  return (
-    <div className="orange">
+  return <div className="orange"></div>;
+};
 
-    </div>
-  )
-}
-
-export default Orangenewshape
+export default React.memo(Orangenewshape);

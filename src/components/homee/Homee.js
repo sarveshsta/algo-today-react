@@ -7,21 +7,21 @@ import Footer from "../footer/Footer";
 import Mainnav from "../navbar/Mainnav";
 import { Link } from "react-router-dom";
 import { BsTelephone } from "react-icons/bs";
+import Progres from "../../progress/Progres";
 import { FaInstagram } from "react-icons/fa";
 import { RxTwitterLogo } from "react-icons/rx";
-import React, { useMemo, useState } from "react";
 import Numberdata from "../numberdata/Numberdata";
 import { MdAlternateEmail } from "react-icons/md";
 import { SlSocialFacebook } from "react-icons/sl";
 import Testimonial from "../testinomial/Testimonial";
 import { ToastContainer, toast } from "react-toastify";
+import React, { useMemo, useRef, useState } from "react";
 import { Faqq, numberData } from "../../arraydata/Arraydata";
 
 const Homee = () => {
-  const [progressValue, setProgressValue] = useState(0)
-  const [progressMax, setProgressMax] = useState(100)
-
+  const [progressValue, setProgressValue] = useState(0);
   const formData = new FormData();
+
   const config = {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -35,7 +35,10 @@ const Homee = () => {
         name: Yup.string().required("Name is required"),
         lastname: Yup.string().required("Last Name is required"),
         email: Yup.string()
-          .matches(/^[a-zA-Z]+$/, 'Email must contain only alphabetic characters')
+          .matches(
+            /^[a-zA-Z]+$/,
+            "Email must contain only alphabetic characters"
+          )
           .email("Invalid email address")
           .required("Email is required"),
         phoneNumber: Yup.string()
@@ -47,6 +50,7 @@ const Homee = () => {
       }),
     []
   );
+  // 
 
   const formik = useFormik({
     initialValues: {
@@ -87,6 +91,37 @@ const Homee = () => {
         });
     },
   });
+
+  const goldClick = async () => {
+    let newWidth = progressValue + 19;
+    setProgressValue(newWidth);
+
+    if(newWidth && progressValue !== 0){
+      newWidth = 0
+      setProgressValue(newWidth)
+    }
+
+  } 
+
+  const silverClick = () => {
+    let newWidth = progressValue + 49;
+    setProgressValue(newWidth);
+
+    if(newWidth && progressValue !==0){
+      newWidth = 0
+      setProgressValue(newWidth)
+    }
+  }
+
+  const platinumClick = () => {
+    let newWidth = progressValue + 99;
+    setProgressValue(newWidth);
+
+    if(newWidth && progressValue !==0){
+      newWidth = 0
+      setProgressValue(newWidth)
+    }
+  }
 
   return (
     <>
@@ -138,14 +173,12 @@ const Homee = () => {
           </div>
           <div className="pricing-section-para">
             <p className="para-lorem">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
+              Check our trading solutions and membership options below, and
+              basic details about trading and strategy.
             </p>
           </div>
           <div className="pricing-section-track">
-            <progress className="progress-barr" value={30} max={100} />
+            <Progres progressValue={progressValue} />
           </div>
           <div className="pricing-section-mainprice">
             <div className="pricing-gold">
@@ -177,7 +210,7 @@ const Homee = () => {
                   </ol>
                 </div>
                 <div className="pricing-button-div">
-                  <button className="pricing-btnn" type="button">
+                  <button onClick={goldClick} className="pricing-btnn" type="button">
                     {" "}
                     Get 14 Days Free Trial
                   </button>
@@ -213,7 +246,7 @@ const Homee = () => {
                   </ol>
                 </div>
                 <div className="pricing-button-div">
-                  <button className="pricing-btnn" type="button">
+                  <button onClick={silverClick} className="pricing-btnn" type="button">
                     {" "}
                     Get 14 Days Free Trial
                   </button>
@@ -249,7 +282,7 @@ const Homee = () => {
                   </ol>
                 </div>
                 <div className="pricing-button-div">
-                  <button className="pricing-btnn" type="button">
+                  <button onClick={platinumClick} className="pricing-btnn" type="button">
                     {" "}
                     Get 14 Days Free Trial
                   </button>
@@ -263,10 +296,8 @@ const Homee = () => {
           <div className="form-firstdiv">
             <h3 className="form-firstdiv-h3">Get in touch</h3>
             <p className="form-firstdiv-para">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
+              Let’s get in touch! Tell us about you and what’s on your mind.
+              AlgoToday is here to help you.
             </p>
           </div>
           <div className="form-seconddiv-mainform">
@@ -394,10 +425,10 @@ const Homee = () => {
                   <iframe
                     width="100%"
                     // height="600"
-                    frameborder="0"
+                    frameBorder="0"
                     scrolling="no"
-                    marginheight="0"
-                    marginwidth="0"
+                    marginHeight="0"
+                    marginWidth="0"
                     src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Sky%20Corporate%20Indore+(AlgoToday)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                   >
                     <a href="https://www.gps.ie/">gps devices</a>

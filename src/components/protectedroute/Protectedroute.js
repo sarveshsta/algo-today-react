@@ -8,4 +8,4 @@ const Protectedroute = () => {
   )
 }
 
-export default Protectedroute
+export default React.memo(Protectedroute)

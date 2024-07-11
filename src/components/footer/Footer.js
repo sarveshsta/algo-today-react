@@ -5,7 +5,7 @@ import { FiFacebook } from "react-icons/fi";
 import { FaInstagram } from "react-icons/fa";
 import { RxTwitterLogo } from "react-icons/rx";
 
-const Footer = () => {
+const Footer = (props) => {
   return (
     <>
       <div className="mainfooter">

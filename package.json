@@ -2,6 +2,7 @@
   "name": "algotrading",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://f6d5-2409-40c4-7-ee9e-9c89-88a2-e397-bff5.ngrok-free.app",
   "dependencies": {
     "@fontsource/montserrat": "^5.0.16",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
@@ -14,6 +15,8 @@
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.2",
     "formik": "^2.4.5",
+    "html-webpack-plugin": "^5.6.0",
+    "jest": "^27.5.1",
     "jquery": "^3.7.1",
     "popper.js": "^1.16.1",
     "react": "^18.2.0",
@@ -28,6 +31,7 @@
     "react-select": "^5.8.0",
     "react-step-progress-bar": "^1.0.3",
     "react-toastify": "^10.0.4",
+    "reactjs-popup": "^2.0.6",
     "redux": "^5.0.0",
     "styled-components": "^6.1.6",
     "web-vitals": "^2.1.4",
@@ -37,7 +41,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -59,6 +63,12 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.24.5",
+    "@babel/plugin-syntax-jsx": "^7.24.1",
+    "@babel/preset-env": "^7.24.5",
+    "@babel/preset-react": "^7.24.1",
+    "babel-jest": "^29.7.0",
+    "jest-mock": "^29.7.0",
     "tailwindcss": "^3.4.1"
   }
 }

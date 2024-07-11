@@ -13,10 +13,9 @@ const Faq = ({ faquiz }) => {
       <div className="faq-firsrdiv">
         <h3 className="faq-h3">F.A.Q</h3>
         <p className="faq-para">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
+          Here are some answers to your most frequently asked questions!
+          Couldn’t get your answer here? Contact us. We’re ready to help you
+          today!
         </p>
       </div>
       <div className="faq-containt-box">
@@ -30,7 +29,9 @@ const Faq = ({ faquiz }) => {
               >
                 <div className="wanna-flex-this-icon">
                   <h3 className="faq-h33">{item.question}</h3>
-                  <h5 className="faq-h55">{index === activeIndex ? "-" : "+"}</h5>
+                  <h5 className="faq-h55">
+                    {index === activeIndex ? "-" : "+"}
+                  </h5>
                 </div>
                 {index === activeIndex && (
                   <p className="faq-paraa">{item.answer}</p>

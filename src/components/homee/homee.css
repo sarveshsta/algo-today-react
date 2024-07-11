@@ -335,6 +335,8 @@
 
 .pricing-section-track {
   /* background-color: black; */
+  display: flex;
+  justify-content: center;
 }
 
 .pricing-section-mainprice {
@@ -479,13 +481,18 @@
   width: 80%;
   /* background-color: black; */
   height: 2rem;
+  transition: all 1s ease-out;
 }
 .progress-barr::-webkit-progress-bar {
-  background-color: #974747 !important; /* default background color */
+  background: linear-gradient(98.24deg, #6DDCFF 0%, #7F60F9 100%);
+  transition: all 1s ease-out;
+  /* default background color */
 }
 /* CSS to style the progress bar value color */
 .progress-barr::-webkit-progress-value {
-  background-color: #007bff !important; /* default value color */
+  background: linear-gradient(98.24deg, #6DDCFF 0%, #7F60F9 100%);
+  transition: all 1s ease-out;
+  /* default value color */
 }
 
 .web-home-form-section {
@@ -514,6 +521,8 @@
 .form-seconddiv-mainform {
   display: flex;
   margin-top: 2rem;
+  border-radius: 30px;
+  background: #3498db;
 }
 .form-formdiv {
   display: grid;
@@ -522,6 +531,7 @@
   gap: 1rem;
   padding: 1rem;
   width: 70%;
+  border-radius: 30px;
 }
 .formis-form {
   width: -webkit-fill-available;
@@ -577,7 +587,8 @@
   background: #001f3f;
   padding: 1rem;
   color: white;
-  width: 30%;
+  border-radius: 0px 30px 30px 0px;
+  /* width: 30%; */
 }
 .mapp-contact-div {
 }
