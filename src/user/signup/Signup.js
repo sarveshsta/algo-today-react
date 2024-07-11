@@ -50,16 +50,19 @@ const Signup = () => {
 
     onSubmit: (values) => {
       formData.append("name", values.name);
-      formData.append("phone", values.phone);
-      formData.append("otp", values.otp);
+      formData.append("phone", localStorage.getItem('phone_number'));
+      formData.append("otp", localStorage.getItem('otp'));
       formData.append("password", values.password);
       formData.append("email", values.email);
 
       dispatch(signupAPI(formData));
       toast.error(message);
     },
+      
   });
-
+  // const togglePasswordVisibility = () => {
+  //   setShowPassword(!showPassword);
+  // };
   return (
     <>
       <ToastContainer
@@ -74,7 +77,7 @@ const Signup = () => {
           <img
             className="firstdiv-image"
             src={require("../../assets/icons/upscaler-1.png")}
-            alt="Algo-Today image"
+            alt="Algo-Today-img"
           />
           <h1 className="firstdiv-h1">Algo Today</h1>
           <h3 className="firstdiv-h3">Trade Smarter.Live Free</h3>

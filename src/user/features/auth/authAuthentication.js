@@ -2,6 +2,13 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
    const userUrl = "http://65.0.101.156:8080"
+const backendUrl = "http://13.127.232.213:8000";
+
+// const config = {
+//   headers: {
+//     "Content-type": "application/json",
+//   },
+// };
 
 //------------------ Mobile Authentication API---------------//
 export const mobileAuthentication = createAsyncThunk(

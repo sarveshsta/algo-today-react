@@ -34,10 +34,8 @@ function App() {
         <Route path="/wallet" element={<Wallet />} />
         <Route path="/about" element={<About />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/mobile" element={<Mobile />} />
-        <Route path="/newotp" element={<Newotp />} />
-        <Route path="/dashbord" element={<Dashbord />} />
-        <Route path="/opendemate" element={<OpenDemat />} />
+        <Route path="/dashboard" element={<Dashbord />} />
+        <Route path="/opendemate" element={<OpenDemat/>} />
         <Route path="/refer&earn" element={<ReferEarn />} />
         <Route path="/linkbroker" element={<LinkBroker />} />
         <Route path="/admindashboard" element={<Dashboard />} />
