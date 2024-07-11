@@ -1,11 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.3f1330a2.css",
-    "main.js": "/static/js/main.80e5f63a.js",
+    "main.js": "/static/js/main.49898560.js",
     "static/js/453.327d0afc.chunk.js": "/static/js/453.327d0afc.chunk.js",
-    "main.css": "/static/css/main.2673d5bc.css",
-    "main.js": "/static/js/main.3123c85d.js",
-    "static/js/787.b2ded3d7.chunk.js": "/static/js/787.b2ded3d7.chunk.js",
     "static/media/IMG_0399.jpg": "/static/media/IMG_0399.6a0c6849bc092e7c5dc1.jpg",
     "static/media/algo logo WHITE.png": "/static/media/algo logo WHITE.28665a9534f4aa241b84.png",
     "static/media/Vector3.png": "/static/media/Vector3.77d62e6db421d2864605.png",
@@ -45,18 +42,11 @@
     "static/media/montserrat-vietnamese-400-normal.woff2": "/static/media/montserrat-vietnamese-400-normal.176348415471f3e062e6.woff2",
     "index.html": "/index.html",
     "main.3f1330a2.css.map": "/static/css/main.3f1330a2.css.map",
-    "main.80e5f63a.js.map": "/static/js/main.80e5f63a.js.map",
+    "main.49898560.js.map": "/static/js/main.49898560.js.map",
     "453.327d0afc.chunk.js.map": "/static/js/453.327d0afc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3f1330a2.css",
-    "static/js/main.80e5f63a.js"
-    "main.2673d5bc.css.map": "/static/css/main.2673d5bc.css.map",
-    "main.3123c85d.js.map": "/static/js/main.3123c85d.js.map",
-    "787.b2ded3d7.chunk.js.map": "/static/js/787.b2ded3d7.chunk.js.map"
-  },
-  "entrypoints": [
-    "static/css/main.2673d5bc.css",
-    "static/js/main.3123c85d.js"
+    "static/js/main.49898560.js"
   ]
 }
