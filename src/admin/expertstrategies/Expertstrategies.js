@@ -7,4 +7,4 @@ const Expertstrategies = () => {
   )
 }
 
-export default Expertstrategies
+export default React.memo(Expertstrategies)

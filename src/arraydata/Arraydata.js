@@ -4,34 +4,34 @@ import { RxTwitterLogo } from "react-icons/rx";
 
 export const Faqq = [
   {
-    question: "Lorem Ipsum is simply dummy text of the printing.",
+    question: "How do I get started with Algo Today?",
     answer:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
+      "Getting started with Algo Today is easy! Simply sign up for an account on our website, choose your subscription plan, and start exploring our intuitive interface to deploy algorithms and begin trading.",
   },
   {
-    question: "Lorem Ipsum is simply dummy text of the printing.",
+    question: "Do I need a lot of money to start trading?",
     answer:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
+      "Nope, you can start with any amount you want! You don't need a big deposit to get going. We want everyone to have the chance to trade, no matter how much money they have.",
   },
   {
-    question: "Lorem Ipsum is simply dummy text of the printing.",
+    question: "How reliable are your algorithms?",
     answer:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
+      "Our algorithms are rigorously tested and continuously optimized to ensure reliability and effectiveness. While no trading strategy is guaranteed to be successful, our algorithms are designed to adapt to changing market conditions and deliver consistent results over time.",
   },
   {
-    question: "Lorem Ipsum is simply dummy text of the printing.",
+    question: "How much money will I have after 2 years of trading with algorithms?",
     answer:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
+      "What you’re talking about here is the compounding effect! The compounding effect means your money earns more money over time. So, in trading, it's not just about making money on your initial investment, but also about letting those profits work for you to make even more money.",
   },
   {
-    question: "Lorem Ipsum is simply dummy text of the printing.",
+    question: "How is AlgoToday different?",
     answer:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
+      "Are you someone who is willing to enter the stock market, but is unsure about your decision? You see websites promise you amazing returns, but pay peanuts? Algotoday is an NISM certified website. We help you make bold investment decisions without manual error.",
   },
   {
-    question: "Lorem Ipsum is simply dummy text of the printing.",
+    question: "How should I select a strategy for my trade?",
     answer:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.",
+      "Once you've signed up for a plan, you gain access to the Choose Strategy section, where you can pick from our top-tier Algo Strategies crafted by industry experts.You may choose a strategy based on your knowledge about the stock market. Beginners need experts to help, whereas seasonal traders need a custom strategy.",
   },
 ];
 
@@ -100,13 +100,13 @@ export const sliderData = [
     img: <img className="imagee" src={require("../assets/icons/Image.png")} />,
     text1: "Esther Hills",
     para1:"Lead Intranet Technician",
-    para2: "Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+    para2: "I've been using Algo Today for a while now, and I have to say it's made options trading a whole lot simpler. I used to stress over every market move but now I can relax knowing the algorithms are working for me."
   },
   {
     img: <img className="imagee" src={require("../assets/icons/Image.png")} />,
     text1: "Esther Hills",
     para1:"Lead Intranet Technician",
-    para2: "Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+    para2: "Algo Today has been a game-changer for me. I'm not a finance person, but this platform makes it easy to trade wisely. I love how it takes the guesswork out of trading."
   },
 ];
 

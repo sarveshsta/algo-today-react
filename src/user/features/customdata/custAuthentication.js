@@ -1,37 +1,52 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const backendURLL = "http://15.206.153.177:8000";
-
-// const backendURLL = "http://13.127.232.213:8000";
-
+const tradeURL = 'http://65.0.101.156:8000'; 
 
 const headerconfig = {
   headers: {
-      Accept: "application/json",
-    'Content-Type': 'application/json',
+    Accept: "application/json",
+    "Content-Type": "application/json",
   },
 };
 
 //------------------ Banknifty data API---------------//
 export const getBankniftyDataApi = createAsyncThunk(
   "bankniftyindex",
-  async (body, thunkAPI) => {
+  async (body, thunkAPI, index) => {
     try {
       const response = await axios.get(
-        `${backendURLL}/tokens/BANKNIFTY`,
-        body,
-        // headerconfig
+        `${tradeURL}/tokens/NIFTY`
       );
-      if (response.data) {
+      if (response) {
         return response;
       } else {
-        return response.status;
+        return response;
       }
     } catch (error) {
-      return error
+      console.log("error :: ",error);
+      return error;
     }
   }
 );
 
-
+//---------Strategy API Data ----------------------//
+export const getStrategyDataApi = createAsyncThunk(
+  "getStrategy-Data", 
+  async (body, thunkAPI) => {
+    try {
+      const res = await axios.post(
+        `${tradeURL}/strategy/start_strategy`, body,headerconfig
+      );
+      if (res) {
+        // console.log("strategy-res:",res);
+        return res.data;
+      } else {
+        return thunkAPI.rejectWithValue(res.data);
+      }
+    } catch (error) {
+      // console.log("getStrategy** =>", error);
+      return error;
+    }
+  }
+);

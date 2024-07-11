@@ -35,4 +35,4 @@ const Mainnav = () => {
   )
 }
 
-export default Mainnav
+export default React.memo(Mainnav)

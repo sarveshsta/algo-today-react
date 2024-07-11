@@ -11,4 +11,4 @@ const Newshape = () => {
   );
 };
 
-export default Newshape;
+export default React.memo(Newshape);

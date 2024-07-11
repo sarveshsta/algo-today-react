@@ -127,7 +127,7 @@ const Forgotpassword = () => {
             <div className="signup-seconddiv">
               <h2 className="signup-form-h2">Forgot Password ?</h2>
               <p className="signup-form-small-text">
-                Please enter you’re email
+                Please enter Details
               </p>
               <form className="form-form" onSubmit={formik.handleSubmit}>
                 {/*-------------Conditionaly called the field after loginapicalled-------------------- */}

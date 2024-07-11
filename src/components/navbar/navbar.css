@@ -36,7 +36,7 @@
   padding: 0px;
   display: grid;
   display: -moz-grid;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 
 .vertnav-ul-li {
@@ -65,6 +65,7 @@
   fill: #fff;
   stroke-width: 2px;
   stroke: #fff;
+  margin-right: 1rem;
   /* margin-top: 18px; */
 }
 

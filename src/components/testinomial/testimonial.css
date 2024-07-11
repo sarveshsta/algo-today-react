@@ -132,7 +132,8 @@
   cursor: pointer;
 }
 .faq-h33 {
-  font-size: 1.3rem;
+  width: -webkit-fill-available;
+  font-size: 1.6rem;
 }
 .faq-paraa {
   font-size: 1rem;

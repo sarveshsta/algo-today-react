@@ -34,13 +34,13 @@ const LinkBroker = () => (
           heading="Link your Broker Account with Zerodha"
           imageUrl={zerodhaLogo}
           altText="Zerodha logo"
-          linkUrl="https://smartapi.angelbroking.com/publisher-login?api_key=p1X1tdVU"
+          linkUrl="https://smartapi.angelbroking.com/publisher-login"
         />
         <Box
           heading="Link your Broker Account with Zerodha"
           imageUrl={zerodhaLogo}
           altText="Zerodha logo"
-          linkUrl="https://smartapi.angelbroking.com/publisher-login?api_key=p1X1tdVU"
+          linkUrl="https://smartapi.angelbroking.com/publisher-login"
         />
       </div>
 

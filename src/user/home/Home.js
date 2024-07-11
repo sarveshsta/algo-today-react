@@ -1,5 +1,4 @@
 import "./home.css";
-import axios from "axios";
 import * as Yup from "yup";
 import Select from "react-select";
 import { useFormik } from "formik";
@@ -8,6 +7,7 @@ import Navbar from "../../components/navbar/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import HorizontalNav from "../../components/navbar/HorizontalNav";
+import axios from "axios";
 
 const Home = () => {
   const [formResponse, setFormResponse] = useState([]);

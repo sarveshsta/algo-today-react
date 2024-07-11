@@ -7,6 +7,7 @@ import {
   loginAPI,
   logoutAPI,
 } from "./authAuthentication";
+import { getStrategyDataApi } from "../customdata/custAuthentication";
 
 const initialState = {
   loading: false,
@@ -17,14 +18,15 @@ const initialState = {
   data: [],
   status: "",
   statusText:"",
+  strategy:[]
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    addUser : () => {
-
+    addUser : (state) => {
+        console.log("ssr",state);
     },
     deleteUser : () => {
       
@@ -123,7 +125,7 @@ const authSlice = createSlice({
       state.error = action.payload;
     });
     builder.addCase(logoutAPI.fulfilled, (state, action) => {
-      console.log("logout-fulfilled", action.payload);
+      // console.log("logout-fulfilled", action.payload);
       state.loading = false;
       state.user = action.payload;
       if (action.payload.status === 200) {
@@ -131,7 +133,7 @@ const authSlice = createSlice({
       }
     });
     builder.addCase(logoutAPI.rejected, (state, action) => {
-      console.log("logout-rejected", action.payload);
+      // console.log("logout-rejected", action.payload);
       state.loading = false;
       state.error = action.error;
       state.user = action.payload;

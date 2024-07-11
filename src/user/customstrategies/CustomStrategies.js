@@ -7,13 +7,16 @@ import Newshape from "../../components/shape/custshape/Newshape";
 import HorizontalNav from "../../components/navbar/HorizontalNav";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Orangenewshape from "../../components/shape/custshape/Orangenewshape";
-import { getBankniftyDataApi } from "../features/customdata/custAuthentication";
+import {
+  getBankniftyDataApi,
+  getStrategyDataApi,
+} from "../features/customdata/custAuthentication";
+import axios from "axios";
 
 const option4 = [
   { value: "CE", label: "CE" },
   { value: "PE", label: "PE" },
 ];
-
 // const option5 = [
 //   { value: "Chart Time", label: "Chart Time" },
 //   { value: "1 minute", label: "1 minute" },
@@ -74,43 +77,97 @@ const custStyle = {
   }),
 };
 
+const tradeURL = 'http://65.0.101.156:8000'; 
+
 const CustomStrategies = () => {
   const [selectedInput, setSelectedInput] = useState("");
   const [checkedCheckBox, setCheckedCheckBox] = useState(false);
+  const [IndexData, setIndexData] = useState([]) 
+  const [StrikData, setStrikData] = useState([]) 
+
+  const [inputValues, setInputValues] = useState({
+    strategy_id:"",
+    user_id:"",
+    index: "",
+    strike_price:'',
+    expiry: "",
+    option: "",
+    chart_time: "",
+    sharesAmount:"",
+  });
 
   const dispatch = useDispatch();
-  const state = useSelector((state) => state?.index?.data?.data || []);
+  // const state = useSelector((state) => state?.index?.data?.data || []);
+  // console.log("state   ", state);
 
-  const mappedData = useMemo(
-    () => Object.values(state).map((item) => item?.expiry),
-    [state]
-  );
+  const newState = useSelector((state) => state?.index || []);
 
-  const strikePrice = useMemo(
-    () => Object.values(state).map((item) => item?.symbol),
-    [state]
-  );
+  const getStrategy = useSelector((state) => state || []);
 
-  const subsymbols = useMemo(
-    () => strikePrice.map((symbol) => symbol?.substring(15, 20)),
-    [strikePrice]
-  );
+  // useEffect(() => {
+  //   dispatch(getBankniftyDataApi())
+  // }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getBankniftyDataApi());
-  }, [dispatch]);
+  const handleSubmit = useCallback(() => {}, []);
 
-  const handleSubmit = useCallback((changeinput) => {
-    setSelectedInput(changeinput);
-  }, []);
+  const handleInputChange = (event, selectname) => {
+    let { name } = selectname;
+    setInputValues((prevState) => ({
+      ...prevState,
+      user_id: "1" ,
+      strategy_id: "1",
+      [name]: event.value,
+    }));
+  };
 
   const checkBoxChange = useCallback(() => {
     setCheckedCheckBox((prevState) => !prevState);
   }, []);
 
   const submitButton = useCallback(() => {
-    console.log("selected", checkedCheckBox);
-  }, [checkedCheckBox]);
+    dispatch(getStrategyDataApi(inputValues));
+  }, []);
+
+ console.log("inputevalue : ",inputValues);
+
+const getData = async (index) => { 
+  try {
+    // console.log("try Call>>>")
+    const response = await axios.get(
+      `${tradeURL}/tokens/${index}`
+    );
+    if (response) {
+      setIndexData(response?.data?.data || []);
+    } else {
+      return response;
+    }
+  } catch (error) {
+    console.log("error :: ",error);
+    return error;
+  }
+}
+
+const getDataStrike = async (index,expiry) => { 
+  try {
+    const response = await axios.get(
+      `${tradeURL}/tokens/${index}/${expiry}`
+    );
+    if (response) {
+      console.log("ressss",response?.data);
+      setStrikData(response?.data?.data || []);
+    } else {
+      return response;
+    }
+  } catch (error) {
+    console.log("error :: ",error);
+    return error;
+  }
+}
+
+useEffect(() => {
+  getData(inputValues?.index)
+  getDataStrike(inputValues.index, inputValues.expiry)
+},[inputValues?.index, inputValues.expiry])
 
   return (
     <div>
@@ -127,77 +184,125 @@ const CustomStrategies = () => {
             <div className="select-container">
               <Select
                 options={[
-                  { value: "Nifty 50", label: "Nifty 50" },
+                  { value: "NIFTY", label: "NIFTY" },
                   { value: "BANKNIFTY", label: "BANKNIFTY" },
                 ]}
-                // value={selectedInput[0]}
                 styles={custStyle}
-                onChange={handleSubmit}
+                onChange={handleInputChange}
                 placeholder="Index"
+                name="index"
+                value={
+                  inputValues.index && {
+                    value: inputValues.index,
+                    label: inputValues.index,
+                  }
+                }
               />
             </div>
 
             <div className="select-container">
               <Select
-                options={subsymbols.map((item) => ({
-                  value: item,
-                  label: item,
+                options={StrikData.map((item) => ({
+                  value: parseInt(item.strike_price,10),
+                  label: item.strike_price,
                 }))}
-                // value={mappedData}
                 styles={custStyle}
-                onChange={handleSubmit}
+                onChange={handleInputChange}
                 placeholder="Strike Price"
+                name="strike_price"
+                value={
+                  inputValues.strike_price && {
+                    value: inputValues.strike_price,
+                    label: inputValues.strike_price,
+                  }
+                }
               />
             </div>
 
             <div className="select-container">
               <Select
-                options={mappedData.map((item) => ({
-                  value: item,
-                  label: item,
-                }))}
-                // value={selectedInput[2]}
+                options={IndexData?.map((item)=> {
+                  const expiryDate = new Date(item.expiry); // Assuming item.expiry is a valid date string
+                  const day = String(expiryDate.getDate()).padStart(2, '0');
+                  const month = expiryDate.toLocaleString('default', { month: 'short' }).toUpperCase();
+                  const year = String(expiryDate.getFullYear()).slice(-2);
+                
+                  return {
+                    value: `${day}${month}${year}`,
+                    label: item?.expiry,
+                  };
+                }
+                )}
                 styles={custStyle}
-                onChange={handleSubmit}
+                onChange={handleInputChange}
                 placeholder="Expiry"
+                name="expiry"
+                value={
+                  inputValues.expiry && {
+                    value: inputValues.expiry,
+                    label: inputValues.expiry,
+                  }
+                }
               />
             </div>
 
             <div className="select-container">
               <Select
                 options={option4}
-                // value={selectedInput[3]}
                 styles={custStyle}
-                onChange={handleSubmit}
+                onChange={handleInputChange}
                 placeholder="CE/PE"
+                name="option"
+                value={
+                  inputValues.option && {
+                    value: inputValues.option,
+                    label: inputValues.option,
+                  }
+                }
               />
             </div>
 
             <div className="select-container">
               <Select
-                // options={option5}
-                value={selectedInput[4]}
+                options={[
+                  { value: "ONE_MINUTE", label: "ONE_MINUTE" },
+                  { value: "ONE_MINUTE", label: "ONE_MINUTE" },
+                ]}
                 styles={custStyle}
-                onChange={handleSubmit}
                 placeholder="Chart Time"
+                onChange={handleInputChange}
+                name="chart_time"
+                value={
+                  inputValues.chart_time && {
+                    value: inputValues.chart_time,
+                    label: inputValues.chart_time,
+                  }
+                }
               />
             </div>
           </div>
         </div>
+
         <div className="cust-input-second">
           <input
             className="cust-inputbtn"
             type="text"
             placeholder="No. of shares/Amount"
+            value={inputValues.sharesAmount}
+            onChange={(e) =>
+              setInputValues((prev) => ({
+                ...prev,
+                sharesAmount: e.target.value,
+              }))
+            }
+            name="sharesAmount"
           />
           <Select
-            // options={autoData}
             value={selectedInput[5]}
             styles={custStyle}
             onChange={handleSubmit}
           />
           <Select
-            // options={autoData}
             value={selectedInput[5]}
             styles={custStyle}
             onChange={handleSubmit}
@@ -210,19 +315,17 @@ const CustomStrategies = () => {
             placeholder="No. of shares/Amount"
           />
           <Select
-            // options={autoData}
             value={selectedInput[5]}
             styles={custStyle}
             onChange={handleSubmit}
           />
           <Select
-            // options={autoData}
             value={selectedInput[5]}
             styles={custStyle}
             onChange={handleSubmit}
           />
         </div>
-      </div>
+      </div>5
 
       <div className="buying-pre-condition-main">
         <div className="buying-pre-condition-firstdiv">
@@ -356,6 +459,7 @@ const CustomStrategies = () => {
             type="button"
             id="thirdddiv-btnn1"
             className="btn btn-primary"
+            onClick={submitButton}
           >
             Start Amount Trading
           </button>
@@ -367,4 +471,4 @@ const CustomStrategies = () => {
     </div>
   );
 };
-export default React.memo(CustomStrategies);
+export default CustomStrategies;
