@@ -12,7 +12,7 @@ const HorizontalNav = ({ showBtnOnClick }) => {
   const state = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const iconClick = () => {
     setShowNotification(true);
@@ -23,6 +23,7 @@ const HorizontalNav = ({ showBtnOnClick }) => {
 
     setTimeout(() => {
       setShowNotification(false);
+      // return clearTimeout();
     }, 6000);
   };
 
@@ -47,10 +48,14 @@ const HorizontalNav = ({ showBtnOnClick }) => {
 
       {showBtnOnClick && (
         <>
-         <div className="strat-btn">
-          <button id="stry-btn1" className="strat-button">Broker Amt 5,00,000</button>
-          <button id="stry-btn2" className="strat-button">Broker Amt 5,00,000</button>
-        </div> 
+          <div className="strat-btn">
+            <button id="stry-btn1" className="strat-button">
+              Broker Amt 5,00,000
+            </button>
+            <button id="stry-btn2" className="strat-button">
+              Broker Amt 5,00,000
+            </button>
+          </div>
         </>
       )}
 

@@ -23,31 +23,48 @@ import ManageTrading from "./user/managetrading/ManageTrading";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Forgotpassword from "./user/forgotpassword/Forgotpassword";
 import CustomStrategies from "./user/customstrategies/CustomStrategies";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Homee />} />
-        {/* <Route path="/" element={<Home />} /> */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/wallet" element={<Wallet />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={<Dashbord />} />
-        <Route path="/opendemate" element={<OpenDemat/>} />
-        <Route path="/refer&earn" element={<ReferEarn />} />
-        <Route path="/linkbroker" element={<LinkBroker />} />
-        <Route path="/admindashboard" element={<Dashboard />} />
-        <Route path="/custom" element={<CustomStrategies />} />
-        <Route path="/My-strategy" element={<Mystrategies />} />
-        <Route path="/userhistory" element={<UserHistory />} />
-        <Route path="/managetrading" element={<ManageTrading />} />
-        <Route path="/service" element={<Service />} />
-        <Route path="/contact-us" element={<Contact />} />
-        <Route path="/forgotpassword" element={<Forgotpassword />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={"Bounce"}
+      />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Homee />} />
+          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/mobile" element={<Mobile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/wallet" element={<Wallet />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<Dashbord />} />
+          <Route path="/opendemate" element={<OpenDemat />} />
+          <Route path="/refer&earn" element={<ReferEarn />} />
+          <Route path="/linkbroker" element={<LinkBroker />} />
+          <Route path="/admindashboard" element={<Dashboard />} />
+          <Route path="/custom" element={<CustomStrategies />} />
+          <Route path="/My-strategy" element={<Mystrategies />} />
+          <Route path="/userhistory" element={<UserHistory />} />
+          <Route path="/managetrading" element={<ManageTrading />} />
+          <Route path="/service" element={<Service />} />
+          <Route path="/contact-us" element={<Contact />} />
+          <Route path="/forgotpassword" element={<Forgotpassword />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 export default React.memo(App);

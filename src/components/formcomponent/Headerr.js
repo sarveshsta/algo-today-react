@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 
-const Headerr = ({headText}) => {
+const Headerr = ({ headText }) => {
   return (
-   <>
-   
-   <div className='container'>
-          <h2 className='text-center'>{headText}</h2>
-      </div></>
-  )
-}
+    <>
+      <div className="container">
+        <h2 className="text-center">{headText}</h2>
+      </div>
+    </>
+  );
+};
 
-export default React.memo(Headerr)
+export default React.memo(Headerr);

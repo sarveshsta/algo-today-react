@@ -2,7 +2,7 @@
   "name": "algotrading",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://f6d5-2409-40c4-7-ee9e-9c89-88a2-e397-bff5.ngrok-free.app",
+  "proxy" : "https://4c6c-2405-201-301d-f921-a94c-264b-4a52-5f32.ngrok-free.app",
   "dependencies": {
     "@fontsource/montserrat": "^5.0.16",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
