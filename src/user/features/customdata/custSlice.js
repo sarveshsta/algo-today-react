@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getBankniftyDataApi, getStrategyDataApi } from "./custAuthentication";
+import {
+  getBankniftyDataApi,
+  getStrategyDataApi,
+  tradeHistoryApi,
+} from "./custAuthentication";
 
 const initialState = {
   loading: false,
@@ -9,7 +13,8 @@ const initialState = {
   message: "",
   token: "",
   data: [],
-  strategy:null
+  strategy: null,
+  tradeHistory: [],
 };
 
 const indexSlice = createSlice({
@@ -50,7 +55,7 @@ const indexSlice = createSlice({
     });
 
     //-------------------------Strategy Case------------------//
-     builder.addCase(getStrategyDataApi.pending, (state, action) => {
+    builder.addCase(getStrategyDataApi.pending, (state, action) => {
       // console.log("Strategy-1", action.payload);
       state.loading = true;
       state.error = action.payload;
@@ -67,6 +72,23 @@ const indexSlice = createSlice({
       state.strategy = null;
     });
 
+    //-------------------------Trade History Case------------------//
+    builder.addCase(tradeHistoryApi.pending, (state, action) => {
+      // console.log("tradeHistoryApi :", action.payload);
+      state.loading = true;
+      state.error = action.payload;
+    });
+    builder.addCase(tradeHistoryApi.fulfilled, (state, action) => {
+      // console.log("tradeHistoryApi :", action.payload);
+      state.loading = false;
+      state.tradeHistory = action.payload;
+    });
+    builder.addCase(tradeHistoryApi.rejected, (state, action) => {
+      // console.log("tradeHistoryApi :", action.payload);
+      state.loading = false;
+      state.error = action.error;
+      state.tradeHistory = null;
+    });
   },
 });
 export default indexSlice.reducer;

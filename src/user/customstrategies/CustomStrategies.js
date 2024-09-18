@@ -77,31 +77,43 @@ const custStyle = {
   }),
 };
 
-const tradeURL = 'http://65.0.101.156:8000'; 
+const tradeURL =
+  "http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8000";
 
 const CustomStrategies = () => {
   const [selectedInput, setSelectedInput] = useState("");
   const [checkedCheckBox, setCheckedCheckBox] = useState(false);
-  const [IndexData, setIndexData] = useState([]) 
-  const [StrikData, setStrikData] = useState([]) 
+  const [IndexData, setIndexData] = useState([]);
+  const [StrikData, setStrikData] = useState([]);
+
+  // console.log("indexData :", IndexData);
+  // console.log("StrikeData :", StrikData);
 
   const [inputValues, setInputValues] = useState({
-    strategy_id:"",
-    user_id:"",
-    index: "",
-    strike_price:'',
-    expiry: "",
-    option: "",
-    chart_time: "",
-    sharesAmount:"",
+    strategy_id: "",
+    user_id: "",
+    index_list: [
+      {
+        index: "",
+        strike_price: 0,
+        expiry: "",
+        option: "",
+        chart_time: "",
+        quantity: 0,
+        trading_amount:0
+      },
+    ],
+    target_profit:0
   });
 
+  console.log("input-val :", inputValues);
+
+  let formData = new FormData();
   const dispatch = useDispatch();
   // const state = useSelector((state) => state?.index?.data?.data || []);
   // console.log("state   ", state);
 
   const newState = useSelector((state) => state?.index || []);
-
   const getStrategy = useSelector((state) => state || []);
 
   // useEffect(() => {
@@ -112,11 +124,21 @@ const CustomStrategies = () => {
 
   const handleInputChange = (event, selectname) => {
     let { name } = selectname;
+
     setInputValues((prevState) => ({
       ...prevState,
-      user_id: "1" ,
+      user_id: "1",
       strategy_id: "1",
-      [name]: event.value,
+      index_list: prevState.index_list.map((item, index) => {
+        if (index === 0) {
+          // Update the strike_price in the first index_list object
+          return {
+            ...item,
+            [name]: event.value, // dynamically update the field by name
+          };
+        }
+        return item;
+      }),
     }));
   };
 
@@ -124,50 +146,66 @@ const CustomStrategies = () => {
     setCheckedCheckBox((prevState) => !prevState);
   }, []);
 
+  //  console.log("inputevalue : ",inputValues);
+
+  const getData = async (index) => {
+    console.log("index-api", index);
+    try {
+      const response = await axios.get(`${tradeURL}/tokens/${index}`);
+      if (response) {
+        setIndexData(response?.data?.data || []);
+      } else {
+        return response;
+      }
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const getDataStrike = async (index, expiry) => {
+    try {
+      const response = await axios.get(`${tradeURL}/tokens/${index}/${expiry}`);
+      if (response) {
+        setStrikData(response?.data?.data || []);
+      } else {
+        return response;
+      }
+    } catch (error) {
+      return error;
+    }
+  };
+
+  useEffect(() => {
+    if (inputValues?.index_list[0]?.index) {
+      getData(inputValues?.index_list[0]?.index);
+    }
+
+    if (
+      inputValues?.index_list[0]?.index &&
+      inputValues?.index_list[0]?.expiry
+    ) {
+      getDataStrike(
+        inputValues?.index_list[0]?.index,
+        inputValues?.index_list[0]?.expiry
+      );
+    }
+
+  }, [inputValues?.index_list[0]?.index, inputValues?.index_list[0]?.expiry]);
+
   const submitButton = useCallback(() => {
+    console.log("inputValues :", inputValues.index_list[0].strike_price);
+    // console.log("index : ", inputValues.index_list[0].index );
+    // console.log("index : ", inputValues?.index_list[0]?.expiry);
+    // formData.append("index", inputValues.index);
+    // formData.append("user_id", inputValues.user_id);
+    // formData.append("chart_time", inputValues.chart_time);
+    // formData.append("expiry", inputValues.expiry);
+    // formData.append("quantity", inputValues.quantity);
+    // formData.append("strategy_id", inputValues.strategy_id);
+    // formData.append("strike_price", inputValues.strike_price);
+    // formData.append("option", inputValues.option);
     dispatch(getStrategyDataApi(inputValues));
-  }, []);
-
- console.log("inputevalue : ",inputValues);
-
-const getData = async (index) => { 
-  try {
-    // console.log("try Call>>>")
-    const response = await axios.get(
-      `${tradeURL}/tokens/${index}`
-    );
-    if (response) {
-      setIndexData(response?.data?.data || []);
-    } else {
-      return response;
-    }
-  } catch (error) {
-    console.log("error :: ",error);
-    return error;
-  }
-}
-
-const getDataStrike = async (index,expiry) => { 
-  try {
-    const response = await axios.get(
-      `${tradeURL}/tokens/${index}/${expiry}`
-    );
-    if (response) {
-      console.log("ressss",response?.data);
-      setStrikData(response?.data?.data || []);
-    } else {
-      return response;
-    }
-  } catch (error) {
-    console.log("error :: ",error);
-    return error;
-  }
-}
-
-useEffect(() => {
-  getData(inputValues?.index)
-  getDataStrike(inputValues.index, inputValues.expiry)
-},[inputValues?.index, inputValues.expiry])
+  }, [inputValues]);
 
   return (
     <div>
@@ -176,7 +214,6 @@ useEffect(() => {
       <Newshape />
       <Navbar />
       {/* <Shape/> */}
-
       <div className="customstrategies-main-container">
         <div className="algo-trading-container">
           <h3>Custom Algo-Trading Strategy</h3>
@@ -193,8 +230,37 @@ useEffect(() => {
                 name="index"
                 value={
                   inputValues.index && {
-                    value: inputValues.index,
-                    label: inputValues.index,
+                    value: inputValues.index_list[0].index,
+                    label: inputValues.index_list[0].index,
+                  }
+                }
+              />
+            </div>
+
+            
+            <div className="select-container">
+              <Select
+                options={IndexData?.map((item) => {
+                  const expiryDate = new Date(item?.expiry); // Assuming item.expiry is a valid date string
+                  const day = String(expiryDate?.getDate()).padStart(2, "0");
+                  const month = expiryDate
+                    .toLocaleString("default", { month: "short" })
+                    .toUpperCase();
+                  const year = String(expiryDate.getFullYear()).slice(-2);
+
+                  return {
+                    value: `${day}${month}${year}`,
+                    label: item?.expiry,
+                  };
+                })}
+                styles={custStyle}
+                onChange={handleInputChange}
+                placeholder="Expiry"
+                name="expiry"
+                value={
+                  inputValues?.expiry && {
+                    value: inputValues?.index_list[0]?.expiry,
+                    label: inputValues?.index_list[0]?.expiry,
                   }
                 }
               />
@@ -202,9 +268,9 @@ useEffect(() => {
 
             <div className="select-container">
               <Select
-                options={StrikData.map((item) => ({
-                  value: parseInt(item.strike_price,10),
-                  label: item.strike_price,
+                options={StrikData?.map((item) => ({
+                  value: parseInt(item?.strike_price) / 100,
+                  label: parseInt(item?.strike_price) / 100,
                 }))}
                 styles={custStyle}
                 onChange={handleInputChange}
@@ -212,35 +278,8 @@ useEffect(() => {
                 name="strike_price"
                 value={
                   inputValues.strike_price && {
-                    value: inputValues.strike_price,
-                    label: inputValues.strike_price,
-                  }
-                }
-              />
-            </div>
-
-            <div className="select-container">
-              <Select
-                options={IndexData?.map((item)=> {
-                  const expiryDate = new Date(item.expiry); // Assuming item.expiry is a valid date string
-                  const day = String(expiryDate.getDate()).padStart(2, '0');
-                  const month = expiryDate.toLocaleString('default', { month: 'short' }).toUpperCase();
-                  const year = String(expiryDate.getFullYear()).slice(-2);
-                
-                  return {
-                    value: `${day}${month}${year}`,
-                    label: item?.expiry,
-                  };
-                }
-                )}
-                styles={custStyle}
-                onChange={handleInputChange}
-                placeholder="Expiry"
-                name="expiry"
-                value={
-                  inputValues.expiry && {
-                    value: inputValues.expiry,
-                    label: inputValues.expiry,
+                    value: inputValues?.index_list[0]?.strike_price,
+                    label: inputValues?.index_list[0]?.strike_price.split(' . '),
                   }
                 }
               />
@@ -254,9 +293,9 @@ useEffect(() => {
                 placeholder="CE/PE"
                 name="option"
                 value={
-                  inputValues.option && {
-                    value: inputValues.option,
-                    label: inputValues.option,
+                  inputValues?.option && {
+                    value: inputValues?.index_list[0]?.option,
+                    label: inputValues?.index_list[0]?.option,
                   }
                 }
               />
@@ -273,9 +312,9 @@ useEffect(() => {
                 onChange={handleInputChange}
                 name="chart_time"
                 value={
-                  inputValues.chart_time && {
-                    value: inputValues.chart_time,
-                    label: inputValues.chart_time,
+                  inputValues?.chart_time && {
+                    value: inputValues?.index_list[0]?.chart_time,
+                    label: inputValues?.index_list[0]?.chart_time,
                   }
                 }
               />
@@ -285,19 +324,40 @@ useEffect(() => {
 
         <div className="cust-input-second">
           <input
+            name="quantity"
             className="cust-inputbtn"
             type="text"
-            placeholder="No. of shares/Amount"
-            value={inputValues.sharesAmount}
+            placeholder="Quantity"
+            // value={inputValues.quantity}
             onChange={(e) =>
               setInputValues((prev) => ({
                 ...prev,
-                sharesAmount: e.target.value,
+                index_list:
+                  prev?.index_list && prev?.index_list.length > 0
+                    ? [
+                        {
+                          ...prev?.index_list[0],
+                          quantity: parseInt(e.target.value), // Update the quantity
+                        },
+                      ]
+                    : [{ quantity: parseInt(e.target.value) }], // Initialize index_list if it's undefined or empty
               }))
             }
-            name="sharesAmount"
           />
-          <Select
+            <input
+            name="target_profit"
+            className="cust-inputbtn"
+            type="text"
+            placeholder="Target Profit"
+            // value={inputValues.quantity}
+            onChange={(e) =>
+              setInputValues((prev) => ({
+                ...prev,
+                target_profit: parseInt(e.target.value)
+              }))
+            }
+          />
+          {/* <Select
             value={selectedInput[5]}
             styles={custStyle}
             onChange={handleSubmit}
@@ -306,13 +366,28 @@ useEffect(() => {
             value={selectedInput[5]}
             styles={custStyle}
             onChange={handleSubmit}
-          />
+          /> */}
         </div>
         <div className="cust-input-second">
           <input
             className="cust-inputbtn"
             type="text"
-            placeholder="No. of shares/Amount"
+            placeholder="Amount"
+            name="trading_amount"
+            onChange={(e) =>
+              setInputValues((prev) => ({
+                ...prev,
+                index_list:
+                  prev?.index_list && prev?.index_list.length > 0
+                    ? [
+                        {
+                          ...prev?.index_list[0],
+                          trading_amount: parseInt(e.target.value), // Update the quantity
+                        },
+                      ]
+                    : [{ trading_amount: parseInt(e.target.value) }], // Initialize index_list if it's undefined or empty
+              }))
+            }
           />
           <Select
             value={selectedInput[5]}
@@ -325,8 +400,8 @@ useEffect(() => {
             onChange={handleSubmit}
           />
         </div>
-      </div>5
-
+      </div>
+      5
       <div className="buying-pre-condition-main">
         <div className="buying-pre-condition-firstdiv">
           <h2 className="bpc-firstdiv-h2">Buying Pre Conditions</h2>
@@ -386,7 +461,6 @@ useEffect(() => {
           />
         </div>
       </div>
-
       <div className="buying-pre-condition-main">
         <div className="buying-pre-condition-firstdiv">
           <h2 className="bpc-firstdiv-h2">Selling Pre Conditions</h2>
@@ -436,7 +510,6 @@ useEffect(() => {
           />
         </div>
       </div>
-
       <div className="buying-pre-condition-thirddiv">
         <div className="thirdddiv">
           <div className="thirdddiv">
