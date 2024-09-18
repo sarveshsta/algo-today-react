@@ -83,7 +83,7 @@ const About = () => {
         </p>
       </div>
       <div className="card-data-about">
-        {aboutcardData.map((item) => (
+        {aboutcardData?.map((item) => (
           <>
             <div className="main-carddiv">
               <div className="carddiv-h3">

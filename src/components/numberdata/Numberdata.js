@@ -4,7 +4,7 @@ import "./numberdata.css";
 // Helper function to calculate the maximum width of datano values
 const calculateMaxWidth = (webdata) => {
   let maxWidth = 0;
-  webdata.forEach((item) => {
+  webdata?.forEach((item) => {
     const width = item.datano.toString().length;
     if (width > maxWidth) {
       maxWidth = width;
@@ -43,7 +43,7 @@ const Numberdata = ({ webdata, text1, para1 }) => {
         </div>
       </div>
       <div className="numberdataa-seconddiv">
-        {webdata.map((item, index) => (
+        {webdata?.map((item, index) => (
           <DataItem key={index} datano={item.datano} value={item.value} maxWidth={maxWidth} />
         ))}
       </div>

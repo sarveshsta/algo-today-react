@@ -39,7 +39,7 @@ const Stockgla = () => {
     <>
       <div className="Detailnav">
         <div className="glamain">
-          {GlaList.map((item) => {
+          {GlaList?.map((item) => {
             return (
               <div className="listitem" key={item}>
                 <h2 className="item">{item}</h2>
@@ -48,7 +48,7 @@ const Stockgla = () => {
           })}
         </div>
         <div className="glasub">
-          {StockList.map((item) => {
+          {StockList?.map((item) => {
             const { img, heading, para, price, change } = item;
             return (
               <div className="StackCard">
