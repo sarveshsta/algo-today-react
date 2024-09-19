@@ -43,6 +43,7 @@ export const getStrategyDataApi = createAsyncThunk(
       );
       console.log("res : ", res);
       if(res.data.success === true){
+        alert(res.data.message)
         toast.success(res.data.message)
         return res.data;
       }else {
