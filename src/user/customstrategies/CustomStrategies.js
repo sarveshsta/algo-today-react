@@ -100,10 +100,10 @@ const CustomStrategies = () => {
         option: "",
         chart_time: "",
         quantity: 0,
-        trading_amount:0
+        trading_amount: 0,
       },
     ],
-    target_profit:0
+    target_profit: 0,
   });
 
   console.log("input-val :", inputValues);
@@ -189,7 +189,6 @@ const CustomStrategies = () => {
         inputValues?.index_list[0]?.expiry
       );
     }
-
   }, [inputValues?.index_list[0]?.index, inputValues?.index_list[0]?.expiry]);
 
   const submitButton = useCallback(() => {
@@ -237,7 +236,6 @@ const CustomStrategies = () => {
               />
             </div>
 
-            
             <div className="select-container">
               <Select
                 options={IndexData?.map((item) => {
@@ -279,7 +277,8 @@ const CustomStrategies = () => {
                 value={
                   inputValues.strike_price && {
                     value: inputValues?.index_list[0]?.strike_price,
-                    label: inputValues?.index_list[0]?.strike_price.split(' . '),
+                    label:
+                      inputValues?.index_list[0]?.strike_price.split(" . "),
                   }
                 }
               />
@@ -344,7 +343,7 @@ const CustomStrategies = () => {
               }))
             }
           />
-            <input
+          <input
             name="target_profit"
             className="cust-inputbtn"
             type="text"
@@ -353,7 +352,7 @@ const CustomStrategies = () => {
             onChange={(e) =>
               setInputValues((prev) => ({
                 ...prev,
-                target_profit: parseInt(e.target.value)
+                target_profit: parseInt(e.target.value),
               }))
             }
           />
@@ -401,7 +400,6 @@ const CustomStrategies = () => {
           />
         </div>
       </div>
-      5
       <div className="buying-pre-condition-main">
         <div className="buying-pre-condition-firstdiv">
           <h2 className="bpc-firstdiv-h2">Buying Pre Conditions</h2>

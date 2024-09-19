@@ -149,8 +149,8 @@ const Homee = () => {
           </div>
           <div className="web-home-content-thirddiv">
             <button className="homecontent-bttn">
-              <Link to="/signup" className="linking">
-                Sign Up
+              <Link to="/custom" className="linking">
+                Custom Strategy
               </Link>
             </button>
           </div>
