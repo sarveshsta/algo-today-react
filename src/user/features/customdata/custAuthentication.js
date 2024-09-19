@@ -41,11 +41,13 @@ export const getStrategyDataApi = createAsyncThunk(
         body,
         headerconfig
       );
+      console.log("res : ", res);
       if(res.data.success === true){
-        toast(res.data.message)
+        toast.success(res.data.message)
         return res.data;
       }else {
-        return thunkAPI.rejectWithValue(res.data);
+        toast.error(res.data.message)
+        return thunkAPI.rejectWithValue(res.data.message);
       }
     } catch (error) {
       // console.log("getStrategy** =>", error);

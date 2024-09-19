@@ -192,7 +192,7 @@ const CustomStrategies = () => {
   }, [inputValues?.index_list[0]?.index, inputValues?.index_list[0]?.expiry]);
 
   const submitButton = useCallback(() => {
-    // console.log("inputValues :", inputValues.index_list[0].strike_price);
+    console.log("inputValues :", inputValues);
     // console.log("index : ", inputValues.index_list[0].index );
     // console.log("index : ", inputValues?.index_list[0]?.expiry);
     // formData.append("index", inputValues.index);
