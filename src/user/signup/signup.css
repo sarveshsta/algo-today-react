@@ -1,4 +1,8 @@
 .signup-main-div {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   width: 100%;
   height: 100%;
@@ -44,6 +48,8 @@
     padding: 20px;
     color: #fff;
     text-align: left;
+    display: -moz-grid;
+    display: -ms-grid;
     display: grid;
     box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.25);
     border: 1px solid;
@@ -104,6 +110,10 @@ height: Hug (52px); */
     }
 
     .signup-form-3-text-div {
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
       display: flex;
       justify-content: space-evenly;
     }
@@ -112,6 +122,10 @@ height: Hug (52px); */
 
 .form-section{
   width: 100%;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   justify-content: center;
 }
@@ -124,6 +138,10 @@ height: Hug (52px); */
   color: #fff;
 }
 .login-checkbox-checkbox-section{
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
 }
 

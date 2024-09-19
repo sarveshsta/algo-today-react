@@ -7,9 +7,9 @@
 .firstLink {
   width: -webkit-fill-available;
   margin-left: 17%;
-  display: grid;
   display: -ms-grid;
   display: -moz-grid;
+  display: grid;
   grid-template-columns: repeat(2, auto);
   gap: 2%;
   text-align: center;
@@ -88,9 +88,9 @@
 
   .firstLink {
     width: -webkit-fill-available;
-    display: grid;
     display: -ms-grid;
     display: -moz-grid;
+    display: grid;
     grid-template-columns: repeat(2, auto);
     gap: 2%;
     text-align: center;
@@ -135,6 +135,8 @@
 
   #wanna-flex-this-div {
     margin-left: 0;
+    display: -moz-grid !important;
+    display: -ms-grid !important;
     display: grid !important;
   }
 
@@ -146,6 +148,8 @@
 
 @media screen and (max-width: 475px) {
   .firstLink {
+    display: -moz-grid;
+    display: -ms-grid;
     display: grid;
     grid: none;
 

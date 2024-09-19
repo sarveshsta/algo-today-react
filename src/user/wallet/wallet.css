@@ -1,8 +1,11 @@
 #wallet-container {
   margin-left: 17%;
   width: -webkit-fill-available;
-  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
   display: -webkit-flex;
+  display: flex;
   /* height: 89vh; */
 }
 
@@ -60,9 +63,9 @@
 }
 
 #wallet-form-firstrow {
-  display: grid;
   display: -ms-grid;
   display: -moz-grid;
+  display: grid;
   margin-bottom: 5px;
 }
 
@@ -97,8 +100,11 @@
 }
 
 #wallet-form-secondrow {
-  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
   display: -webkit-flex;
+  display: flex;
   justify-content: space-between;
 }
 
@@ -134,9 +140,9 @@
 
 #wallet-form-thirdrow {
   width: -webkit-fill-available;
-  display: grid;
   display: -ms-grid;
   display: -moz-grid;
+  display: grid;
 }
 
 #thirdrow-firstdiv {
@@ -222,6 +228,8 @@
       flex-direction: column-reverse;
     }
     #div2-container {
+      display: -moz-grid !important;
+      display: -ms-grid !important;
       display: grid !important;
       justify-content: center;
   }
@@ -232,6 +240,10 @@
     display: block;
   }
   #container-div2-2 {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
   }
 } 

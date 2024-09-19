@@ -7,8 +7,9 @@
   position: fixed;
   left: 0;
   top: 0;
-  display: grid;
   display: -moz-grid;
+  display: -ms-grid;
+  display: grid;
   align-content: start;
   gap: 1rem;
 }
@@ -34,8 +35,9 @@
   list-style-type: none;
   margin: 6px;
   padding: 0px;
-  display: grid;
   display: -moz-grid;
+  display: -ms-grid;
+  display: grid;
   gap: 2rem;
 }
 
@@ -45,10 +47,13 @@
 }
 
 .iconhome {
-  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
   display: -webkit-flex;
   width: -webkit-fill-available;
   height: -moz-fit-content;
+  display: flex;
   height: fit-content;
   border-radius: 0px 50px 50px 0px;
   /* opacity: 0.7; */
@@ -89,9 +94,9 @@ li#home {
   position: relative;
   right: 4.3rem; */
   font-size: 21px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
 li#acc {
@@ -168,12 +173,16 @@ h1#lg {
     text-align: left;
     /* display: grid; */
     /* border: 2px solid; */
+    width: -moz-fit-content;
     width: fit-content;
     height: -webkit-fill-available;
 
     .iconhome {
-      display: flex;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
       display: -webkit-flex;
+      display: flex;
       width: -webkit-fill-available;
       height: -moz-fit-content;
       height: fit-content;
@@ -237,7 +246,13 @@ h1#lg {
   top: 6rem;
   width: -webkit-fill-available;
   border-width: 1px;
-  border-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 48.43%, rgba(255, 255, 255, 0.15) 99.04%) 1;
+  border-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      #ffffff 48.43%,
+      rgba(255, 255, 255, 0.15) 99.04%
+    )
+    1;
   border-style: solid;
 }
 
