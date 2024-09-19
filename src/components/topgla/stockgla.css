@@ -1,7 +1,7 @@
 .Detailnav {
-  display: grid;
   display: -ms-grid;
   display: -moz-grid;
+  display: grid;
   border-radius: 30px;
   background: linear-gradient(
     90deg,
@@ -51,32 +51,39 @@
 }
 
 .glasub {
-  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
   display: -webkit-flex;
+  display: flex;
   height: -webkit-fill-available;
   width: -webkit-fill-available;
   border-radius: inherit;
   justify-content: space-evenly;
   margin-bottom: 1rem;
-    margin-top: 1rem;
+  margin-top: 1rem;
 }
 
-.st-card-1{
-
+.st-card-1 {
 }
 
-.st-card-2{
+.st-card-2 {
+  display: -moz-grid;
+  display: -ms-grid;
   display: grid;
   width: -webkit-fill-available;
   text-align: left;
 }
-
 
 .StackCard {
   border-radius: inherit;
   width: -webkit-fill-available;
   border-radius: inherit;
   margin: 4px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   align-items: center;
   gap: 10px;

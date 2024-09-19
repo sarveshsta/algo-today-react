@@ -1,4 +1,6 @@
 .grid-this-dropdown {
+  display: -moz-grid;
+  display: -ms-grid;
   display: grid;
   gap: 1.5rem;
   margin-left: 20%;
@@ -14,6 +16,10 @@
   opacity: 0px;
 }
 .lets-move-the-dropdown {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   justify-content: space-evenly;
 }

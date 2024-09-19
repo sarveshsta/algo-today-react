@@ -1,6 +1,9 @@
 .MyStrategy {
-    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: -webkit-flex;
+    display: flex;;
     width: -webkit-fill-available;
     justify-content: space-evenly;
     margin-left: 18.5%;
@@ -44,14 +47,14 @@
 
 .strategybtnn {
   width: -webkit-fill-available;
-  display: inline-flex;
   display: -webkit-inline-flex;
+  display: inline-flex;
   padding: 9px 33px;
   justify-content: center;
 }
 
 .obj-img1{
-  position: absolute;
+    position: absolute;
     left: 14rem;
     top: 13.5rem;
 }

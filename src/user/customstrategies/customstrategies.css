@@ -1,9 +1,24 @@
 .customstrategies-main-container {
+  background: -webkit-linear-gradient(
+    90.3deg,
+    rgba(255, 255, 255, 0.75) 0.06%,
+    rgba(255, 255, 255, 0.45) 100%
+  ); /* For Safari and Chrome */
+  background: -moz-linear-gradient(
+    90.3deg,
+    rgba(255, 255, 255, 0.75) 0.06%,
+    rgba(255, 255, 255, 0.45) 100%
+  ); /* For Firefox */
+  background: -o-linear-gradient(
+    90.3deg,
+    rgba(255, 255, 255, 0.75) 0.06%,
+    rgba(255, 255, 255, 0.45) 100%
+  ); /* For older Opera versions */
   background: linear-gradient(
     90.3deg,
     rgba(255, 255, 255, 0.75) 0.06%,
     rgba(255, 255, 255, 0.45) 100%
-  );
+  ); /* Standard */
   box-shadow: 0px 28px 62px 0px #0000001a;
   border-radius: 8px;
   text-align: center;
@@ -18,6 +33,10 @@
 }
 
 .label-container {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   align-items: center;
   margin-top: 10px;
@@ -28,6 +47,10 @@
 }
 
 .select-container {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   align-items: center;
   margin-top: 10px;
@@ -35,6 +58,10 @@
 }
 
 .customstrategies-flex-select-option {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   /* justify-content: space-evenly; */
   margin-top: 2rem;
@@ -50,6 +77,10 @@
 }
 
 .cust-input-second {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   /* // justify-content: space-evenly; */
   margin-bottom: 1rem;
@@ -64,6 +95,10 @@
 }
 
 .buying-pre-condition-main {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   margin-left: 16%;
   margin-top: 2rem;
@@ -90,6 +125,8 @@
 }
 
 .checkbox-div-buy {
+  display: -moz-grid;
+  display: -ms-grid;
   display: grid;
   grid-template-columns: repeat(2, auto);
   row-gap: 17%;
@@ -115,6 +152,10 @@
   margin-top: 2rem;
 
   .thirdddiv {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     justify-content: space-between;
     box-shadow: 0px 43px 95px 0px #2929291a;
@@ -122,6 +163,10 @@
   }
 
   .thirdddiv-btnn {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     margin-top: 1rem;
 
@@ -251,7 +296,7 @@
 
 @media screen and (max-width: 768px) {
   .customstrategies-main-container {
-    margin: 0;
+    margin-left: 0;
   }
   .buying-pre-condition-main {
     margin: 0;
