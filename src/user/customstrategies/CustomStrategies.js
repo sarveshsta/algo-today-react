@@ -106,7 +106,7 @@ const CustomStrategies = () => {
     target_profit: 0,
   });
 
-  console.log("input-val :", inputValues);
+  // console.log("input-val :", inputValues);
 
   let formData = new FormData();
   const dispatch = useDispatch();
@@ -149,7 +149,7 @@ const CustomStrategies = () => {
   //  console.log("inputevalue : ",inputValues);
 
   const getData = async (index) => {
-    console.log("index-api", index);
+    // console.log("index-api", index);
     try {
       const response = await axios.get(`${tradeURL}/tokens/${index}`);
       if (response) {
@@ -192,7 +192,7 @@ const CustomStrategies = () => {
   }, [inputValues?.index_list[0]?.index, inputValues?.index_list[0]?.expiry]);
 
   const submitButton = useCallback(() => {
-    console.log("inputValues :", inputValues.index_list[0].strike_price);
+    // console.log("inputValues :", inputValues.index_list[0].strike_price);
     // console.log("index : ", inputValues.index_list[0].index );
     // console.log("index : ", inputValues?.index_list[0]?.expiry);
     // formData.append("index", inputValues.index);
