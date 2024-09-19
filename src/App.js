@@ -39,7 +39,6 @@ function App() {
         draggable
         pauseOnHover
         theme="light"
-        transition={"Bounce"}
       />
       <BrowserRouter>
         <Routes>
@@ -62,6 +61,7 @@ function App() {
           <Route path="/service" element={<Service />} />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/forgotpassword" element={<Forgotpassword />} />
+          <Route path="/newotp" element={<Newotp />} />
         </Routes>
       </BrowserRouter>
     </>

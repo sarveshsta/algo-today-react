@@ -72,7 +72,7 @@ const Newotp = () => {
               <form className="form-form" onSubmit={formik.handleSubmit}>
                <Formcomp
                    type="text"
-                   placeholder="Enter One Time Password"
+                   placeholder="Enter OTP"
                    name="number"
                    onChange={formik.handleChange}
                    onBlur={formik.handleBlur}
@@ -84,7 +84,7 @@ const Newotp = () => {
                   </div>
                 ) : null}
 
-                 <Formbutton type="submit" text="Enter OTP" />
+                 <Formbutton type="submit" text="Verify OTP" />
               </form>
 
               <p className="signup-form-already-registered-para">
