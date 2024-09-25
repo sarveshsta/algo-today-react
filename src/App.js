@@ -12,6 +12,7 @@ import Homee from "./components/homee/Homee";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Service from "./user/servicee/Service";
 import "react-toastify/dist/ReactToastify.css";
+import 'butteruptoasts/src/butterup.css';
 import Dashbord from "./user/dashbord/Dashbord";
 import Dashboard from "./admin/dashboard/Dashboard";
 import OpenDemat from "./user/opendemate/OpenDemat";

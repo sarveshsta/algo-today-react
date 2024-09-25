@@ -49,12 +49,14 @@ const UserHistory = () => {
               <tbody>
                 {tradeHistory && tradeHistory?.length > 0 ? (
                   tradeHistory?.map((item, index) => {
+                    console.log("itm > ", item);
+                    
                     return (
                       <tr key={index}>
                         <td>{item.id}</td>
                         <td>{item.token.lotsize}Qty</td>
                         <td>{item.token.name}</td>
-                        <td>{item.signal}</td>
+                        <td>{item.signal.toUpperCase()}</td>
                         <td>{item.token.expiry}</td>
                         <td>
                           <IoTriangle /> 10,00.29

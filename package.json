@@ -2,7 +2,7 @@
   "name": "algotrading",
   "version": "0.1.0",
   "private": true,
-  "proxy" : "https://4c6c-2405-201-301d-f921-a94c-264b-4a52-5f32.ngrok-free.app",
+  "proxy": "https://4c6c-2405-201-301d-f921-a94c-264b-4a52-5f32.ngrok-free.app",
   "dependencies": {
     "@fontsource/montserrat": "^5.0.16",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
@@ -13,6 +13,7 @@
     "@vis.gl/react-google-maps": "^0.8.0",
     "axios": "^1.6.2",
     "bootstrap": "^5.3.3",
+    "butteruptoasts": "^2.0.1",
     "chart.js": "^4.4.2",
     "formik": "^2.4.5",
     "html-webpack-plugin": "^5.6.0",

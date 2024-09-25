@@ -6,18 +6,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import Formcomp from "../../components/formcomponent/Formcomp";
 import { mobileAuthentication } from "../features/auth/authAuthentication";
+import { butterup } from "butteruptoasts";
 
 const Mobile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const mobileAuth = useSelector((store) => store?.auth?.user);
+  const mobileAuth = useSelector((store) => store?.auth?.user?.data);
   // const mobileAuth2 = useSelector((store) => store?.auth?.user);
   // console.log("mobauth2 ==>> ", mobileAuth2);
   console.log("mobauth ==>> ", mobileAuth);
 
-  const { status, data, } = mobileAuth || {};
-  const { message } = data || {};
+  const { message, success} = mobileAuth || {};
+  // const { message } = data || {};
 
   const formik = useFormik({
     initialValues: {
@@ -32,20 +33,14 @@ const Mobile = () => {
       const formData = new FormData();
       formData.append("phone", values.number);
       dispatch(mobileAuthentication(formData));
-
-      if (status === 200) {
-        return toast.success(message, {
-          onClose: () => {
-            navigate("/newotp");
-          },
-        });
-      } else if (status === 401) {
-        return toast.error(message);
-      } else {
-        return toast(message);
-      }
     },
   });
+
+  if(success === true){
+    setTimeout(() => {
+      navigate("/newotp")
+    },2000)
+  }
 
   return (
     <>
@@ -77,14 +72,14 @@ const Mobile = () => {
               </p>
               <form className="form-form" onSubmit={formik.handleSubmit}>
                 <Formcomp
-                   type="text"
-                   placeholder="Mobile Number"
-                   name="number"
-                   onChange={formik.handleChange}
-                   onBlur={formik.handleBlur}
-                   value={formik.values.number}
+                  type="text"
+                  placeholder="Mobile Number"
+                  name="number"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.number}
                 />
-                {formik.touched.number && formik.errors.number? (
+                {formik.touched.number && formik.errors.number ? (
                   <div className="error-message" style={{ color: "red" }}>
                     {formik.errors.number}
                   </div>

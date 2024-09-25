@@ -22,6 +22,7 @@ const Forgotpassword = () => {
 
   const forAuth = useSelector((state) => state?.auth?.user);
   // console.log("forauth** =>>", forAuth);
+  
 
   const handleSubmit = useCallback(
     async (values) => {
@@ -48,7 +49,7 @@ const Forgotpassword = () => {
         try {
           dispatch(forgotAPI(formData));
         } catch (error) {
-          console.log("forgot-error** =>>", error);
+          // console.log("forgot-error** =>>", error);
         }
       }
     },
@@ -91,11 +92,11 @@ const Forgotpassword = () => {
 
   useEffect(() => {
     if (forAuth?.data) {
-      toast.success(forAuth.data.message);
+      // toast.success(forAuth.data.message);
     } else if (forAuth?.data && logapicalled) {
-      toast.success(forAuth.data.message);
+      // toast.success(forAuth.data.message);
     } else if (forAuth?.data && logapicalled && Otpapicalled) {
-      toast.success(forAuth.data.message);
+      // toast.success(forAuth.data.message);
     }
   }, [forAuth?.data, logapicalled, Otpapicalled]);
 
