@@ -1,8 +1,10 @@
 import axios from "axios";
+// import { toast } from "react-toastify";
+import butterup from "butteruptoasts";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 
-const tradeURL = "http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8000";
+const tradeURL =
+  "http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8000";
 const tradeURL2 =
   "https://4968-2405-201-301d-f0e6-81ed-73f-d109-465.ngrok-free.app/";
 
@@ -41,17 +43,36 @@ export const getStrategyDataApi = createAsyncThunk(
         body,
         headerconfig
       );
-      console.log("res : ", res);
-      if(res.data.success === true){
-        alert(res.data.message)
-        toast.success(res.data.message)
+      if (res.data.success === true) {
+        butterup.toast({
+          title: "🎉 Hooray!",
+          message: res.data.message,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "success",
+        });
         return res.data;
-      }else {
-        toast.error(res.data.message)
+      } else {
+        butterup.toast({
+          title: "⚠️ Error",
+          message: res.data.message,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "error",
+        });
         return thunkAPI.rejectWithValue(res.data.message);
       }
     } catch (error) {
-      // console.log("getStrategy** =>", error);
+      butterup.toast({
+        title: "⚠️ Error",
+        message: error.message,
+        location: "top-right",
+        icon: true,
+        dismissable: true,
+        type: "error",
+      });
       return error;
     }
   }
@@ -64,14 +85,82 @@ export const tradeHistoryApi = createAsyncThunk(
     try {
       const response = await axios.get(
         `http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8000/tokens/trades_details/`
-      );
+      );console.log("response :", response);
+      
       if (response.status == 200) {
+        butterup.toast({
+          title: "🎉 Hooray!",
+          message: "Trade History Retrieved Successfully",
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "success",
+        });
         return response.data;
       } else {
+        butterup.toast({
+          title: "⚠️ Error",
+          message: response.data.message,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "error",
+        });
         return response;
       }
     } catch (error) {
-      // console.log("error-trade :: ", error);
+      butterup.toast({
+        title: "⚠️ Error",
+        message: error.message,
+        location: "top-right",
+        icon: true,
+        dismissable: true,
+        type: "error",
+      });
+      return error;
+    }
+  }
+);
+
+export const stopStrategy = createAsyncThunk(
+  "stopStrategy-Data",
+  async (strategy_id, thunkAPI) => {
+    try {
+      const res = await axios.get(
+        `${tradeURL}/strategy/stop_strategy/${strategy_id}`,
+        headerconfig
+      );
+      
+      if (res.status == 200) {
+        butterup.toast({
+          title: "🎉 Hooray!",
+          message: res.data.detail,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "success",
+        });
+        return res.data;
+      } else {
+        butterup.toast({
+          title: "⚠️ Error",
+          message: res.data.message,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "error",
+        });
+        return thunkAPI.rejectWithValue(res.data.message);
+      }
+    } catch (error) {
+      butterup.toast({
+        title: "⚠️ Error",
+        message: error.message,
+        location: "top-right",
+        icon: true,
+        dismissable: true,
+        type: "error",
+      });
       return error;
     }
   }

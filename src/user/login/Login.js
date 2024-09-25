@@ -13,8 +13,10 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const auth = useSelector((state) => state?.auth?.user);
-  const { status, data, response } = auth || {};
+  const auth = useSelector((state) => state?.auth?.user?.data);
+  // console.log("suth :", auth);
+
+  // const { status, data, response } = auth || {};
 
   const formik = useFormik({
     initialValues: {
@@ -41,11 +43,10 @@ const Login = () => {
     onSubmit: (values) => {
       dispatch(loginAPI(values));
 
-      if(data){
-        toast.success(data.message);
-        navigate("/dashbord")
-      }else if(response) {
-        toast.error(response.data.message);
+      if (auth?.success === true) {
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 3000);
       }
     },
   });
@@ -76,29 +77,28 @@ const Login = () => {
               <h2 className="signup-form-h2">Login</h2>
               <p className="signup-form-small-text">Glad you’re back.!</p>
               <form className="form-form" onSubmit={formik.handleSubmit}>
-              
-               <Formcomp
+                <Formcomp
                   type="text"
                   placeholder="Mobile Number"
                   name="phone"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.phone}
-              />
+                />
                 {formik.touched.phone && formik.errors.phone ? (
                   <div className="error-message" style={{ color: "red" }}>
                     {formik.errors.phone}
                   </div>
                 ) : null}
 
-             <Formcomp
-                type="text"
-                placeholder="Enter OTP"
-                name="otp"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.otp}
-             />
+                <Formcomp
+                  type="text"
+                  placeholder="Enter OTP"
+                  name="otp"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.otp}
+                />
                 {formik.touched.otp && formik.errors.otp ? (
                   <div className="error-message" style={{ color: "red" }}>
                     {formik.errors.otp}
@@ -106,12 +106,12 @@ const Login = () => {
                 ) : null}
 
                 <Formcomp
-                   type="password"
-                   placeholder="Password"
-                   name="password"
-                   onChange={formik.handleChange}
-                   onBlur={formik.handleBlur}
-                   value={formik.values.password}
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
                 />
                 {formik.touched.password && formik.errors.password ? (
                   <div className="error-message" style={{ color: "red" }}>
@@ -136,7 +136,7 @@ const Login = () => {
                 ) : null}
               </div> */}
 
-                <Formbutton type="submit" text="Login"/>
+                <Formbutton type="submit" text="Login" />
               </form>
               <p className="signup-form-already-registered-para">
                 <Link className="linking" to="/forgotpassword">

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   getBankniftyDataApi,
   getStrategyDataApi,
+  stopStrategy,
   tradeHistoryApi,
 } from "./custAuthentication";
 
@@ -15,6 +16,7 @@ const initialState = {
   data: [],
   strategy: null,
   tradeHistory: [],
+  stop_strategy:[],
 };
 
 const indexSlice = createSlice({
@@ -54,7 +56,7 @@ const indexSlice = createSlice({
       state.data = [];
     });
 
-    //-------------------------Strategy Case------------------//
+    //------------------------- Start Strategy Case------------------//
     builder.addCase(getStrategyDataApi.pending, (state, action) => {
       // console.log("Strategy-1", action.payload);
       state.loading = true;
@@ -70,6 +72,24 @@ const indexSlice = createSlice({
       state.loading = false;
       state.error = action.error;
       state.strategy = null;
+    });
+
+    //------------------------- Stop Strategy Case------------------//
+    builder.addCase(stopStrategy.pending, (state, action) => {
+      // console.log("Strategy-1", action.payload);
+      state.loading = true;
+      state.error = action.payload;
+    });
+    builder.addCase(stopStrategy.fulfilled, (state, action) => {
+      console.log("Stop - Strategy-2", action.payload);
+      state.loading = false;
+      state.stop_strategy = action.payload;
+    });
+    builder.addCase(stopStrategy.rejected, (state, action) => {
+      // console.log("Strategy-3", action.payload);
+      state.loading = false;
+      state.error = action.error;
+      state.stop_strategy = null;
     });
 
     //-------------------------Trade History Case------------------//

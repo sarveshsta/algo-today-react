@@ -1,7 +1,8 @@
 import axios from "axios";
+import butterup from "butteruptoasts";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-   const userUrl = "http://65.0.101.156:8080"
+const userUrl = "http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8080";
 // const backendUrl = "http://13.127.232.213:8000";
 
 // const config = {
@@ -10,26 +11,50 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 //   },
 // };
 
+butterup.options.toastLife = 2000;
+
 //------------------ Mobile Authentication API---------------//
 export const mobileAuthentication = createAsyncThunk(
   "auth/mobileauthentication",
   async (body, thunkAPI) => {
     try {
-      const res = await axios.post(
-        `${userUrl}/request-otp`, body, {
+      const res = await axios.post(`${userUrl}/request-otp/`, body, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
       });
-      if (res) {
-        console.log("ressss",res);
+
+      if (res.data.success === true) {
+        butterup.toast({
+          title: "🎉 Hooray!",
+          message: res.data.message,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "success",
+        });
         return res;
       } else {
+        butterup.toast({
+          title: "⚠️ Error",
+          message: res.data.message,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "error",
+        });
         return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
-      console.log("res-err** -=>", error);
+      butterup.toast({
+        title: "⚠️ Error",
+        message: error.message,
+        location: "top-right",
+        icon: true,
+        dismissable: true,
+        type: "error",
+      });
       return error;
     }
   }
@@ -40,18 +65,42 @@ export const otpVerificationAPI = createAsyncThunk(
   "auth/otpverification",
   async (body, thunkAPI) => {
     try {
-      const res = await axios.post(`${userUrl}/verify-otp`, body, {
+      const res = await axios.post(`${userUrl}/verify-otp/`, body, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
       });
-      if (res) {
+      if (res.data.success === true) {
+        butterup.toast({
+          title: "🎉 Hooray!",
+          message: res.data.message,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "success",
+        });
         return res;
       } else {
+        butterup.toast({
+          title: "⚠️ Error",
+          message: res.data.message,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "error",
+        });
         return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
+      butterup.toast({
+        title: "⚠️ Error",
+        message: error.message,
+        location: "top-right",
+        icon: true,
+        dismissable: true,
+        type: "error",
+      });
       return error;
     }
   }
@@ -62,20 +111,43 @@ export const signupAPI = createAsyncThunk(
   "auth/signup",
   async (body, thunkAPI) => {
     try {
-      const res = await axios.post(`${userUrl}/signup`, body, {
+      const res = await axios.post(`${userUrl}/signup/`, body, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
       });
 
-      if (res.data) {
-        console.log("ressss",res.data);
+      if (res.data.success === true) {
+        butterup.toast({
+          title: "🎉 Hooray!",
+          message: res.data.message,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "success",
+        });
         return res.data;
       } else {
+        butterup.toast({
+          title: "⚠️ Error",
+          message: res.data.message,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "error",
+        });
         return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
+      butterup.toast({
+        title: "⚠️ Error",
+        message: error.response.data.message,
+        location: "top-right",
+        icon: true,
+        dismissable: true,
+        type: "error",
+      });
       return error;
     }
   }
@@ -86,19 +158,43 @@ export const loginAPI = createAsyncThunk(
   "user/Login",
   async (body, thunkAPI) => {
     try {
-      const response = await axios.post(`${userUrl}/login`, body, {
+      const response = await axios.post(`${userUrl}/login/`, body, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
       });
 
-      if (response.data) {
+      if (response.data.success === true) {
+        butterup.toast({
+          title: "🎉 Hooray!",
+          message: response.data.message,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "success",
+        });
         return response;
       } else {
+        butterup.toast({
+          title: "⚠️ Error",
+          message: response.data.message,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "error",
+        });
         return thunkAPI.rejectWithValue(response);
       }
     } catch (error) {
+      butterup.toast({
+        title: "⚠️ Error",
+        message: error.message,
+        location: "top-right",
+        icon: true,
+        dismissable: true,
+        type: "error",
+      });
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -109,22 +205,42 @@ export const forgotAPI = createAsyncThunk(
   "forgotpassword",
   async (body, thunkAPI) => {
     try {
-      const response = await axios.post(
-        `${userUrl}/update-password`,
-        body,
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (response) {
+      const response = await axios.post(`${userUrl}/update-password/`, body, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.data.success === true) {
+        butterup.toast({
+          title: "🎉 Hooray!",
+          message: response.data.message,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "success",
+        });
         return response;
       } else {
+        butterup.toast({
+          title: "⚠️ Error",
+          message: response.data.message,
+          location: "top-right",
+          icon: true,
+          dismissable: true,
+          type: "error",
+        });
         return thunkAPI.rejectWithValue(response);
       }
     } catch (error) {
+      butterup.toast({
+        title: "⚠️ Error",
+        message: error.message,
+        location: "top-right",
+        icon: true,
+        dismissable: true,
+        type: "error",
+      });
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -133,18 +249,42 @@ export const forgotAPI = createAsyncThunk(
 //---------------------Logout API---------------------------//
 export const logoutAPI = createAsyncThunk("logout", async (body, thunkAPI) => {
   try {
-    const response = await axios.post(`${userUrl}/logout`, body, {
+    const response = await axios.post(`${userUrl}/logout/`, body, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
     });
-    if (response.data) {
+    if (response.data.success === true) {
+      butterup.toast({
+        title: "🎉 Hooray!",
+        message: response.data.message,
+        location: "top-right",
+        icon: true,
+        dismissable: true,
+        type: "success",
+      });
       return response;
     } else {
+      butterup.toast({
+        title: "⚠️ Error",
+        message: response.data.message,
+        location: "top-right",
+        icon: true,
+        dismissable: true,
+        type: "error",
+      });
       return thunkAPI.rejectWithValue(response);
     }
   } catch (error) {
+    butterup.toast({
+      title: "⚠️ Error",
+      message: error.message,
+      location: "top-right",
+      icon: true,
+      dismissable: true,
+      type: "error",
+    });
     return thunkAPI.rejectWithValue(error);
   }
 });

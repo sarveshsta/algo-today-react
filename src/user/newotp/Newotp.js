@@ -13,9 +13,10 @@ const Newotp = () => {
   const dispatch = useDispatch();
   const formData = new FormData();
 
-  const otpState = useSelector((store) => store?.auth?.user);
-  console.log("otp** =>",otpState);
-  const { status, data } = otpState || {};
+  const otpState = useSelector((store) => store?.auth?.user?.data);
+  console.log("otp** =>", otpState);
+
+  const { message, success } = otpState || {};
 
   const formik = useFormik({
     initialValues: {
@@ -32,14 +33,13 @@ const Newotp = () => {
       const { otp, phone } = parseData;
       formData.append("phone", phone);
       formData.append("otp", otp);
-
       dispatch(otpVerificationAPI(formData));
-      
-      toast.success("Login Succesfull", {
-        onClose: () => {
+
+      if (success === true) {
+        setTimeout(() => {
           navigate("/signup");
-        },
-      });
+        }, 3000);
+      }
     },
   });
 
@@ -70,21 +70,21 @@ const Newotp = () => {
               <h2 className="signup-form-h2">One Time Password</h2>
               <p className="signup-form-small-text">Your OTP</p>
               <form className="form-form" onSubmit={formik.handleSubmit}>
-               <Formcomp
-                   type="text"
-                   placeholder="Enter OTP"
-                   name="number"
-                   onChange={formik.handleChange}
-                   onBlur={formik.handleBlur}
-                   value={formik.values.number}
-               />
+                <Formcomp
+                  type="text"
+                  placeholder="Enter OTP"
+                  name="number"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.number}
+                />
                 {formik.touched.number && formik.errors.number ? (
                   <div className="error-message" style={{ color: "red" }}>
                     {formik.errors.number}
                   </div>
                 ) : null}
 
-                 <Formbutton type="submit" text="Verify OTP" />
+                <Formbutton type="submit" text="Verify OTP" />
               </form>
 
               <p className="signup-form-already-registered-para">

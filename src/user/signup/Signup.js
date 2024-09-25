@@ -1,7 +1,7 @@
 import "./signup.css";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,13 +11,16 @@ import Formbutton from "../../components/formcomponent/Formbutton";
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const formData = new FormData();
+  const navigate = useNavigate();
 
   const auth = useSelector((state) => state.auth);
-  // console.log("Signupauth :", auth);
 
-  const errorMessage = auth.user?.response?.data;
-  const { message, success } = errorMessage || {};
+  const signupMessage = auth?.user;  
+  const { message, success } = signupMessage || {};
+
+  const dd = JSON.parse(localStorage.getItem('authdetail'));
+  const {otp, phone} = dd
+  
 
   const formik = useFormik({
     initialValues: {
@@ -30,7 +33,7 @@ const Signup = () => {
 
     validationSchema: Yup.object({
       name: Yup.string()
-        .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
+        .matches(/^[a-zA-Z0-9@#]+$/, "Please Fill Correctly")
         .required("Name is required"),
       phone: Yup.string()
         .matches(/^[0-9]{10}$/, "Enter a valid Number")
@@ -39,39 +42,37 @@ const Signup = () => {
         .matches(/^[0-9]{6}$/, "Enter a valid OTP")
         .required("OTP is required"),
       password: Yup.string()
-        .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
+        .matches(/^[a-zA-Z0-9@#.]+$/, "Enter Valid Password")
         .min(6, "Password must be at least 6 characters")
         .required("Password is required"),
       email: Yup.string()
-        .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
+        .matches(/^[a-zA-Z0-9@#]+$/, "Enter Valid Email")
         .email("Invalid email address")
         .required("Email is required"),
     }),
 
     onSubmit: (values) => {
+      const formData = new FormData();
       formData.append("name", values.name);
-      formData.append("phone", localStorage.getItem('phone_number'));
-      formData.append("otp", localStorage.getItem('otp'));
+      formData.append("phone", phone);
+      formData.append("otp", otp);
       formData.append("password", values.password);
       formData.append("email", values.email);
-
       dispatch(signupAPI(formData));
-      toast.error(message);
+
+      if(success === true){
+        setTimeout(() => {
+          navigate("/login")
+        },3000)
+      }
     },
-      
   });
   // const togglePasswordVisibility = () => {
   //   setShowPassword(!showPassword);
   // };
+  
   return (
     <>
-      <ToastContainer
-        autoClose={2000}
-        pauseOnFocusLoss={true}
-        closeOnClick={true}
-        draggable={true}
-        theme="colored"
-      />
       <div className="signup-main-div">
         <div className="signup-firstdiv">
           <img

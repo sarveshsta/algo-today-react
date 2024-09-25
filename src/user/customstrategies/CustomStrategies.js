@@ -10,6 +10,7 @@ import Orangenewshape from "../../components/shape/custshape/Orangenewshape";
 import {
   getBankniftyDataApi,
   getStrategyDataApi,
+  stopStrategy,
 } from "../features/customdata/custAuthentication";
 import axios from "axios";
 
@@ -17,27 +18,6 @@ const option4 = [
   { value: "CE", label: "CE" },
   { value: "PE", label: "PE" },
 ];
-// const option5 = [
-//   { value: "Chart Time", label: "Chart Time" },
-//   { value: "1 minute", label: "1 minute" },
-//   { value: "2 minute", label: "2 minute" },
-//   { value: "3 minute", label: "3 minute" },
-//   { value: "4 minute", label: "4 minute" },
-//   { value: "5 minute", label: "5 minute" },
-//   { value: "10 minute", label: "10 minute" },
-//   { value: "15 minute", label: "15 minute" },
-//   { value: "20 minute", label: "20 minute" },
-//   { value: "25 minute", label: "25 minute" },
-//   { value: "30 minute", label: "30 minute" },
-//   { value: "60 minute", label: "60 minute" },
-//   { value: "120 minute", label: "120 minute" },
-//   { value: "180 minute", label: "180 minute" },
-// ];
-
-// const autoData = [
-//   { value: "Auto Start Date", label: "Auto Start Date" },
-//   { value: "Auto Stop Date", label: "Auto Stop Date" },
-// ];
 
 const custStyle = {
   option: (provided, state) => ({
@@ -85,9 +65,7 @@ const CustomStrategies = () => {
   const [checkedCheckBox, setCheckedCheckBox] = useState(false);
   const [IndexData, setIndexData] = useState([]);
   const [StrikData, setStrikData] = useState([]);
-
-  // console.log("indexData :", IndexData);
-  // console.log("StrikeData :", StrikData);
+  const [btnDisable, setBtnDisable] = useState(true)
 
   const [inputValues, setInputValues] = useState({
     strategy_id: "",
@@ -106,25 +84,14 @@ const CustomStrategies = () => {
     target_profit: 0,
   });
 
-  // console.log("input-val :", inputValues);
-
-  let formData = new FormData();
   const dispatch = useDispatch();
-  // const state = useSelector((state) => state?.index?.data?.data || []);
-  // console.log("state   ", state);
-
-  const newState = useSelector((state) => state?.index || []);
-  const getStrategy = useSelector((state) => state || []);
-
-  // useEffect(() => {
-  //   dispatch(getBankniftyDataApi())
-  // }, [dispatch]);
-
+  const getStrategy = useSelector((state) => state?.index?.strategy || []);
+  console.log("egegeg", getStrategy);
+  
   const handleSubmit = useCallback(() => {}, []);
 
   const handleInputChange = (event, selectname) => {
     let { name } = selectname;
-
     setInputValues((prevState) => ({
       ...prevState,
       user_id: "1",
@@ -146,10 +113,7 @@ const CustomStrategies = () => {
     setCheckedCheckBox((prevState) => !prevState);
   }, []);
 
-  //  console.log("inputevalue : ",inputValues);
-
   const getData = async (index) => {
-    // console.log("index-api", index);
     try {
       const response = await axios.get(`${tradeURL}/tokens/${index}`);
       if (response) {
@@ -179,7 +143,6 @@ const CustomStrategies = () => {
     if (inputValues?.index_list[0]?.index) {
       getData(inputValues?.index_list[0]?.index);
     }
-
     if (
       inputValues?.index_list[0]?.index &&
       inputValues?.index_list[0]?.expiry
@@ -192,19 +155,14 @@ const CustomStrategies = () => {
   }, [inputValues?.index_list[0]?.index, inputValues?.index_list[0]?.expiry]);
 
   const submitButton = useCallback(() => {
-    console.log("inputValues :", inputValues);
-    // console.log("index : ", inputValues.index_list[0].index );
-    // console.log("index : ", inputValues?.index_list[0]?.expiry);
-    // formData.append("index", inputValues.index);
-    // formData.append("user_id", inputValues.user_id);
-    // formData.append("chart_time", inputValues.chart_time);
-    // formData.append("expiry", inputValues.expiry);
-    // formData.append("quantity", inputValues.quantity);
-    // formData.append("strategy_id", inputValues.strategy_id);
-    // formData.append("strike_price", inputValues.strike_price);
-    // formData.append("option", inputValues.option);
     dispatch(getStrategyDataApi(inputValues));
   }, [inputValues]);
+
+  useEffect(() => {
+   if(getStrategy?.message === 'strategy starts'){
+        setBtnDisable(false)
+   }
+  },[getStrategy?.message])
 
   return (
     <div>
@@ -216,6 +174,7 @@ const CustomStrategies = () => {
       <div className="customstrategies-main-container">
         <div className="algo-trading-container">
           <h3>Custom Algo-Trading Strategy</h3>
+
           <div className="customstrategies-flex-select-option">
             <div className="select-container">
               <Select
@@ -399,7 +358,28 @@ const CustomStrategies = () => {
             onChange={handleSubmit}
           />
         </div>
+
+        <div className="thirdddiv-btnn">
+          <button
+            type="button"
+            id="thirdddiv-btnn1"
+            className="btn btn-primary"
+            onClick={submitButton}
+          >
+            Start Strategy
+          </button>
+          <button
+            type="button"
+            id="thirdddiv-btnn2"
+            className="btn btn-primary"
+            disabled={btnDisable}
+            onClick={() => dispatch(stopStrategy(getStrategy?.strategy_id))}
+          >
+            Stop Strategy
+          </button>
+        </div>
       </div>
+
       <div className="buying-pre-condition-main">
         <div className="buying-pre-condition-firstdiv">
           <h2 className="bpc-firstdiv-h2">Buying Pre Conditions</h2>
