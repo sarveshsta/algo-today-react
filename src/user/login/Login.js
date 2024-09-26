@@ -142,6 +142,9 @@ const Login = () => {
                 <Link className="linking" to="/forgotpassword">
                   Forgot Password?
                 </Link>
+                <Link className="linking" to="/signup">
+                   Signup
+              </Link>
               </p>
 
               <div className="signup-form-3-text-div">
