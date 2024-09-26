@@ -21,7 +21,7 @@ import ReferEarn from "./user/referandearn/ReferEarn";
 import Mystrategies from "./makestrategies/Mystrategies";
 import UserHistory from "./user/userhistory/UserHistory";
 import ManageTrading from "./user/managetrading/ManageTrading";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, HashRouter } from "react-router-dom";
 import Forgotpassword from "./user/forgotpassword/Forgotpassword";
 import CustomStrategies from "./user/customstrategies/CustomStrategies";
 import { ToastContainer } from "react-toastify";
@@ -41,7 +41,7 @@ function App() {
         pauseOnHover
         theme="light"
       />
-      <BrowserRouter>
+      <HashRouter basename="/">
         <Routes>
           <Route path="/" element={<Homee />} />
           {/* <Route path="/" element={<Home />} /> */}
@@ -64,7 +64,7 @@ function App() {
           <Route path="/forgotpassword" element={<Forgotpassword />} />
           <Route path="/newotp" element={<Newotp />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 }

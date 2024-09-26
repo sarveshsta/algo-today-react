@@ -159,7 +159,7 @@
     display: flex;
     justify-content: space-between;
     box-shadow: 0px 43px 95px 0px #2929291a;
-    width: 50%;
+    /* width: 50%; */
   }
 
   .thirdddiv-btnn {
@@ -294,14 +294,71 @@
   color: #3498db;
 }
 
+.thirdddiv1{
+
+}
+
+.thirdddiv2{
+
+}
+
 @media screen and (max-width: 768px) {
   .customstrategies-main-container {
     margin-left: 0;
   }
   .buying-pre-condition-main {
-    margin: 0;
+    margin: auto;
+    flex-direction: column;
   }
   .buying-pre-condition-thirddiv {
     margin: 0;
+  }
+  .buying-pre-condition-firstdiv {
+    width: auto;
+    margin: 0;
+  }
+  .buying-pre-condition-seconddiv {
+    width: auto;
+    margin: 0;
+  }
+
+  .customstrategies-flex-select-option {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .select-container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    border-radius: 10px;
+    width: auto;
+  }
+  .cust-input-second {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    margin-left: 5px;
+  }
+
+  .thirdddiv{
+
+  }
+
+  .thirdddiv1{
+
+  }
+  
+  .thirdddiv2{
+    
   }
 }

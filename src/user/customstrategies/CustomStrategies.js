@@ -490,14 +490,14 @@ const CustomStrategies = () => {
       </div>
       <div className="buying-pre-condition-thirddiv">
         <div className="thirdddiv">
-          <div className="thirdddiv">
+          <div className="thirdddiv1">
             <input
               className="cust-inputbtn"
               type="text"
               placeholder="Enter LTP"
             />
           </div>
-          <div>
+          <div className="thirdddiv2">
             <input
               className="cust-inputbtn"
               type="text"
