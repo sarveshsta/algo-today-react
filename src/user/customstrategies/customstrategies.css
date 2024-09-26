@@ -47,10 +47,10 @@
 }
 
 .select-container {
-  display: -webkit-box;
+  /* display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
-  display: -webkit-flex;
+  display: -webkit-flex; */
   /* display: flex; */
   align-items: center;
   margin-top: 10px;
