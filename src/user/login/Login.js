@@ -14,9 +14,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const auth = useSelector((state) => state?.auth?.user?.data);
-  // console.log("suth :", auth);
-
-  // const { status, data, response } = auth || {};
 
   const formik = useFormik({
     initialValues: {

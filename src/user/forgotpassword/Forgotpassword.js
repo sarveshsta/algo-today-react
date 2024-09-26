@@ -21,7 +21,6 @@ const Forgotpassword = () => {
   const formData = new FormData();
 
   const forAuth = useSelector((state) => state?.auth?.user);
-  // console.log("forauth** =>>", forAuth);
   
 
   const handleSubmit = useCallback(
@@ -32,7 +31,6 @@ const Forgotpassword = () => {
           dispatch(mobileAuthentication(formData));
           setLogApiCalled(true);
         } catch (error) {
-          console.log("mobile-error** =>>", error);
         }
       } else if (!Otpapicalled) {
         formData.append("otp", values.otp);
@@ -41,7 +39,6 @@ const Forgotpassword = () => {
           dispatch(otpVerificationAPI(formData));
           setOtpApiCalled(true);
         } catch (error) {
-          console.log("otp-error** =>>", error);
         }
       } else {
         formData.append("password", values.password);
@@ -49,7 +46,6 @@ const Forgotpassword = () => {
         try {
           dispatch(forgotAPI(formData));
         } catch (error) {
-          // console.log("forgot-error** =>>", error);
         }
       }
     },

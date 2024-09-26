@@ -23,19 +23,14 @@ const indexSlice = createSlice({
   name: "indexData",
   initialState,
   reducers: {
-    // clearState: () => {
-    //   [...initialState]
-    // }
   },
   extraReducers: (builder) => {
     //----------------- Banknifty data case -----------------------//
     builder.addCase(getBankniftyDataApi.pending, (state, action) => {
-      // console.log("getBankniftyDataApi.pending** =>", action.payload);
       state.loading = true;
       state.error = action.payload;
     });
     builder.addCase(getBankniftyDataApi.fulfilled, (state, action) => {
-      // console.log("getBankniftyDataApi.fulfilled** =>", action.payload);
       state.loading = false;
       state.data = action.payload.data;
       state.Nifty = action.payload.data.data.filter((item) => {
@@ -50,7 +45,6 @@ const indexSlice = createSlice({
       });
     });
     builder.addCase(getBankniftyDataApi.rejected, (state, action) => {
-      // console.log("getBankniftyDataApi.rejected** =>", action.payload);
       state.loading = false;
       state.error = action.error;
       state.data = [];
@@ -58,17 +52,14 @@ const indexSlice = createSlice({
 
     //------------------------- Start Strategy Case------------------//
     builder.addCase(getStrategyDataApi.pending, (state, action) => {
-      // console.log("Strategy-1", action.payload);
       state.loading = true;
       state.error = action.payload;
     });
     builder.addCase(getStrategyDataApi.fulfilled, (state, action) => {
-      // console.log("Strategy-2", action.payload);
       state.loading = false;
       state.strategy = action.payload;
     });
     builder.addCase(getStrategyDataApi.rejected, (state, action) => {
-      // console.log("Strategy-3", action.payload);
       state.loading = false;
       state.error = action.error;
       state.strategy = null;
@@ -76,17 +67,14 @@ const indexSlice = createSlice({
 
     //------------------------- Stop Strategy Case------------------//
     builder.addCase(stopStrategy.pending, (state, action) => {
-      // console.log("Strategy-1", action.payload);
       state.loading = true;
       state.error = action.payload;
     });
     builder.addCase(stopStrategy.fulfilled, (state, action) => {
-      console.log("Stop - Strategy-2", action.payload);
       state.loading = false;
       state.stop_strategy = action.payload;
     });
     builder.addCase(stopStrategy.rejected, (state, action) => {
-      // console.log("Strategy-3", action.payload);
       state.loading = false;
       state.error = action.error;
       state.stop_strategy = null;
@@ -94,17 +82,14 @@ const indexSlice = createSlice({
 
     //-------------------------Trade History Case------------------//
     builder.addCase(tradeHistoryApi.pending, (state, action) => {
-      // console.log("tradeHistoryApi :", action.payload);
       state.loading = true;
       state.error = action.payload;
     });
     builder.addCase(tradeHistoryApi.fulfilled, (state, action) => {
-      // console.log("tradeHistoryApi :", action.payload);
       state.loading = false;
       state.tradeHistory = action.payload;
     });
     builder.addCase(tradeHistoryApi.rejected, (state, action) => {
-      // console.log("tradeHistoryApi :", action.payload);
       state.loading = false;
       state.error = action.error;
       state.tradeHistory = null;

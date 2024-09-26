@@ -86,7 +86,6 @@ const CustomStrategies = () => {
 
   const dispatch = useDispatch();
   const getStrategy = useSelector((state) => state?.index?.strategy || []);
-  console.log("egegeg", getStrategy);
   
   const handleSubmit = useCallback(() => {}, []);
 

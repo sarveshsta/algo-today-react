@@ -3,14 +3,6 @@ import butterup from "butteruptoasts";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const userUrl = "http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8080";
-// const backendUrl = "http://13.127.232.213:8000";
-
-// const config = {
-//   headers: {
-//     "Content-type": "application/json",
-//   },
-// };
-
 butterup.options.toastLife = 2000;
 
 //------------------ Mobile Authentication API---------------//

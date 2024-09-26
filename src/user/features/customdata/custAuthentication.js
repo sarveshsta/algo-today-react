@@ -27,7 +27,6 @@ export const getBankniftyDataApi = createAsyncThunk(
         return response;
       }
     } catch (error) {
-      console.log("error :: ", error);
       return error;
     }
   }
@@ -85,8 +84,7 @@ export const tradeHistoryApi = createAsyncThunk(
     try {
       const response = await axios.get(
         `http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8000/tokens/trades_details/`
-      );console.log("response :", response);
-      
+      );      
       if (response.status == 200) {
         butterup.toast({
           title: "🎉 Hooray!",

@@ -12,7 +12,7 @@ import Homee from "./components/homee/Homee";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Service from "./user/servicee/Service";
 import "react-toastify/dist/ReactToastify.css";
-import 'butteruptoasts/src/butterup.css';
+import "butteruptoasts/src/butterup.css";
 import Dashbord from "./user/dashbord/Dashbord";
 import Dashboard from "./admin/dashboard/Dashboard";
 import OpenDemat from "./user/opendemate/OpenDemat";
@@ -21,12 +21,22 @@ import ReferEarn from "./user/referandearn/ReferEarn";
 import Mystrategies from "./makestrategies/Mystrategies";
 import UserHistory from "./user/userhistory/UserHistory";
 import ManageTrading from "./user/managetrading/ManageTrading";
-import { BrowserRouter, Route, Routes, HashRouter } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  HashRouter,
+  Navigate,
+} from "react-router-dom";
 import Forgotpassword from "./user/forgotpassword/Forgotpassword";
 import CustomStrategies from "./user/customstrategies/CustomStrategies";
 import { ToastContainer } from "react-toastify";
+import { Circles } from "react-loader-spinner";
+import { useSelector } from "react-redux";
 
 function App() {
+  const loading = useSelector((store) => store?.auth?.loading);
+
   return (
     <>
       <ToastContainer
@@ -41,10 +51,37 @@ function App() {
         pauseOnHover
         theme="light"
       />
+
+      {/* Global Loader */}
+      {loading && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "rgba(0,0,0,0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999,
+          }}
+        >
+          <Circles
+            height="100"
+            width="100"
+            color="white"
+            ariaLabel="circles-loading"
+            visible={true}
+          />
+        </div>
+      )}
+
       <HashRouter basename="/">
         <Routes>
+          <Route path="*" element={<Navigate to="/" />} />
           <Route path="/" element={<Homee />} />
-          {/* <Route path="/" element={<Home />} /> */}
           <Route path="/mobile" element={<Mobile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/wallet" element={<Wallet />} />
