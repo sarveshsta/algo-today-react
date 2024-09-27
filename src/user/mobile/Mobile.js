@@ -13,12 +13,7 @@ const Mobile = () => {
   const navigate = useNavigate();
 
   const mobileAuth = useSelector((store) => store?.auth?.user?.data);
-  // const mobileAuth2 = useSelector((store) => store?.auth?.user);
-  // console.log("mobauth2 ==>> ", mobileAuth2);
-  console.log("mobauth ==>> ", mobileAuth);
-
   const { message, success} = mobileAuth || {};
-  // const { message } = data || {};
 
   const formik = useFormik({
     initialValues: {

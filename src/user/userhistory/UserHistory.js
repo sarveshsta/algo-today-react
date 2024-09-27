@@ -14,9 +14,7 @@ const UserHistory = () => {
   }, []);
 
   const tradeHistory = useSelector((state) => state?.index?.tradeHistory);
-  console.log("tradeded : ", tradeHistory);
 
-  // const { status, data, response } = auth || {};
   return (
     <>
       <HorizontalNav />
@@ -49,8 +47,6 @@ const UserHistory = () => {
               <tbody>
                 {tradeHistory && tradeHistory?.length > 0 ? (
                   tradeHistory?.map((item, index) => {
-                    console.log("itm > ", item);
-                    
                     return (
                       <tr key={index}>
                         <td>{item.id}</td>

@@ -62,7 +62,6 @@ const Homee = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log("vallsld", values);
       formData.append("name", values.name);
       formData.append("lastname", values.lastname);
       formData.append("email", values.email);

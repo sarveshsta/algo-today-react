@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutAPI } from "../../user/features/auth/authAuthentication";
 
 const HorizontalNav = ({ showBtnOnClick }) => {
-  // console.log("sd=",showBtnOnClick);
   const [showNotification, setShowNotification] = useState(false);
   const state = useSelector((state) => state.auth);
 
@@ -23,7 +22,6 @@ const HorizontalNav = ({ showBtnOnClick }) => {
 
     setTimeout(() => {
       setShowNotification(false);
-      // return clearTimeout();
     }, 6000);
   };
 

@@ -26,7 +26,6 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     addUser : (state) => {
-        console.log("ssr",state);
     },
     deleteUser : () => {
       
@@ -39,6 +38,7 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+
     //-----------------mobileAuthentication case---------------//
     builder.addCase(mobileAuthentication.pending, (state, action) => {
       state.loading = true;
@@ -72,7 +72,7 @@ const authSlice = createSlice({
       state.user = action.payload;
     });
     builder.addCase(otpVerificationAPI.rejected, (state, action) => {
-      state.loading = true;
+      state.loading = false;
       state.error = action.error;
     });
 
@@ -120,12 +120,10 @@ const authSlice = createSlice({
 
     //-----------------logout case-----------------------//
     builder.addCase(logoutAPI.pending, (state, action) => {
-      console.log("logout-pending", action.payload);
       state.loading = true;
       state.error = action.payload;
     });
     builder.addCase(logoutAPI.fulfilled, (state, action) => {
-      // console.log("logout-fulfilled", action.payload);
       state.loading = false;
       state.user = action.payload;
       if (action.payload.status === 200) {
@@ -133,7 +131,6 @@ const authSlice = createSlice({
       }
     });
     builder.addCase(logoutAPI.rejected, (state, action) => {
-      // console.log("logout-rejected", action.payload);
       state.loading = false;
       state.error = action.error;
       state.user = action.payload;

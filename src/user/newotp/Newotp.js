@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { otpVerificationAPI } from "../features/auth/authAuthentication";
 import Formbutton from "../../components/formcomponent/Formbutton";
 import Formcomp from "../../components/formcomponent/Formcomp";
+import { Circles } from "react-loader-spinner";
 
 const Newotp = () => {
   const navigate = useNavigate();
@@ -14,8 +15,6 @@ const Newotp = () => {
   const formData = new FormData();
 
   const otpState = useSelector((store) => store?.auth?.user?.data);
-  console.log("otp** =>", otpState);
-
   const { message, success } = otpState || {};
 
   const formik = useFormik({
@@ -52,6 +51,7 @@ const Newotp = () => {
         draggable={true}
         theme="colored"
       />
+
       <div style={{ padding: "2.3rem", background: "rgba(238, 242, 242, 1)" }}>
         <div className="signup-main-div">
           <div className="signup-firstdiv">
