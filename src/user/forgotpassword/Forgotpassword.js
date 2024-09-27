@@ -106,7 +106,7 @@ const Forgotpassword = () => {
       />
       <div
         className="forgotpass-main-section"
-        style={{ padding: "2.3rem", background: "rgba(238, 242, 242, 1)" }}
+        style={{ padding: "2.3rem", background: "rgba(238, 242, 242, 1)", height: "100vh" }}
       >
         <div className="signup-main-div">
           <div className="signup-firstdiv">
@@ -137,6 +137,7 @@ const Forgotpassword = () => {
                       onChange={formik?.handleChange}
                       onBlur={formik?.handleBlur}
                       value={formik?.values?.number}
+                      maxLength="10"
                     />
                     {formik?.touched?.number && formik?.errors?.number ? (
                       <div className="error-message" style={{ color: "red" }}>

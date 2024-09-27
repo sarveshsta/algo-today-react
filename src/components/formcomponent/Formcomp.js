@@ -1,6 +1,6 @@
 import React from "react";
 
-const Formcomp = ({ type, placeholder, name, onChange, onBlur, value }) => {
+const Formcomp = ({ type, placeholder, name, onChange, onBlur, value, maxLength }) => {
   return (
     <>
       <input
@@ -11,6 +11,7 @@ const Formcomp = ({ type, placeholder, name, onChange, onBlur, value }) => {
         onChange={onChange}
         onBlur={onBlur}
         value={value}
+        maxLength={maxLength}
       />
     </>
   );

@@ -3,41 +3,72 @@
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
+  /* display: flex; */
+  /* width: 100%; */
+  /* height: -webkit-fill-available; */
+  /* border: 2px solid red; */
+  /* justify-content: space-evenly; */
+  /* padding: 3rem; */
+  /* margin: 1rem; */
+  /* background: rgba(238, 242, 242, 1); */
   display: flex;
-  width: 100%;
-  height: 100%;
+  /* width: 100%; */
   /* border: 2px solid red; */
   justify-content: space-evenly;
-  padding: 3rem;
+  /* padding: 3rem; */
   /* margin: 1rem; */
   background: rgba(238, 242, 242, 1);
+  height: -webkit-fill-available;
+
 
   .signup-firstdiv {
-    width: 100%;
-    height: 100%;
+    /* width: 100%;
+    height: 100%; */
+    /* border: 2px solid rgb(41, 105, 77); */
+    /* text-align: center; */
+
+    /* width: max-content; */
+    width: -webkit-fill-available;
+    height: fit-content;
     /* border: 2px solid rgb(41, 105, 77); */
     text-align: center;
+
 
     .firstdiv-image{
 
     }
     .firstdiv-h1{
-      font-family: Montserrat;
+      /* font-family: Montserrat;
       font-size: 96px;
       font-weight: 900;
       line-height: 117px;
       letter-spacing: 0em;
       color: rgba(52, 152, 219, 1);  
-      margin-top: 4rem;    
+      margin-top: 4rem;     */
+      font-family: Montserrat;
+      font-size: 96px;
+      font-weight: 900;
+      line-height: 117px;
+      letter-spacing: 0em;
+      color: rgba(52, 152, 219, 1);
+      /* margin-top: 4rem; */
     }
     .firstdiv-h3{
+      /* font-family: Montserrat;
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 44px;
+      letter-spacing: 0em;
+      text-align: center;
+      color: rgba(116, 116, 116, 1); */
       font-family: Montserrat;
       font-size: 36px;
       font-weight: 900;
       line-height: 44px;
       letter-spacing: 0em;
       text-align: center;
-      color: rgba(116, 116, 116, 1);      
+      color: rgba(116, 116, 116, 1);
+
     }
   }
   .signup-seconddiv {
@@ -57,11 +88,13 @@
                         linear-gradient(166.93deg, #AFAFAF 3.24%, rgba(96, 96, 96, 0) 96.43%);
                         
     .signup-form-h2 {
-      margin-bottom: 10px;
+      /* margin-bottom: 10px; */
+      margin: 0;
     }
     .signup-form-small-text {
       font-size: 14px;
-      margin-top: 5px;
+      margin: 0;
+      /* margin-top: 5px; */
     }
     .signup-form-input {
       width: 100%;
@@ -71,11 +104,10 @@
       background: transparent;
       color: rgba(255, 255, 255, 1);
       /* width: Fixed (400px);
-height: Hug (52px); */
-      padding: 14px, 16px, 14px, 16px;
+      height: Hug (52px); */
       border-radius: 12px;
       border: 1px;
-      gap: 10px;
+      /* gap: 10px; */
       border: 1px solid rgba(255, 255, 255, 1);
     }
     .signup-form-button {
@@ -98,8 +130,8 @@ height: Hug (52px); */
       margin-top:8px;
     }
     .signup-form-already-registered-para {
-      margin-top: 30px;
-      margin-bottom: 10px;
+      /* margin-top: 30px; */
+      /* margin-bottom: 10px; */
       text-align: center;
     }
 
@@ -160,16 +192,22 @@ height: Hug (52px); */
   margin-top: -1rem;
 }
 
-@media only screen and (max-width: 768px) {
-  /* Styles for tablets */
+@media only screen and (max-width: 1024px) {
+
   .signup-main-div {
-    flex-direction: column;
     align-items: center;
     padding: 5px;
+
+    /* flex-direction: column;
+    align-items: center;
+    padding: 5px; */
   }
 
   .signup-firstdiv {
-    text-align: center;
+    /* text-align: center; */
+    display: grid;
+    justify-content: left;
+    justify-items: baseline
   }
 
   .form-section {
@@ -186,26 +224,88 @@ height: Hug (52px); */
     flex-direction: column;
     align-items: center;
   }
+
+  .firstdiv-h1{
+    font-size: 2rem !important;
+    /* margin: 2rem; */
+    margin-top: 0 !important;
+    line-height: normal !important;
+
+    /* font-size: 2rem !important;
+    margin: 2rem;
+    margin-top: 0 !important; */
+  }
+
+  .firstdiv-h3{
+    text-align: left !important;
+    text-wrap: wrap;
+    font-size: 20px !important;
+  }
+
+  .firstdiv-image{
+           /* border: 1px solid; */
+           height: auto;
+           width: 8rem;
+   
+  }
+
+  .form-section{
+    width: 100%;
+    margin-top: 20px;
+    height: -webkit-fill-available;
+  }
+
+  .form-form{
+
+  }
+
+  .signup-form-already-registered-para{
+
+  }
+
+  .linking{
+
+  }
+
+  .signup-form-3-text-div{
+
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .signup-firstdiv {
+    text-align: center !important;
+  }
+
+  .firstdiv-h1 {
+
+}
+.firstdiv-h3 {
+ display: none;
+}
+
+  
 }
 
 @media only screen and (max-width: 480px) {
   /* Styles for mobile devices */
   .signup-main-div {
-    padding: 0px;
+    flex-direction: column;
+    /* padding: 0px; */
   }
 
   .signup-firstdiv {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     .firstdiv-image{
-      width: 50%;
+      /* width: 50%; */
     }
     .firstdiv-h1{
-      font-size: 2.5rem !important;
-      margin: 2rem;
-      margin-top: 0 !important;
+      font-size: 1.8rem !important;
+      /* margin: 2rem; */
+      /* margin-top: 0 !important; */
     }
     .firstdiv-h3{
-      font-size: 2rem !important;
+      /* font-size: 2rem !important; */
     }
   }
 
