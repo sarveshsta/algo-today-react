@@ -3,7 +3,7 @@ import butterup from "butteruptoasts";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { showToast } from "../../../utility";
 
-const tradeURL = "https://42a0-49-47-68-177.ngrok-free.app/";
+const tradeURL = "https://42a0-49-47-68-177.ngrok-free.app";
 
 const headerconfig = {
   headers: {
