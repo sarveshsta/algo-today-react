@@ -3,7 +3,7 @@ import butterup from "butteruptoasts";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { showToast } from "../../../utility";
 
-const tradeURL = "https://42a0-49-47-68-177.ngrok-free.app";
+const tradeURL = "https://94cc-2405-201-301d-f0b0-554d-492c-820a-e3c0.ngrok-free.app";
 
 const headerconfig = {
   headers: {
@@ -17,7 +17,7 @@ export const indexExpiryDataApi = createAsyncThunk(
   "bankniftyExpiry",
   async (index,body, thunkAPI, ) => {
     try {
-      const response = await axios.get(`${tradeURL}/tokens/${index}/`);
+      const response = await axios.get(`${tradeURL}/tokens/${index}`);
       if (response) {
         showToast("🎉 Hooray!", response.data.message, "success");
         return response;
@@ -35,7 +35,7 @@ export const indexStrikePriceDataApi = createAsyncThunk(
   "bankniftyStrikePrice",
   async ({ index, expiry }) => {
     try {
-      const response = await axios.get(`${tradeURL}/tokens/${index}/${expiry}/`);
+      const response = await axios.get(`${tradeURL}/tokens/${index}/${expiry}`);
       if (response) {
         showToast("🎉 Hooray!", response.data.message, "success");
         return response;
@@ -55,7 +55,7 @@ export const getStrategyDataApi = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const res = await axios.post(
-        `${tradeURL}/strategy/start_strategy/`,
+        `${tradeURL}/strategy/start_strateg`,
         body,
         headerconfig
       );
@@ -105,7 +105,7 @@ export const stopStrategy = createAsyncThunk(
   async (strategy_id, thunkAPI) => {
     try {
       const res = await axios.get(
-        `${tradeURL}/strategy/stop_strategy/${strategy_id}/`,
+        `${tradeURL}/strategy/stop_strategy/${strategy_id}`,
         headerconfig
       );
 
