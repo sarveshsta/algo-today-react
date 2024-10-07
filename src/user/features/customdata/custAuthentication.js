@@ -3,10 +3,7 @@ import butterup from "butteruptoasts";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { showToast } from "../../../utility";
 
-const tradeURL =
-  "http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8000";
-const tradeURL2 =
-  "https://4968-2405-201-301d-f0e6-81ed-73f-d109-465.ngrok-free.app/";
+const tradeURL = "https://42a0-49-47-68-177.ngrok-free.app/";
 
 const headerconfig = {
   headers: {
@@ -20,7 +17,7 @@ export const indexExpiryDataApi = createAsyncThunk(
   "bankniftyExpiry",
   async (index,body, thunkAPI, ) => {
     try {
-      const response = await axios.get(`${tradeURL}/tokens/${index}`);
+      const response = await axios.get(`${tradeURL}/tokens/${index}/`);
       if (response) {
         showToast("🎉 Hooray!", response.data.message, "success");
         return response;
@@ -38,7 +35,7 @@ export const indexStrikePriceDataApi = createAsyncThunk(
   "bankniftyStrikePrice",
   async ({ index, expiry }) => {
     try {
-      const response = await axios.get(`${tradeURL}/tokens/${index}/${expiry}`);
+      const response = await axios.get(`${tradeURL}/tokens/${index}/${expiry}/`);
       if (response) {
         showToast("🎉 Hooray!", response.data.message, "success");
         return response;
@@ -58,7 +55,7 @@ export const getStrategyDataApi = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const res = await axios.post(
-        `${tradeURL}/strategy/start_strategy`,
+        `${tradeURL}/strategy/start_strategy/`,
         body,
         headerconfig
       );
@@ -82,7 +79,7 @@ export const tradeHistoryApi = createAsyncThunk(
   async (body, thunkAPI, index) => {
     try {
       const response = await axios.get(
-        `http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8000/tokens/trades_details/`
+        `${tradeURL}/tokens/trades_details/`
       );
       if (response.status == 200) {
         showToast(
@@ -108,7 +105,7 @@ export const stopStrategy = createAsyncThunk(
   async (strategy_id, thunkAPI) => {
     try {
       const res = await axios.get(
-        `${tradeURL}/strategy/stop_strategy/${strategy_id}`,
+        `${tradeURL}/strategy/stop_strategy/${strategy_id}/`,
         headerconfig
       );
 
