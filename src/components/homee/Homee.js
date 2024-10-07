@@ -17,6 +17,7 @@ import Testimonial from "../testinomial/Testimonial";
 import { ToastContainer, toast } from "react-toastify";
 import React, { useMemo, useRef, useState } from "react";
 import { Faqq, numberData } from "../../arraydata/Arraydata";
+import Formcomp, { Formcomp1 } from "../formcomponent/Formcomp";
 
 const Homee = () => {
   const [progressValue, setProgressValue] = useState(0);
@@ -50,7 +51,6 @@ const Homee = () => {
       }),
     []
   );
-  // 
 
   const formik = useFormik({
     initialValues: {
@@ -95,32 +95,31 @@ const Homee = () => {
     let newWidth = progressValue + 19;
     setProgressValue(newWidth);
 
-    if(newWidth && progressValue !== 0){
-      newWidth = 0
-      setProgressValue(newWidth)
+    if (newWidth && progressValue !== 0) {
+      newWidth = 0;
+      setProgressValue(newWidth);
     }
-
-  } 
+  };
 
   const silverClick = () => {
     let newWidth = progressValue + 49;
     setProgressValue(newWidth);
 
-    if(newWidth && progressValue !==0){
-      newWidth = 0
-      setProgressValue(newWidth)
+    if (newWidth && progressValue !== 0) {
+      newWidth = 0;
+      setProgressValue(newWidth);
     }
-  }
+  };
 
   const platinumClick = () => {
     let newWidth = progressValue + 99;
     setProgressValue(newWidth);
 
-    if(newWidth && progressValue !==0){
-      newWidth = 0
-      setProgressValue(newWidth)
+    if (newWidth && progressValue !== 0) {
+      newWidth = 0;
+      setProgressValue(newWidth);
     }
-  }
+  };
 
   return (
     <>
@@ -209,7 +208,11 @@ const Homee = () => {
                   </ol>
                 </div>
                 <div className="pricing-button-div">
-                  <button onClick={goldClick} className="pricing-btnn" type="button">
+                  <button
+                    onClick={goldClick}
+                    className="pricing-btnn"
+                    type="button"
+                  >
                     {" "}
                     Get 14 Days Free Trial
                   </button>
@@ -245,7 +248,11 @@ const Homee = () => {
                   </ol>
                 </div>
                 <div className="pricing-button-div">
-                  <button onClick={silverClick} className="pricing-btnn" type="button">
+                  <button
+                    onClick={silverClick}
+                    className="pricing-btnn"
+                    type="button"
+                  >
                     {" "}
                     Get 14 Days Free Trial
                   </button>
@@ -281,7 +288,11 @@ const Homee = () => {
                   </ol>
                 </div>
                 <div className="pricing-button-div">
-                  <button onClick={platinumClick} className="pricing-btnn" type="button">
+                  <button
+                    onClick={platinumClick}
+                    className="pricing-btnn"
+                    type="button"
+                  >
                     {" "}
                     Get 14 Days Free Trial
                   </button>
@@ -325,7 +336,7 @@ const Homee = () => {
                   </div>
                   <div className="form-firstinputs">
                     <label className="form-inputss-label">Last Name</label>
-                    <input
+                    <Formcomp1
                       className="inputsss"
                       type="text"
                       name="lastname"
@@ -343,7 +354,7 @@ const Homee = () => {
                 <div className="form-inputs-main">
                   <div className="form-firstinputs">
                     <label className="form-inputss-label">Phone</label>
-                    <input
+                    <Formcomp1
                       className="inputsss"
                       type="number"
                       name="phoneNumber"
@@ -360,7 +371,7 @@ const Homee = () => {
                   </div>
                   <div className="form-firstinputs">
                     <label className="form-inputss-label">Email</label>
-                    <input
+                    <Formcomp1
                       className="inputsss"
                       type="email"
                       name="email"

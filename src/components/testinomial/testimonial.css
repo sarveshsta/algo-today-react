@@ -51,6 +51,7 @@
   margin-bottom: 10rem;
 }
 .sliderr-container {
+  width: -webkit-fill-available;
   padding: 20px;
   /* gap: 27.27px; */
   border-radius: 11.36px;
@@ -117,7 +118,7 @@
   display: -moz-grid;
   display: -ms-grid;
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  /* grid-template-columns: repeat(2, auto); */
   gap: 2rem;
   padding: 3rem;
 }

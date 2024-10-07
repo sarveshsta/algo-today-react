@@ -4,6 +4,8 @@ import {
   getStrategyDataApi,
   stopStrategy,
   tradeHistoryApi,
+  indexExpiryDataApi,
+  indexStrikePriceDataApi,
 } from "./custAuthentication";
 
 const initialState = {
@@ -16,23 +18,36 @@ const initialState = {
   data: [],
   strategy: null,
   tradeHistory: [],
-  stop_strategy:[],
+  stop_strategy: [],
+  indexExpiryDataApi: [],
+  indexStrikePriceDataApi: [],
+  isConnected: false,
+  socketmessage: [],
 };
 
 const indexSlice = createSlice({
   name: "indexData",
   initialState,
   reducers: {
+    setConnection(state, action) {
+      state.isConnected = action.payload;
+    },
+    setMessage(state, action) {
+      state.socketmessage = action.payload;
+    },
+    setError(state, action) {
+      state.error = action.payload;
+    },
   },
   extraReducers: (builder) => {
-    //----------------- Banknifty data case -----------------------//
-    builder.addCase(getBankniftyDataApi.pending, (state, action) => {
+    // ----------------- Banknifty expiry data case -----------------------//
+    builder.addCase(indexExpiryDataApi.pending, (state, action) => {
       state.loading = true;
       state.error = action.payload;
     });
-    builder.addCase(getBankniftyDataApi.fulfilled, (state, action) => {
+    builder.addCase(indexExpiryDataApi.fulfilled, (state, action) => {
       state.loading = false;
-      state.data = action.payload.data;
+      state.indexExpiryDataApi = action.payload.data.data;
       state.Nifty = action.payload.data.data.filter((item) => {
         if (item.expiry === "2024-03-13") {
           if (
@@ -44,7 +59,32 @@ const indexSlice = createSlice({
         }
       });
     });
-    builder.addCase(getBankniftyDataApi.rejected, (state, action) => {
+    builder.addCase(indexExpiryDataApi.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error;
+      state.data = [];
+    });
+
+    // ----------------- Banknifty strike price data case -----------------------//
+    builder.addCase(indexStrikePriceDataApi.pending, (state, action) => {
+      state.loading = true;
+      state.error = action.payload;
+    });
+    builder.addCase(indexStrikePriceDataApi.fulfilled, (state, action) => {
+      state.loading = false;
+      state.indexStrikePriceDataApi = action.payload.data.data;
+      state.Nifty = action.payload.data.data.filter((item) => {
+        if (item.expiry === "2024-03-13") {
+          if (
+            item.symbol === "BANKNIFTY13MAR2452500CE" ||
+            item.symbol === "BANKNIFTY13MAR2452500PE"
+          ) {
+            return item;
+          }
+        }
+      });
+    });
+    builder.addCase(indexStrikePriceDataApi.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error;
       state.data = [];
@@ -96,4 +136,6 @@ const indexSlice = createSlice({
     });
   },
 });
+
+export const { setConnection, setMessage, setError } = indexSlice.actions;
 export default indexSlice.reducer;

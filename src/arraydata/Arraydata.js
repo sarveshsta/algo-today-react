@@ -128,3 +128,62 @@ export const aboutcardData = [
     para1:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
   },
 ]
+
+export const strategiesData = {
+  box1: {
+    title: "Strategy - 1",
+    details: "Detailed information about Strategy 1.",
+    parameters: [
+      { name: "trace_candle", type: "number", placeholder: "Trace Candle" },
+      { name: "close", type: "text", placeholder: "Close" },
+      { name: "high", type: "text", placeholder: "High" },
+      { name: "low", type: "text", placeholder: "Low" },
+      { name: "open", type: "text", placeholder: "Open"},
+      { name: "buying_multiplier", type: "number", placeholder: "Buying Multiplier"},
+      { name: "stop_loss_multiplier", type: "number", placeholder: "Stop Loss Multiplier"},
+      { name: "sl_low_multiplier_1", type: "number", placeholder: "Sl Low Multiplier"},
+      { name: "sl_low_multiplier_2", type: "number", placeholder: "Sl Low Multiplier 2"},
+      { name: "trail_sl_1", type: "number", placeholder: "Trail Sl 1"},
+      { name: "trail_sl_2", type: "number", placeholder: "Trail Sl 2"},
+      { name: "modify_stop_loss_1", type: "number", placeholder: "Modify Stop Loss 1"},
+      { name: "modify_stop_loss_2", type: "number", placeholder: "Modify Stop Loss 2"},    
+    ],
+  },
+  box2: {
+    title: "Strategy - 2",
+    details: "Detailed information about Strategy 2.",
+    parameters: [
+      { name: "trace_candle", type: "number", placeholder: "Trace Candle" },
+      { name: "close", type: "text", placeholder: "Close" },
+      {
+        name: "stop_loss_multiplier",
+        type: "number",
+        placeholder: "Stop Loss Multiplier",
+      },
+    ],
+  },
+  box3: {
+    title: "Strategy - 3",
+    details: "Detailed information about Strategy 3.",
+  },
+  box4: {
+    title: "Strategy - 4",
+    details: "Detailed information about Strategy 4.",
+  },
+  box5: {
+    title: "Strategy - 5",
+    details: "Detailed information about Strategy 5.",
+  },
+  box6: {
+    title: "Strategy - 6",
+    details: "Detailed information about Strategy 6.",
+  },
+  box7: {
+    title: "Strategy - 7",
+    details: "Detailed information about Strategy 7.",
+  },
+  box8: {
+    title: "Strategy - 8",
+    details: "Detailed information about Strategy 8.",
+  },
+};

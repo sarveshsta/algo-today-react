@@ -36,6 +36,7 @@ import { useSelector } from "react-redux";
 
 function App() {
   const loading = useSelector((store) => store?.auth?.loading);
+  const loading_Stretegy = useSelector((store) => store?.index?.loading);
 
   return (
     <>
@@ -54,6 +55,32 @@ function App() {
 
       {/* Global Loader */}
       {loading && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            background: "rgba(0,0,0,0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999,
+          }}
+        >
+          <Circles
+            height="100"
+            width="100"
+            color="white"
+            ariaLabel="circles-loading"
+            visible={true}
+          />
+        </div>
+      )}
+
+      {/* Global Loader */}
+      {loading_Stretegy && (
         <div
           style={{
             position: "fixed",

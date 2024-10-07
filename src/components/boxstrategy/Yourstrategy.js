@@ -1,38 +1,134 @@
-import React from "react";
 import "./yourstrategy.css";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import MicroModal from "micromodal"; // es6 module
+import { StrategyBox } from "../mystreategy/Strategyboxx";
+import { strategiesData } from "../../arraydata/Arraydata";
 
-const StrategyBox = ({ id, title, buttonText }) => {
-  return (
-    <div className="subbox" id={id}>
-      <h2 className="boxHeading">{title}</h2>
-      <p className="boxpara">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-        interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
-        facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
-      </p>
-      <button type="button" className="btn btn-primary">
-        {buttonText}
-      </button>
-    </div>
-  );
-};
 
 const YourStrategy = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedStrategy, setSelectedStrategy] = useState(null);
+  const [stretegyInputs, setStretegyInputs] = useState({
+    user_id: "",
+    trace_candle: 0,
+    close: "",
+    high: "",
+    low: "",
+    open: "",
+    buying_multiplier: 0,
+    stop_loss_multiplier: 0,
+    sl_low_multiplier_1: 0,
+    sl_low_multiplier_2: 0,
+    trail_sl_1: 0,
+    trail_sl_2: 0,
+    modify_stop_loss_1: 0,
+    modify_stop_loss_2: 0,
+  });
+
+  useEffect(() => {
+    MicroModal.init();
+  });
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedStrategy(null);
+  };
+
+  const handleStrategyChange = (e) => {
+    const { name, value, type } = e.target;
+    setStretegyInputs((prevState) => ({
+      ...prevState,
+      [name]: type === "number" ? parseFloat(value) || 0 : value,
+    }));
+  };
+
+  console.log(" stretegyInputs :",stretegyInputs);
+  
+
+  const handleSubscribe = (id) => {
+    setSelectedStrategy(strategiesData[id]);
+    setIsModalOpen(true);
+  };
   return (
-    <div className="MainBox">
-      <Link className="linking" to="/My-strategy">
-        <StrategyBox id="box1" title="Strategy - 1" buttonText="Subscribe" />
-      </Link>
-      <StrategyBox id="box2" title="Strategy - 2" buttonText="Subscribe" />
-      <StrategyBox id="box3" title="Strategy - 3" buttonText="Subscribe" />
-      <StrategyBox id="box4" title="Strategy - 4" buttonText="Subscribe" />
-      <StrategyBox id="box5" title="Strategy - 5" buttonText="Subscribe" />
-      <StrategyBox id="box6" title="Strategy - 6" buttonText="Subscribe" />
-      <StrategyBox id="box7" title="Strategy - 7" buttonText="Subscribe" />
-      <StrategyBox id="box8" title="Strategy - 8" buttonText="Subscribe" />
-    </div>
+    <>
+      <div className="MainBox">
+        {Object.keys(strategiesData).map((id) => {
+          return (
+            <StrategyBox
+              key={id}
+              id={id}
+              title={strategiesData[id].title}
+              buttonText="Subscribe"
+              dataModal="modal-1"
+              onSubscribe={() => handleSubscribe(id)}
+            />
+          );
+        })}
+      </div>
+
+      {/*----------------------Modal Stretegy------------------------- */}
+      <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div
+            class="modal__container"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-1-title"
+          >
+            <header class="modal__header">
+              <h2 class="modal__title" id="modal-1-title">
+                Strategy
+              </h2>
+              <button
+                class="modal__close"
+                aria-label="Close modal"
+                data-micromodal-close
+              ></button>
+            </header>
+            <main class="modal__content" id="modal-1-content">
+              <>
+                {selectedStrategy && (
+                  <div className="admin-strategies-main-container">
+                    <div className="algo-trading-container">
+                      <div className="main-div-admin-edit-input">
+
+                      {selectedStrategy.parameters.map((param) => (
+                          <div className="admin-edit-input" key={param.name}>
+                            <input
+                              className="cust-inputbtn"
+                              type={param.type}
+                              placeholder={param.placeholder}
+                              name={param.name}
+                              onChange={handleStrategyChange}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            </main>
+            <footer class="modal__footer">
+              <button
+                class="modal__btn modal__btn-primary"
+                // onClick={() => dispatch(stopStrategy(getStrategy?.strategy_id))}
+              >
+                Subscribe Strategy
+              </button>
+              <button
+                class="modal__btn"
+                data-micromodal-close
+                aria-label="Close this dialog window"
+              >
+                Close
+              </button>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
-
-export default React.memo(YourStrategy);
+export default YourStrategy;
