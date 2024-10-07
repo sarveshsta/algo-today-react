@@ -10,9 +10,11 @@ import Orangenewshape from "../../components/shape/custshape/Orangenewshape";
 import {
   getBankniftyDataApi,
   getStrategyDataApi,
+  indexExpiryDataApi,
+  indexStrikePriceDataApi,
   stopStrategy,
 } from "../features/customdata/custAuthentication";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const option4 = [
   { value: "CE", label: "CE" },
@@ -61,11 +63,9 @@ const tradeURL =
   "http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8000";
 
 const CustomStrategies = () => {
-  const [selectedInput, setSelectedInput] = useState("");
   const [checkedCheckBox, setCheckedCheckBox] = useState(false);
-  const [IndexData, setIndexData] = useState([]);
-  const [StrikData, setStrikData] = useState([]);
-  const [btnDisable, setBtnDisable] = useState(true)
+  const [selectedInput, setSelectedInput] = useState("");
+  const [btnDisable, setBtnDisable] = useState(true);
 
   const [inputValues, setInputValues] = useState({
     strategy_id: "",
@@ -84,9 +84,16 @@ const CustomStrategies = () => {
     target_profit: 0,
   });
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const getStrategy = useSelector((state) => state?.index?.strategy || []);
-  
+  let IndexData = useSelector(
+    (state) => state?.index?.indexExpiryDataApi || []
+  );
+  let StrikData = useSelector(
+    (state) => state?.index?.indexStrikePriceDataApi || []
+  );
+
   const handleSubmit = useCallback(() => {}, []);
 
   const handleInputChange = (event, selectname) => {
@@ -112,56 +119,62 @@ const CustomStrategies = () => {
     setCheckedCheckBox((prevState) => !prevState);
   }, []);
 
-  const getData = async (index) => {
-    try {
-      const response = await axios.get(`${tradeURL}/tokens/${index}`);
-      if (response) {
-        setIndexData(response?.data?.data || []);
-      } else {
-        return response;
-      }
-    } catch (error) {
-      return error;
-    }
-  };
-
-  const getDataStrike = async (index, expiry) => {
-    try {
-      const response = await axios.get(`${tradeURL}/tokens/${index}/${expiry}`);
-      if (response) {
-        setStrikData(response?.data?.data || []);
-      } else {
-        return response;
-      }
-    } catch (error) {
-      return error;
-    }
-  };
-
   useEffect(() => {
     if (inputValues?.index_list[0]?.index) {
-      getData(inputValues?.index_list[0]?.index);
+      dispatch(indexExpiryDataApi(inputValues?.index_list[0]?.index));
     }
     if (
       inputValues?.index_list[0]?.index &&
       inputValues?.index_list[0]?.expiry
     ) {
-      getDataStrike(
-        inputValues?.index_list[0]?.index,
-        inputValues?.index_list[0]?.expiry
+      dispatch(
+        indexStrikePriceDataApi({
+          index: inputValues?.index_list[0]?.index,
+          expiry: inputValues?.index_list[0]?.expiry,
+        })
       );
     }
   }, [inputValues?.index_list[0]?.index, inputValues?.index_list[0]?.expiry]);
 
   const submitButton = useCallback(() => {
     dispatch(getStrategyDataApi(inputValues));
+
+    setTimeout(() => {
+      if (getStrategy?.success === true) {
+        navigate("/userhistory");
+      }
+    }, 2000);
   }, [inputValues]);
 
   useEffect(() => {
-   if(getStrategy?.message === 'strategy starts'){
-        setBtnDisable(false)
-   }
-  },[getStrategy?.message])
+    if (getStrategy?.message === "strategy starts") {
+      setBtnDisable(false);
+    }
+  }, [getStrategy?.message]);
+
+  const sortedIndexData = IndexData?.map((item) => {
+    const expiryDate = new Date(item?.expiry);
+    const day = String(expiryDate?.getDate()).padStart(2, "0");
+    const month = expiryDate
+      .toLocaleString("default", { month: "short" })
+      .toUpperCase();
+    const year = String(expiryDate.getFullYear()).slice(-2);
+
+    return {
+      value: `${day}${month}${year}`,
+      label: item?.expiry,
+    };
+  })
+    .sort((a, b) => new Date(a.label) - new Date(b.label))
+    .filter(
+      (item, index, self) =>
+        // Filter out duplicates by checking if the current item's label exists earlier in the array
+        index === self.findIndex((t) => t.label === item.label)
+    );
+  const finalSortedData = sortedIndexData?.map(({ value, label }) => ({
+    value,
+    label,
+  }));
 
   return (
     <div>
@@ -196,19 +209,7 @@ const CustomStrategies = () => {
 
             <div className="select-container">
               <Select
-                options={IndexData?.map((item) => {
-                  const expiryDate = new Date(item?.expiry); // Assuming item.expiry is a valid date string
-                  const day = String(expiryDate?.getDate()).padStart(2, "0");
-                  const month = expiryDate
-                    .toLocaleString("default", { month: "short" })
-                    .toUpperCase();
-                  const year = String(expiryDate.getFullYear()).slice(-2);
-
-                  return {
-                    value: `${day}${month}${year}`,
-                    label: item?.expiry,
-                  };
-                })}
+                options={finalSortedData}
                 styles={custStyle}
                 onChange={handleInputChange}
                 placeholder="Expiry"
@@ -262,7 +263,7 @@ const CustomStrategies = () => {
               <Select
                 options={[
                   { value: "ONE_MINUTE", label: "ONE_MINUTE" },
-                  { value: "ONE_MINUTE", label: "ONE_MINUTE" },
+                  { value: "TWO_MINUTE", label: "TWO_MINUTE" },
                 ]}
                 styles={custStyle}
                 placeholder="Chart Time"

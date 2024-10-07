@@ -1,5 +1,6 @@
 import "./dashboard.css";
-import React, { useState } from "react";
+import Select from "react-select";
+import React, { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { LuMail } from "react-icons/lu";
 import { CiSearch } from "react-icons/ci";
@@ -7,6 +8,8 @@ import { GrHomeRounded } from "react-icons/gr";
 import { IoIosCloseCircle } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { IoNotificationsOutline } from "react-icons/io5";
+import ReactModal from "react-modal";
+import MicroModal from "micromodal"; // es6 module
 
 const userlistData = [
   {
@@ -74,12 +77,60 @@ const userlistData = [
   },
 ];
 
+const custStyle = {
+  option: (provided, state) => ({
+    ...provided,
+    // backgroundColor: state.isSelected ? "#ff00ff" : "#ffd1dc",
+    color: "black",
+    padding: 20,
+    border: state.isSelected ? "2px solid #32CD32" : "1px solid #0000ff",
+    "&:hover": {
+      // backgroundColor: "#7fffd4",
+      color: "#0000ff",
+    },
+  }),
+  control: (provided) => ({
+    ...provided,
+    // minHeight: 50,
+    extAlign: "center",
+    // backgroundColor: "#3498DB",
+    borderRadius: 25,
+    backgroundColor: "rgba(52, 152, 219, 0.2)",
+    border: "1px solid rgba(52, 152, 219, 1)",
+    // border: "2px solid #ff00ff",
+    // fontSize: 20,
+    "&:hover": {
+      // borderColor: "#7fffd4",
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: "black",
+    fontSize: 20,
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    color: "black",
+    fontSize: 20,
+  }),
+};
 
+const customStyles = {
+  content: {
+    // top: '50%',
+    // left: '50%',
+    // right: 'auto',
+    // bottom: 'auto',
+    // // marginRight: '-50%',
+    // // transform: 'translate(-50%, -50%)',
+  },
+};
 
 const Dashboard = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [isKeyPressed, setIsKeyPressed] = useState(false);
   const [showEmail, setShowWEmail] = useState(false);
+  const [toggleModal, setToggleModal] = useState(false);
   const [toggle, setToggle] = useState(false);
 
   const [maxContentOnPage, setMaxContentOnPage] = useState(6);
@@ -128,6 +179,23 @@ const Dashboard = () => {
     setMaxContentOnPage(maxContentOnPage + page);
   };
 
+  const iconClick = () => {
+    setToggleModal(true);
+  };
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    // subtitle.style.color = "#f00";
+  }
+
+  function closeModal() {
+    setToggleModal(true);
+  }
+
+  useEffect(() => {
+    MicroModal.init();
+  });
+
   return (
     <>
       <div className="admin-dashbord">
@@ -161,7 +229,7 @@ const Dashboard = () => {
               <GrHomeRounded color="white" />
               <li className="vertnav-ul-li" id="home">
                 <Link
-                  to="/"
+                  // to="/"
                   style={{ textDecorationLine: "none", color: "white" }}
                 >
                   <span className="link-text">Home</span>
@@ -176,7 +244,7 @@ const Dashboard = () => {
                   alt="vector"
                 />
                 <Link
-                  to="/wallet"
+                  // to="/wallet"
                   style={{ textDecorationLine: "none", color: "white" }}
                 >
                   <span className="link-text">Wallet</span>
@@ -191,7 +259,7 @@ const Dashboard = () => {
                   alt="vector"
                 />
                 <Link
-                  to="/custom"
+                  // to="/custom"
                   style={{ textDecorationLine: "none", color: "white" }}
                 >
                   <span className="link-text">CustomStrategies</span>
@@ -206,10 +274,12 @@ const Dashboard = () => {
                   alt="vector"
                 />
                 <Link
-                  to="/managetrading"
+                  // to="/managetrading"
                   style={{ textDecorationLine: "none", color: "white" }}
+                  // onClick={iconClick}
+                  data-micromodal-trigger="modal-1"
                 >
-                  <span className="link-text">Managetrading</span>
+                  <span className="link-text">Edit Streategies</span>
                 </Link>
               </li>
             </div>
@@ -225,8 +295,9 @@ const Dashboard = () => {
                 <li className="dash-horizontal-nav-li">
                   {!isKeyPressed && (
                     <CiSearch
-                      className={`horizontal-nav-li-icon ${isKeyPressed ? "icon-hidden" : ""
-                        }`}
+                      className={`horizontal-nav-li-icon ${
+                        isKeyPressed ? "icon-hidden" : ""
+                      }`}
                     />
                   )}
                   <input
@@ -240,16 +311,18 @@ const Dashboard = () => {
                   <li className="dash-horizontal-nav-li">
                     {/* <h5 className="email-top-number-show">7</h5> */}
                     <LuMail
-                      className={`dash-hori-icon ${showEmail ? "bg-color" : ""
-                        }`}
+                      className={`dash-hori-icon ${
+                        showEmail ? "bg-color" : ""
+                      }`}
                       onClick={emailIconClick}
                     />
                   </li>
                   <li className="dash-horizontal-nav-li">
                     {/* <h5 className="email-top-number-show2">3</h5> */}
                     <IoNotificationsOutline
-                      className={`dash-hori-icon ${showNotification ? "bg-color" : ""
-                        }`}
+                      className={`dash-hori-icon ${
+                        showNotification ? "bg-color" : ""
+                      }`}
                       onClick={belliconClick}
                     />
                   </li>
@@ -295,8 +368,9 @@ const Dashboard = () => {
               <div className="userlist-input-search-div">
                 {!isKeyPressed && (
                   <CiSearch
-                    className={`userlist-search-icon ${isKeyPressed ? "icon-hidden" : ""
-                      }`}
+                    className={`userlist-search-icon ${
+                      isKeyPressed ? "icon-hidden" : ""
+                    }`}
                   />
                 )}
                 <input
@@ -310,7 +384,7 @@ const Dashboard = () => {
           </div>
           <div className="wanna-grid-user-list">
             <div className="user-list">
-              {userlistData.slice(0, maxContentOnPage).map((item,index) => {
+              {userlistData?.slice(0, maxContentOnPage)?.map((item, index) => {
                 const {
                   userimg,
                   username,
@@ -402,6 +476,196 @@ const Dashboard = () => {
           This is Email Notification Pop-Up
         </div>
       )}
+
+      {/*----------------------Modal Edit------------------------- */}
+      <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div
+            class="modal__container"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-1-title"
+          >
+            <header class="modal__header">
+              <h2 class="modal__title" id="modal-1-title">
+                Edit Strategy
+              </h2>
+              <button
+                class="modal__close"
+                aria-label="Close modal"
+                data-micromodal-close
+              ></button>
+            </header>
+            <main class="modal__content" id="modal-1-content">
+              <>
+                <div className="admin-strategies-main-container">
+                  <div className="algo-trading-container">
+                    <div className="main-div-admin-edit-input">
+                      <div className="admin-edit-input">
+                        <input
+                          className="cust-inputbtn"
+                          type="text"
+                          placeholder="Trace Candle"
+                          name="Trace Candle"
+                          // value={inputValues.quantity}
+                          // onChange={(e) =>
+                          //   setInputValues((prev) => ({
+                          //     ...prev,
+                          //     target_profit: parseInt(e.target.value),
+                          //   }))
+                          // }
+                        />
+                      </div>
+
+                      <div className="admin-edit-input">
+                        <input
+                          className="cust-inputbtn"
+                          type="text"
+                          placeholder="Close"
+                          name="Close"
+                          // value={inputValues.quantity}
+                          // onChange={(e) =>
+                          //   setInputValues((prev) => ({
+                          //     ...prev,
+                          //     target_profit: parseInt(e.target.value),
+                          //   }))
+                          // }
+                        />
+                      </div>
+
+                      <div className="admin-edit-input">
+                        <input
+                          className="cust-inputbtn"
+                          type="text"
+                          placeholder="High"
+                          name="High"
+                          // value={inputValues.quantity}
+                          // onChange={(e) =>
+                          //   setInputValues((prev) => ({
+                          //     ...prev,
+                          //     target_profit: parseInt(e.target.value),
+                          //   }))
+                          // }
+                        />
+                      </div>
+
+                      <div className="admin-edit-input">
+                        <input
+                          className="cust-inputbtn"
+                          type="text"
+                          placeholder="Low"
+                          name="Low"
+                          // value={inputValues.quantity}
+                          // onChange={(e) =>
+                          //   setInputValues((prev) => ({
+                          //     ...prev,
+                          //     target_profit: parseInt(e.target.value),
+                          //   }))
+                          // }
+                        />
+                      </div>
+
+                      <div className="admin-edit-input">
+                        <input
+                          className="cust-inputbtn"
+                          type="text"
+                          placeholder="Open"
+                          name="Open"
+                          // value={inputValues.quantity}
+                          // onChange={(e) =>
+                          //   setInputValues((prev) => ({
+                          //     ...prev,
+                          //     target_profit: parseInt(e.target.value),
+                          //   }))
+                          // }
+                        />
+                      </div>
+
+                      <div className="admin-edit-input">
+                        <input
+                          name="Buying Multiplier"
+                          className="cust-inputbtn"
+                          type="text"
+                          placeholder="Buying Multiplier"
+                        />
+                      </div>
+
+                      <div className="admin-edit-input">
+                        <input
+                          name="stop_loss_multiplier"
+                          className="cust-inputbtn"
+                          type="text"
+                          placeholder="Stop Loss Multiplier"
+                        />
+                      </div>
+
+                      <div className="admin-edit-input">
+                        <input
+                          className="cust-inputbtn"
+                          type="text"
+                          placeholder="Sl Low Multiplier"
+                          name="Sl Low Multiplier"
+                        />
+                      </div>
+
+                      <div className="admin-edit-input">
+                        <input
+                          className="cust-inputbtn"
+                          type="text"
+                          placeholder="Sl Low Multiplier 2"
+                          name="sl_low_multiplier_2"
+                        />
+                      </div>
+
+                      <div className="admin-edit-input">
+                        <input
+                          className="cust-inputbtn"
+                          type="text"
+                          placeholder="Trail Sl 1"
+                          name="trail_sl_1"
+                        />
+                      </div>
+
+                      <div className="admin-edit-input">
+                        <input
+                          className="cust-inputbtn"
+                          type="text"
+                          placeholder="Trail Sl 2"
+                          name="trail_sl_2"
+                        />
+                      </div>
+
+                      <div className="admin-edit-input">
+                        <input
+                          className="cust-inputbtn"
+                          type="text"
+                          placeholder="Modify Stop Loss 1"
+                          name="modify_stop_loss_1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            </main>
+            <footer class="modal__footer">
+              <button
+                class="modal__btn modal__btn-primary"
+                // onClick={() => dispatch(stopStrategy(getStrategy?.strategy_id))}
+              >
+                Modify Strategy
+              </button>
+              <button
+                class="modal__btn"
+                data-micromodal-close
+                aria-label="Close this dialog window"
+              >
+                Close
+              </button>
+            </footer>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

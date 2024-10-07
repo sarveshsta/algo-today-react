@@ -1,6 +1,7 @@
 import axios from "axios";
 import butterup from "butteruptoasts";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { showToast } from "../../../utility";
 
 const userUrl = "http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8080";
 butterup.options.toastLife = 2000;
@@ -18,35 +19,14 @@ export const mobileAuthentication = createAsyncThunk(
       });
 
       if (res.data.success === true) {
-        butterup.toast({
-          title: "🎉 Hooray!",
-          message: res.data.message,
-          location: "top-right",
-          icon: true,
-          dismissable: true,
-          type: "success",
-        });
+        showToast("🎉 Hooray!", res.data.message, "success");
         return res;
       } else {
-        butterup.toast({
-          title: "⚠️ Error",
-          message: res.data.message,
-          location: "top-right",
-          icon: true,
-          dismissable: true,
-          type: "error",
-        });
+        showToast("⚠️ Error", res.data.message, "error");
         return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
-      butterup.toast({
-        title: "⚠️ Error",
-        message: error.message,
-        location: "top-right",
-        icon: true,
-        dismissable: true,
-        type: "error",
-      });
+      showToast("⚠️ Error", error.message, "error");
       return error;
     }
   }
@@ -64,35 +44,14 @@ export const otpVerificationAPI = createAsyncThunk(
         },
       });
       if (res.data.success === true) {
-        butterup.toast({
-          title: "🎉 Hooray!",
-          message: res.data.message,
-          location: "top-right",
-          icon: true,
-          dismissable: true,
-          type: "success",
-        });
+        showToast("🎉 Hooray!", res.data.message, "success");
         return res;
       } else {
-        butterup.toast({
-          title: "⚠️ Error",
-          message: res.data.message,
-          location: "top-right",
-          icon: true,
-          dismissable: true,
-          type: "error",
-        });
+        showToast("⚠️ Error", res.data.message, "error");
         return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
-      butterup.toast({
-        title: "⚠️ Error",
-        message: error.message,
-        location: "top-right",
-        icon: true,
-        dismissable: true,
-        type: "error",
-      });
+      showToast("⚠️ Error", error.message, "error");
       return error;
     }
   }
@@ -111,35 +70,14 @@ export const signupAPI = createAsyncThunk(
       });
 
       if (res.data.success === true) {
-        butterup.toast({
-          title: "🎉 Hooray!",
-          message: res.data.message,
-          location: "top-right",
-          icon: true,
-          dismissable: true,
-          type: "success",
-        });
+        showToast("🎉 Hooray!", res.data.message, "success");
         return res.data;
       } else {
-        butterup.toast({
-          title: "⚠️ Error",
-          message: res.data.message,
-          location: "top-right",
-          icon: true,
-          dismissable: true,
-          type: "error",
-        });
+        showToast("⚠️ Error", res.data.message, "error");
         return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
-      butterup.toast({
-        title: "⚠️ Error",
-        message: error.response.data.message,
-        location: "top-right",
-        icon: true,
-        dismissable: true,
-        type: "error",
-      });
+      showToast("⚠️ Error", error.response.data.message, "error");
       return error;
     }
   }
@@ -158,35 +96,14 @@ export const loginAPI = createAsyncThunk(
       });
 
       if (response.data.success === true) {
-        butterup.toast({
-          title: "🎉 Hooray!",
-          message: response.data.message,
-          location: "top-right",
-          icon: true,
-          dismissable: true,
-          type: "success",
-        });
+        showToast("🎉 Hooray!", response.data.message, "success");
         return response;
       } else {
-        butterup.toast({
-          title: "⚠️ Error",
-          message: response.data.message,
-          location: "top-right",
-          icon: true,
-          dismissable: true,
-          type: "error",
-        });
+        showToast("⚠️ Error", response.data.message, "error");
         return thunkAPI.rejectWithValue(response);
       }
     } catch (error) {
-      butterup.toast({
-        title: "⚠️ Error",
-        message: error.message,
-        location: "top-right",
-        icon: true,
-        dismissable: true,
-        type: "error",
-      });
+      showToast("⚠️ Error", error.message, "error");
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -204,35 +121,14 @@ export const forgotAPI = createAsyncThunk(
         },
       });
       if (response.data.success === true) {
-        butterup.toast({
-          title: "🎉 Hooray!",
-          message: response.data.message,
-          location: "top-right",
-          icon: true,
-          dismissable: true,
-          type: "success",
-        });
+        showToast("🎉 Hooray!", response.data.message, "success");
         return response;
       } else {
-        butterup.toast({
-          title: "⚠️ Error",
-          message: response.data.message,
-          location: "top-right",
-          icon: true,
-          dismissable: true,
-          type: "error",
-        });
+        showToast("⚠️ Error", response.data.message, "error");
         return thunkAPI.rejectWithValue(response);
       }
     } catch (error) {
-      butterup.toast({
-        title: "⚠️ Error",
-        message: error.message,
-        location: "top-right",
-        icon: true,
-        dismissable: true,
-        type: "error",
-      });
+      showToast("⚠️ Error", error.message, "error");
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -248,35 +144,14 @@ export const logoutAPI = createAsyncThunk("logout", async (body, thunkAPI) => {
       },
     });
     if (response.data.success === true) {
-      butterup.toast({
-        title: "🎉 Hooray!",
-        message: response.data.message,
-        location: "top-right",
-        icon: true,
-        dismissable: true,
-        type: "success",
-      });
+      showToast("🎉 Hooray!", response.data.message, "success");
       return response;
     } else {
-      butterup.toast({
-        title: "⚠️ Error",
-        message: response.data.message,
-        location: "top-right",
-        icon: true,
-        dismissable: true,
-        type: "error",
-      });
+      showToast("⚠️ Error", response.data.message, "error");
       return thunkAPI.rejectWithValue(response);
     }
   } catch (error) {
-    butterup.toast({
-      title: "⚠️ Error",
-      message: error.message,
-      location: "top-right",
-      icon: true,
-      dismissable: true,
-      type: "error",
-    });
+    showToast("⚠️ Error", error.message, "error");
     return thunkAPI.rejectWithValue(error);
   }
 });
