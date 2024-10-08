@@ -4,13 +4,15 @@ import { Link } from "react-router-dom";
 import MicroModal from "micromodal"; // es6 module
 import { StrategyBox } from "../mystreategy/Strategyboxx";
 import { strategiesData } from "../../arraydata/Arraydata";
+import { tradingData } from "../../user/features/customdata/custAuthentication";
+import { useDispatch } from "react-redux";
 
 
 const YourStrategy = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedStrategy, setSelectedStrategy] = useState(null);
   const [stretegyInputs, setStretegyInputs] = useState({
-    user_id: "",
+    // user_id: "",
     trace_candle: 0,
     close: "",
     high: "",
@@ -25,6 +27,8 @@ const YourStrategy = () => {
     modify_stop_loss_1: 0,
     modify_stop_loss_2: 0,
   });
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     MicroModal.init();
@@ -43,13 +47,15 @@ const YourStrategy = () => {
     }));
   };
 
-  console.log(" stretegyInputs :",stretegyInputs);
-  
-
   const handleSubscribe = (id) => {
     setSelectedStrategy(strategiesData[id]);
     setIsModalOpen(true);
   };
+
+  const startTheStretegy = ( ) => {
+    dispatch(tradingData(stretegyInputs))
+  }
+
   return (
     <>
       <div className="MainBox">
@@ -113,7 +119,7 @@ const YourStrategy = () => {
             <footer class="modal__footer">
               <button
                 class="modal__btn modal__btn-primary"
-                // onClick={() => dispatch(stopStrategy(getStrategy?.strategy_id))}
+                onClick={startTheStretegy}
               >
                 Subscribe Strategy
               </button>

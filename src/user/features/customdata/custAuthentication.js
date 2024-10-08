@@ -3,7 +3,7 @@ import butterup from "butteruptoasts";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { showToast } from "../../../utility";
 
-const tradeURL = "https://94cc-2405-201-301d-f0b0-554d-492c-820a-e3c0.ngrok-free.app";
+const tradeURL = "https://b420-2405-201-301d-f0b0-554d-492c-820a-e3c0.ngrok-free.app";
 
 const headerconfig = {
   headers: {
@@ -107,6 +107,29 @@ export const stopStrategy = createAsyncThunk(
       const res = await axios.get(
         `${tradeURL}/strategy/stop_strategy/${strategy_id}`,
         headerconfig
+      );
+
+      if (res.status == 200) {
+        showToast("🎉 Hooray!", res.data.detail, "success");
+        return res.data;
+      } else {
+        showToast("⚠️ Error", res.data.message, "error");
+        return thunkAPI.rejectWithValue(res.data.message);
+      }
+    } catch (error) {
+      showToast("⚠️ Error", error.message, "error");
+      return error;
+    }
+  }
+);
+
+// ---------Trading API Data ---------------------- //
+export const tradingData = createAsyncThunk(
+  "Trading-Data",
+  async (body, thunkAPI) => {
+    try {
+      const res = await axios.post(
+        `${tradeURL}/tokens/tradingdata/`, body,
       );
 
       if (res.status == 200) {
