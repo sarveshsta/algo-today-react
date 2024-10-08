@@ -6,6 +6,7 @@ import {
   tradeHistoryApi,
   indexExpiryDataApi,
   indexStrikePriceDataApi,
+  tradingData,
 } from "./custAuthentication";
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
   indexStrikePriceDataApi: [],
   isConnected: false,
   socketmessage: [],
+  tradingData: [],
 };
 
 const indexSlice = createSlice({
@@ -133,6 +135,21 @@ const indexSlice = createSlice({
       state.loading = false;
       state.error = action.error;
       state.tradeHistory = null;
+    });
+
+    // -------------------------Trading Data Case------------------//
+    builder.addCase(tradingData.pending, (state, action) => {
+      state.loading = true;
+      state.error = action.payload;
+    });
+    builder.addCase(tradingData.fulfilled, (state, action) => {
+      state.loading = false;
+      state.tradingData = action.payload;
+    });
+    builder.addCase(tradingData.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error;
+      state.tradingData = null;
     });
   },
 });
