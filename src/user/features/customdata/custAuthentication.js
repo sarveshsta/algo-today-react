@@ -18,7 +18,7 @@ export const indexExpiryDataApi = createAsyncThunk(
   async (index,body, thunkAPI, ) => {
     try {
       const response = await axios.get(`${tradeURL}/tokens/${index}`);
-      if (response) {
+      if (response.status == 200) {
         showToast("🎉 Hooray!", response.data.message, "success");
         return response;
       } else {
@@ -36,7 +36,7 @@ export const indexStrikePriceDataApi = createAsyncThunk(
   async ({ index, expiry }) => {
     try {
       const response = await axios.get(`${tradeURL}/tokens/${index}/${expiry}`);
-      if (response) {
+      if (response.status == 200) {
         showToast("🎉 Hooray!", response.data.message, "success");
         return response;
       } else {
@@ -131,7 +131,6 @@ export const tradingData = createAsyncThunk(
       const res = await axios.post(
         `${tradeURL}/tokens/tradingdata/`, body,
       );
-
       if (res.status == 200) {
         showToast("🎉 Hooray!", res.data.detail, "success");
         return res.data;

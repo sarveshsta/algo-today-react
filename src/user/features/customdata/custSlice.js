@@ -49,7 +49,7 @@ const indexSlice = createSlice({
     });
     builder.addCase(indexExpiryDataApi.fulfilled, (state, action) => {
       state.loading = false;
-      state.indexExpiryDataApi = action.payload.data.data;
+      state.indexExpiryDataApi = action.payload.data;
       state.Nifty = action.payload.data.data.filter((item) => {
         if (item.expiry === "2024-03-13") {
           if (

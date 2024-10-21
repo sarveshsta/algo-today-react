@@ -20,7 +20,7 @@ const Navbar = () => {
   };
 
   const addClass = (event) => {
-    return event.currentTarget.classList.toggle("iconhome");
+    // return event.currentTarget.classList.toggle("iconhome");
   };
 
   return (
@@ -46,7 +46,7 @@ const Navbar = () => {
 
         {/* <div className="nav-ul"> */}
         <ul className={`ul-list`}>
-          <div className="iconhome">
+          <div className="">
             <GrHomeRounded color="white" />
             <li className="vertnav-ul-li" id="home">
               <Link
@@ -57,7 +57,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
-          <div className="iconhome" >
+          <div className="" >
             <li className="vertnav-ul-li" id="opendemat">
               <img
                 className="iconimg"
@@ -72,7 +72,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
-          <div className="iconhome">
+          <div className="">
             <li className="vertnav-ul-li" id="acc">
               <img
                 className="iconimg"
@@ -87,7 +87,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
-          <div className="iconhome">
+          <div className="">
             <li className="vertnav-ul-li" id="wallet">
               <img
                 className="iconimg"
@@ -102,7 +102,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
-          <div className="iconhome">
+          <div className="">
             <li className="vertnav-ul-li" id="cust">
               <img
                 className="iconimg"
@@ -117,7 +117,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
-          <div className="iconhome">
+          <div className="">
             <li className="vertnav-ul-li" id="mantrad">
               <img
                 className="iconimg"
@@ -132,7 +132,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
-          <div className="iconhome">
+          <div className="">
             <li className="vertnav-ul-li" id="usrhist">
               <img
                 className="iconimg"
@@ -147,7 +147,7 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
-          <div className="iconhome">
+          <div className="">
             <li className="vertnav-ul-li" id="ref&ern">
               <img
                 className="iconimg"

@@ -19,7 +19,8 @@ export const Faqq = [
       "Our algorithms are rigorously tested and continuously optimized to ensure reliability and effectiveness. While no trading strategy is guaranteed to be successful, our algorithms are designed to adapt to changing market conditions and deliver consistent results over time.",
   },
   {
-    question: "How much money will I have after 2 years of trading with algorithms?",
+    question:
+      "How much money will I have after 2 years of trading with algorithms?",
     answer:
       "What you’re talking about here is the compounding effect! The compounding effect means your money earns more money over time. So, in trading, it's not just about making money on your initial investment, but also about letting those profits work for you to make even more money.",
   },
@@ -99,35 +100,41 @@ export const sliderData = [
   {
     img: <img className="imagee" src={require("../assets/icons/Image.png")} />,
     text1: "Esther Hills",
-    para1:"Lead Intranet Technician",
-    para2: "I've been using Algo Today for a while now, and I have to say it's made options trading a whole lot simpler. I used to stress over every market move but now I can relax knowing the algorithms are working for me."
+    para1: "Lead Intranet Technician",
+    para2:
+      "I've been using Algo Today for a while now, and I have to say it's made options trading a whole lot simpler. I used to stress over every market move but now I can relax knowing the algorithms are working for me.",
   },
   {
     img: <img className="imagee" src={require("../assets/icons/Image.png")} />,
     text1: "Esther Hills",
-    para1:"Lead Intranet Technician",
-    para2: "Algo Today has been a game-changer for me. I'm not a finance person, but this platform makes it easy to trade wisely. I love how it takes the guesswork out of trading."
+    para1: "Lead Intranet Technician",
+    para2:
+      "Algo Today has been a game-changer for me. I'm not a finance person, but this platform makes it easy to trade wisely. I love how it takes the guesswork out of trading.",
   },
 ];
 
-export const aboutcardData = [ 
+export const aboutcardData = [
   {
     text1: "Mission",
-    para1:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.",
+    para1:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.",
   },
   {
     text1: "Building Pathways",
-    para1:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.",
+    para1:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.",
   },
   {
     text1: "Building Capacity",
-    para1:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+    para1:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
   },
   {
     text1: "Building Awareness",
-    para1:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+    para1:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
   },
-]
+];
 
 export const strategiesData = {
   box1: {
@@ -138,15 +145,39 @@ export const strategiesData = {
       { name: "close", type: "text", placeholder: "Close" },
       { name: "high", type: "text", placeholder: "High" },
       { name: "low", type: "text", placeholder: "Low" },
-      { name: "open", type: "text", placeholder: "Open"},
-      { name: "buying_multiplier", type: "number", placeholder: "Buying Multiplier"},
-      { name: "stop_loss_multiplier", type: "number", placeholder: "Stop Loss Multiplier"},
-      { name: "sl_low_multiplier_1", type: "number", placeholder: "Sl Low Multiplier"},
-      { name: "sl_low_multiplier_2", type: "number", placeholder: "Sl Low Multiplier 2"},
-      { name: "trail_sl_1", type: "number", placeholder: "Trail Sl 1"},
-      { name: "trail_sl_2", type: "number", placeholder: "Trail Sl 2"},
-      { name: "modify_stop_loss_1", type: "number", placeholder: "Modify Stop Loss 1"},
-      { name: "modify_stop_loss_2", type: "number", placeholder: "Modify Stop Loss 2"},    
+      { name: "open", type: "text", placeholder: "Open" },
+      {
+        name: "buying_multiplier",
+        type: "number",
+        placeholder: "Buying Multiplier",
+      },
+      {
+        name: "stop_loss_multiplier",
+        type: "number",
+        placeholder: "Stop Loss Multiplier",
+      },
+      {
+        name: "sl_low_multiplier_1",
+        type: "number",
+        placeholder: "Sl Low Multiplier",
+      },
+      {
+        name: "sl_low_multiplier_2",
+        type: "number",
+        placeholder: "Sl Low Multiplier 2",
+      },
+      { name: "trail_sl_1", type: "number", placeholder: "Trail Sl 1" },
+      { name: "trail_sl_2", type: "number", placeholder: "Trail Sl 2" },
+      {
+        name: "modify_stop_loss_1",
+        type: "number",
+        placeholder: "Modify Stop Loss 1",
+      },
+      {
+        name: "modify_stop_loss_2",
+        type: "number",
+        placeholder: "Modify Stop Loss 2",
+      },
     ],
   },
   box2: {
@@ -185,5 +216,93 @@ export const strategiesData = {
   box8: {
     title: "Strategy - 8",
     details: "Detailed information about Strategy 8.",
+  },
+};
+
+export const buyingConditionData = {
+  condition1: {
+    id: "1",
+    title: "OHLC Compare",
+    details: "Detailed information about Strategy 1.",
+    parameters: [
+      { name: "Multiplier", type: "text", placeholder: "Multiplier" },
+      {
+        name: "OHLC",
+        type: "select",
+        options: [
+          { value: "Open", label: "Open" },
+          { value: "High", label: "High" },
+          { value: "Close", label: "Close" },
+          { value: "Low", label: "Low" },
+        ],
+      },
+      {
+        name: "MIN",
+        type: "select",
+        options: [
+          { value: "1 Minute", label: "1 Minute" },
+          { value: "2 Minute", label: "2 Minute" },
+          { value: "3 Minute", label: "3 Minute" },
+          { value: "4 Minute", label: "4 Minute" },
+        ],
+      },
+      {
+        name: "1",
+        type: "select",
+        options: [
+          { value: "1 ", label: "1 " },
+          { value: "2 ", label: "2 " },
+          { value: "3 ", label: "3 " },
+          { value: "4 ", label: "4 " },
+        ],
+      },
+      {
+        name: ">",
+        type: "select",
+        options: [
+          { value: "> ", label: "> " },
+          { value: "< ", label: "< " },
+        ],
+      },
+      { name: "Multiplier", type: "text", placeholder: "Multiplier" },
+      {
+        name: "OHLC",
+        type: "select",
+        options: [
+          { value: "Open", label: "Open" },
+          { value: "High", label: "High" },
+          { value: "Close", label: "Close" },
+          { value: "Low", label: "Low" },
+        ],
+      },
+      {
+        name: "MIN",
+        type: "select",
+        options: [
+          { value: "1 Minute", label: "1 Minute" },
+          { value: "2 Minute", label: "2 Minute" },
+          { value: "3 Minute", label: "3 Minute" },
+          { value: "4 Minute", label: "4 Minute" },
+        ],
+      },
+      {
+        name: "1",
+        type: "select",
+        options: [
+          { value: "1 ", label: "1 " },
+          { value: "2 ", label: "2 " },
+          { value: "3 ", label: "3 " },
+          { value: "4 ", label: "4 " },
+        ],
+      },
+      {
+        name: ">",
+        type: "select",
+        options: [
+          { value: "> ", label: "> " },
+          { value: "< ", label: "< " },
+        ],
+      },
+    ],
   },
 };

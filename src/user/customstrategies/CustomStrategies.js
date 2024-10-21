@@ -15,6 +15,8 @@ import {
   stopStrategy,
 } from "../features/customdata/custAuthentication";
 import { useNavigate } from "react-router-dom";
+import MicroModal from "micromodal"; // es6 module
+import { buyingConditionData } from "../../arraydata/Arraydata";
 
 const option4 = [
   { value: "CE", label: "CE" },
@@ -66,6 +68,7 @@ const CustomStrategies = () => {
   const [checkedCheckBox, setCheckedCheckBox] = useState(false);
   const [selectedInput, setSelectedInput] = useState("");
   const [btnDisable, setBtnDisable] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [inputValues, setInputValues] = useState({
     strategy_id: "",
@@ -87,6 +90,7 @@ const CustomStrategies = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const getStrategy = useSelector((state) => state?.index?.strategy || []);
+
   let IndexData = useSelector(
     (state) => state?.index?.indexExpiryDataApi || []
   );
@@ -94,7 +98,20 @@ const CustomStrategies = () => {
     (state) => state?.index?.indexStrikePriceDataApi || []
   );
 
-  const handleSubmit = useCallback(() => {}, []);
+  useEffect(() => {
+    MicroModal.init({
+      onShow: () => {}, // Optional: Add callbacks if needed
+      onClose: () => setIsModalOpen(false), // Update state when modal closes
+      disableScroll: true, // Optional: Disable background scroll when modal is open
+      awaitCloseAnimation: true, // Optional: Wait for animation to finish before removing modal from DOM
+    });
+  }, [isModalOpen]);
+
+  const handleSubmit1 = useCallback(() => {
+    if (checkedCheckBox) {
+      MicroModal.show("modal-1"); // Show the modal using MicroModal's API
+    }
+  }, [checkedCheckBox]);
 
   const handleInputChange = (event, selectname) => {
     let { name } = selectname;
@@ -347,16 +364,8 @@ const CustomStrategies = () => {
               }))
             }
           />
-          <Select
-            value={selectedInput[5]}
-            styles={custStyle}
-            onChange={handleSubmit}
-          />
-          <Select
-            value={selectedInput[5]}
-            styles={custStyle}
-            onChange={handleSubmit}
-          />
+          <Select value={selectedInput[5]} styles={custStyle} />
+          <Select value={selectedInput[5]} styles={custStyle} />
         </div>
 
         <div className="thirdddiv-btnn">
@@ -380,6 +389,7 @@ const CustomStrategies = () => {
         </div>
       </div>
 
+      {/* ----------------Buying Pre Condition ------------------ */}
       <div className="buying-pre-condition-main">
         <div className="buying-pre-condition-firstdiv">
           <h2 className="bpc-firstdiv-h2">Buying Pre Conditions</h2>
@@ -396,19 +406,34 @@ const CustomStrategies = () => {
               </label>
             </div>
             <div className="checkbox-wrapper-13">
-              <input id="c1-13" type="checkbox" />
+              <input
+                id="c1-13"
+                type="checkbox"
+                onChange={checkBoxChange}
+                value={checkedCheckBox}
+              />
               <label className="checkbox-label" for="c1-13">
                 Single Indicator
               </label>
             </div>
             <div className="checkbox-wrapper-13">
-              <input id="c1-13" type="checkbox" />
+              <input
+                id="c1-13"
+                type="checkbox"
+                onChange={checkBoxChange}
+                value={checkedCheckBox}
+              />
               <label className="checkbox-label" for="c1-13">
                 LTP + Candle OHLC
               </label>
             </div>
             <div className="checkbox-wrapper-13">
-              <input id="c1-13" type="checkbox" />
+              <input
+                id="c1-13"
+                type="checkbox"
+                onChange={checkBoxChange}
+                value={checkedCheckBox}
+              />
               <label className="checkbox-label" for="c1-13">
                 Compare 2 Indicators
               </label>
@@ -420,7 +445,7 @@ const CustomStrategies = () => {
               type="button"
               id="buy-btn1"
               className="btn btn-primary"
-              onClick={submitButton}
+              onClick={handleSubmit1}
             >
               Submit
             </button>
@@ -439,6 +464,8 @@ const CustomStrategies = () => {
           />
         </div>
       </div>
+
+      {/* ----------------Selling Pre Condition ------------------ */}
       <div className="buying-pre-condition-main">
         <div className="buying-pre-condition-firstdiv">
           <h2 className="bpc-firstdiv-h2">Selling Pre Conditions</h2>
@@ -517,6 +544,151 @@ const CustomStrategies = () => {
           <button type="button" id="thirdddiv-btnn2" className="btn">
             Start Paper Trading
           </button>
+        </div>
+      </div>
+
+      {/*----------------------Modal------------------------- */}
+      <div className="modal micromodal-slide" id="modal-1" aria-hidden="true">
+        <div className="modal__overlay" tabIndex="-1" data-micromodal-close>
+          <div
+            className="modal__container"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-1-title"
+          >
+            {Object.keys(buyingConditionData).map((id) => (
+              <>
+                <header className="modal__header">
+                  <h2 className="modal__title" id="modal-1-title">
+                    {buyingConditionData[id]?.title}
+                  </h2>
+                  <button
+                    className="modal__close"
+                    aria-label="Close modal"
+                    data-micromodal-close
+                  ></button>
+                </header>
+                <main className="modal__content" id="modal-1-content">
+                  {/* Modal Content Here */}
+                  <div style={{ display: "flex", flexDirection: "row" }}>
+                    {/* <label className="multiplier-label">
+                    </label> */}
+                    <div className="multiplier-container" key={id}>
+                      {buyingConditionData[id]?.parameters?.map((item) => (
+                        <div key={item.name}>
+                          {item?.type === "select" ? (
+                            <select
+                              className="multiplier-input"
+                              name={item?.name}
+                            >
+                              {item?.options?.map((option) => (
+                                <option
+                                  key={option?.value}
+                                  value={option?.value}
+                                >
+                                  {option?.label}
+                                </option>
+                              ))}
+                            </select>
+                          ) : (
+                            <input
+                              className="multiplier-input"
+                              name={item?.name}
+                              type={item?.type}
+                              placeholder={item?.placeholder || ""}
+                            />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* <div className="multiplier-container">
+                  <label className="multiplier-label">Multiplier</label>
+                  <input
+                    className="multiplier-input"
+                    type="number"
+                    step="0.01"
+                    // value={value}
+                    // onChange={handleChange}
+                  />
+                </div>
+                <div className="multiplier-container">
+                  <label className="multiplier-label">Multiplier</label>
+                  <input
+                    className="multiplier-input"
+                    type="number"
+                    step="0.01"
+                    // value={value}
+                    // onChange={handleChange}
+                  />
+                </div>
+                <div className="multiplier-container">
+                  <label className="multiplier-label">Multiplier</label>
+                  <input
+                    className="multiplier-input"
+                    type="number"
+                    step="0.01"
+                    // value={value}
+                    // onChange={handleChange}
+                  />
+                </div>
+                <div className="multiplier-container">
+                  <label className="multiplier-label">Multiplier</label>
+                  <input
+                    className="multiplier-input"
+                    type="number"
+                    step="0.01"
+                    // value={value}
+                    // onChange={handleChange}
+                  />
+                </div>
+                <div className="multiplier-container">
+                  <label className="multiplier-label">Multiplier</label>
+                  <input
+                    className="multiplier-input"
+                    type="number"
+                    step="0.01"
+                    // value={value}
+                    // onChange={handleChange}
+                  />
+                </div>
+                <div className="multiplier-container">
+                  <label className="multiplier-label">Multiplier</label>
+                  <input
+                    className="multiplier-input"
+                    type="number"
+                    step="0.01"
+                    // value={value}
+                    // onChange={handleChange}
+                  />
+                </div>
+                <div className="multiplier-container">
+                  <label className="multiplier-label">Multiplier</label>
+                  <input
+                    className="multiplier-input"
+                    type="number"
+                    step="0.01"
+                    // value={value}
+                    // onChange={handleChange}
+                  />
+                </div> */}
+                  </div>
+                </main>
+              </>
+            ))}
+            <footer className="modal__footer">
+              <button className="modal__btn modal__btn-primary">Submit</button>
+              <button className="modal__btn modal__btn-primary">OR</button>
+              <button className="modal__btn modal__btn-primary">And</button>
+              <button
+                className="modal__btn"
+                data-micromodal-close
+                aria-label="Close this dialog window"
+              >
+                Close
+              </button>
+            </footer>
+          </div>
         </div>
       </div>
     </div>

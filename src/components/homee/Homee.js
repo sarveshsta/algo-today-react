@@ -1,3 +1,4 @@
+import React, { useMemo, useRef, useState, useEffect } from "react";
 import "./homee.css";
 import axios from "axios";
 import * as Yup from "yup";
@@ -5,7 +6,6 @@ import Faq from "../faq/Faq";
 import { useFormik } from "formik";
 import Footer from "../footer/Footer";
 import Mainnav from "../navbar/Mainnav";
-import { Link } from "react-router-dom";
 import { BsTelephone } from "react-icons/bs";
 import Progres from "../../progress/Progres";
 import { FaInstagram } from "react-icons/fa";
@@ -13,15 +13,24 @@ import { RxTwitterLogo } from "react-icons/rx";
 import Numberdata from "../numberdata/Numberdata";
 import { MdAlternateEmail } from "react-icons/md";
 import { SlSocialFacebook } from "react-icons/sl";
+import MicroModal from "micromodal"; // es6 module
 import Testimonial from "../testinomial/Testimonial";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import React, { useMemo, useRef, useState } from "react";
 import { Faqq, numberData } from "../../arraydata/Arraydata";
 import Formcomp, { Formcomp1 } from "../formcomponent/Formcomp";
 
 const Homee = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState("");
   const [progressValue, setProgressValue] = useState(0);
   const formData = new FormData();
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    MicroModal.init();
+  });
 
   const config = {
     headers: {
@@ -121,6 +130,21 @@ const Homee = () => {
     }
   };
 
+  const openModal = (plan) => {
+    setSelectedPlan(plan);
+    setModalOpen(true);
+    MicroModal.show("modal-1");
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedPlan(""); // Reset the selected plan
+  };
+
+  // const handleBackToGold = () =>{
+  //   navigate('/')
+  // }
+
   return (
     <>
       <ToastContainer
@@ -182,7 +206,7 @@ const Homee = () => {
             <div className="pricing-gold">
               <div className="pricing-section">
                 <div className="pricing-h5-div">
-                  <h5 className="pricing-h5">Gold</h5>
+                  <h5 className="pricing-h5">Expert</h5>
                 </div>
                 <div className="pricing-h4-div">
                   <h4 className="pricing-h4">
@@ -209,12 +233,14 @@ const Homee = () => {
                 </div>
                 <div className="pricing-button-div">
                   <button
-                    onClick={goldClick}
+                    onClick={() => {
+                      openModal("Expert");
+                      goldClick();
+                    }}
                     className="pricing-btnn"
                     type="button"
                   >
-                    {" "}
-                    Get 14 Days Free Trial
+                    Coming Soon....
                   </button>
                 </div>
               </div>
@@ -222,7 +248,7 @@ const Homee = () => {
             <div className="pricing-silver">
               <div className="pricing-section">
                 <div className="pricing-h5-div">
-                  <h5 className="pricing-h5">Silver</h5>
+                  <h5 className="pricing-h5">Gold</h5>
                 </div>
                 <div className="pricing-h4-div">
                   <h4 className="pricing-h4">
@@ -249,11 +275,13 @@ const Homee = () => {
                 </div>
                 <div className="pricing-button-div">
                   <button
-                    onClick={silverClick}
+                    onClick={() => {
+                      openModal("Gold");
+                      silverClick();
+                    }}
                     className="pricing-btnn"
                     type="button"
                   >
-                    {" "}
                     Get 14 Days Free Trial
                   </button>
                 </div>
@@ -289,12 +317,14 @@ const Homee = () => {
                 </div>
                 <div className="pricing-button-div">
                   <button
-                    onClick={platinumClick}
+                    onClick={() => {
+                      openModal("Platinum");
+                      platinumClick()
+                    }}
                     className="pricing-btnn"
                     type="button"
                   >
-                    {" "}
-                    Get 14 Days Free Trial
+                    Coming Soon....
                   </button>
                 </div>
               </div>
@@ -457,6 +487,59 @@ const Homee = () => {
           para1="Everything you need to convert, engage, and retain more users."
         />
         <Footer />
+      </div>
+
+      {/*----------------------Modal Stretegy------------------------- */}
+      <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+          <div
+            class="modal__container"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-1-title"
+          >
+            <header class="modal__header">
+              <h2 class="modal__title" id="modal-1-title">
+                {selectedPlan}
+              </h2>
+              <button
+                class="modal__close"
+                aria-label="Close modal"
+                data-micromodal-close
+              ></button>
+            </header>
+            <main class="modal__content" id="modal-1-content" style={{padding:'1rem'}}>
+              <>
+                {selectedPlan === "Expert" && (
+                  <>
+                    <div style={{padding:'1rem'}} >
+                    <div>Coming Soon ....</div>
+                    <button class="modal__btn modal__btn-primary"
+                      onClick={() => navigate('/')}
+                    >
+                      Gold plan
+                    </button>
+                    </div>
+                  </>
+                )}
+                {selectedPlan === "Gold" && "This is the Gold plan"}
+                {selectedPlan === "Platinum" && <div>Coming Soon ....</div>}
+              </>
+            </main>
+            <footer class="modal__footer">
+              <button class="modal__btn modal__btn-primary">
+                Subscribe Strategy
+              </button>
+              <button
+                class="modal__btn"
+                data-micromodal-close
+                aria-label="Close this dialog window"
+              >
+                Close
+              </button>
+            </footer>
+          </div>
+        </div>
       </div>
     </>
   );
