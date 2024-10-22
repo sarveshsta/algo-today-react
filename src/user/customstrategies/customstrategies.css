@@ -362,3 +362,34 @@
     
   }
 }
+
+.multiplier-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px;
+}
+
+.multiplier-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.multiplier-input {
+  border: 2px solid #00a0e4; /* Light blue border */
+  border-radius: 20px;
+  padding: 5px 20px; /* Adjust padding for better styling */
+  width: 100px; /* Adjust the width as per your need */
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 500;
+  color: #6e6e6e; /* Grey text */
+}
+
+.multiplier-input:focus {
+  outline: none;
+  border-color: #007bb5; /* Darker blue on focus */
+}
+
