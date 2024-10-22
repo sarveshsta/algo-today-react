@@ -612,56 +612,7 @@ const CustomStrategies = () => {
                     // onChange={handleChange}
                   />
                 </div>
-                <div className="multiplier-container">
-                  <label className="multiplier-label">Multiplier</label>
-                  <input
-                    className="multiplier-input"
-                    type="number"
-                    step="0.01"
-                    // value={value}
-                    // onChange={handleChange}
-                  />
-                </div>
-                <div className="multiplier-container">
-                  <label className="multiplier-label">Multiplier</label>
-                  <input
-                    className="multiplier-input"
-                    type="number"
-                    step="0.01"
-                    // value={value}
-                    // onChange={handleChange}
-                  />
-                </div>
-                <div className="multiplier-container">
-                  <label className="multiplier-label">Multiplier</label>
-                  <input
-                    className="multiplier-input"
-                    type="number"
-                    step="0.01"
-                    // value={value}
-                    // onChange={handleChange}
-                  />
-                </div>
-                <div className="multiplier-container">
-                  <label className="multiplier-label">Multiplier</label>
-                  <input
-                    className="multiplier-input"
-                    type="number"
-                    step="0.01"
-                    // value={value}
-                    // onChange={handleChange}
-                  />
-                </div>
-                <div className="multiplier-container">
-                  <label className="multiplier-label">Multiplier</label>
-                  <input
-                    className="multiplier-input"
-                    type="number"
-                    step="0.01"
-                    // value={value}
-                    // onChange={handleChange}
-                  />
-                </div>
+
                 <div className="multiplier-container">
                   <label className="multiplier-label">Multiplier</label>
                   <input
