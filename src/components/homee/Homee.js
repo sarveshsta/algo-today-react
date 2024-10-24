@@ -26,7 +26,8 @@ const Homee = () => {
   const [progressValue, setProgressValue] = useState(0);
   const formData = new FormData();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const targetDivRef = useRef(null);
 
   useEffect(() => {
     MicroModal.init();
@@ -141,9 +142,12 @@ const Homee = () => {
     setSelectedPlan(""); // Reset the selected plan
   };
 
-  // const handleBackToGold = () =>{
-  //   navigate('/')
-  // }
+  const handleButtonClick = () => {
+    // Scroll to the div
+    if (targetDivRef.current) {
+      targetDivRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <>
@@ -195,8 +199,7 @@ const Homee = () => {
           </div>
           <div className="pricing-section-para">
             <p className="para-lorem">
-              Check our trading solutions and membership options below, and
-              basic details about trading and strategy.
+              Pricing Options for Our Algorithmic Trading Platform.
             </p>
           </div>
           <div className="pricing-section-track">
@@ -209,7 +212,7 @@ const Homee = () => {
                   <h5 className="pricing-h5">Expert</h5>
                 </div>
                 <div className="pricing-h4-div">
-                  <h4 className="pricing-h4">
+                  <h4 className="pricing-h4" style={{ filter: "blur(10px)" }}>
                     ₹19<span className="pricing-span"> /month</span>
                   </h4>
                 </div>
@@ -223,10 +226,12 @@ const Homee = () => {
                 <div className="pricing-orderlist-div">
                   <ol className="pricing-orderlist">
                     <li className="pricing-li">
-                      Full Access to Expert Strategy
+                      Access to core trading algorithms
                     </li>
-                    <li className="pricing-li">Make your Own strategy</li>
-                    <li className="pricing-li">Unlimited Trade</li>
+                    <li className="pricing-li">
+                      Access to core modifications only
+                    </li>
+                    <li className="pricing-li">Basic performance analytics</li>
                     <li className="pricing-li">High Security</li>
                     <li className="pricing-li">Free 50 algo coins</li>
                   </ol>
@@ -234,13 +239,14 @@ const Homee = () => {
                 <div className="pricing-button-div">
                   <button
                     onClick={() => {
-                      openModal("Expert");
+                      // openModal("Expert");
                       goldClick();
+                      handleButtonClick();
                     }}
                     className="pricing-btnn"
                     type="button"
                   >
-                    Coming Soon....
+                    Get Quote
                   </button>
                 </div>
               </div>
@@ -251,7 +257,7 @@ const Homee = () => {
                   <h5 className="pricing-h5">Gold</h5>
                 </div>
                 <div className="pricing-h4-div">
-                  <h4 className="pricing-h4">
+                  <h4 className="pricing-h4" style={{ filter: "blur(10px)" }}>
                     ₹49<span className="pricing-span"> /month</span>
                   </h4>
                 </div>
@@ -267,22 +273,31 @@ const Homee = () => {
                     <li className="pricing-li">
                       Full Access to Expert Strategy
                     </li>
-                    <li className="pricing-li">Make your Own strategy</li>
-                    <li className="pricing-li">Unlimited Trade</li>
-                    <li className="pricing-li">High Security</li>
-                    <li className="pricing-li">Free 50 algo coins</li>
+                    <li className="pricing-li"> All silver Plan features </li>
+                    <li className="pricing-li">8 Advanced algorithms access</li>
+                    <li className="pricing-li">
+                      Access to better modifications in algo
+                    </li>
+                    <li className="pricing-li">
+                      Comprehensive analytics and reporting tools
+                    </li>
+                    <li className="pricing-li">
+                      Priority support via email and chat{" "}
+                    </li>
+                    <li className="pricing-li">Free 2000 algo coins </li>
                   </ol>
                 </div>
                 <div className="pricing-button-div">
                   <button
                     onClick={() => {
-                      openModal("Gold");
+                      // openModal("Gold");
                       silverClick();
+                      handleButtonClick();
                     }}
                     className="pricing-btnn"
                     type="button"
                   >
-                    Get 14 Days Free Trial
+                    Get Quote
                   </button>
                 </div>
               </div>
@@ -293,7 +308,7 @@ const Homee = () => {
                   <h5 className="pricing-h5">Platinum</h5>
                 </div>
                 <div className="pricing-h4-div">
-                  <h4 className="pricing-h4">
+                  <h4 className="pricing-h4" style={{ filter: "blur(10px)" }}>
                     ₹99<span className="pricing-span"> /month</span>
                   </h4>
                 </div>
@@ -309,22 +324,32 @@ const Homee = () => {
                     <li className="pricing-li">
                       Full Access to Expert Strategy
                     </li>
-                    <li className="pricing-li">Make your Own strategy</li>
-                    <li className="pricing-li">Unlimited Trade</li>
-                    <li className="pricing-li">High Security</li>
-                    <li className="pricing-li">Free 50 algo coins</li>
+                    <li className="pricing-li">All Gold Plan features</li>
+                    <li className="pricing-li">
+                      Access to Custom algorithm development tailored to your
+                      needs
+                    </li>
+                    <li className="pricing-li">
+                      {" "}
+                      Real-time market updates on mail and WhatsApp
+                    </li>
+                    <li className="pricing-li">
+                      Dedicated account manager for personalized support{" "}
+                    </li>
+                    <li className="pricing-li">Free 5000 algo coins </li>
                   </ol>
                 </div>
                 <div className="pricing-button-div">
                   <button
                     onClick={() => {
-                      openModal("Platinum");
-                      platinumClick()
+                      // openModal("Platinum");
+                      platinumClick();
+                      handleButtonClick();
                     }}
                     className="pricing-btnn"
                     type="button"
                   >
-                    Coming Soon....
+                    Get Quote
                   </button>
                 </div>
               </div>
@@ -336,11 +361,15 @@ const Homee = () => {
           <div className="form-firstdiv">
             <h3 className="form-firstdiv-h3">Get in touch</h3>
             <p className="form-firstdiv-para">
-              Let’s get in touch! Tell us about you and what’s on your mind.
-              AlgoToday is here to help you.
+              In response to high traffic, we are prioritizing support for our
+              premium members. If you have already registered with AngelOne,
+              please complete the form for our services, and we will reach out
+              to you shortly. New AngelOne users may use referral code *JTJK*
+              for direct entry into our premium group. We appreciate
+              your understanding.
             </p>
           </div>
-          <div className="form-seconddiv-mainform">
+          <div className="form-seconddiv-mainform" ref={targetDivRef}>
             <div className="form-formdiv">
               <form className="formis-form" onSubmit={formik.handleSubmit}>
                 <div className="formdiv-h3">
@@ -446,7 +475,7 @@ const Homee = () => {
                 </div>
                 <div className="mapp-email-div">
                   <MdAlternateEmail className="mapp-phone-icon" />
-                  <h4 className="mapp-contact-h4">Support@algotoday.com</h4>
+                  <h4 className="mapp-contact-h4">info@algotoday.com</h4>
                 </div>
                 <div className="mapp-social-icons">
                   <div className="mapp-social-icons-div">
@@ -508,17 +537,22 @@ const Homee = () => {
                 data-micromodal-close
               ></button>
             </header>
-            <main class="modal__content" id="modal-1-content" style={{padding:'1rem'}}>
+            <main
+              class="modal__content"
+              id="modal-1-content"
+              style={{ padding: "1rem" }}
+            >
               <>
                 {selectedPlan === "Expert" && (
                   <>
-                    <div style={{padding:'1rem'}} >
-                    <div>Coming Soon ....</div>
-                    <button class="modal__btn modal__btn-primary"
-                      onClick={() => navigate('/')}
-                    >
-                      Gold plan
-                    </button>
+                    <div style={{ padding: "1rem" }}>
+                      <div>Coming Soon ....</div>
+                      <button
+                        class="modal__btn modal__btn-primary"
+                        onClick={() => navigate("/")}
+                      >
+                        Gold plan
+                      </button>
                     </div>
                   </>
                 )}

@@ -40,11 +40,11 @@ const Footer = (props) => {
             </div>
             <div className="footer-paraa">
               <p className="paa-para">
-                Lorem Ipsum has been the industry's <br />
-                standard dummy text ever since the 1500s, <br />
-                when an unknown printer took a galley of <br />
-                type and scrambled it to make a type <br />
-                specimen book.
+                At AlgoToday, we are redefining the investment
+                process—systematically, intelligently, and free from the
+                constraints of human emotion. Together, we navigate the
+                complexities of the market and unlock new avenues for
+                wealth creation.
               </p>
             </div>
             <div className="footer-icons-show">
@@ -66,23 +66,23 @@ const Footer = (props) => {
               </h4>
             </div>
             <div>
-              <Link className="linking" to='/about' >
+              <Link className="linking" to="/about">
                 <h4 className="footer-firstof-h4">About</h4>
               </Link>
             </div>
             <div>
-            <Link className="linking" to='/about' >
-              <h4 className="footer-firstof-h4">Features</h4>
+              <Link className="linking" to="/about">
+                <h4 className="footer-firstof-h4">Features</h4>
               </Link>
             </div>
             <div>
-            <Link className="linking" to='/about' >
-              <h4 className="footer-firstof-h4">Works</h4>
+              <Link className="linking" to="/about">
+                <h4 className="footer-firstof-h4">Works</h4>
               </Link>
             </div>
             <div>
-            <Link className="linking" to='/about' >
-              <h4 className="footer-firstof-h4">Career</h4>
+              <Link className="linking" to="/about">
+                <h4 className="footer-firstof-h4">Career</h4>
               </Link>
             </div>
           </div>
@@ -124,7 +124,7 @@ const Footer = (props) => {
               <h4 className="footer-firstof-h4">YoutubePlaylist</h4>
             </div>
           </div>
-          <div className="footer-content-div">
+          {/* <div className="footer-content-div">
             <div>
               <h4 id="inst-blue-col" className="footer-firstof-h4">
                 Install App
@@ -142,7 +142,7 @@ const Footer = (props) => {
                 src={require("../../assets/icons/Play Store.png")}
               />
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="footer-subb2">
           <h5 className="footer-firstof-h5">

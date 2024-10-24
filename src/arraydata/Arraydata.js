@@ -98,41 +98,55 @@ export const footerData = [
 
 export const sliderData = [
   {
-    img: <img className="imagee" src={require("../assets/icons/Image.png")} />,
-    text1: "Esther Hills",
-    para1: "Lead Intranet Technician",
+    img: <img className="imagee" src={require("../assets/icons/userimg.png")} />,
+    text1: "Raghav",
+    // para1: "Lead Intranet Technician",
     para2:
-      "I've been using Algo Today for a while now, and I have to say it's made options trading a whole lot simpler. I used to stress over every market move but now I can relax knowing the algorithms are working for me.",
+      "Using this algotrading app has given me more time to enjoy life. I don’t have to constantly monitor the markets, and I still see great results!.",
   },
   {
-    img: <img className="imagee" src={require("../assets/icons/Image.png")} />,
-    text1: "Esther Hills",
-    para1: "Lead Intranet Technician",
+    img: <img className="imagee" src={require("../assets/icons/Group 48095916.png")} />,
+    text1: "Sarvesh",
+    // para1: "Lead Intranet Technician",
     para2:
-      "Algo Today has been a game-changer for me. I'm not a finance person, but this platform makes it easy to trade wisely. I love how it takes the guesswork out of trading.",
+      "I've tried several trading apps, but this one stands out. The algorithms really seem to pick up on trends I would have missed. It’s made a real difference.",
+  },
+  {
+    img: <img className="imagee" src={require("../assets/icons/Group 48095916.png")} />,
+    text1: "Sarvesh",
+    // para1: "Lead Intranet Technician",
+    para2:
+      "I've tried several trading apps, but this one stands out. The algorithms really seem to pick up on trends I would have missed. It’s made a real difference.",
+  },
+  {
+    img: <img className="imagee" src={require("../assets/icons/Group 48095916.png")} />,
+    text1: "Sarvesh",
+    // para1: "Lead Intranet Technician",
+    para2:
+      "I've tried several trading apps, but this one stands out. The algorithms really seem to pick up on trends I would have missed. It’s made a real difference.",
   },
 ];
 
 export const aboutcardData = [
   {
-    text1: "Mission",
+    text1: "Precision Through Data-Driven Insights",
     para1:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.",
+      "Success in trading hinges on informed decisions. Our sophisticated algorithms ensure that trading actions are guided by objective analysis, fostering a disciplined approach free from the unpredictability of human emotions.",
   },
   {
-    text1: "Building Pathways",
+    text1: "Seize Opportunities with Automated Excellence",
     para1:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.",
+      "Our cutting-edge automated trading solutions are designed to enhance performance by minimizing risk and maximizing growth potential. By removing emotional influences, we enable users to efficiently capitalize on market opportunities, cultivating a systematic investment strategy.",
   },
   {
-    text1: "Building Capacity",
+    text1: "Transparency You Can Trust",
     para1:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+      "We prioritize open communication and comprehensive insights into our trading strategies and performance metrics. This unwavering commitment to transparency fosters trust within our investment community, empowering users to make informed decisions confidently.",
   },
   {
-    text1: "Building Awareness",
+    text1: "Empowering Investors with User-Centric Innovation",
     para1:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.",
+      "Our user-friendly platform caters to both seasoned traders and newcomers, providing a professional environment for all. We aim to cultivate a space where individuals can achieve financial independence and peace of mind, transforming the investment experience.",
   },
 ];
 

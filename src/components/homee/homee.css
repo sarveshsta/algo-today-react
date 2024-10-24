@@ -380,6 +380,7 @@
   justify-content: space-evenly;
   align-items: center;
   align-self: center;
+  height: -webkit-fill-available;
 
   .pricing-gold {
     display: grid;
@@ -398,6 +399,7 @@
     text-align: left;
     padding: 1rem;
     width: 25%;
+    height: 100%;
   }
   .pricing-silver {
     background-image: url("../../assets/icons/Rectangle\ 3013.png") !important;
@@ -415,6 +417,7 @@
     text-align: left;
     padding: 1rem;
     width: 25%;
+    height: 100%;
   }
   .pricing-platinum {
     background-image: url("../../assets/icons/Rectangle\ 3014.png") !important;
@@ -432,6 +435,7 @@
     text-align: left;
     padding: 1rem;
     width: 25%;
+    height: 100%;
   }
 }
 .pricing-section {
