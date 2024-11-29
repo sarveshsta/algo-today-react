@@ -38,14 +38,14 @@ const Strategy = () => {
         </div>
       </div>
 
-      <img
+      {/* <img
         className="obj-img1"
         src={require("../../assets/icons/Objects.png")}
       />
       <img
         className="obj-img2"
         src={require("../../assets/icons/Objects (1).png")}
-      />
+      /> */}
     </div>
   );
 };

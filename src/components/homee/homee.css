@@ -516,7 +516,7 @@
 .pricing-platinum {
 }
 .progress-barr {
-  width: 80%;
+  /* width: auto !important; */
   /* background-color: black; */
   height: 2rem;
   transition: all 1s ease-out;
@@ -783,20 +783,29 @@
   }
   .pricing-section-mainprice {
     .pricing-gold {
-      display: block;
-      width: -webkit-fill-available;
+      /* display: block;
+      width: -webkit-fill-available; */
     }
     .pricing-silver {
-      display: block;
-      width: -webkit-fill-available;
+      /* display: block;
+      width: -webkit-fill-available; */
     }
     .pricing-platinum {
-      display: block;
-      width: -webkit-fill-available;
+      /* display: block;
+      width: -webkit-fill-available; */
     }
   }
   .pricing-section {
     gap: 0;
+  }
+
+  .pricing-section-track{
+    .sc-gLDymS.fyUHRn{
+     width: 100%;
+     .fyUHRn.progress-bar{
+      width:auto !important;
+     }
+    } 
   }
   .pricing-h5-div {
   }
@@ -852,5 +861,8 @@
     left: 16rem;
     bottom: 4.2rem;
     position: static;
+  }
+  .inputsss{
+    width: auto;
   }
 }

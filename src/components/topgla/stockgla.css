@@ -131,3 +131,41 @@
 
 .stockchang {
 }
+
+@media screen and (max-width: 768px) {
+  .Detailnav {
+     margin-left: 0;
+  }
+
+  .StackCard{
+    width: auto;
+  }
+  
+  .glamain {
+    flex-wrap: wrap;
+  }
+
+  .glasub{
+    flex-wrap: wrap;
+  }
+  
+}
+
+@media screen and (max-width: 426px) {
+  .Detailnav {
+     margin-left: 0;
+  }
+  
+  .StackCard{
+    width: auto;
+  }
+  
+  .glamain {
+    
+  }
+
+  .glasub{
+    flex-wrap: wrap;
+  }
+  
+}

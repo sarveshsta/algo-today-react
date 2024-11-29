@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect } from "react";
 import Home from "./user/home/Home";
 import Login from "./user/login/Login";
 import About from "./user/about/About";
@@ -22,7 +22,6 @@ import Mystrategies from "./makestrategies/Mystrategies";
 import UserHistory from "./user/userhistory/UserHistory";
 import ManageTrading from "./user/managetrading/ManageTrading";
 import {
-  BrowserRouter,
   Route,
   Routes,
   HashRouter,
@@ -33,10 +32,29 @@ import CustomStrategies from "./user/customstrategies/CustomStrategies";
 import { ToastContainer } from "react-toastify";
 import { Circles } from "react-loader-spinner";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 function App() {
   const loading = useSelector((store) => store?.auth?.loading);
   const loading_Stretegy = useSelector((store) => store?.index?.loading);
+
+  useEffect(() => {
+    try {
+      const res = axios.post("", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (res.data.success === true) {
+        return res;
+      } else {
+      }
+    } catch (error) {
+      return error;
+    }
+  },[])
 
   return (
     <>

@@ -188,3 +188,10 @@
     /* position: relative; */
     left: 17vh;
 }
+
+@media screen and (max-width: 768px) {
+    .MainBox {
+        margin-left: 0;
+        grid-template-columns: auto;
+    }
+}

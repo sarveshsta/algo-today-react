@@ -77,9 +77,11 @@
   border: none;
 } */
 
-@media screen and (max-width: 620px) {
-           .MyStrategy .strategy-1 .strhead .strpara .strategybtnn .btn {
+@media screen and (max-width: 768px) {
+           .MyStrategy{
             font-size: 16px !important;
+            margin-left: 0;
+            flex-wrap: wrap;
             /* grid-template-columns: max-content; */
            }
 }
