@@ -202,7 +202,7 @@ const Contact = () => {
                 </div>
                 <div className="mapp-email-div">
                   <MdAlternateEmail className="mapp-phone-icon" />
-                  <h4 className="mapp-contact-h4">Support@algotoday.com</h4>
+                  <h4 className="mapp-contact-h4">algotoday.com</h4>
                 </div>
                 <div className="mapp-social-icons">
                   <div className="mapp-social-icons-div">

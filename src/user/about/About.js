@@ -76,10 +76,7 @@ const About = () => {
       <div className="about-mission">
         <h3 className="mission-heading">Our Mission</h3>
         <p className="mission-para">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
+        At AlgoToday, we are committed to transforming the trading landscape through advanced algorithmic solutions that eliminate the emotional biases inherent in human decision-making. Our platform empowers investors to pursue consistent growth with intelligent compounding strategies, allowing them to focus on long-term financial objectives with confidence.
         </p>
       </div>
       <div className="card-data-about">
@@ -98,7 +95,7 @@ const About = () => {
       </div>
       <div className="about-team-div">
         <div className="about-content">
-          <h3 className="about-h3">Meet our Team</h3>
+          <h3 className="about-h3">Precision Through Data-Driven Insights*</h3>
           <p className="about-para">
             Navigate the markets with confidence using our algorithmic trading
             platform, where precision meets performance. Empower your financial
@@ -106,7 +103,7 @@ const About = () => {
           </p>
         </div>
         <div className="team-image">
-          <div className="team-img">
+          {/* <div className="team-img">
             <img
               className="people-img"
               src={require("../../assets/icons/1.png")}
@@ -117,7 +114,7 @@ const About = () => {
               className="people-img"
               src={require("../../assets/icons/1.png")}
             />
-          </div>
+          </div> */}
           <div className="team-img">
             <img
               className="people-img"
@@ -125,11 +122,11 @@ const About = () => {
             />
           </div>
           <div className="team-img">
-            {hover && (
+            {/* {hover && (
               <div className="hover-divv">
                 <p className="waanshowtext">She is the CEO</p>
               </div>
-            )}
+            )} */}
             <img
               onMouseEnter={(e) => onHover(e)}
               onMouseLeave={(e) => onHoverOver(e)}
@@ -149,12 +146,12 @@ const About = () => {
               src={require("../../assets/icons/6.png")}
             />
           </div>
-          <div className="team-img">
+          {/* <div className="team-img">
             <img
               className="people-img"
               src={require("../../assets/icons/1.png")}
             />
-          </div>
+          </div> */}
         </div>
       </div>
       <Testimonial />

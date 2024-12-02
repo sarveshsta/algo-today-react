@@ -380,6 +380,7 @@
   justify-content: space-evenly;
   align-items: center;
   align-self: center;
+  height: -webkit-fill-available;
 
   .pricing-gold {
     display: grid;
@@ -398,6 +399,7 @@
     text-align: left;
     padding: 1rem;
     width: 25%;
+    height: 100%;
   }
   .pricing-silver {
     background-image: url("../../assets/icons/Rectangle\ 3013.png") !important;
@@ -415,6 +417,7 @@
     text-align: left;
     padding: 1rem;
     width: 25%;
+    height: 100%;
   }
   .pricing-platinum {
     background-image: url("../../assets/icons/Rectangle\ 3014.png") !important;
@@ -432,6 +435,7 @@
     text-align: left;
     padding: 1rem;
     width: 25%;
+    height: 100%;
   }
 }
 .pricing-section {
@@ -512,19 +516,19 @@
 .pricing-platinum {
 }
 .progress-barr {
-  width: 80%;
+  /* width: auto !important; */
   /* background-color: black; */
   height: 2rem;
   transition: all 1s ease-out;
 }
 .progress-barr::-webkit-progress-bar {
-  background: linear-gradient(98.24deg, #6DDCFF 0%, #7F60F9 100%);
+  background: linear-gradient(98.24deg, #6ddcff 0%, #7f60f9 100%);
   transition: all 1s ease-out;
   /* default background color */
 }
 /* CSS to style the progress bar value color */
 .progress-barr::-webkit-progress-value {
-  background: linear-gradient(98.24deg, #6DDCFF 0%, #7F60F9 100%);
+  background: linear-gradient(98.24deg, #6ddcff 0%, #7f60f9 100%);
   transition: all 1s ease-out;
   /* default value color */
 }
@@ -572,7 +576,7 @@
   background: #3498db;
   gap: 1rem;
   padding: 1rem;
-  width: 70%;
+  width: -webkit-fill-available;
   border-radius: 30px;
 }
 .formis-form {
@@ -606,7 +610,7 @@
   border: 1.5px solid #78a5c3;
   border-radius: 20px;
   height: 3rem;
-  width: 20rem;
+  width: -webkit-fill-available;
   color: white;
   outline: none;
 }
@@ -640,7 +644,7 @@
   padding: 1rem;
   color: white;
   border-radius: 0px 30px 30px 0px;
-  /* width: 30%; */
+  width: -webkit-fill-available;
 }
 .mapp-contact-div {
 }
@@ -703,6 +707,25 @@
   gap: 1rem;
 }
 
+.pricing-section-track {
+  .sc-gLDymS.fyUHRn {
+    width: 100%;
+    justify-items: center;
+    .fyUHRn.progress-bar {
+      width: auto !important;
+    }
+  }
+}
+
+@media screen and (max-width: 874px) {
+  .pricing-section-track {
+  .sc-gLDymS.fyUHRn {
+    .progress-bar {
+      width: -webkit-fill-available !important;
+    }
+  }
+}
+}
 /*---------------------------Responsive CSS----------------- */
 @media screen and (max-width: 768px) {
   .web-home-navbar-section {
@@ -775,24 +798,33 @@
     font-size: 1.2rem;
   }
   .form-inputs-main {
-    display: block;
+    /* display: block; */
   }
   .pricing-section-mainprice {
     .pricing-gold {
-      display: block;
-      width: -webkit-fill-available;
+      /* display: block;
+      width: -webkit-fill-available; */
     }
     .pricing-silver {
-      display: block;
-      width: -webkit-fill-available;
+      /* display: block;
+      width: -webkit-fill-available; */
     }
     .pricing-platinum {
-      display: block;
-      width: -webkit-fill-available;
+      /* display: block;
+      width: -webkit-fill-available; */
     }
   }
   .pricing-section {
     gap: 0;
+  }
+
+  .pricing-section-track {
+    .sc-gLDymS.fyUHRn {
+      width: 100%;
+      .fyUHRn.progress-bar {
+        width: auto !important;
+      }
+    }
   }
   .pricing-h5-div {
   }
@@ -849,4 +881,38 @@
     bottom: 4.2rem;
     position: static;
   }
+  .inputsss {
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .form-formdiv {
+    display: grid;
+    display: -moz-grid;
+    display: -ms-grid;
+    justify-content: center;
+    background: #3498db;
+    gap: 1rem;
+    padding: 1rem;
+    width: -webkit-fill-available;
+    border-radius: 30px;
+}
+  .footer-newsletter{
+    display: none;
+  }
+  .form-inputs-main{
+    
+  }
+  .form-firstdiv-para {
+    font-size: 10px;
+}
+
+.formis-form{
+
+}
+}
+
+@media screen and (max-width: 340px) {
+
 }

@@ -21,12 +21,12 @@ const Mainnav = () => {
               </Link>
             </li>
             <li className="web-home-navbar-li">
-              <Link className="linking" to="/service">
+              <Link className="linking" to="/">
                 Services
               </Link>
             </li>
             <li className="web-home-navbar-li">
-              <Link className="linking" to="/contact-us">
+              <Link className="linking" to="/">
                 Contact Us
               </Link>
             </li>
