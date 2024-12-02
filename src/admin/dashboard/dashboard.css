@@ -686,3 +686,101 @@ footer.modal__footer {
 .micromodal-slide .modal__overlay {
   will-change: transform;
 }
+
+@media screen and (max-width: 768px) {
+  .userlist-div{
+    flex-wrap: wrap;
+    width: auto;
+  }
+  .admin-dashbord {
+  
+  }
+  
+  .admin-dash-horizontal-nav-maindiv {
+    margin-left: 0;
+    padding: 0;
+    padding-top: 2rem !important ;
+  }
+  
+  .dashbord-userlist-div{
+    margin-left: 0;
+  }
+
+  .subdiv2-h3{
+    font-size: 8px !important;
+  }
+  
+  .user-list-div2-subdiv2{
+    flex-direction: column;
+        width: -webkit-fill-available;
+  }
+
+  .div2-subdiv2-1{
+
+  }
+  
+  .dash-horizontal-nav-subdiv {
+  }
+  
+  #admin-dashboard-nav {
+  }
+  
+  #admin-dash-ul-nav {
+   
+  }
+  
+  .dash-hori-inp {
+
+  }
+  
+  .dash-hori-inp::placeholder {
+    
+  }
+  
+  .dash-hori-icon {
+  
+  }
+  
+  .dash-nav-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .dash-horizontal-nav-txtdiv {
+    text-align: center;
+    .dash-horizontal-nav-txt {
+        font-size: 0.8rem;
+        margin: 0;
+    }
+    .dash-horizontal-nav-para{
+      font-size: 0.6rem;
+    }    
+}
+  
+  .dash-horizontal-nav-ul {
+    margin-top: 2rem;
+    padding: 0;
+  }
+  
+  .dash-horizontal-nav-li {
+  }
+  
+  .dash-horizontal-nav-divofli {
+    
+  }
+  
+  .dash-horizontal-nav-2nddiv {
+    width: -webkit-fill-available;
+    flex-direction: column;
+  }
+  
+  .dash-horizontal-nav-imgdiv {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 640px){
+  .userlist-ui{
+    flex-direction: column;
+  }
+}
