@@ -156,7 +156,7 @@ h1#lg {
   top: 0px;
   left: 0;
   width: auto;
-  z-index: 1;
+  z-index: 99;
 
   .logo {
     text-align: -webkit-center;
@@ -175,7 +175,7 @@ h1#lg {
     /* border: 2px solid; */
     width: -moz-fit-content;
     width: fit-content;
-    height: -webkit-fill-available;
+    /* height: -webkit-fill-available; */
 
     .iconhome {
       display: -webkit-box;

@@ -239,4 +239,7 @@
   .testimonial-Slider-div {
     margin-bottom: 0;
   }
+  .blue-abso-color2{
+    width: -webkit-fill-available !important;
+  }
 }
