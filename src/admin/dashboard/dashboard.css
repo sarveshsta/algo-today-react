@@ -785,6 +785,14 @@ footer.modal__footer {
 }
 
 @media screen and (max-width: 640px){
+  .wanna-flex-do-it {
+    display: grid;
+    display: -ms-grid;
+    display: -moz-grid;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+  }
   .userlist-ui{
     flex-direction: column;
     padding: 0;

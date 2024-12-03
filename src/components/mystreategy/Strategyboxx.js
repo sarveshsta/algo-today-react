@@ -3,9 +3,7 @@
       <div className="subbox" id={id}>
         <h2 className="boxHeading">{title}</h2>
         <p className="boxpara">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-          interdum erat vel quam tincidunt, in luctus ex convallis. Nulla
-          facilisi. Sed vestibulum velit sit amet ante tincidunt scelerisque.
+          This Strategy will help you to trade on your end, Each stretegy has unique parameters like RSI, index, Pivot are many more. This indicators and strategy parameters will help you to gain a good profit
         </p>
         <button
           type="button"
