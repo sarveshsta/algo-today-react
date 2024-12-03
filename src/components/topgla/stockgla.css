@@ -32,7 +32,7 @@
   border-radius: 31px;
   background: #f5f5f5;
   margin-left: 3vh;
-  height: -webkit-fill-available;
+  /* height: -webkit-fill-available; */
   background: rgb(231 229 229);
   margin-top: 10px;
 }

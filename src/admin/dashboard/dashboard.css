@@ -697,7 +697,7 @@ footer.modal__footer {
   }
   
   .admin-dash-horizontal-nav-maindiv {
-    margin-left: 0;
+    margin-left: 5%;
     padding: 0;
     padding-top: 2rem !important ;
   }
@@ -730,7 +730,7 @@ footer.modal__footer {
   }
   
   .dash-hori-inp {
-
+    width: -webkit-fill-available;
   }
   
   .dash-hori-inp::placeholder {
@@ -738,12 +738,16 @@ footer.modal__footer {
   }
   
   .dash-hori-icon {
-  
+    margin-right: 0.3rem;
   }
   
   .dash-nav-img {
     width: 50px;
     height: 50px;
+  }
+
+  .waana-flex-this-li{
+    margin-left: 0.5rem;
   }
 
   .dash-horizontal-nav-txtdiv {
@@ -760,6 +764,7 @@ footer.modal__footer {
   .dash-horizontal-nav-ul {
     margin-top: 2rem;
     padding: 0;
+    justify-content: space-evenly;
   }
   
   .dash-horizontal-nav-li {
@@ -782,5 +787,69 @@ footer.modal__footer {
 @media screen and (max-width: 640px){
   .userlist-ui{
     flex-direction: column;
+    padding: 0;
+    gap: 1rem;
   }
+}
+
+@media screen and (max-width: 460px){
+  .ofh3 {
+    font-size: 0.7rem;
+  }
+ 
+  .ofh4 {
+    font-size: 0.5rem;
+  }
+
+  .page-more-button {
+    font-size: 12px;
+    padding: 0 !important;
+  }
+}
+
+@media screen and (max-width: 360px){
+  .dash-hori-icon {
+    font-size: 1rem;
+  }
+  .user-list-div2 {
+    & .user-list-div2-subdiv1 {
+        .subdiv1-h3 {
+          font-size: 10px;
+        } 
+      }
+      }
+
+      .user-list-div2-subdiv2 {
+        flex-direction: column;
+        width: -webkit-fill-available;
+        .div2-subdiv2-1{
+        }
+        .subdiv2-h3{
+          line-height: normal !important;
+        }
+        .subdiv2-h4{
+          line-height: normal !important;
+        }
+    }
+
+    .dash-horizontal-nav-ul {
+      margin-top: 4rem !important;
+
+      .dash-horizontal-nav-imgdiv{
+        .dash-nav-img {
+          width: 25px;
+          height: 25px;
+      }
+      }
+
+      .dash-horizontal-nav-txtdiv{
+
+      }       
+      .dash-horizontal-nav-txt{
+        font-size: 0.4rem;
+      }
+      .dash-horizontal-nav-para{
+        font-size: 0.3rem;
+      }
+    }
 }
