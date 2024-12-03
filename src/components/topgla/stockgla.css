@@ -56,7 +56,7 @@
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  height: -webkit-fill-available;
+  height: max-content;
   width: -webkit-fill-available;
   border-radius: inherit;
   justify-content: space-evenly;
