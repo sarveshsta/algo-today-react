@@ -3,7 +3,7 @@ import butterup from "butteruptoasts";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { showToast } from "../../../utility";
 
-const userUrl = "http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8080";
+const userUrl = "https://fecf-2405-201-302a-d836-8112-7fa4-2a80-f129.ngrok-free.app";
 butterup.options.toastLife = 2000;
 
 //------------------ Mobile Authentication API---------------//
@@ -13,8 +13,7 @@ export const mobileAuthentication = createAsyncThunk(
     try {
       const res = await axios.post(`${userUrl}/request-otp/`, body, {
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          // "ngrok-skip-browser-warning": "true"
         },
       });
 
@@ -39,8 +38,7 @@ export const otpVerificationAPI = createAsyncThunk(
     try {
       const res = await axios.post(`${userUrl}/verify-otp/`, body, {
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          // "ngrok-skip-browser-warning": "true"
         },
       });
       if (res.data.success === true) {
@@ -64,8 +62,7 @@ export const signupAPI = createAsyncThunk(
     try {
       const res = await axios.post(`${userUrl}/signup/`, body, {
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          // "ngrok-skip-browser-warning": "true"
         },
       });
 
@@ -90,8 +87,7 @@ export const loginAPI = createAsyncThunk(
     try {
       const response = await axios.post(`${userUrl}/login/`, body, {
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          // "ngrok-skip-browser-warning": "true"
         },
       });
 
@@ -116,8 +112,7 @@ export const forgotAPI = createAsyncThunk(
     try {
       const response = await axios.post(`${userUrl}/update-password/`, body, {
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          // "ngrok-skip-browser-warning": "true"
         },
       });
       if (response.data.success === true) {
@@ -139,8 +134,7 @@ export const logoutAPI = createAsyncThunk("logout", async (body, thunkAPI) => {
   try {
     const response = await axios.post(`${userUrl}/logout/`, body, {
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+      //  "ngrok-skip-browser-warning": "true"
       },
     });
     if (response.data.success === true) {

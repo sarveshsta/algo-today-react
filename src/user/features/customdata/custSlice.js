@@ -48,17 +48,20 @@ const indexSlice = createSlice({
       state.error = action.payload;
     });
     builder.addCase(indexExpiryDataApi.fulfilled, (state, action) => {
+      console.log("action :",action);
+
       state.loading = false;
       state.indexExpiryDataApi = action.payload.data;
       state.Nifty = action.payload.data.data.filter((item) => {
-        if (item.expiry === "2024-03-13") {
-          if (
-            item.symbol === "BANKNIFTY13MAR2452500CE" ||
-            item.symbol === "BANKNIFTY13MAR2452500PE"
-          ) {
-            return item;
-          }
-        }
+        console.log("item :",item);
+        // if (item.expiry === "2024-03-13") {
+        //   if (
+        //     item.symbol === "BANKNIFTY13MAR2452500CE" ||
+        //     item.symbol === "BANKNIFTY13MAR2452500PE"
+        //   ) {
+        //     return item;
+        //   }
+        // }
       });
     });
     builder.addCase(indexExpiryDataApi.rejected, (state, action) => {
@@ -98,6 +101,7 @@ const indexSlice = createSlice({
       state.error = action.payload;
     });
     builder.addCase(getStrategyDataApi.fulfilled, (state, action) => {
+      console.log("pay", action.payload )
       state.loading = false;
       state.strategy = action.payload;
     });
