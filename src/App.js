@@ -22,10 +22,12 @@ import Mystrategies from "./makestrategies/Mystrategies";
 import UserHistory from "./user/userhistory/UserHistory";
 import ManageTrading from "./user/managetrading/ManageTrading";
 import {
+  createHashRouter,
   Route,
   Routes,
   HashRouter,
   Navigate,
+  RouterProvider,
 } from "react-router-dom";
 import Forgotpassword from "./user/forgotpassword/Forgotpassword";
 import CustomStrategies from "./user/customstrategies/CustomStrategies";
@@ -34,27 +36,34 @@ import { Circles } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
+const router = createHashRouter([
+  { path: "/", element: <Homee /> },
+  { path: "/mobile", element: <Mobile /> },
+  { path: "/login", element: <Login /> },
+  { path: "/wallet", element: <Wallet /> },
+  { path: "/about", element: <About /> },
+  { path: "/signup", element: <Signup /> },
+  { path: "/dashboard", element: <Dashbord /> },
+  { path: "/opendemate", element: <OpenDemat /> },
+  { path: "/refer&earn", element: <ReferEarn /> },
+  { path: "/linkbroker", element: <LinkBroker /> },
+  { path: "/admindashboard", element: <Dashboard /> },
+  { path: "/custom", element: <CustomStrategies /> },
+  { path: "/My-strategy", element: <Mystrategies /> },
+  { path: "/userhistory", element: <UserHistory /> },
+  { path: "/managetrading", element: <ManageTrading /> },
+  { path: "/service", element: <Service /> },
+  { path: "/contact-us", element: <Contact /> },
+  { path: "/forgotpassword", element: <Forgotpassword /> },
+  { path: "/newotp", element: <Newotp /> },
+  { path: "*", element: <Navigate to="/" /> }, // Handle unknown routes
+]);
+
+
+
 function App() {
   const loading = useSelector((store) => store?.auth?.loading);
   const loading_Stretegy = useSelector((store) => store?.index?.loading);
-
-  useEffect(() => {
-    try {
-      const res = axios.post("", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (res.data.success === true) {
-        return res;
-      } else {
-      }
-    } catch (error) {
-      return error;
-    }
-  },[])
 
   return (
     <>
@@ -122,6 +131,8 @@ function App() {
           />
         </div>
       )}
+
+    {/* <RouterProvider router={router} />; */}
 
       <HashRouter basename="/">
         <Routes>

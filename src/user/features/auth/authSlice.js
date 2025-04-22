@@ -49,7 +49,7 @@ const authSlice = createSlice({
        if (action.payload.status === 200) {
         const localSavePayload = {
           otp: action?.payload?.data?.data?.otp,
-          ...JSON.parse(action?.payload?.config?.data),
+          phone: action?.meta?.arg?.get("phone")
         };
         localStorage.setItem(
           "authdetail",

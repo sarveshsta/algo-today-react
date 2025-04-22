@@ -1,24 +1,26 @@
 import axios from "axios";
 import butterup from "butteruptoasts";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 import { showToast } from "../../../utility";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+
 
 // const tradeURL = "https://cf44-2405-201-302a-d836-39ab-e05c-f606-1bba.ngrok-free.app";
 const tradeURL = "http://localhost:8000";
 
+
 const headerconfig = {
   headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "true",
+    // "Content-Type": "application/json",  
   },
 };
 
 //------------------ Banknifty Index data API---------------//
 export const indexExpiryDataApi = createAsyncThunk(
   "bankniftyExpiry",
-  async (index,body, thunkAPI, ) => {
+  async (index, thunkAPI, ) => {
     try {
-      const response = await axios.get(`${tradeURL}/tokens/${index}`);
+      const response = await axios.get(`${tradeURL}/tokens/${index}/`,{ headers: headerconfig.headers });
       if (response.status == 200) {
         showToast("🎉 Hooray!", response.data.message, "success");
         return response;
@@ -36,7 +38,7 @@ export const indexStrikePriceDataApi = createAsyncThunk(
   "bankniftyStrikePrice",
   async ({ index, expiry }) => {
     try {
-      const response = await axios.get(`${tradeURL}/tokens/${index}/${expiry}`);
+      const response = await axios.get(`${tradeURL}/tokens/${index}/${expiry}/`,{ headers: headerconfig.headers });
       if (response.status == 200) {
         showToast("🎉 Hooray!", response.data.message, "success");
         return response;
@@ -58,8 +60,9 @@ export const getStrategyDataApi = createAsyncThunk(
       const res = await axios.post(
         `${tradeURL}/strategy/start_strategy`,
         body,
-        headerconfig
+        { headers: headerconfig.headers }
       );
+      console.log("res", res)
       if (res.data.success === true) {
         showToast("🎉 Hooray!", res.data.message, "success");
         return res.data;
@@ -106,8 +109,8 @@ export const stopStrategy = createAsyncThunk(
   async (strategy_id, thunkAPI) => {
     try {
       const res = await axios.get(
-        `${tradeURL}/strategy/stop_strategy/${strategy_id}`,
-        headerconfig
+        `${tradeURL}/strategy/stop_strategy/${strategy_id}/`,
+        { headers: headerconfig.headers }
       );
 
       if (res.status == 200) {
@@ -134,6 +137,30 @@ export const tradingData = createAsyncThunk(
       );
       if (res.status == 200) {
         showToast("🎉 Hooray!", res.data.detail, "success");
+        return res.data;
+      } else {
+        showToast("⚠️ Error", res.data.message, "error");
+        return thunkAPI.rejectWithValue(res.data.message);
+      }
+    } catch (error) {
+      showToast("⚠️ Error", error.message, "error");
+      return error;
+    }
+  }
+);
+
+//---------Live API Data ----------------------//
+export const getStrategyLiveData = createAsyncThunk(
+  "getStrategy-Data",
+  async (body, thunkAPI) => {
+    try {
+      const res = await axios.post(
+        `${tradeURL}/strategy/live_strategy_data/`,
+        body,
+        { headers: headerconfig.headers }
+      );
+      if (res.data.success === true) {
+        showToast("🎉 Hooray!", res.data.message, "success");
         return res.data;
       } else {
         showToast("⚠️ Error", res.data.message, "error");

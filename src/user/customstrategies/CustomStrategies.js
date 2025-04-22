@@ -91,8 +91,11 @@ const CustomStrategies = () => {
   const dispatch = useDispatch();
   const getStrategy = useSelector((state) => state?.index?.strategy || []);
 
+  console.log("getStrategy",getStrategy);
+  
+
   let IndexData = useSelector(
-    (state) => state?.index?.indexExpiryDataApi || []
+    (state) => state?.index?.indexExpiryDataApi.data || []
   );
   let StrikData = useSelector(
     (state) => state?.index?.indexStrikePriceDataApi || []
@@ -113,12 +116,17 @@ const CustomStrategies = () => {
     }
   }, [checkedCheckBox]);
 
+  // Function to generate random numeric strategy ID
+  const generateRandomStrategyId = () => {
+    return Math.floor(1 + Math.random() * 9).toString(); // Generates a 6-digit number
+  };
+
   const handleInputChange = (event, selectname) => {
     let { name } = selectname;
     setInputValues((prevState) => ({
       ...prevState,
-      user_id: "1",
-      strategy_id: "1",
+      user_id: generateRandomStrategyId(),
+      strategy_id: '1',
       index_list: prevState.index_list.map((item, index) => {
         if (index === 0) {
           // Update the strike_price in the first index_list object
@@ -164,7 +172,7 @@ const CustomStrategies = () => {
   }, [inputValues]);
 
   useEffect(() => {
-    if (getStrategy?.message === "strategy starts") {
+    if (getStrategy?.message === "Live strategy data fetched from WebSocket successfully") {
       setBtnDisable(false);
     }
   }, [getStrategy?.message]);
@@ -382,7 +390,7 @@ const CustomStrategies = () => {
             id="thirdddiv-btnn2"
             className="btn btn-primary"
             disabled={btnDisable}
-            onClick={() => dispatch(stopStrategy(getStrategy?.strategy_id))}
+            onClick={() => dispatch(stopStrategy("1"))}
           >
             Stop Strategy
           </button>
