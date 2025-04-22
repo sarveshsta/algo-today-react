@@ -3,7 +3,8 @@ import butterup from "butteruptoasts";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { showToast } from "../../../utility";
 
-const tradeURL = "https://b420-2405-201-301d-f0b0-554d-492c-820a-e3c0.ngrok-free.app";
+// const tradeURL = "https://cf44-2405-201-302a-d836-39ab-e05c-f606-1bba.ngrok-free.app";
+const tradeURL = "http://localhost:8000";
 
 const headerconfig = {
   headers: {
@@ -55,7 +56,7 @@ export const getStrategyDataApi = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const res = await axios.post(
-        `${tradeURL}/strategy/start_strateg`,
+        `${tradeURL}/strategy/start_strategy`,
         body,
         headerconfig
       );
