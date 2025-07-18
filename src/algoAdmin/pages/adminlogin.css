@@ -1,0 +1,125 @@
+/* Root background and centering */
+.adminlogin-root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+}
+
+/* Container card */
+.adminlogin-container {
+  max-width: 420px;
+  width: 100%;
+  padding: 2.5rem 2rem 2rem 2rem;
+  background: #fff;
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15), 0 1.5px 6px 0 rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+}
+
+.adminlogin-title {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: #18181b;
+  letter-spacing: -1px;
+}
+
+.adminlogin-subtitle {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 1.08rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.adminlogin-error {
+  margin-top: 0.8rem;
+  text-align: center;
+  font-size: 1rem;
+  color: #dc2626;
+  background: #fef2f2;
+  padding: 0.7rem 1rem;
+  border-radius: 0.6rem;
+  font-weight: 600;
+}
+
+.adminlogin-form {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.7rem;
+}
+
+.adminlogin-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.adminlogin-sronly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+.adminlogin-input {
+  border-radius: 0.7rem;
+  display: block;
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  border: 1.5px solid #d1d5db;
+  background: #f9fafb;
+  color: #18181b;
+  font-size: 1.08rem;
+  font-weight: 500;
+  transition: border 0.2s, box-shadow 0.2s;
+  outline: none;
+  margin-bottom: 0.1rem;
+}
+.adminlogin-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px #6366f133;
+  background: #fff;
+}
+.adminlogin-input::placeholder {
+  color: #a1a1aa;
+  opacity: 1;
+  font-weight: 400;
+}
+
+.adminlogin-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(90deg, #6366f1 60%, #4f46e5 100%);
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  box-shadow: 0 2px 8px 0 rgba(99,102,241,0.08);
+  margin-top: 0.2rem;
+}
+.adminlogin-button:hover,
+.adminlogin-button:focus {
+  background: linear-gradient(90deg, #4f46e5 60%, #6366f1 100%);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 16px 0 rgba(99,102,241,0.13);
+}
+form{
+    width: auto;
+}
