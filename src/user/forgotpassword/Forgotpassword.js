@@ -7,8 +7,8 @@ import Formcomp from "../../components/formcomponent/Formcomp";
 import Formbutton from "../../components/formcomponent/Formbutton";
 import {
   forgotAPI,
-  mobileAuthentication,
-  otpVerificationAPI,
+  emailAuthentication,
+  otpEmailVerificationAPI,
 } from "../features/auth/authAuthentication";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -26,25 +26,32 @@ const Forgotpassword = () => {
   const handleSubmit = useCallback(
     async (values) => {
       if (!logapicalled) {
-        formData.append("phone", values.number);
+        formData.append("email", values.email);
         try {
-          dispatch(mobileAuthentication(formData));
+          dispatch(emailAuthentication(formData));
           setLogApiCalled(true);
         } catch (error) {
         }
       } else if (!Otpapicalled) {
         formData.append("otp", values.otp);
-        formData.append("phone", values.number);
+        formData.append("email", values.email);
         try {
-          dispatch(otpVerificationAPI(formData));
+          dispatch(otpEmailVerificationAPI(formData));
           setOtpApiCalled(true);
         } catch (error) {
         }
       } else {
-        formData.append("password", values.password);
-        formData.append("confirmpassword", values.confirmPassword);
+        const data = {
+          email: values.email,
+          // otp: values.otp,
+          password: values.password,
+        };
         try {
-          dispatch(forgotAPI(formData));
+          const response = await dispatch(forgotAPI(data)).unwrap();
+          if (response.success === true) {
+            console.log("Password Update successful");
+            navigate("/login");
+          }
         } catch (error) {
         }
       }
@@ -54,30 +61,34 @@ const Forgotpassword = () => {
 
   const formik = useFormik({
     initialValues: {
-      number: "",
+      email: "",
       otp: "",
       password: "",
       confirmpassword: "",
     },
     validationSchema: Yup.object({
-      number: Yup.string()
-        .matches(/^[0-9]{10}$/, "Enter a valid Number")
-        .required("Mobile Number is required"),
+      email: Yup.string()
+        .matches(
+          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+          "Enter Valid Email"
+        )
+        .email("Invalid email address")
+        .required("Email is required"),
       otp: Yup.string()
         .matches(/^[0-9]{6}$/, "Enter a valid OTP")
-        .when("number", {
-          is: (number) => number && logapicalled, // Validate otp only when logapicalled is true
+        .when("email", {
+          is: (email) => email && logapicalled, // Validate otp only when logapicalled is true
           then: () => Yup.string().required("OTP is required"),
         }),
       password: Yup.string()
-      .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
+        .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
         .when("otp", {
           is: (otp) => otp && Otpapicalled,
           then: () => Yup.string().required("Password is required"),
         }),
       confirmpassword: Yup.string()
-      .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
-      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+        .matches(/^[a-zA-Z]+$/, "No Number, i am Sorry")
+        .oneOf([Yup.ref('password'), null], 'Passwords must match')
         .when("otp", {
           is: (otp) => otp && Otpapicalled,
           then: () => Yup.string().required("Confirm Password is required"),
@@ -131,17 +142,16 @@ const Forgotpassword = () => {
                 {!logapicalled && (
                   <>
                     <Formcomp
-                      type="text"
-                      placeholder="Mobile Number"
-                      name="number"
+                      type="email"
+                      placeholder="Email"
+                      name="email"
                       onChange={formik?.handleChange}
                       onBlur={formik?.handleBlur}
-                      value={formik?.values?.number}
-                      maxLength="10"
+                      value={formik?.values?.email}
                     />
-                    {formik?.touched?.number && formik?.errors?.number ? (
+                    {formik?.touched?.email && formik?.errors?.email ? (
                       <div className="error-message" style={{ color: "red" }}>
-                        {formik?.errors?.number}
+                        {formik?.errors?.email}
                       </div>
                     ) : null}
 

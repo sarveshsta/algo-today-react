@@ -1,0 +1,79 @@
+.pageBg {
+  min-height: 100%;
+  width: 100%;
+  background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+.formWrap {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  width: 100%;
+  max-width: 520px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.titleStyle {
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #2563eb;
+  text-align: center;
+  letter-spacing: -1px;
+}
+.labelStyle {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #2c3e50;
+}
+.inputStyle {
+  width: 100%;
+  padding: 0.7rem 1.1rem;
+  border-radius: 0.7rem;
+  border: 1px solid #d1d5db;
+  margin-bottom: 0;
+  font-size: 1.08rem;
+  background: #f8fafc;
+  color: #222;
+  outline: none;
+  box-sizing: border-box;
+}
+.textareaStyle {
+  min-height: 80px;
+  resize: vertical;
+}
+.btnWrap {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 10px;
+}
+.btnStyle {
+  background: linear-gradient(90deg, #2563eb 0%, #3498db 100%);
+  color: #fff;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 0.9rem 2.2rem;
+  font-weight: 700;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px 0 rgba(52, 152, 219, 0.08);
+  letter-spacing: 0.5px;
+}
+.loaderStyle {
+  margin: 1.5rem auto;
+  display: block;
+  color: #2563eb;
+  font-weight: 600;
+  font-size: 1.1rem;
+}

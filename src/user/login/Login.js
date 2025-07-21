@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useEffect} from "react";
 import * as Yup from "yup";
 import "../signup/signup.css";
 import { useFormik } from "formik";
@@ -14,21 +14,28 @@ const Login = () => {
   const navigate = useNavigate();
 
   const auth = useSelector((state) => state?.auth?.user?.data);
+  const success = auth?.success;
 
+  useEffect(() => {
+    if (success === true) {
+      toast.success("Login successful!");
+      navigate("/dashboard");
+    }
+  }, [success, navigate]);
   const formik = useFormik({
     initialValues: {
-      phone: "",
-      otp: "",
+      email: "",
+      // otp: "",
       password: "",
       // termsCheckbox: false,
     },
     validationSchema: Yup.object({
-      phone: Yup.string()
-        .matches(/^[0-9]{10}$/, "Enter a valid Number")
-        .required("Mobile Number is required"),
-      otp: Yup.string()
-        .matches(/^[0-9]{6}$/, "Enter a valid OTP")
-        .required("OTP is required"),
+      email: Yup.string()
+        .email("Enter a valid Email")
+        .required("Email is required"),
+      // otp: Yup.string()
+      //   .matches(/^[0-9]{6}$/, "Enter a valid OTP")
+      //   .required("OTP is required"),
       password: Yup.string()
         .min(6, "Password must be at least 6 characters")
         .required("Password is required"),
@@ -38,13 +45,9 @@ const Login = () => {
       // ),
     }),
     onSubmit: (values) => {
-      dispatch(loginAPI(values));
-
-      if (auth?.success === true) {
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 3000);
-      }
+      const result = dispatch(loginAPI(values));
+      console.log(result, "result")
+      
     },
   });
 
@@ -72,24 +75,23 @@ const Login = () => {
           <div className="form-section">
             <div className="signup-seconddiv">
               <h2 className="signup-form-h2">Login</h2>
-              <p className="signup-form-small-text">Glad you’re back.!</p>
+              <p className="signup-form-small-text">Glad you're back.!</p>
               <form className="form-form" onSubmit={formik.handleSubmit}>
                 <Formcomp
-                  type="text"
-                  placeholder="Mobile Number"
-                  name="phone"
+                  type="email"
+                  placeholder="Email"
+                  name="email"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.phone}
-                  maxLength="10"
+                  value={formik.values.email}
                 />
-                {formik.touched.phone && formik.errors.phone ? (
+                {formik.touched.email && formik.errors.email ? (
                   <div className="error-message" style={{ color: "red" }}>
-                    {formik.errors.phone}
+                    {formik.errors.email}
                   </div>
                 ) : null}
 
-                <Formcomp
+                {/* <Formcomp
                   type="text"
                   placeholder="Enter OTP"
                   name="otp"
@@ -102,7 +104,7 @@ const Login = () => {
                   <div className="error-message" style={{ color: "red" }}>
                     {formik.errors.otp}
                   </div>
-                ) : null}
+                ) : null} */}
 
                 <Formcomp
                   type="password"
@@ -141,7 +143,7 @@ const Login = () => {
                 <Link className="linking" to="/forgotpassword">
                   Forgot Password?
                 </Link>
-                <Link className="linking" to="/signup">
+                <Link className="linking" to="/mobile">
                    Signup
               </Link>
               </p>

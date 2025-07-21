@@ -8,22 +8,42 @@ import { tradeHistoryApi } from "../features/customdata/custAuthentication";
 
 const UserHistory = () => {
   const dispatch = useDispatch();
+const groupByDate = (data) => {
+  const grouped = {};
+  data.forEach((item) => {
+    const date = new Date(item.trade_time).toLocaleDateString("en-GB"); // e.g., "17/06/2025"
+    if (!grouped[date]) grouped[date] = [];
+    grouped[date].push(item);
+  });
+  return grouped;
+};
 
   useEffect(() => {
     dispatch(tradeHistoryApi());
-  }, []);
+
+  const interval = setInterval(() => {
+    dispatch(tradeHistoryApi());
+  }, 30000); 
+
+  // Clean up on unmount
+  return () => clearInterval(interval);
+  }, [dispatch]);
 
   const tradeHistory = useSelector((state) => state?.index?.tradeHistory);
+  console.log("trade history ",tradeHistory)
 
   return (
     <>
       <HorizontalNav />
       <Navbar />
-      <div className="userhistory-dataa">
+     <div className="userhistory-dataa">
+  {Array.isArray(tradeHistory) && tradeHistory.length > 0 ? (
+    Object.entries(groupByDate(tradeHistory)).map(([date, trades]) => (
+      <div key={date}>
         <div id="first-box" className="box" style={{ padding: "20px" }}>
           <div className="managetrading-bottomborder">
             <p className="box-para" style={{ textDecorationLine: "underline" }}>
-              Trade History
+              Trade History - {date}
             </p>
             <table
               border="1"
@@ -37,45 +57,73 @@ const UserHistory = () => {
                 <tr>
                   <th>Order ID</th>
                   <th>Quantity</th>
-                  <th>Symbol</th>
+                  <th>Name</th>
+                 <th>Strike</th>
                   <th>Order Type</th>
                   <th>Expiry</th>
-                  <th>Change</th>
-                  <th>LTP</th>
+                  
+                  <th>Price</th>
                 </tr>
               </thead>
               <tbody>
-                {tradeHistory && tradeHistory?.length > 0 ? (
-                  tradeHistory?.map((item, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>{item.id}</td>
-                        <td>{item.token.lotsize}Qty</td>
-                        <td>{item.token.name}</td>
-                        <td>{item.signal.toUpperCase()}</td>
-                        <td>{item.token.expiry}</td>
-                        <td>
-                          <IoTriangle /> 10,00.29
-                        </td>
-                        <td>LTP 18.65</td>
-                      </tr>
-                    );
-                  })
-                ) : (
-                  // Show this row when tradeHistory is empty or undefined
-                  <tr>
-                    <td colSpan="7" style={{ textAlign: "center" }}>
-                      No records
-                    </td>
+                {trades.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.id}</td>
+                    <td>{item.token.lotsize} Qty</td>
+                    <td>{item.token.name}</td>
+                    <td>{parseFloat(item.token.strike) / 100}</td>
+                    <td>{item.signal.toUpperCase()}</td>
+                    <td>{item.token.expiry}</td>
+                    
+                    <td>{item.price}</td>
                   </tr>
-                )}
+                ))}
               </tbody>
             </table>
           </div>
         </div>
       </div>
+    ))
+  ) : (
+    <div id="first-box" className="box" style={{ padding: "20px" }}>
+      <div className="managetrading-bottomborder">
+        <p className="box-para" style={{ textDecorationLine: "underline" }}>
+          Trade History
+        </p>
+        <table
+          border="1"
+          style={{
+            borderCollapse: "collapse",
+            width: "100%",
+            border: "none",
+          }}
+        >
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Quantity</th>
+              <th>Name</th>
+              <th>Order Type</th>
+              <th>Expiry</th>
+             
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colSpan="7" style={{ textAlign: "center" }}>
+                No records
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )}
+</div>
 
-      <div className="userhistory-dataa">
+
+      {/* <div className="userhistory-dataa">
         <div id="first-box" className="box" style={{ padding: "20px" }}>
           <div className="managetrading-bottomborder">
             <p className="box-para">
@@ -139,7 +187,7 @@ const UserHistory = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

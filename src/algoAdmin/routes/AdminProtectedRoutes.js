@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 const AdminProtectedRoute = () => {
   // Check for admin access token in cookies or localStorage
-  const token = Cookies.get('adminAccessToken') || localStorage.getItem('adminAccessToken');
+  const token = Cookies.get('adminAccessToken') && localStorage.getItem('adminAccessToken');
 
   if (!token) {
     // Not authenticated, redirect to admin login

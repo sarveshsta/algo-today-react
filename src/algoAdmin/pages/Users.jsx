@@ -175,15 +175,17 @@ const User = () => {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(PAGE_SIZE);
+  const [pageSizeInput, setPageSizeInput] = useState(PAGE_SIZE);
   const [filter, setFilter] = useState("all"); // all, active, inactive
   const [searchQuery, setSearchQuery] = useState("");
   const [toastData, setToastData] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(null);
 
-  const fetchUsers = async (page, filterType, query = "") => {
+  const fetchUsers = async (page, filterType, query = "", size = pageSize) => {
     const params = {
       page,
-      page_size: PAGE_SIZE,
+      page_size: size,
     };
     if (filterType === "active") params.is_active = true;
     if (filterType === "inactive") params.is_active = false;
@@ -204,12 +206,13 @@ const User = () => {
       }));
       return {
         usersList,
-        total: meta.total_items || usersList.length,
-        totalPages: meta.total_pages || 1,
-        currentPage: meta.current_page || page,
+        total: typeof meta.total_items === 'number' ? meta.total_items : usersList.length,
+        totalPages: typeof meta.total_pages === 'number' ? meta.total_pages : 1,
+        currentPage: typeof meta.current_page === 'number' ? meta.current_page : page,
+        pageSize: typeof meta.page_size === 'number' ? meta.page_size : size,
       };
     } catch (err) {
-      return { usersList: [], total: 0, totalPages: 1, currentPage: 1 };
+      return { usersList: [], total: 0, totalPages: 1, currentPage: 1, pageSize };
     }
   };
 
@@ -219,12 +222,19 @@ const User = () => {
   }, [filter, searchQuery]);
 
   useEffect(() => {
-    fetchUsers(currentPage, filter, searchQuery).then(({ usersList, total, totalPages }) => {
+    fetchUsers(currentPage, filter, searchQuery, pageSize).then(({ usersList, total, totalPages, currentPage, pageSize }) => {
       setUsers(usersList);
       setTotalUsers(total);
       setTotalPages(totalPages);
+      setCurrentPage(currentPage);
+      setPageSize(pageSize);
     });
-  }, [currentPage, filter, searchQuery]);
+    // eslint-disable-next-line
+  }, [currentPage, filter, searchQuery, pageSize]);
+
+  useEffect(() => {
+    setPageSizeInput(pageSize);
+  }, [pageSize]);
 
   const handleDelete = (userId) => {
     setUsers((prev) => prev.filter((user) => user.id !== userId));
@@ -304,7 +314,6 @@ const User = () => {
         <table style={tableStyle}>
           <thead>
             <tr>
-              <th style={thStyle}>ID</th>
               <th style={thStyle}>Name</th>
               <th style={thStyle}>Email</th>
               <th style={thStyle}>Phone</th>
@@ -323,7 +332,6 @@ const User = () => {
             ) : (
               users.map((user, idx) => (
                 <tr key={user.id} style={{ background: idx % 2 === 0 ? '#fff' : '#f9fafb', fontSize: '0.97rem' }}>
-                  <td style={tdStyle}>{user.id}</td>
                   <td style={tdStyle}>{user.name}</td>
                   <td style={tdStyle}>{user.email}</td>
                   <td style={tdStyle}>{user.phone}</td>
@@ -382,40 +390,83 @@ const User = () => {
             )}
           </tbody>
         </table>
-
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div style={paginationRow}>
+        <div style={{ textAlign: "right", color: "#888", marginTop: 8 }}>
+          {totalUsers > 0
+            ? `Showing ${Math.min(users.length + (currentPage - 1) * pageSize, totalUsers)} of ${totalUsers} users`
+            : `Showing ${users.length} users`}
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background: '#fff',
+            borderRadius: 12,
+            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+            padding: '16px 32px',
+          }}>
             <button
-              style={pageBtnBase}
-              onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage <= 1}
+              style={{
+                padding: '6px 16px',
+                borderRadius: 6,
+                border: '1px solid #ddd',
+                background: currentPage <= 1 ? '#f5f5f5' : '#fff',
+                color: currentPage <= 1 ? '#bbb' : '#333',
+                cursor: currentPage <= 1 ? 'not-allowed' : 'pointer',
+                fontWeight: 500,
+              }}
             >
               Previous
             </button>
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentPage(i + 1)}
-                style={
-                  currentPage === i + 1
-                    ? { ...pageBtnBase, ...pageBtnActive }
-                    : pageBtnBase
-                }
-                disabled={currentPage === i + 1}
-              >
-                {i + 1}
-              </button>
-            ))}
+            <span style={{ fontWeight: 600, fontSize: 16, margin: '0 8px' }}>{currentPage}</span>
+            <span style={{ color: '#888', fontSize: 14 }}>/ {totalPages}</span>
             <button
-              style={pageBtnBase}
-              onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
-              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage >= totalPages}
+              style={{
+                padding: '6px 16px',
+                borderRadius: 6,
+                border: '1px solid #ddd',
+                background: currentPage >= totalPages ? '#f5f5f5' : '#fff',
+                color: currentPage >= totalPages ? '#bbb' : '#333',
+                cursor: currentPage >= totalPages ? 'not-allowed' : 'pointer',
+                fontWeight: 500,
+                marginLeft: 4,
+              }}
             >
               Next
             </button>
+            <span style={{ marginLeft: 16, color: '#888', fontSize: 14 }}>Per page:</span>
+            <input
+              type="number"
+              min={1}
+              max={100}
+              value={pageSizeInput}
+              onChange={e => {
+                let val = Number(e.target.value);
+                if (val < 1) val = 1;
+                if (val > 100) val = 100;
+                setPageSizeInput(val);
+              }}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  setPageSize(pageSizeInput);
+                  setCurrentPage(1);
+                }
+              }}
+              style={{
+                width: 60,
+                padding: '6px 8px',
+                borderRadius: 6,
+                border: '1px solid #ddd',
+                fontSize: 15,
+                textAlign: 'center',
+              }}
+            />
           </div>
-        )}
+        </div>
       </div>
 
       {toastData && (

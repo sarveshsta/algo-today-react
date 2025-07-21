@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { users as fetchUsersApi, updateUserStatus } from '../routes/apiRoutes';
+import { getAllSubsciptions } from '../routes/apiRoutes';
 import Toast  from '../components/Toast.jsx';
 import { ChevronDown } from 'lucide-react';
 
-const PAGE_SIZE = 5;
+const DEFAULT_PAGE_SIZE = 5;
 
 const containerStyle = {
   padding: '1.5rem',
@@ -170,88 +170,56 @@ const dropdownItemHover = {
   background: '#f3f4f6',
 };
 
+
 const Subscriptions = () => {
-  const [users, setUsers] = useState([]);
-  const [totalUsers, setTotalUsers] = useState(0);
+  const [subs, setSubs] = useState([]);
+  const [totalSubs, setTotalSubs] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [filter, setFilter] = useState("all"); // all, active, inactive
-  const [searchQuery, setSearchQuery] = useState("");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
+  const [pageSizeInput, setPageSizeInput] = useState(DEFAULT_PAGE_SIZE);
   const [toastData, setToastData] = useState(null);
-  const [openDropdown, setOpenDropdown] = useState(null);
+  const [filter, setFilter] = useState('all'); // 'all', 'pending'
 
-  const fetchUsers = async (page, filterType, query = "") => {
-    const params = {
-      page,
-      page_size: PAGE_SIZE,
-    };
-    if (filterType === "active") params.is_active = true;
-    if (filterType === "inactive") params.is_active = false;
-    if (query.trim() !== "") params.search = query.trim();
+  // Reset to first page on filter change
+  useEffect(() => {
+    setPage(1);
+  }, [filter]);
 
+  const fetchSubs = async (pageNum = page, size = pageSize, filterType = filter) => {
     try {
-      const response = await fetchUsersApi(params);
+      let extraParams = {};
+      // Only two filters: 'all' and 'pending'
+      if (filterType === 'pending') extraParams.status = 'pending';
+      const response = await getAllSubsciptions(pageNum, size, extraParams);
       const apiData = response?.data?.data || [];
-      const meta = response?.meta || {};
-      const usersList = apiData.map((user) => ({
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        isactive: user.is_active,
-        lastlogin: user.last_login ? new Date(user.last_login).toLocaleString() : '',
-        is_superuser: user.is_superuser,
-      }));
+      const meta = response?.meta || response?.data?.meta || {};
       return {
-        usersList,
-        total: meta.total_items || usersList.length,
-        totalPages: meta.total_pages || 1,
-        currentPage: meta.current_page || page,
+        subsList: apiData,
+        total: typeof meta.total_items === 'number' ? meta.total_items : apiData.length,
+        totalPages: typeof meta.total_pages === 'number' ? meta.total_pages : 1,
+        currentPage: typeof meta.current_page === 'number' ? meta.current_page : pageNum,
+        pageSize: typeof meta.page_size === 'number' ? meta.page_size : size,
       };
     } catch (err) {
-      return { usersList: [], total: 0, totalPages: 1, currentPage: 1 };
+      return { subsList: [], total: 0, totalPages: 1, currentPage: 1, pageSize };
     }
   };
 
-  // Reset to first page on filter/search change
   useEffect(() => {
-    setCurrentPage(1);
-  }, [filter, searchQuery]);
-
-  useEffect(() => {
-    fetchUsers(currentPage, filter, searchQuery).then(({ usersList, total, totalPages }) => {
-      setUsers(usersList);
-      setTotalUsers(total);
+    fetchSubs(page, pageSize, filter).then(({ subsList, total, totalPages, currentPage, pageSize }) => {
+      setSubs(subsList);
+      setTotalSubs(total);
       setTotalPages(totalPages);
+      setPage(currentPage);
+      setPageSize(pageSize);
     });
-  }, [currentPage, filter, searchQuery]);
+    // eslint-disable-next-line
+  }, [page, pageSize, filter]);
 
-  const handleDelete = (userId) => {
-    setUsers((prev) => prev.filter((user) => user.id !== userId));
-  };
-
-  // Handle activate/inactivate
-  const handleStatusChange = async (userId, currentStatus) => {
-    try {
-      await updateUserStatus(userId, !currentStatus);
-      setUsers((prev) => prev.map((user) =>
-        user.id === userId ? { ...user, isactive: !currentStatus } : user
-      ));
-      setToastData({
-        title: 'Success',
-        description: `User status updated to ${!currentStatus ? 'Active' : 'Inactive'}.`,
-        variant: 'success',
-        duration: 2500,
-      });
-    } catch (err) {
-      setToastData({
-        title: 'Error',
-        description: err.message || 'Failed to update user status.',
-        variant: 'error',
-        duration: 3000,
-      });
-    }
-  };
+  useEffect(() => {
+    setPageSizeInput(pageSize);
+  }, [pageSize]);
 
   return (
     <div style={containerStyle}>
@@ -264,160 +232,136 @@ const Subscriptions = () => {
             ...filterBtnBase,
             ...(filter === 'all' ? filterBtnActive : {}),
           }}
-          onClick={() => setFilter("all")}
+          onClick={() => setFilter('all')}
         >
-          All Users
+          All
         </button>
         <button
           style={{
             ...filterBtnBase,
-            ...(filter === 'active' ? filterBtnGreen : {}),
+            ...(filter === 'pending' ? filterBtnRed : {}),
           }}
-          onClick={() => setFilter("active")}
+          onClick={() => setFilter('pending')}
         >
-          Active
-        </button>
-        <button
-          style={{
-            ...filterBtnBase,
-            ...(filter === 'inactive' ? filterBtnRed : {}),
-          }}
-          onClick={() => setFilter("inactive")}
-        >
-          Inactive
+         Pending
         </button>
       </div>
 
-      {/* Search Input */}
-      <div style={{ marginBottom: '1.2rem' }}>
-        <input
-          type="text"
-          placeholder="Search by username, name, email, phone..."
-          style={searchInputStyle}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
-
-      {/* Table */}
       <div style={cardStyle}>
         <table style={tableStyle}>
           <thead>
             <tr>
               <th style={thStyle}>ID</th>
-              <th style={thStyle}>Name</th>
-              <th style={thStyle}>Email</th>
-              <th style={thStyle}>Phone</th>
-              <th style={thStyle}>Active</th>
-              <th style={thStyle}>Last Login</th>
-              <th style={thStyle}>Actions</th>
+              <th style={thStyle}>Razorpay Subscription ID</th>
+              <th style={thStyle}>Status</th>
+              <th style={thStyle}>Start Date</th>
+              <th style={thStyle}>End Date</th>
+              <th style={thStyle}>Auto Renew</th>
+              <th style={thStyle}>User</th>
+              <th style={thStyle}>Plan</th>
             </tr>
           </thead>
           <tbody>
-            {users.length === 0 ? (
+            {subs.length === 0 ? (
               <tr>
                 <td colSpan="8" style={{ textAlign: 'center', padding: '1.5rem 0' }}>
                   Loading or No Data
                 </td>
               </tr>
             ) : (
-              users.map((user, idx) => (
-                <tr key={user.id} style={{ background: idx % 2 === 0 ? '#fff' : '#f9fafb', fontSize: '0.97rem' }}>
-                  <td style={tdStyle}>{user.id}</td>
-                  <td style={tdStyle}>{user.name}</td>
-                  <td style={tdStyle}>{user.email}</td>
-                  <td style={tdStyle}>{user.phone}</td>
-                  <td style={tdStyle}>
-                    <span style={user.isactive ? statusActive : statusInactive}>
-                      {user.isactive ? "Active" : "Inactive"}
-                    </span>
-                  </td>
-                  <td style={tdStyle}>{user.lastlogin}</td>
-                  <td style={tdStyle}>
-                    <div style={{ position: 'relative', display: 'inline-block' }}>
-                      <button
-                        style={actionBtnStyle}
-                        onClick={() => setOpenDropdown(openDropdown === user.id ? null : user.id)}
-                        tabIndex={0}
-                        aria-haspopup="true"
-                        aria-expanded={openDropdown === user.id}
-                      >
-                        Actions <ChevronDown size={18} style={{ marginLeft: 6 }} />
-                      </button>
-                      {openDropdown === user.id && (
-                        <div style={dropdownMenuStyle} onMouseLeave={() => setOpenDropdown(null)}>
-                          {user.isactive ? (
-                            <button
-                              style={dropdownItemStyle}
-                              onClick={() => { setOpenDropdown(null); handleStatusChange(user.id, true); }}
-                              onMouseOver={e => e.currentTarget.style.background = '#f3f4f6'}
-                              onMouseOut={e => e.currentTarget.style.background = 'none'}
-                            >
-                              Set Inactive
-                            </button>
-                          ) : (
-                            <button
-                              style={dropdownItemStyle}
-                              onClick={() => { setOpenDropdown(null); handleStatusChange(user.id, false); }}
-                              onMouseOver={e => e.currentTarget.style.background = '#f3f4f6'}
-                              onMouseOut={e => e.currentTarget.style.background = 'none'}
-                            >
-                              Set Active
-                            </button>
-                          )}
-                          <button
-                            style={dropdownItemStyle}
-                            onClick={() => { setOpenDropdown(null); handleDelete(user.id); }}
-                            onMouseOver={e => e.currentTarget.style.background = '#f3f4f6'}
-                            onMouseOut={e => e.currentTarget.style.background = 'none'}
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </td>
+              subs.map((sub, idx) => (
+                <tr key={sub.id} style={{ background: idx % 2 === 0 ? '#fff' : '#f9fafb', fontSize: '0.97rem' }}>
+                  <td style={tdStyle}>{sub.id}</td>
+                  <td style={tdStyle}>{sub.razorpay_subscription_id}</td>
+                  <td style={tdStyle}>{sub.status}</td>
+                  <td style={tdStyle}>{sub.start_date ? new Date(sub.start_date).toLocaleString() : '-'}</td>
+                  <td style={tdStyle}>{sub.end_date ? new Date(sub.end_date).toLocaleString() : '-'}</td>
+                  <td style={tdStyle}>{sub.auto_renew ? 'Yes' : 'No'}</td>
+                  <td style={tdStyle}>{sub.user_detail && sub.user_detail.name ? sub.user_detail.name : '-'}</td>
+                  <td style={tdStyle}>{sub.plan_detail && sub.plan_detail.name ? sub.plan_detail.name : '-'}</td>
                 </tr>
               ))
             )}
           </tbody>
         </table>
-
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div style={paginationRow}>
+        <div style={{ textAlign: "right", color: "#888", marginTop: 8 }}>
+          {totalSubs > 0
+            ? `Showing ${Math.min(subs.length + (page - 1) * pageSize, totalSubs)} of ${totalSubs} subscriptions`
+            : `Showing ${subs.length} subscriptions`}
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", marginTop: 32 }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            background: '#fff',
+            borderRadius: 12,
+            boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+            padding: '16px 32px',
+          }}>
             <button
-              style={pageBtnBase}
-              onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-              disabled={currentPage === 1}
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page <= 1}
+              style={{
+                padding: '6px 16px',
+                borderRadius: 6,
+                border: '1px solid #ddd',
+                background: page <= 1 ? '#f5f5f5' : '#fff',
+                color: page <= 1 ? '#bbb' : '#333',
+                cursor: page <= 1 ? 'not-allowed' : 'pointer',
+                fontWeight: 500,
+              }}
             >
               Previous
             </button>
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentPage(i + 1)}
-                style={
-                  currentPage === i + 1
-                    ? { ...pageBtnBase, ...pageBtnActive }
-                    : pageBtnBase
-                }
-                disabled={currentPage === i + 1}
-              >
-                {i + 1}
-              </button>
-            ))}
+            <span style={{ fontWeight: 600, fontSize: 16, margin: '0 8px' }}>{page}</span>
+            <span style={{ color: '#888', fontSize: 14 }}>/ {totalPages}</span>
             <button
-              style={pageBtnBase}
-              onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
-              disabled={currentPage === totalPages}
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={page >= totalPages}
+              style={{
+                padding: '6px 16px',
+                borderRadius: 6,
+                border: '1px solid #ddd',
+                background: page >= totalPages ? '#f5f5f5' : '#fff',
+                color: page >= totalPages ? '#bbb' : '#333',
+                cursor: page >= totalPages ? 'not-allowed' : 'pointer',
+                fontWeight: 500,
+                marginLeft: 4,
+              }}
             >
               Next
             </button>
+            <span style={{ marginLeft: 16, color: '#888', fontSize: 14 }}>Per page:</span>
+            <input
+              type="number"
+              min={1}
+              max={100}
+              value={pageSizeInput}
+              onChange={e => {
+                let val = Number(e.target.value);
+                if (val < 1) val = 1;
+                if (val > 100) val = 100;
+                setPageSizeInput(val);
+              }}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  setPageSize(pageSizeInput);
+                  setPage(1);
+                }
+              }}
+              style={{
+                width: 60,
+                padding: '6px 8px',
+                borderRadius: 6,
+                border: '1px solid #ddd',
+                fontSize: 15,
+                textAlign: 'center',
+              }}
+            />
           </div>
-        )}
+        </div>
       </div>
-
       {toastData && (
         <Toast
           {...toastData}

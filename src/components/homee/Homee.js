@@ -181,16 +181,16 @@ const Homee = () => {
             </button>
           </div>
           <div className="blue-abso-color"></div>
-          <div class="star-container"></div>
+          <div className="star-container"></div>
         </div>
 
         <div className="web-home-image-display-content">
-          <div class="star-container1"></div>
+          <div className="star-container1"></div>
           <img
             className="image-display-content"
             src={require("../../assets/icons/Content.png")}
           />
-          <div class="star-container2"></div>
+          <div className="star-container2"></div>
         </div>
 
         <div className="web-home-pricing-section">

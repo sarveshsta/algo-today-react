@@ -13,7 +13,7 @@ const Strategy = () => {
         <div className="strategybtnn">
           <button
             type="submit"
-            className="btn"
+            className="btn "
             style={{ border: "1px solid blue", borderRadius: "15px" }}
           >
             Explore Now
@@ -30,7 +30,7 @@ const Strategy = () => {
         <div className="strategybtnn">
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn "
             style={{ border: "1px solid blue", borderRadius: "15px" }}
           >
             Explore Now

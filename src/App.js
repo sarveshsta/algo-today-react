@@ -31,10 +31,26 @@ import {
 } from "react-router-dom";
 import Forgotpassword from "./user/forgotpassword/Forgotpassword";
 import CustomStrategies from "./user/customstrategies/CustomStrategies";
+import {ExpertStrategy} from "./user/expertstrategies/ExpertStrategy";
+
 import { ToastContainer } from "react-toastify";
 import { Circles } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import ProtectedRoute from "./user/features/auth/ProtectedRoute.js";
+import AdminLayout from "./algoAdmin/layouts/AdminLayout.jsx";
+import AdminLogin from "./algoAdmin/pages/AdminLogin.jsx";
+import { default as AdminDashboard } from "./algoAdmin/pages/Dashboard.jsx";
+import Users from "./algoAdmin/pages/Users.jsx";
+import AdminSettings from "./algoAdmin/pages/AdminSettings.jsx";
+import AdminProtectedRoute from "./algoAdmin/routes/AdminProtectedRoutes.js";
+import Subscriptions from "./algoAdmin/pages/Subscriptions.jsx";
+import {CreateStretegy} from "./algoAdmin/pages/CreateStretegy.jsx";
+import {AllStretegy} from "./algoAdmin/pages/AllStretegy.jsx";
+import {Plans}  from "./algoAdmin/pages/plans"
+import {ManagePlans}  from "./algoAdmin/pages/managePlans"
+import Profile from "./user/profile/Profile.js"
+import {Subscription}  from "./user/subscription/subscription"
 
 const router = createHashRouter([
   { path: "/", element: <Homee /> },
@@ -49,6 +65,9 @@ const router = createHashRouter([
   { path: "/linkbroker", element: <LinkBroker /> },
   { path: "/admindashboard", element: <Dashboard /> },
   { path: "/custom", element: <CustomStrategies /> },
+  { path: "/expertstrategy", element: <ExpertStrategy /> },
+  { path: "/subscription", element: <Subscription /> },
+ 
   { path: "/My-strategy", element: <Mystrategies /> },
   { path: "/userhistory", element: <UserHistory /> },
   { path: "/managetrading", element: <ManageTrading /> },
@@ -56,10 +75,10 @@ const router = createHashRouter([
   { path: "/contact-us", element: <Contact /> },
   { path: "/forgotpassword", element: <Forgotpassword /> },
   { path: "/newotp", element: <Newotp /> },
+  { path: "/Profile", element: <Profile /> },
+ 
   { path: "*", element: <Navigate to="/" /> }, // Handle unknown routes
 ]);
-
-
 
 function App() {
   const loading = useSelector((store) => store?.auth?.loading);
@@ -132,30 +151,149 @@ function App() {
         </div>
       )}
 
-    {/* <RouterProvider router={router} />; */}
+      {/* <RouterProvider router={router} />; */}
 
       <HashRouter basename="/">
         <Routes>
+          
           <Route path="*" element={<Navigate to="/" />} />
+          
           <Route path="/" element={<Homee />} />
           <Route path="/mobile" element={<Mobile />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/wallet" element={<Wallet />} />
+          <Route
+            path="/wallet"
+            element={
+              <ProtectedRoute>
+                <Wallet />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/about" element={<About />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashbord />} />
+
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>  
+                <Dashbord />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/opendemate" element={<OpenDemat />} />
-          <Route path="/refer&earn" element={<ReferEarn />} />
-          <Route path="/linkbroker" element={<LinkBroker />} />
-          <Route path="/admindashboard" element={<Dashboard />} />
-          <Route path="/custom" element={<CustomStrategies />} />
-          <Route path="/My-strategy" element={<Mystrategies />} />
-          <Route path="/userhistory" element={<UserHistory />} />
-          <Route path="/managetrading" element={<ManageTrading />} />
-          <Route path="/service" element={<Service />} />
+          <Route
+            path="/Profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/refer&earn"
+            element={
+              <ProtectedRoute>
+                <ReferEarn />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/linkbroker"
+            element={
+              <ProtectedRoute>
+                <LinkBroker />
+              </ProtectedRoute>
+            }
+          />
+          {/* <Route
+            path="/admindashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          /> */}
+
+          <Route
+            path="/custom"
+            element={
+              <ProtectedRoute>
+                <CustomStrategies />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/expertstrategy"
+            element={
+              <ProtectedRoute>
+                <ExpertStrategy />
+              </ProtectedRoute>
+            }
+          />
+          
+         
+          <Route
+            path="/My-strategy"
+            element={
+              <ProtectedRoute>
+                <Mystrategies />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/userhistory"
+            element={
+              <ProtectedRoute>
+                <UserHistory />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/managetrading"
+            element={
+              <ProtectedRoute>
+                <ManageTrading />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/service"
+            element={
+              <ProtectedRoute>
+                <Service />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/subscription"
+            element={
+              <ProtectedRoute>
+                <Subscription />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/forgotpassword" element={<Forgotpassword />} />
           <Route path="/newotp" element={<Newotp />} />
+
+
+{/* admin stuff */}
+<Route path="/admin" element={<AdminLogin />} />
+        <Route element={<AdminProtectedRoute />}>
+          <Route element={<AdminLayout />}>
+            <Route path="/admindashboard" element={<AdminDashboard />} />
+            <Route path="/admin/users" element={<Users />} />
+            <Route path="/adminstrategies" element={<AllStretegy />} />
+            <Route path="/subscriptions" element={<Subscriptions />} />
+            <Route path="/createStretegy" element={<CreateStretegy />} />
+            <Route path="/Plans" element={<Plans />} />
+            <Route path="/managePlans" element={<ManagePlans />} />
+
+          </Route>
+        </Route>
+
+
+
         </Routes>
       </HashRouter>
     </>
