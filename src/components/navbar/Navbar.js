@@ -1,8 +1,9 @@
 import "./navbar.css";
-import { FaBars } from "react-icons/fa";
+import { FaBars  } from "react-icons/fa";
 import { GrHomeRounded } from "react-icons/gr";
+import { IoPersonOutline } from "react-icons/io5";
 import { IoIosCloseCircle } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
+import {NavLink as Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 
 const Navbar = () => {
@@ -46,17 +47,31 @@ const Navbar = () => {
 
         {/* <div className="nav-ul"> */}
         <ul className={`ul-list`}>
-          <div className="">
+          <div className="" style={{ display: "flex" , alignItems:"center" , gap:"25px" }}>
             <GrHomeRounded color="white" />
             <li className="vertnav-ul-li" id="home">
               <Link
-                to="/"
+                to="/dashboard"
                 style={{ textDecorationLine: "none", color: "white" }}
               >
                 <span className="link-text">Home</span>
               </Link>
             </li>
           </div>
+
+          
+          <div className="" style={{ display: "flex", alignItems: "center", gap: "25px", fontSize: "16px" }}>
+          <IoPersonOutline color="white"  />
+            <li className="vertnav-ul-li" id="profile" >
+              <Link
+                to="/profile"
+                style={{ textDecorationLine: "none", color: "white" }}
+              >
+                <span className="link-text" >Profile</span>
+              </Link>
+            </li>
+          </div>
+          
           <div className="" >
             <li className="vertnav-ul-li" id="opendemat">
               <img
@@ -68,7 +83,7 @@ const Navbar = () => {
                 to="/opendemate"
                 style={{ textDecorationLine: "none", color: "white" }}
               >
-                <span className="link-text">Open Demat Account</span>
+                <span className="link-text">Open Demat <br></br>Account</span>
               </Link>
             </li>
           </div>
@@ -83,7 +98,7 @@ const Navbar = () => {
                 to="/linkbroker"
                 style={{ textDecorationLine: "none", color: "white" }}
               >
-                <span className="link-text">Link Brokeraccount</span>
+                <span className="link-text">Link Broker<br></br>account</span>
               </Link>
             </li>
           </div>
@@ -102,6 +117,22 @@ const Navbar = () => {
               </Link>
             </li>
           </div>
+          {/* Subscription nav item */}
+          <div className="">
+            <li className="vertnav-ul-li" id="subscription">
+              <img
+                className="iconimg"
+                src={require("../../assets/icons/Vector2.png")} // Use a different icon if available
+                alt="subscription"
+              />
+              <Link
+                to="/subscription"
+                style={{ textDecorationLine: "none", color: "white" }}
+              >
+                <span className="link-text">Subscription</span>
+              </Link>
+            </li>
+          </div>
           <div className="">
             <li className="vertnav-ul-li" id="cust">
               <img
@@ -113,7 +144,22 @@ const Navbar = () => {
                 to="/custom"
                 style={{ textDecorationLine: "none", color: "white" }}
               >
-                <span className="link-text">CustomStrategies</span>
+                <span className="link-text">Custom<br></br>Strategies</span>
+              </Link>
+            </li>
+          </div>
+          <div className="">
+            <li className="vertnav-ul-li" id="cust">
+              <img
+                className="iconimg"
+                src={require("../../assets/icons/Group 48096030.png")}
+                alt="vector"
+              />
+              <Link
+                to="/expertstrategy"
+                style={{ textDecorationLine: "none", color: "white" }}
+              >
+                <span className="link-text">Expert<br></br>Strategies</span>
               </Link>
             </li>
           </div>
@@ -128,7 +174,7 @@ const Navbar = () => {
                 to="/managetrading"
                 style={{ textDecorationLine: "none", color: "white" }}
               >
-                <span className="link-text">Managetrading</span>
+                <span className="link-text">Manage<br></br>trading</span>
               </Link>
             </li>
           </div>

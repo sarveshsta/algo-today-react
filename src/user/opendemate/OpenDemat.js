@@ -10,7 +10,7 @@ const OpenDemat = () => {
       <HorizontalNav />
       <Navbar />
       <div id="opendemate-container-first" className="container">
-        <h1 className="text-center ml-4" style={{ marginLeft: "10%" }}>
+        <h1 className="text-center ml-4 open-demat-heading" >
           Open Your Demate Account with the Given Brokers
         </h1>
       </div>

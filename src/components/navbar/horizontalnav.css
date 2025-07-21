@@ -102,10 +102,15 @@
   transition: opacity 0.3s ease-in-out; /* Add transition property */
 }
 
+@media screen and (max-width: 1159px) {
+  .HorizontalNav {
+    margin-left: 23%;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .HorizontalNav {
-    /* flex-direction: column;
-      align-items: flex-start; */
+    margin-left: 15%;
   }
 
   .Horizontalimg {

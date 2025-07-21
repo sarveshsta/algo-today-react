@@ -43,7 +43,7 @@ const AdminLogin = () => {
         }
         
         // Navigate only on successful login
-        navigate('/admindashboard');
+        navigate('/admin/users');
       } else {
         setToastData({
           title: 'Login Error',

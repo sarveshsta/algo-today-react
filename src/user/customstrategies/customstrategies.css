@@ -302,6 +302,12 @@
 
 }
 
+.buying-value , .selling-btn{
+  width:inherit;
+  padding: 8px 16px;
+}
+
+
 @media screen and (max-width: 768px) {
   .customstrategies-main-container {
     margin-left: 0;

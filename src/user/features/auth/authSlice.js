@@ -6,6 +6,7 @@ import {
   forgotAPI,
   loginAPI,
   logoutAPI,
+  userInfo,
 } from "./authAuthentication";
 import { getStrategyDataApi } from "../customdata/custAuthentication";
 
@@ -134,6 +135,20 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = action.error;
       state.user = action.payload;
+    });
+
+    //-----------------userInfo case-----------------------//
+    builder.addCase(userInfo.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(userInfo.fulfilled, (state, action) => {
+      state.loading = false;
+      // The userInfo API returns the user data in action.payload.data
+      state.user = action.payload.data;
+    });
+    builder.addCase(userInfo.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error;
     });
   },
 });

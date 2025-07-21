@@ -360,6 +360,9 @@ export function ExpertStrategy(){
                 options={[
                   { value: "ONE_MINUTE", label: "ONE_MINUTE" },
                   { value: "TWO_MINUTE", label: "TWO_MINUTE" },
+                  { value: "THREE_MINUTE", label: "THREE_MINUTE" },
+                  { value: "FIVE_MINUTE", label: "FIVE_MINUTE" },
+                  { value: "FIFTEEN_MINUTE", label: "FIFTEEN_MINUTE" },
                 ]}
                 styles={custStyle}
                 placeholder="Chart Time"

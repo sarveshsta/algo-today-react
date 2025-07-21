@@ -2,13 +2,12 @@ import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { X } from "lucide-react";
 import algoIcon from "../assests/algo.svg"
-import { GoHomeFill } from "react-icons/go";
-import { FaWallet } from "react-icons/fa";
-import { BsGraphUpArrow } from "react-icons/bs";
 import { FaUsers } from "react-icons/fa";
-import { IoSettings } from "react-icons/io5";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { RiStockFill } from "react-icons/ri";
+import { FaLayerGroup } from "react-icons/fa";
+import { TbTopologyStar } from 'react-icons/tb'; 
+import { MdManageAccounts } from "react-icons/md";
 const SIDEBAR_WIDTH = 256;
 
 const sidebarBaseStyles = {
@@ -129,8 +128,10 @@ const Sidebar = ({ isOpen, setIsOpen, isMobile }) => {
     
     { name: "Users", path: "/admin/users", icon: <span role="img" aria-label="users"><FaUsers /></span> },
     { name: "Strategies", path: "/adminstrategies", icon: <span role="img" aria-label="strategies"><RiStockFill /></span> },
-    { name: "Subscriptions", path: "/subscriptions", icon: <span role="img" aria-label="subscriptions"><FaMoneyBillTrendUp /></span> },
-    { name: "Create Stretegy", path: "/createStretegy", icon: <span role="img" aria-label="CreateStretegy"><BsGraphUpArrow style={{ fontWeight: "bold" }} /></span> },
+    { name: "User Subscriptions", path: "/subscriptions", icon: <span role="img" aria-label="subscriptions"><FaMoneyBillTrendUp /></span> },
+    { name: "Create Stretegy", path: "/createStretegy", icon: <span role="img" aria-label="CreateStretegy"><TbTopologyStar  style={{ fontWeight: "bold" }} /></span> },
+    { name: "Create Plans", path: "/plans", icon: <span role="img" aria-label="plans"><FaLayerGroup style={{ fontWeight: "bold" }} /></span> },
+    { name: "Manage Plans", path: "/manageplans", icon: <span role="img" aria-label="plans"><MdManageAccounts style={{ fontWeight: "bold" }} /></span> },
   ];
 
   return (

@@ -466,9 +466,10 @@ const CustomStrategies = () => {
         <div className="buying-pre-condition-seconddiv">
           <h2> Buying Value</h2>
           <input
-            className="cust-inputbtn"
+            className="cust-inputbtn buying-value"
             type="text"
-            placeholder="Enter LTP"
+            placeholder="Enter LTP = [a] * [_________]"
+           
           />
         </div>
       </div>
@@ -516,10 +517,11 @@ const CustomStrategies = () => {
 
         <div className="buying-pre-condition-seconddiv">
           <h2> Selling Value</h2>
+          
           <input
-            className="cust-inputbtn"
+            className="cust-inputbtn selling-btn"
             type="text"
-            placeholder="Enter LTP"
+            placeholder="Enter LTP = [a] * [_________]"
           />
         </div>
       </div>

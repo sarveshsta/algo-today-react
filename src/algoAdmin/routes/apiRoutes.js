@@ -1,3 +1,4 @@
+
 import { apiRequest } from "../services/apiService.js"
 
 export async function login(data) {
@@ -75,11 +76,39 @@ export async function login(data) {
       addAuth: true
     });
   }
-  export async function getAllSubscptions(page = 1, page_size = 10) {
-    return apiRequest({
-      method: "GET",
-      endpoint: "/api/users-subscriptions/",
-      params: { page, page_size },
-      addAuth: true
-    });
-  }
+
+export async function getAllSubsciptions(page = 1, page_size = 10, extraParams = {}) {
+  return apiRequest({
+    method: "GET",
+    endpoint: "/api/subscription/users-subscriptions/",
+    params: { page, page_size, ...extraParams },
+    addAuth: true
+  });
+}
+
+export async function createplans(data) {
+  return apiRequest({
+    method: "POST",
+    endpoint: "/api/subscription/plans/create/",
+    data,
+    addAuth: true
+  });
+}
+export async function getAllPlans(params = {}) {
+  return apiRequest({
+    method: "GET",
+    endpoint: "/api/subscription/plans/",
+    params,
+    addAuth: true
+  });
+}
+
+// Update plan status API
+export async function updatePlanStatus(id, is_active) {
+  return apiRequest({
+    method: "POST",
+    endpoint: `/api/subscription/plans/update-status/`,
+    data: { id ,is_active },
+    addAuth: true
+  });
+}

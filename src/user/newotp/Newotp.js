@@ -1,10 +1,10 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect , useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-import { otpVerificationAPI } from "../features/auth/authAuthentication";
+import { otpEmailVerificationAPI } from "../features/auth/authAuthentication";
 import Formbutton from "../../components/formcomponent/Formbutton";
 import Formcomp from "../../components/formcomponent/Formcomp";
 import { Circles } from "react-loader-spinner";
@@ -13,9 +13,15 @@ const Newotp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formData = new FormData();
+  const location = useLocation();
+  const email = location.state?.email;
 
   const otpState = useSelector((store) => store?.auth?.user?.data);
   const { message, success } = otpState || {};
+
+  
+  
+ 
 
   const formik = useFormik({
     initialValues: {
@@ -27,18 +33,14 @@ const Newotp = () => {
         .required("OTP is required"),
     }),
     onSubmit: (values) => {
-      const getItem = localStorage.getItem("authdetail");
-      const parseData = JSON.parse(getItem);
-      const { otp, phone } = parseData;
-      formData.append("phone", phone);
-      formData.append("otp", otp);
-      dispatch(otpVerificationAPI(formData));
-
-      if (success === true) {
-        setTimeout(() => {
-          navigate("/signup");
-        }, 3000);
-      }
+      formData.append("email", email);
+      formData.append("otp", values.number);
+      dispatch(otpEmailVerificationAPI(formData)).then((response) => {
+       
+        if (response?.payload?.data?.success === true) {
+          navigate("/signup"  ,{ state: { email:email  } });
+        }
+      });
     },
   });
 

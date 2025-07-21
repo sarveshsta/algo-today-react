@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 
 // Set the base URL for API calls
-const BASE_URL = 'http://13.126.102.170:5000';
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 /**
  * Main API request function
@@ -76,9 +76,25 @@ export async function apiRequest({
       validateStatus : false
     });
 
+    // Check for unauthorized status (401 or 403)
+    if (response.status === 401 || response.status === 403) {
+      // Redirect to /login
+      if (typeof window !== 'undefined') {
+        window.location.href = '/login';
+      }
+      // Optionally, you can return or throw here
+      return;
+    }
+
     return response.data;
   } catch (error) {
     if (error.response) {
+      if (error.response.status === 401 || error.response.status === 403) {
+        if (typeof window !== 'undefined') {
+          window.location.href = '/login';
+        }
+        return;
+      }
       throw new Error(error.response.data.message || "API Error");
     }
     throw error;

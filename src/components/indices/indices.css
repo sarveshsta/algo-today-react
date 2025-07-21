@@ -13,6 +13,7 @@
 }
 
 .Nifty50 {
+  min-width: 200px;
   width: auto;
   /* height: 127px; */
   flex-shrink: 0;
@@ -39,6 +40,7 @@
 }
 
 .Sensex {
+  min-width: 200px;
   width: auto;
   /* height: 127px; */
   flex-shrink: 0;

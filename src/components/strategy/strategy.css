@@ -23,7 +23,13 @@
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
     box-sizing: border-box;
-}
+   padding: 20px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+
+
+  }
 
 .strhead {
   color: var(--2-c-3-e-50, #2c3e50);

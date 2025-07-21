@@ -19,11 +19,36 @@ body, .subscription-root {
 
 .subscription-main-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-start;
   min-height: 80vh;
   width: 100vw;
   padding: 40px 0 0 0;
+}
+
+.subscription-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 1200px;
+  justify-content: end;
+  align-items: stretch;
+  margin-left: auto;
+  margin-right: 3vw;
+}
+
+@media (max-width: 900px) {
+  .subscription-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-right: 0;
+  }
+  .subscription-card {
+    max-width: 98vw;
+    border-radius: 1.2rem;
+    padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+  }
 }
 
 .subscription-card {
@@ -36,11 +61,15 @@ body, .subscription-root {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  transition: box-shadow 0.2s;
+  align-items: flex-start;
+  border: none;
+  position: relative;
+  min-height: 420px;
+  transition: box-shadow 0.2s, border 0.2s;
 }
 .subscription-card:hover {
   box-shadow: 0 12px 36px 0 rgba(31, 38, 135, 0.18);
+  border: none;
 }
 
 .subscription-title {
@@ -49,7 +78,7 @@ body, .subscription-root {
   color: #22223b;
   margin-bottom: 0.5rem;
   letter-spacing: -1px;
-  text-align: center;
+  text-align: left;
 }
 
 .subscription-price {
@@ -57,7 +86,8 @@ body, .subscription-root {
   font-weight: 700;
   color: #2563eb;
   margin-bottom: 0.2rem;
-  text-align: center;
+  text-align: left;
+  line-height: 1.1;
 }
 .subscription-per {
   font-size: 1.1rem;
@@ -65,11 +95,19 @@ body, .subscription-root {
   font-weight: 400;
 }
 
+.subscription-divider {
+  width: 100%;
+  border: none;
+  border-top: 1.5px solid #e0e7ff;
+  margin: 1.2rem 0 1.2rem 0;
+}
+
 .subscription-description {
   color: #475569;
   font-size: 1.1rem;
   margin-bottom: 1.2rem;
-  text-align: center;
+  text-align: left;
+  font-weight: 500;
 }
 
 .subscription-features {
@@ -95,6 +133,7 @@ body, .subscription-root {
   color: #22c55e;
   font-weight: 700;
   font-size: 1.1rem;
+  margin-right: 0.5rem;
 }
 
 .subscription-btn {
@@ -136,47 +175,4 @@ body, .subscription-root {
   font-size: 1.1rem;
   font-weight: 600;
   color: #2563eb;
-}
-
-@media (min-width: 700px) {
-  .subscription-card {
-    max-width: 700px;
-    padding: 2.5rem 4rem 2.5rem 4rem;
-  }
-  .subscription-features {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.7rem 1.2rem;
-    width: 100%;
-  }
-  .subscription-feature-item {
-    margin-bottom: 0;
-  }
-}
-
-@media (min-width: 900px) {
-  .subscription-title {
-    font-size: 2.5rem;
-  }
-  .subscription-price {
-    font-size: 3rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .subscription-main-container {
-    padding: 0;
-    min-height: 100vh;
-  }
-  .subscription-card {
-    padding: 1.2rem 0.7rem 1.2rem 0.7rem;
-    max-width: 98vw;
-    border-radius: 1.2rem;
-  }
-  .subscription-title {
-    font-size: 1.3rem;
-  }
-  .subscription-price {
-    font-size: 1.7rem;
-  }
 } 

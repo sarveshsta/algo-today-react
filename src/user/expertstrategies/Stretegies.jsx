@@ -12,6 +12,8 @@ export function Stretegies() {
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [pageSizeInput, setPageSizeInput] = useState(pageSize);
+  // Modal state
+  const [selectedStrategy, setSelectedStrategy] = useState(null);
 
   const fetchStrategies = async (pageNum = page, size = pageSize) => {
     setLoading(true);
@@ -67,6 +69,9 @@ export function Stretegies() {
     });
   }, [strategies, loading, error, page, pageSize, totalPages, totalItems]);
 
+  // Modal close handler
+  const closeModal = () => setSelectedStrategy(null);
+
   return (
     <div style={{  minHeight: '100vh' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto', background: '#fff', borderRadius: 16, boxShadow: '0 2px 12px rgba(0,0,0,0.06)', padding: 32 }}>
@@ -100,10 +105,40 @@ export function Stretegies() {
               marginTop: 12
             }}>
               {strategies.map((s) => (
-                <div key={s.id} style={{ minHeight: 180, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#fafbfc', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.03)', padding: 20 }}>
-                  <div>
+                <div
+                  key={s.id}
+                  style={{
+                    minHeight: 180,
+                    maxHeight: 180,
+                    height: 180,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    background: '#fafbfc',
+                    borderRadius: 12,
+                    boxShadow: '0 1px 4px rgba(0,0,0,0.03)',
+                    padding: 20,
+                    cursor: 'pointer',
+                    overflow: 'hidden',
+                  }}
+                  onClick={() => setSelectedStrategy(s)}
+                >
+                  <div style={{ flex: 1, minHeight: 0 }}>
                     <div style={{ fontWeight: 700, fontSize: 20, color: '#222', marginBottom: 8 }}>{s.name}</div>
-                    <div style={{ color: '#666', fontSize: 16, marginBottom: 12 }}>{s.description}</div>
+                    <div
+                      style={{
+                        color: '#666',
+                        fontSize: 16,
+                        marginBottom: 12,
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        maxWidth: '100%',
+                      }}
+                      title={s.description}
+                    >
+                      {s.description}
+                    </div>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: 16 }}>
                     <div>
@@ -205,6 +240,92 @@ export function Stretegies() {
           </>
         )}
       </div>
+      {/* Modal for strategy details */}
+      {selectedStrategy && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: 'rgba(0,0,0,0.35)',
+          zIndex: 1000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+          onClick={closeModal}
+        >
+          <div
+            style={{
+              background: '#fff',
+              borderRadius: 16,
+              boxShadow: '0 4px 24px rgba(0,0,0,0.13)',
+              padding: 40,
+              minWidth: 420,
+              maxWidth: 700,
+              minHeight: 220,
+              width: '95vw',
+              maxHeight: '80vh',
+              position: 'relative',
+              cursor: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              onClick={closeModal}
+              style={{
+                position: 'absolute',
+                top: 18,
+                right: 18,
+                background: 'transparent',
+                border: 'none',
+                fontSize: 26,
+                color: '#888',
+                cursor: 'pointer',
+                fontWeight: 700,
+                zIndex: 2,
+              }}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <div style={{
+              overflowY: 'auto',
+              maxHeight: 'calc(80vh - 60px)',
+              paddingRight: 8,
+              flex: 1,
+            }}>
+              <div style={{ fontWeight: 700, fontSize: 26, marginBottom: 12 }}>{selectedStrategy.name}</div>
+              <div style={{ color: '#666', fontSize: 17, marginBottom: 20, whiteSpace: 'pre-line' }}>{selectedStrategy.description}</div>
+              <div style={{ marginBottom: 12 }}>
+                <span style={{
+                  display: 'inline-block',
+                  padding: '2px 12px',
+                  borderRadius: 8,
+                  background: selectedStrategy.is_active ? '#e0f7fa' : '#ffebee',
+                  color: selectedStrategy.is_active ? '#00796b' : '#d32f2f',
+                  fontWeight: 600,
+                  fontSize: 15,
+                  marginRight: 8
+                }}>{selectedStrategy.is_active ? 'Active' : 'Inactive'}</span>
+                <span style={{ color: '#888', fontSize: 14 }}>
+                  {new Date(selectedStrategy.created_at).toLocaleDateString()} {new Date(selectedStrategy.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </span>
+              </div>
+              {/* Show more details if available */}
+              {selectedStrategy.details && (
+                <div style={{ marginTop: 20, color: '#444', fontSize: 16 }}>
+                  <b>Details:</b> {selectedStrategy.details}
+                </div>
+              )}
+              {/* You can add more fields here as needed */}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import Formcomp from "../../components/formcomponent/Formcomp";
-import { mobileAuthentication } from "../features/auth/authAuthentication";
+import { mobileAuthentication , emailAuthentication } from "../features/auth/authAuthentication";
 import { butterup } from "butteruptoasts";
 
 const Mobile = () => {
@@ -17,24 +17,24 @@ const Mobile = () => {
 
   const formik = useFormik({
     initialValues: {
-      number: "",
+      email: "",
     },
     validationSchema: Yup.object({
-      number: Yup.string()
-        .matches(/^[0-9]{10}$/, "Enter a valid Number")
-        .required("Mobile Number is required"),
+      email: Yup.string()
+        .email("Enter a valid Email")
+        .required("Email is required"),
     }),
     onSubmit: (values) => {
       const formData = new FormData();
-      formData.append("phone", values.number);
-      dispatch(mobileAuthentication(formData));
+      formData.append("email", values.email);
+      dispatch(emailAuthentication(formData));
     },
   });
 
   if(success === true){
     setTimeout(() => {
-      navigate("/newotp")
-    },2000)
+      navigate("/newotp", { state: { email: formik.values.email } });
+    }, 2000);
   }
 
   return (
@@ -61,23 +61,22 @@ const Mobile = () => {
           {/* -----------------Form-section------------ */}
           <div className="form-section">
             <div className="signup-seconddiv">
-              <h2 className="signup-form-h2">Mobile Authorization</h2>
+              <h2 className="signup-form-h2">Email Authorization</h2>
               <p className="signup-form-small-text">
                 Authorize for your saftey
               </p>
               <form className="form-form" onSubmit={formik.handleSubmit}>
                 <Formcomp
-                  type="text"
-                  placeholder="Mobile Number"
-                  name="number"
+                  type="email"
+                  placeholder="Email"
+                  name="email"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.number}
-                  maxLength="10"
+                  value={formik.values.email}
                 />
-                {formik.touched.number && formik.errors.number ? (
+                {formik.touched.email && formik.errors.email ? (
                   <div className="error-message" style={{ color: "red" }}>
-                    {formik.errors.number}
+                    {formik.errors.email}
                   </div>
                 ) : null}
 

@@ -1,5 +1,5 @@
 import "./horizontalnav.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { VscBellDot } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import { IoExitOutline } from "react-icons/io5";
@@ -9,6 +9,7 @@ import { logoutAPI } from "../../user/features/auth/authAuthentication";
 const HorizontalNav = ({ showBtnOnClick }) => {
   const [showNotification, setShowNotification] = useState(false);
   const state = useSelector((state) => state.auth);
+const [response ,SetResponse] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,9 +26,24 @@ const HorizontalNav = ({ showBtnOnClick }) => {
     }, 6000);
   };
 
+ 
+
+
+
   const handleLogout = async () => {
-    dispatch(logoutAPI());
+    try {
+      const response = await dispatch(logoutAPI()).unwrap(); 
+  
+      if (response.success === true) {
+        console.log("Logout successful");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
+  
+
 
   return (
     <div className="HorizontalNav">

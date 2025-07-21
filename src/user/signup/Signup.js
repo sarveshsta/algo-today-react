@@ -1,33 +1,45 @@
 import "./signup.css";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate  ,useLocation } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import Formcomp from "../../components/formcomponent/Formcomp";
-import { signupAPI } from "../features/auth/authAuthentication";
+import { registerAPI } from "../features/auth/authAuthentication";
 import Formbutton from "../../components/formcomponent/Formbutton";
 
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const email = location.state?.email;
+  console.log("email ",email)
   const auth = useSelector((state) => state.auth);
 
   const signupMessage = auth?.user;
+
+  
   const { message, success } = signupMessage || {};
 
   const dd = JSON.parse(localStorage.getItem("authdetail"));
   const { otp, phone } = dd;
 
+
+  useEffect(() => {
+    if (success === true) {
+      toast.success("Signup successful! Redirecting to login...");
+      navigate("/dashboard");
+    }
+  }, [success, navigate]);
+
   const formik = useFormik({
     initialValues: {
       name: "",
       phone: "",
-      otp: "",
+      // otp: "",
       password: "",
-      email: "",
+      email: email,
     },
 
     validationSchema: Yup.object({
@@ -37,9 +49,9 @@ const Signup = () => {
       phone: Yup.string()
         .matches(/^[0-9]{10}$/, "Enter a valid Number")
         .required("Mobile Number is required"),
-      otp: Yup.string()
-        .matches(/^[0-9]{6}$/, "Enter a valid OTP")
-        .required("OTP is required"),
+      // otp: Yup.string()
+      //   .matches(/^[0-9]{6}$/, "Enter a valid OTP")
+      //   .required("OTP is required"),
       password: Yup.string()
         .matches(/^[a-zA-Z0-9@#.]+$/, "Enter Valid Password")
         .min(6, "Password must be at least 6 characters")
@@ -53,20 +65,16 @@ const Signup = () => {
         .required("Email is required"),
     }),
 
-    onSubmit: (values) => {
+    onSubmit: (values) => { 
       const formData = new FormData();
       formData.append("name", values.name);
-      formData.append("phone", phone);
-      formData.append("otp", otp);
+      formData.append("phone", values.phone);
+      // formData.append("otp", otp);
       formData.append("password", values.password);
-      formData.append("email", values.email);
-      dispatch(signupAPI(formData));
+      formData.append("email", email);
+      dispatch(registerAPI(formData));
 
-      if (success === true) {
-        setTimeout(() => {
-          navigate("/login");
-        }, 3000);
-      }
+      
     },
   });
   // const togglePasswordVisibility = () => {
@@ -132,20 +140,20 @@ const Signup = () => {
                   </div>
                 ) : null}
 
-                <Formcomp
+                {/* <Formcomp
                   type="text"
                   placeholder="Enter OTP"
                   name="otp"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.otp}
-                  maxLength="6"
+                  maxLength="7"
                 />
                 {formik.touched.otp && formik.errors.otp ? (
                   <div className="error-message" style={{ color: "red" }}>
                     {formik.errors.otp}
                   </div>
-                ) : null}
+                ) : null} */}
 
                 <Formcomp
                   type="password"
@@ -161,13 +169,14 @@ const Signup = () => {
                   </div>
                 ) : null}
 
-                <Formcomp
+                <Formcomp  
                   type="email"
                   placeholder="Email"
                   name="email"
-                  onChange={formik.handleChange}
+                  style={{ cursor: "not-allowed" }}
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
+                  disabled
                 />
                 {formik.touched.email && formik.errors.email ? (
                   <div className="error-message" style={{ color: "red" }}>
