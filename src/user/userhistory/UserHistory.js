@@ -1,5 +1,5 @@
 import "./userhistory.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { IoTriangle } from "react-icons/io5";
 import Navbar from "../../components/navbar/Navbar";
 import HorizontalNav from "../../components/navbar/HorizontalNav";
@@ -18,15 +18,20 @@ const groupByDate = (data) => {
   return grouped;
 };
 
+  const isMounted = useRef(true);
   useEffect(() => {
-    dispatch(tradeHistoryApi());
+    isMounted.current = true;
+    if (isMounted.current) dispatch(tradeHistoryApi());
 
-  const interval = setInterval(() => {
-    dispatch(tradeHistoryApi());
-  }, 30000); 
+    const interval = setInterval(() => {
+      if (isMounted.current) dispatch(tradeHistoryApi());
+    }, 30000);
 
-  // Clean up on unmount
-  return () => clearInterval(interval);
+    // Clean up on unmount
+    return () => {
+      isMounted.current = false;
+      clearInterval(interval);
+    };
   }, [dispatch]);
 
   const tradeHistory = useSelector((state) => state?.index?.tradeHistory);

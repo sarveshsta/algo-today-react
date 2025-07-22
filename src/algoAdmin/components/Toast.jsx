@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import './Toast.css';
 
@@ -10,13 +10,19 @@ export default function Toast({
   onClose
 }) {
   const [isVisible, setIsVisible] = useState(true);
+  const isMounted = useRef(true);
 
   useEffect(() => {
+    isMounted.current = true;
     const timer = setTimeout(() => {
+      if (!isMounted.current) return;
       setIsVisible(false);
       if (onClose) onClose();
     }, duration);
-    return () => clearTimeout(timer);
+    return () => {
+      isMounted.current = false;
+      clearTimeout(timer);
+    };
   }, [duration, onClose]);
 
   if (!isVisible) return null;

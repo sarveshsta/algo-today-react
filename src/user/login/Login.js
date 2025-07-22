@@ -1,4 +1,4 @@
-import React ,{useEffect} from "react";
+import React, { useEffect, useRef } from "react";
 import * as Yup from "yup";
 import "../signup/signup.css";
 import { useFormik } from "formik";
@@ -16,11 +16,16 @@ const Login = () => {
   const auth = useSelector((state) => state?.auth?.user?.data);
   const success = auth?.success;
 
+  const isMounted = useRef(true);
   useEffect(() => {
-    if (success === true) {
+    isMounted.current = true;
+    if (success === true && isMounted.current) {
       toast.success("Login successful!");
       navigate("/dashboard");
     }
+    return () => {
+      isMounted.current = false;
+    };
   }, [success, navigate]);
   const formik = useFormik({
     initialValues: {
@@ -65,7 +70,7 @@ const Login = () => {
             <img
               className="firstdiv-image"
               src={require("../../assets/icons/upscaler-1.png")}
-              alt="Algo-Today image"
+              alt="Algo-Today logo"
             />
             <h1 className="firstdiv-h1">Algo Today</h1>
             <h3 className="firstdiv-h3">Trade Smarter.Live Free</h3>

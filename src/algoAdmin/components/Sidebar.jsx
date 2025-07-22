@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { X } from "lucide-react";
 import algoIcon from "../assests/algo.svg"
@@ -119,10 +119,15 @@ const backdropStyles = {
 const Sidebar = ({ isOpen, setIsOpen, isMobile }) => {
   const [hovered, setHovered] = React.useState(null);
 
+  const isMounted = useRef(true);
   useEffect(() => {
-    if (!isMobile) setIsOpen(false);
+    isMounted.current = true;
+    if (!isMobile && isMounted.current) setIsOpen(false);
+    return () => {
+      isMounted.current = false;
+    };
     // eslint-disable-next-line
-  }, [isMobile]);
+  }, [isMobile, setIsOpen]);
 
   const navItems = [
     

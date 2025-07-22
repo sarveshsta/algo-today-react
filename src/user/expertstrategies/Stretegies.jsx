@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { getAllStrategiesApi } from "../features/customdata/custAuthentication";
+
 
 export function Stretegies() {
   const dispatch = useDispatch();
@@ -14,13 +15,21 @@ export function Stretegies() {
   const [pageSizeInput, setPageSizeInput] = useState(pageSize);
   // Modal state
   const [selectedStrategy, setSelectedStrategy] = useState(null);
+  const isMounted = useRef(true);
+  const abortControllerRef = useRef(null);
 
   const fetchStrategies = async (pageNum = page, size = pageSize) => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    const abortController = new AbortController();
+    abortControllerRef.current = abortController;
     setLoading(true);
     setError("");
     console.log("Fetching strategies with params:", { page: pageNum, page_size: size });
     try {
-      const action = await dispatch(getAllStrategiesApi({ page: pageNum, page_size: size }));
+      const action = await dispatch(getAllStrategiesApi({ page: pageNum, page_size: size, signal: abortController.signal }));
+      if (!isMounted.current) return;
       const res = action.payload;
       console.log("API response:", res);
       console.log("res.data type:", Array.isArray(res?.data), res?.data);
@@ -40,16 +49,28 @@ export function Stretegies() {
         console.log("API error (not array or empty):", res?.message || res);
       }
     } catch (err) {
+      if (!isMounted.current) return;
+      if (err.name === 'CanceledError' || err.name === 'AbortError') {
+        // Request was aborted, do nothing
+        return;
+      }
       setError(err?.message || "Failed to fetch strategies");
       console.log("Caught error in fetchStrategies:", err);
     } finally {
-      setLoading(false);
+      if (isMounted.current) setLoading(false);
     }
   };
 
   useEffect(() => {
+    isMounted.current = true;
     console.log("useEffect: page, pageSize", { page, pageSize });
     fetchStrategies(page, pageSize);
+    return () => {
+      isMounted.current = false;
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
     // eslint-disable-next-line
   }, [page, pageSize]);
 

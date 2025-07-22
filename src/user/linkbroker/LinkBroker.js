@@ -11,14 +11,19 @@ import Cookies from 'js-cookie';
 
 // Toast Component
 const Toast = ({ message, type, isVisible, onClose }) => {
+  const isMounted = React.useRef(true);
   React.useEffect(() => {
+    isMounted.current = true;
+    let timer;
     if (isVisible) {
-      const timer = setTimeout(() => {
-        onClose();
+      timer = setTimeout(() => {
+        if (isMounted.current) onClose();
       }, 4000); // Auto close after 4 seconds
-      
-      return () => clearTimeout(timer);
     }
+    return () => {
+      isMounted.current = false;
+      if (timer) clearTimeout(timer);
+    };
   }, [isVisible, onClose]);
 
   if (!isVisible) return null;

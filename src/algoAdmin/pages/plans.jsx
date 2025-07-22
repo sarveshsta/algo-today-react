@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { createplans } from '../routes/apiRoutes';
 import Toast from '../components/Toast.jsx';
 import styles from './CreateStretegy.module.css';
@@ -28,8 +28,18 @@ export  function Plans() {
     }));
   };
 
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const handleSubmit = async e => {
     e.preventDefault();
+    if (!isMounted.current) return;
     setLoading(true);
     setToastData(null);
     // Prepare features as array
@@ -41,6 +51,7 @@ export  function Plans() {
     };
     try {
       const res = await createplans(payload);
+      if (!isMounted.current) return;
       if (res?.success) {
         setToastData({
           title: 'Success',
@@ -58,6 +69,7 @@ export  function Plans() {
         });
       }
     } catch (err) {
+      if (!isMounted.current) return;
       setToastData({
         title: 'Error',
         description: err?.message || 'Failed to create plan',
@@ -65,7 +77,7 @@ export  function Plans() {
         duration: 3000,
       });
     } finally {
-      setLoading(false);
+      if (isMounted.current) setLoading(false);
     }
   };
 

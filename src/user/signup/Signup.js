@@ -2,7 +2,7 @@ import "./signup.css";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Link, useNavigate  ,useLocation } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import Formcomp from "../../components/formcomponent/Formcomp";
@@ -26,11 +26,16 @@ const Signup = () => {
   const { otp, phone } = dd;
 
 
+  const isMounted = useRef(true);
   useEffect(() => {
-    if (success === true) {
+    isMounted.current = true;
+    if (success === true && isMounted.current) {
       toast.success("Signup successful! Redirecting to login...");
       navigate("/dashboard");
     }
+    return () => {
+      isMounted.current = false;
+    };
   }, [success, navigate]);
 
   const formik = useFormik({

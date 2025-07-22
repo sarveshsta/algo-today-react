@@ -10,12 +10,13 @@ import {
   emailAuthentication,
   otpEmailVerificationAPI,
 } from "../features/auth/authAuthentication";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState, useRef } from "react";
+
 
 const Forgotpassword = () => {
   const [logapicalled, setLogApiCalled] = useState(false);
   const [Otpapicalled, setOtpApiCalled] = useState(false);
-
+  const isMounted = useRef(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formData = new FormData();
@@ -29,7 +30,7 @@ const Forgotpassword = () => {
         formData.append("email", values.email);
         try {
           dispatch(emailAuthentication(formData));
-          setLogApiCalled(true);
+          if (isMounted.current) setLogApiCalled(true);
         } catch (error) {
         }
       } else if (!Otpapicalled) {
@@ -37,7 +38,7 @@ const Forgotpassword = () => {
         formData.append("email", values.email);
         try {
           dispatch(otpEmailVerificationAPI(formData));
-          setOtpApiCalled(true);
+          if (isMounted.current) setOtpApiCalled(true);
         } catch (error) {
         }
       } else {
@@ -48,6 +49,7 @@ const Forgotpassword = () => {
         };
         try {
           const response = await dispatch(forgotAPI(data)).unwrap();
+          if (!isMounted.current) return;
           if (response.success === true) {
             console.log("Password Update successful");
             navigate("/login");
@@ -98,6 +100,7 @@ const Forgotpassword = () => {
   });
 
   useEffect(() => {
+    isMounted.current = true;
     if (forAuth?.data) {
       // toast.success(forAuth.data.message);
     } else if (forAuth?.data && logapicalled) {
@@ -105,6 +108,9 @@ const Forgotpassword = () => {
     } else if (forAuth?.data && logapicalled && Otpapicalled) {
       // toast.success(forAuth.data.message);
     }
+    return () => {
+      isMounted.current = false;
+    };
   }, [forAuth?.data, logapicalled, Otpapicalled]);
 
   return (

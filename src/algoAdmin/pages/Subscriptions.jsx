@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getAllSubsciptions } from '../routes/apiRoutes';
 import Toast  from '../components/Toast.jsx';
 import { ChevronDown } from 'lucide-react';
@@ -206,14 +206,21 @@ const Subscriptions = () => {
     }
   };
 
+  const isMounted = useRef(true);
+
   useEffect(() => {
+    isMounted.current = true;
     fetchSubs(page, pageSize, filter).then(({ subsList, total, totalPages, currentPage, pageSize }) => {
+      if (!isMounted.current) return;
       setSubs(subsList);
       setTotalSubs(total);
       setTotalPages(totalPages);
       setPage(currentPage);
       setPageSize(pageSize);
     });
+    return () => {
+      isMounted.current = false;
+    };
     // eslint-disable-next-line
   }, [page, pageSize, filter]);
 

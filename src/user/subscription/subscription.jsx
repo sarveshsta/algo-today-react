@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -36,6 +36,8 @@ export const Subscription = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
     const fetchPlans = async () => {
       setPlansLoading(true);
       setError(null);
@@ -48,25 +50,39 @@ export const Subscription = () => {
               "Content-Type": "application/json",
               ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
             },
+            signal: controller.signal,
           }
         );
-        setPlans(Array.isArray(data) ? data.filter(plan => plan.is_active === true) : []);
+        if (isMounted) {
+          setPlans(Array.isArray(data) ? data.filter(plan => plan.is_active === true) : []);
+        }
       } catch (err) {
-        setError("Failed to load subscription plans.");
+        if (isMounted) {
+          if (err.name !== 'CanceledError' && err.name !== 'AbortError') {
+            setError("Failed to load subscription plans.");
+          }
+        }
       }
-      setPlansLoading(false);
+      if (isMounted) setPlansLoading(false);
     };
     fetchPlans();
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
   }, []);
 
+  const isMountedRef = useRef(true);
   const handleSubscribe = async (plan) => {
+    isMountedRef.current = true;
     setLoadingPlanId(plan.id);
     const res = await loadRazorpayScript();
     if (!res) {
       alert("Failed to load Razorpay SDK. Please check your connection.");
-      setLoadingPlanId(null);
+      if (isMountedRef.current) setLoadingPlanId(null);
       return;
     }
+    const controller = new AbortController();
     try {
       // Get token from cookies only
       const accessToken = Cookies.get("accessToken");
@@ -81,6 +97,7 @@ export const Subscription = () => {
             "Content-Type": "application/json",
             ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
           },
+          signal: controller.signal,
         }
       );
       const orderId = data.razorpay_order_id || data.orderId || data.id;
@@ -93,6 +110,7 @@ export const Subscription = () => {
         description: plan.description,
         order_id: orderId, // Use this for orders
         handler: async function (response) {
+          if (!isMountedRef.current) return;
           setPaymentDetails(response);
           // Backend verification logic using axios
           try {
@@ -112,9 +130,9 @@ export const Subscription = () => {
                 },
               }
             );
-            toast.success(verifyRes.data.message || "Subscription verified successfully!");
+            if (isMountedRef.current) toast.success(verifyRes.data.message || "Subscription verified successfully!");
           } catch (err) {
-            toast.error(
+            if (isMountedRef.current) toast.error(
               err?.response?.data?.message || "Subscription verification failed."
             );
           }
@@ -131,9 +149,14 @@ export const Subscription = () => {
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (err) {
-      alert("Error initiating payment. Please try again.");
+      if (isMountedRef.current) alert("Error initiating payment. Please try again.");
     }
-    setLoadingPlanId(null);
+    if (isMountedRef.current) setLoadingPlanId(null);
+    // Cleanup for async
+    return () => {
+      isMountedRef.current = false;
+      controller.abort();
+    };
   };
 
   return (

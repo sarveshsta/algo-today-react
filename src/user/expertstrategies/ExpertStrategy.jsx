@@ -4,7 +4,7 @@ import Navbar from "../../components/navbar/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import Newshape from "../../components/shape/custshape/Newshape";
 import HorizontalNav from "../../components/navbar/HorizontalNav";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import Orangenewshape from "../../components/shape/custshape/Orangenewshape";
 import {Stretegies} from "./Stretegies.jsx"
 import {
@@ -66,8 +66,9 @@ const option4 = [
   };
   // const tradeURL ="http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8000";  
 
+
 export function ExpertStrategy(){
-    const [checkedCheckBox, setCheckedCheckBox] = useState(false);
+  const [checkedCheckBox, setCheckedCheckBox] = useState(false);
   const [selectedInput, setSelectedInput] = useState("");
   const [btnDisable, setBtnDisable] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -75,6 +76,7 @@ export function ExpertStrategy(){
   const [strategyOptions, setStrategyOptions] = useState([]);
   const [isStrategyRunning, setIsStrategyRunning] = useState(false);
   const [starting, setStarting] = useState(false);
+  const isMounted = useRef(true);
 
   const [inputValues, setInputValues] = useState({
     strategy_id: "",
@@ -109,11 +111,14 @@ export function ExpertStrategy(){
 
   useEffect(() => {
     MicroModal.init({
-      onShow: () => {}, // Optional: Add callbacks if needed
-      onClose: () => setIsModalOpen(false), // Update state when modal closes
-      disableScroll: true, // Optional: Disable background scroll when modal is open
-      awaitCloseAnimation: true, // Optional: Wait for animation to finish before removing modal from DOM
+      onShow: () => {},
+      onClose: () => setIsModalOpen(false),
+      disableScroll: true,
+      awaitCloseAnimation: true,
     });
+    return () => {
+      isMounted.current = false;
+    };
   }, [isModalOpen]);
 
   const handleSubmit1 = useCallback(() => {
@@ -181,15 +186,17 @@ export function ExpertStrategy(){
       candle_duration: firstIndex.chart_time,
     };
     dispatch(startStrategyApi(payload)).then((action) => {
+      if (!isMounted.current) return;
       setStarting(false);
       if (action.payload && action.payload.success) {
         setIsStrategyRunning(true);
       }
-    }).catch(() => setStarting(false));
+    }).catch(() => { if (isMounted.current) setStarting(false); });
   }, [inputValues]);
 
   const handleStopStrategy = useCallback(() => {
     dispatch(stopStrategy(inputValues.strategy_id)).then((action) => {
+      if (!isMounted.current) return;
       if (action.payload && action.payload.success) {
         setIsStrategyRunning(false);
       }
@@ -198,12 +205,13 @@ export function ExpertStrategy(){
 
   useEffect(() => {
     if (getStrategy?.message === "Live strategy data fetched from WebSocket successfully") {
-      setBtnDisable(false);
+      if (isMounted.current) setBtnDisable(false);
     }
   }, [getStrategy?.message]);
 
   useEffect(() => {
     dispatch(getStrategiesDropdownApi()).then((action) => {
+      if (!isMounted.current) return;
       if (
         action.payload &&
         Array.isArray(action.payload.data)

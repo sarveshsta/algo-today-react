@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { users as fetchUsersApi, updateUserStatus } from '../routes/apiRoutes';
 import Toast  from '../components/Toast.jsx';
 import { ChevronDown } from 'lucide-react';
@@ -221,14 +221,21 @@ const User = () => {
     setCurrentPage(1);
   }, [filter, searchQuery]);
 
+  const isMounted = useRef(true);
+
   useEffect(() => {
+    isMounted.current = true;
     fetchUsers(currentPage, filter, searchQuery, pageSize).then(({ usersList, total, totalPages, currentPage, pageSize }) => {
+      if (!isMounted.current) return;
       setUsers(usersList);
       setTotalUsers(total);
       setTotalPages(totalPages);
       setCurrentPage(currentPage);
       setPageSize(pageSize);
     });
+    return () => {
+      isMounted.current = false;
+    };
     // eslint-disable-next-line
   }, [currentPage, filter, searchQuery, pageSize]);
 
