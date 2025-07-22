@@ -14,17 +14,25 @@ export function ManagePlans() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    let isMounted = true;
     setLoading(true);
     setError(null);
     getAllPlans()
       .then((res) => {
-        setPlans(res?.results || res || []);
-        setLoading(false);
+        if (isMounted) {
+          setPlans(res?.results || res || []);
+          setLoading(false);
+        }
       })
       .catch((err) => {
-        setError("Failed to fetch plans");
-        setLoading(false);
+        if (isMounted) {
+          setError("Failed to fetch plans");
+          setLoading(false);
+        }
       });
+    return () => {
+      isMounted = false;
+    };
   }, [refresh]);
 
   // Integrate activate/deactivate API

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {useNavigate} from 'react-router'
 import { login} from '../routes/apiRoutes.js'
 import Cookies from 'js-cookie';
@@ -23,25 +23,31 @@ const AdminLogin = () => {
 
   const [error, setError] = useState('');
 
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!isMounted.current) return;
     setError('');
-    
     try {
       const response = await login(formData);
-      console.log(response);
-      
+      if (!isMounted.current) return;
       if (response && response.access) {
         // Store the access token in both cookies and localStorage for redundancy
         localStorage.setItem('adminAccessToken', response.access);
         Cookies.set('adminAccessToken', response.access, { expires: 1 }); // Expires in 1 day
-        
         // Store the refresh token if available
         if (response.refresh) {
           localStorage.setItem('adminRefreshToken', response.refresh);
           Cookies.set('adminRefreshToken', response.refresh, { expires: 7 }); // Expires in 7 days
         }
-        
         // Navigate only on successful login
         navigate('/admin/users');
       } else {
@@ -55,6 +61,7 @@ const AdminLogin = () => {
         setError('Login failed. Please check your credentials.');
       }
     } catch (err) {
+      if (!isMounted.current) return;
       setToastData({
         title: 'Login Error',
         message: err.message || 'Login failed.',

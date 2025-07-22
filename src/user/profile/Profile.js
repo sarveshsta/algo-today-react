@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userInfo , requestPhoneOtpAPI ,verifyPhoneOtpAPI} from "../features/auth/authAuthentication";
 import HorizontalNav from "../../components/navbar/HorizontalNav";
@@ -56,13 +56,18 @@ const Profile = () => {
   const [otpError, setOtpError] = useState("");
 
   // Fetch user info on mount
+  const isMounted = useRef(true);
   useEffect(() => {
-    dispatch(userInfo());
+    isMounted.current = true;
+    if (isMounted.current) dispatch(userInfo());
+    return () => {
+      isMounted.current = false;
+    };
   }, [dispatch]);
 
   // Populate local state when user info loads
   useEffect(() => {
-    if (user) {
+    if (isMounted.current && user) {
       setEditName(user.name || "");
       setEditPhone(user.phone || "");
     }

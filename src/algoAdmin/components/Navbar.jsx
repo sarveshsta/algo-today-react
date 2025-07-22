@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Menu } from 'lucide-react';
 import { logout } from '../routes/apiRoutes.js'
 import Cookies from 'js-cookie';
@@ -60,6 +60,15 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => {
   const navigate = useNavigate();
   const [toastData, setToastData] = useState(null);
 
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const handleLogout = async () => {
     localStorage.removeItem("adminAccessToken");
     localStorage.removeItem("adminRefreshToken");
@@ -69,13 +78,16 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen, isMobile }) => {
     Cookies.remove("adminRefreshToken");
     Cookies.remove("adminRefreshToken", { path: "/" });
     
+    if (!isMounted.current) return;
     setToastData({
       title: 'Logged out',
       description: 'You have been successfully logged out.',
       variant: 'success',
       duration: 1500,
     });
-    setTimeout(() => navigate('/admin'), 1500);
+    setTimeout(() => {
+      if (isMounted.current) navigate('/admin');
+    }, 1500);
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { createStrategy } from "../routes/apiRoutes";
 import styles from "./CreateStretegy.module.css";
 import Modal from "../../components/Modal";
@@ -949,14 +949,26 @@ export function CreateStretegy() {
     };
   };
 
+  const isMounted = useRef(true);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   const handleSubmit = async () => {
+    if (!isMounted.current) return;
     const payload = buildPayload();
     console.log("Sending payload:", JSON.stringify(payload, null, 2));
     try {
       const response = await createStrategy(payload);
+      if (!isMounted.current) return;
       console.log("Strategy created:", response);
       alert("Strategy created successfully!");
     } catch (error) {
+      if (!isMounted.current) return;
       console.error("Error creating strategy:", error);
       alert("Failed to create strategy.");
     }

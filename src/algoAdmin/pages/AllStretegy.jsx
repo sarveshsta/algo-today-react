@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { getAllStrategies } from "../routes/apiRoutes";
 import styles from "./AllStretegy.module.css";
 
@@ -14,11 +14,13 @@ export function AllStretegy() {
   // Modal state for strategy details
   const [selectedStrategy, setSelectedStrategy] = useState(null);
 
-  const fetchStrategies = async (pageNum = page, size = pageSize) => {
+  const fetchStrategies = async (pageNum = page, size = pageSize, isMountedRef) => {
+    if (isMountedRef && !isMountedRef.current) return;
     setLoading(true);
     setError("");
     try {
       const res = await getAllStrategies(pageNum, size);
+      if (isMountedRef && !isMountedRef.current) return;
       if (res?.data?.success && Array.isArray(res.data.data)) {
         setStrategies(res.data.data);
         // Use meta from response only
@@ -31,14 +33,23 @@ export function AllStretegy() {
         setError(res?.data?.message || "Failed to fetch strategies");
       }
     } catch (err) {
+      if (isMountedRef && !isMountedRef.current) return;
       setError(err?.message || "Failed to fetch strategies");
     } finally {
+      if (isMountedRef && !isMountedRef.current) return;
       setLoading(false);
     }
   };
 
+  // Prevent memory leaks with isMounted ref
+  const isMounted = useRef(true);
+
   useEffect(() => {
-    fetchStrategies(page, pageSize);
+    isMounted.current = true;
+    fetchStrategies(page, pageSize, isMounted);
+    return () => {
+      isMounted.current = false;
+    };
     // eslint-disable-next-line
   }, [page, pageSize]);
 
@@ -54,7 +65,7 @@ export function AllStretegy() {
       <div className={styles.container}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
           <div className={styles.cardTitle}>All Strategies</div>
-          <button className={styles.addConditionBtn} onClick={() => fetchStrategies(page, pageSize)}>Refresh</button>
+          <button className={styles.addConditionBtn} onClick={() => fetchStrategies(page, pageSize, isMounted)}>Refresh</button>
         </div>
         {loading ? (
           <div className={styles.loadingContainer}>

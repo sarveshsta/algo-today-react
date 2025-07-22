@@ -26,12 +26,17 @@ const AdminLayout = () => {
   );
 
   useEffect(() => {
+    let isMounted = true;
     const handleResize = () => {
+      if (!isMounted) return;
       setIsMobile(window.innerWidth < 768);
       if (window.innerWidth >= 768) setIsSidebarOpen(false);
     };
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      isMounted = false;
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
