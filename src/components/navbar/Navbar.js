@@ -1,9 +1,9 @@
 import "./navbar.css";
-import { FaBars  } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import { GrHomeRounded } from "react-icons/gr";
 import { IoPersonOutline } from "react-icons/io5";
 import { IoIosCloseCircle } from "react-icons/io";
-import {NavLink as Link, useNavigate } from "react-router-dom";
+import { NavLink as Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 
 const Navbar = () => {
@@ -47,7 +47,10 @@ const Navbar = () => {
 
         {/* <div className="nav-ul"> */}
         <ul className={`ul-list`}>
-          <div className="" style={{ display: "flex" , alignItems:"center" , gap:"25px" }}>
+          <div
+            className=""
+            style={{ display: "flex", alignItems: "center", gap: "25px" }}
+          >
             <GrHomeRounded color="white" />
             <li className="vertnav-ul-li" id="home">
               <Link
@@ -59,20 +62,27 @@ const Navbar = () => {
             </li>
           </div>
 
-          
-          <div className="" style={{ display: "flex", alignItems: "center", gap: "25px", fontSize: "16px" }}>
-          <IoPersonOutline color="white"  />
+          <div
+            className=""
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "25px",
+              fontSize: "16px",
+            }}
+          >
+            <IoPersonOutline color="white" />
             <li className="vertnav-ul-li" id="profile" >
               <Link
                 to="/profile"
                 style={{ textDecorationLine: "none", color: "white" }}
               >
-                <span className="link-text" >Profile</span>
+                <span className="link-text">Profile</span>
               </Link>
             </li>
           </div>
-          
-          <div className="" >
+
+          <div className="">
             <li className="vertnav-ul-li" id="opendemat">
               <img
                 className="iconimg"
@@ -83,7 +93,9 @@ const Navbar = () => {
                 to="/opendemate"
                 style={{ textDecorationLine: "none", color: "white" }}
               >
-                <span className="link-text">Open Demat <br></br>Account</span>
+                <span className="link-text">
+                  Open Demat <br></br>Account
+                </span>
               </Link>
             </li>
           </div>
@@ -98,7 +110,9 @@ const Navbar = () => {
                 to="/linkbroker"
                 style={{ textDecorationLine: "none", color: "white" }}
               >
-                <span className="link-text">Link Broker<br></br>account</span>
+                <span className="link-text">
+                  Link Broker<br></br>account
+                </span>
               </Link>
             </li>
           </div>
@@ -144,7 +158,9 @@ const Navbar = () => {
                 to="/custom"
                 style={{ textDecorationLine: "none", color: "white" }}
               >
-                <span className="link-text">Custom<br></br>Strategies</span>
+                <span className="link-text">
+                  Custom<br></br>Strategies
+                </span>
               </Link>
             </li>
           </div>
@@ -159,7 +175,9 @@ const Navbar = () => {
                 to="/expertstrategy"
                 style={{ textDecorationLine: "none", color: "white" }}
               >
-                <span className="link-text">Expert<br></br>Strategies</span>
+                <span className="link-text">
+                  Expert<br></br>Strategies
+                </span>
               </Link>
             </li>
           </div>
@@ -174,7 +192,9 @@ const Navbar = () => {
                 to="/managetrading"
                 style={{ textDecorationLine: "none", color: "white" }}
               >
-                <span className="link-text">Manage<br></br>trading</span>
+                <span className="link-text">
+                  Manage<br></br>trading
+                </span>
               </Link>
             </li>
           </div>

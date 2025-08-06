@@ -1,10 +1,69 @@
-.userhistory-dataa{
+.userhistory-dataa {
     margin-left: 17%;
+    width: 80%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
-.blue-point{
+.blue-point {
     width: 1rem;
-  height: 1rem;
-  border-radius: 50px;
-    background: #3498DB;
+    height: 1rem;
+    border-radius: 50px;
+    background: #3498db;
+}
+@media (min-width: 960px) {
+    .main-div {
+        width: -webkit-fill-available;
+    }
+}
+/* Responsive styles */
+@media (max-width: 960px) {
+    .userhistory-dataa {
+        margin-left: 20%;
+    }
+    .main-div {
+        width: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .userhistory-dataa {
+        margin-left: 0;
+        width: 100%;
+        padding: 10px 0;
+        box-sizing: border-box;
+        align-items: stretch;
+        gap: 12px;
+    }
+    .box {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 10px !important;
+        box-sizing: border-box;
+        border-radius: 10px;
+        min-width: 0;
+    }
+    .managetrading-bottomborder {
+        overflow-x: auto;
+    }
+    table {
+        font-size: 13px;
+        min-width: 600px;
+        width: 100%;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    }
+    th,
+    td {
+        padding: 6px 4px;
+        text-align: center;
+    }
+    .box-para {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
 }

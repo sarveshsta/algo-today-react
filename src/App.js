@@ -22,16 +22,17 @@ import Mystrategies from "./makestrategies/Mystrategies";
 import UserHistory from "./user/userhistory/UserHistory";
 import ManageTrading from "./user/managetrading/ManageTrading";
 import {
-  createHashRouter,
+  createBrowserRouter,
   Route,
   Routes,
-  HashRouter,
+  BrowserRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";
 import Forgotpassword from "./user/forgotpassword/Forgotpassword";
 import CustomStrategies from "./user/customstrategies/CustomStrategies";
-import {ExpertStrategy} from "./user/expertstrategies/ExpertStrategy";
+import { ExpertStrategy } from "./user/expertstrategies/ExpertStrategy";
+import { LogViewer } from "./user/expertstrategies/liveLogs";
 
 import { ToastContainer } from "react-toastify";
 import { Circles } from "react-loader-spinner";
@@ -45,14 +46,14 @@ import Users from "./algoAdmin/pages/Users.jsx";
 import AdminSettings from "./algoAdmin/pages/AdminSettings.jsx";
 import AdminProtectedRoute from "./algoAdmin/routes/AdminProtectedRoutes.js";
 import Subscriptions from "./algoAdmin/pages/Subscriptions.jsx";
-import {CreateStretegy} from "./algoAdmin/pages/CreateStretegy.jsx";
-import {AllStretegy} from "./algoAdmin/pages/AllStretegy.jsx";
-import {Plans}  from "./algoAdmin/pages/plans"
-import {ManagePlans}  from "./algoAdmin/pages/managePlans"
-import Profile from "./user/profile/Profile.js"
-import {Subscription}  from "./user/subscription/subscription"
+import { CreateStretegy } from "./algoAdmin/pages/CreateStretegy.jsx";
+import { AllStretegy } from "./algoAdmin/pages/AllStretegy.jsx";
+import { Plans } from "./algoAdmin/pages/plans";
+import { ManagePlans } from "./algoAdmin/pages/managePlans";
+import Profile from "./user/profile/Profile.js";
+import { Subscription } from "./user/subscription/subscription";
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   { path: "/", element: <Homee /> },
   { path: "/mobile", element: <Mobile /> },
   { path: "/login", element: <Login /> },
@@ -66,8 +67,8 @@ const router = createHashRouter([
   { path: "/admindashboard", element: <Dashboard /> },
   { path: "/custom", element: <CustomStrategies /> },
   { path: "/expertstrategy", element: <ExpertStrategy /> },
+  { path: "/live-logs", element: <LogViewer /> },
   { path: "/subscription", element: <Subscription /> },
- 
   { path: "/My-strategy", element: <Mystrategies /> },
   { path: "/userhistory", element: <UserHistory /> },
   { path: "/managetrading", element: <ManageTrading /> },
@@ -76,7 +77,6 @@ const router = createHashRouter([
   { path: "/forgotpassword", element: <Forgotpassword /> },
   { path: "/newotp", element: <Newotp /> },
   { path: "/Profile", element: <Profile /> },
- 
   { path: "*", element: <Navigate to="/" /> }, // Handle unknown routes
 ]);
 
@@ -153,11 +153,10 @@ function App() {
 
       {/* <RouterProvider router={router} />; */}
 
-      <HashRouter basename="/">
+      <BrowserRouter>
         <Routes>
-          
           <Route path="*" element={<Navigate to="/" />} />
-          
+
           <Route path="/" element={<Homee />} />
           <Route path="/mobile" element={<Mobile />} />
           <Route path="/login" element={<Login />} />
@@ -175,7 +174,7 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute>  
+              <ProtectedRoute>
                 <Dashbord />
               </ProtectedRoute>
             }
@@ -230,8 +229,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-          
-         
+          <Route
+            path="/live-logs"
+            element={
+              <ProtectedRoute>
+                <LogViewer />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/My-strategy"
             element={
@@ -276,26 +281,21 @@ function App() {
           <Route path="/forgotpassword" element={<Forgotpassword />} />
           <Route path="/newotp" element={<Newotp />} />
 
-
-{/* admin stuff */}
-<Route path="/admin" element={<AdminLogin />} />
-        <Route element={<AdminProtectedRoute />}>
-          <Route element={<AdminLayout />}>
-            <Route path="/admindashboard" element={<AdminDashboard />} />
-            <Route path="/admin/users" element={<Users />} />
-            <Route path="/adminstrategies" element={<AllStretegy />} />
-            <Route path="/subscriptions" element={<Subscriptions />} />
-            <Route path="/createStretegy" element={<CreateStretegy />} />
-            <Route path="/Plans" element={<Plans />} />
-            <Route path="/managePlans" element={<ManagePlans />} />
-
+          {/* admin stuff */}
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route element={<AdminProtectedRoute />}>
+            <Route element={<AdminLayout />}>
+              <Route path="/admindashboard" element={<AdminDashboard />} />
+              <Route path="/admin/users" element={<Users />} />
+              <Route path="/adminstrategies" element={<AllStretegy />} />
+              <Route path="/subscriptions" element={<Subscriptions />} />
+              <Route path="/createStretegy" element={<CreateStretegy />} />
+              <Route path="/Plans" element={<Plans />} />
+              <Route path="/managePlans" element={<ManagePlans />} />
+            </Route>
           </Route>
-        </Route>
-
-
-
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </>
   );
 }

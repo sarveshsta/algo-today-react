@@ -25,11 +25,7 @@
   margin-right: 0;
 }
 
-@media (max-width: 1290px) {
-  .subscriptionGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
+
 
 .subscriptionCard {
   background: #f8fafc;
@@ -92,4 +88,25 @@
   border: none;
   border-top: 1px solid #e0e7ef;
   margin: 12px 0;
+}
+@media (max-width: 1290px) {
+  .subscriptionGrid {
+    grid-template-columns: repeat(auto-fit, 1fr);
+  }
+  .container{
+  max-width: 800px;
+  margin: 0 5vw 0 auto;
+  }
+}
+@media (max-width: 1024px){
+ .container{
+  max-width: 600px;
+  
+  }
+}
+@media (max-width: 768px){
+.container{
+  max-width: 700px;
+   margin:  auto;
+  }
 }

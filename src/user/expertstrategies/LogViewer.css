@@ -1,0 +1,250 @@
+
+/* LogViewer.css - Blue/White Theme Consistent with App */
+
+.log-viewer-container {
+  background: #fff;
+  border: 1px solid #e3e8ee;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(52, 152, 219, 0.07);
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  height: 100dvh;
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  position: relative;
+  text-align: left;
+}
+
+.log-viewer-header {
+  background: #f8fafc;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e3e8ee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.log-title {
+  color: #3498db;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.log-icon {
+  font-size: 20px;
+  color: #3498db;
+}
+
+.log-stats {
+  background: #eaf6fd;
+  border: 1px solid #d0e7fa;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: #3498db;
+}
+
+.log-count {
+  font-weight: 500;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Connection Status */
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #d0e7fa;
+  background: #eaf6fd;
+  color: #3498db;
+  transition: all 0.3s;
+}
+
+.connection-status.connected {
+  border-color: #b6e0fe;
+  background: #eaf6fd;
+  color: #3498db;
+}
+
+.connection-status.disconnected {
+  border-color: #ffe0e0;
+  background: #fff5f5;
+  color: #e74c3c;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #b6e0fe;
+}
+
+.connected .status-indicator {
+  background: #3498db;
+  box-shadow: 0 0 6px #b6e0fe;
+}
+
+.disconnected .status-indicator {
+  background: #e74c3c;
+}
+
+/* Clear Button */
+.clear-button {
+  background: #fff5f5;
+  border: 1px solid #ffe0e0;
+  color: #e74c3c;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s;
+}
+
+.clear-button:hover {
+  background: #ffe0e0;
+  border-color: #e74c3c;
+}
+
+.clear-button:active {
+  background: #fff;
+}
+
+/* Log Content */
+.log-content {
+  flex: 1;
+  overflow-y: auto;
+  background: #f8fafc;
+  position: relative;
+}
+
+.log-entries {
+  padding: 16px;
+}
+
+/* Log Entry Styles */
+.log-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px 12px;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  border-left: 3px solid #e3e8ee;
+  background: #fff;
+  transition: all 0.2s;
+}
+
+.log-entry:hover {
+  background: #eaf6fd;
+  border-left-color: #3498db;
+}
+
+.log-timestamp {
+  color: #666;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0.8;
+  min-width: 80px;
+}
+
+.log-message {
+  color: #3498db;
+  font-size: 13px;
+  line-height: 1.4;
+  word-break: break-word;
+  flex: 1;
+}
+
+/* No Logs State */
+.no-logs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #b0b8c1;
+  text-align: center;
+}
+
+.no-logs-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+
+.no-logs p {
+  font-size: 14px;
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* Footer */
+.log-footer {
+  background: #f8fafc;
+  border-top: 1px solid #e3e8ee;
+  padding: 8px 20px;
+}
+
+.footer-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #666;
+  justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .log-viewer-container {
+    height: 80dvh;
+  }
+  .log-viewer-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .header-left,
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .log-title {
+    font-size: 16px;
+  }
+  .log-entries {
+    padding: 12px;
+  }
+  .log-entry {
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+  }
+  .log-timestamp {
+    min-width: auto;
+  }
+}

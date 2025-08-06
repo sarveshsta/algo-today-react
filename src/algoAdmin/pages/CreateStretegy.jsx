@@ -1,7 +1,14 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import { createStrategy } from "../routes/apiRoutes";
 import styles from "./CreateStretegy.module.css";
 import Modal from "../../components/Modal";
+
+// Responsive helper: merge className with optional extra
+function cx(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
 
 // Define the pre-condition types with backend keys and labels
 const PRE_CONDITION_TYPES = [
@@ -966,11 +973,11 @@ export function CreateStretegy() {
       const response = await createStrategy(payload);
       if (!isMounted.current) return;
       console.log("Strategy created:", response);
-      alert("Strategy created successfully!");
+      
     } catch (error) {
       if (!isMounted.current) return;
       console.error("Error creating strategy:", error);
-      alert("Failed to create strategy.");
+ 
     }
   };
 

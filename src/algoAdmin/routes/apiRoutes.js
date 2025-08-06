@@ -112,3 +112,27 @@ export async function updatePlanStatus(id, is_active) {
     addAuth: true
   });
 }
+  export async function deleteStrategy(data) {
+  return apiRequest({
+    method: "POST",
+    endpoint: "/api/strategy/delete-strategy/",
+    data,
+    addAuth: true
+  });
+}
+
+export async function updateStrategy(id, data) {
+  return apiRequest({
+    method: "PUT",
+    endpoint: `/api/strategy/update-strategy/${id}/`,
+    data,
+    addAuth: true
+  });
+}
+
+export async function getStrategyDetails(id){
+ return apiRequest({
+    endpoint: `/api/strategy/get-strategy/${id}/`,
+    addAuth: true
+  });
+}

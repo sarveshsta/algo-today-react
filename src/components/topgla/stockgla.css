@@ -130,9 +130,13 @@
   font-weight: 400;
 }
 
-.stockchang {
-}
 
+@media only screen and (max-width: 920px){
+  .Detailnav {
+    margin-left: 23%;
+    overflow: hidden;
+  }
+}
 @media screen and (max-width: 768px) {
   .Detailnav {
      margin-left: 0;
@@ -161,9 +165,7 @@
     width: auto;
   }
   
-  .glamain {
-    
-  }
+ 
 
   .glasub{
     flex-wrap: wrap;

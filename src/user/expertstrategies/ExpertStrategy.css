@@ -1,33 +1,34 @@
 .expert-strategy-form-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: center;
-  margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 16px;
 }
 
 .expert-strategy-form-row .select-container,
 .expert-strategy-form-row input {
-  min-width: 180px;
-  flex: 1 1 180px;
-  max-width: 220px;
+    min-width: 180px;
+    flex: 1 1 180px;
+    max-width: 220px;
 }
 
 .cust-inputbtn {
-  height: 40px;
-  border-radius: 25px;
-  border: 1px solid #2196f3;
-  background: rgba(52, 152, 219, 0.08);
-  font-size: 16px;
-  margin-bottom: 0;
-  margin-right: 0;
-  box-sizing: border-box;
-  padding-left: 12px;
+    height: 40px;
+    border-radius: 25px;
+    border: 1px solid #2196f3;
+    background: rgba(52, 152, 219, 0.08);
+    font-size: 16px;
+    color: black;
+    margin-bottom: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+    padding-left: 12px;
 }
 
 .thirdddiv-btnn {
-  display: flex;
-  gap: 16px;
-  margin-top: 20px;
-  justify-content: center;
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+    justify-content: center;
 }

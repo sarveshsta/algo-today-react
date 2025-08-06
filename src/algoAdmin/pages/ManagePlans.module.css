@@ -1,124 +1,124 @@
 .wrapper {
-  min-height: 100vh;
-  background: #f7fafd;
-  padding: 32px 0;
-  font-family: inherit;
+    min-height: 100vh;
+    background: #f7fafd;
+    padding: 32px 0;
+    font-family: inherit;
 }
 .container {
-  max-width: 1100px;
-  margin: 0 auto;
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  padding: 32px 32px 24px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    padding: 32px 32px 24px 32px;
 }
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
 }
 .title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #2563eb;
-  letter-spacing: -1px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2563eb;
+    letter-spacing: -1px;
 }
 .addBtn {
-  background: #2196f3;
-  color: #fff;
-  border: 0;
-  border-radius: 24px;
-  padding: 12px 32px;
-  font-weight: 700;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background 0.2s;
+    background: #2196f3;
+    color: #fff;
+    border: 0;
+    border-radius: 24px;
+    padding: 12px 32px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
 }
 .card {
-  background: #f8fafc;
-  border-radius: 14px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
-  padding: 24px 20px 20px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 220px;
+    background: #f8fafc;
+    border-radius: 14px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+    padding: 24px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 220px;
 }
 .cardTitle {
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: #222;
-  margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #222;
+    margin-bottom: 8px;
 }
 .cardDesc {
-  color: #666;
-  font-size: 1rem;
-  margin-bottom: 12px;
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 12px;
 }
 .cardRow {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
 }
 .price {
-  font-weight: 600;
-  color: #2196f3;
-  font-size: 1.1rem;
+    font-weight: 600;
+    color: #2196f3;
+    font-size: 1.1rem;
 }
 .duration {
-  color: #888;
-  font-size: 1rem;
+    color: #888;
+    font-size: 1rem;
 }
 .features {
-  color: #444;
-  font-size: 0.98rem;
-  margin-bottom: 10px;
+    color: #444;
+    font-size: 0.98rem;
+    margin-bottom: 10px;
 }
 .status {
-  display: inline-block;
-  padding: 2px 12px;
-  border-radius: 8px;
-  background: #e0f7fa;
-  color: #00796b;
-  font-weight: 600;
-  font-size: 0.98rem;
-  margin-right: 8px;
+    display: inline-block;
+    padding: 2px 12px;
+    border-radius: 8px;
+    background: #e0f7fa;
+    color: #00796b;
+    font-weight: 600;
+    font-size: 0.98rem;
+    margin-right: 8px;
 }
 .status.inactive {
-  background: #ffebee;
-  color: #d32f2f;
+    background: #ffebee;
+    color: #d32f2f;
 }
 .actionBtns {
-  display: flex;
-  gap: 16px;
-  margin-top: 10px;
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
 }
 .activateBtn {
-  background: #2196f3;
-  color: #fff;
-  border: 0;
-  border-radius: 14px;
-  padding: 4px 14px;
-  font-weight: 600;
-  font-size: 0.92rem;
-  cursor: pointer;
-  transition: background 0.2s;
+    background: #2196f3;
+    color: #fff;
+    border: 0;
+    border-radius: 14px;
+    padding: 4px 14px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 .deactivateBtn {
-  background: #fff;
-  color: #d32f2f;
-  border: 2px solid #d32f2f;
-  border-radius: 14px;
-  padding: 4px 14px;
-  font-weight: 600;
-  font-size: 0.92rem;
-  cursor: pointer;
-  transition: background 0.2s;
+    background: #fff;
+    color: #d32f2f;
+    border: 2px solid #d32f2f;
+    border-radius: 14px;
+    padding: 4px 14px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: background 0.2s;
 }

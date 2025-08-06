@@ -9,8 +9,13 @@ import { logoutAPI } from "../../user/features/auth/authAuthentication";
 const HorizontalNav = ({ showBtnOnClick }) => {
   const [showNotification, setShowNotification] = useState(false);
   const state = useSelector((state) => state.auth);
-const [response ,SetResponse] = useState("");
-
+  const user = useSelector((state) => state.auth.user);
+  useEffect(() => {
+    if (user && user.data && user.data.data && user.data.data.name) {
+      localStorage.setItem("userName", user.data.data.name);
+    }
+  }, [user]);
+  const [response, SetResponse] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -26,24 +31,23 @@ const [response ,SetResponse] = useState("");
     }, 6000);
   };
 
- 
-
-
-
   const handleLogout = async () => {
     try {
-      const response = await dispatch(logoutAPI()).unwrap(); 
-  
+      const response = await dispatch(logoutAPI()).unwrap();
+
       if (response.success === true) {
+        localStorage.removeItem("userName");
         console.log("Logout successful");
+        navigate("/login");
+      } else {
         navigate("/login");
       }
     } catch (error) {
       console.error("Logout failed:", error);
+      localStorage.removeItem("userName");
+      navigate("/login");
     }
   };
-  
-
 
   return (
     <div className="HorizontalNav">
@@ -57,7 +61,9 @@ const [response ,SetResponse] = useState("");
         src={require("../../assets/icons/handicon.png")}
         alt="icon"
       />
-      <h2 className="Horizontalheading">User</h2>
+      <h2 className="Horizontalheading">
+        {localStorage.getItem("userName") || "User"}
+      </h2>
       <h3 className="Horizontalheading1">Hello</h3>
 
       {showBtnOnClick && (

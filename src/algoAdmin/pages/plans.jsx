@@ -52,7 +52,7 @@ export  function Plans() {
     try {
       const res = await createplans(payload);
       if (!isMounted.current) return;
-      if (res?.success) {
+      if (res?.success === true  ) {
         setToastData({
           title: 'Success',
           description: res.message || 'Subscription created successfully',
