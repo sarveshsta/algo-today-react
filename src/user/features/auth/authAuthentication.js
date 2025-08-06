@@ -2,9 +2,7 @@ import axios from "axios";
 import butterup from "butteruptoasts";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { showToast } from "../../../utility";
-import Cookies from 'js-cookie';
-
-
+import Cookies from "js-cookie";
 
 // const userUrl = "http://localhost:5000";
 const userUrl = process.env.REACT_APP_BACKEND_URL;
@@ -26,10 +24,10 @@ export const mobileAuthentication = createAsyncThunk(
         return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
-      showToast("⚠️ Error", error.message, "error");
+      showToast("⚠️ Error", error.response.data.message, "error");
       return error;
     }
-  }
+  },
 );
 
 //------------------ Email Authentication API---------------//
@@ -47,10 +45,10 @@ export const emailAuthentication = createAsyncThunk(
         return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
-      showToast("⚠️ Error", error.message, "error");
+      showToast("⚠️ Error", error.response.data.message, "error");
       return error;
     }
-  }
+  },
 );
 
 //------------------ OTP Verification API---------------//
@@ -61,17 +59,17 @@ export const otpVerificationAPI = createAsyncThunk(
       const res = await axios.post(`${userUrl}/verify-otp/`, body);
       if (res.data.success === true) {
         showToast("🎉 Hooray!", res.data.message, "success");
-        
+
         return res;
       } else {
         showToast("⚠️ Error", res.data.message, "error");
         return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
-      showToast("⚠️ Error", error.message, "error");
+      showToast("⚠️ Error", error.response.data.message, "error");
       return error;
     }
-  }
+  },
 );
 
 //------------------Email  OTP Verification API---------------//
@@ -82,17 +80,17 @@ export const otpEmailVerificationAPI = createAsyncThunk(
       const res = await axios.post(`${userUrl}/verify-email-otp/`, body);
       if (res.data.success === true) {
         showToast("🎉 Hooray!", res.data.message, "success");
-        
+
         return res;
       } else {
         showToast("⚠️ Error", res.data.message, "error");
         return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
-      showToast("⚠️ Error", error.message, "error");
+      showToast("⚠️ Error", error.response.data.message, "error");
       return error;
     }
-  }
+  },
 );
 
 //-----------------------Regsiter API-------------------------//
@@ -103,8 +101,14 @@ export const registerAPI = createAsyncThunk(
       const res = await axios.post(`${userUrl}/register/`, body);
 
       if (res.data.success === true) {
-        Cookies.set("accessToken", res.data.data.access, { secure: true, sameSite: "Strict" });
-        Cookies.set("refreshToken", res.data.data.refresh, { secure: true, sameSite: "Strict" });
+        Cookies.set("accessToken", res.data.data.access, {
+          secure: true,
+          sameSite: "Strict",
+        });
+        Cookies.set("refreshToken", res.data.data.refresh, {
+          secure: true,
+          sameSite: "Strict",
+        });
         showToast("🎉 Hooray!", res.data.message, "success");
         return res.data;
       } else {
@@ -115,7 +119,7 @@ export const registerAPI = createAsyncThunk(
       showToast("⚠️ Error", error.response.data.message, "error");
       return error;
     }
-  }
+  },
 );
 //-----------------------Signup API-------------------------//
 export const signupAPI = createAsyncThunk(
@@ -125,8 +129,14 @@ export const signupAPI = createAsyncThunk(
       const res = await axios.post(`${userUrl}/signup/`, body);
 
       if (res.data.success === true) {
-        Cookies.set("accessToken", res.data.data.access, { secure: true, sameSite: "Strict" });
-        Cookies.set("refreshToken", res.data.data.refresh, { secure: true, sameSite: "Strict" });
+        Cookies.set("accessToken", res.data.data.access, {
+          secure: true,
+          sameSite: "Strict",
+        });
+        Cookies.set("refreshToken", res.data.data.refresh, {
+          secure: true,
+          sameSite: "Strict",
+        });
         showToast("🎉 Hooray!", res.data.message, "success");
         return res.data;
       } else {
@@ -137,7 +147,7 @@ export const signupAPI = createAsyncThunk(
       showToast("⚠️ Error", error.response.data.message, "error");
       return error;
     }
-  }
+  },
 );
 
 //--------------------------Login API-----------------------//
@@ -146,10 +156,10 @@ export const loginAPI = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const response = await axios.post(`${userUrl}/login/`, body);
-      console.log(response.data, "response")
+      console.log(response.data, "response");
       if (response.data.success === true) {
-        Cookies.set("accessToken", response.data.data.access, { secure: true, sameSite: "Strict" });
-        Cookies.set("refreshToken", response.data.data.refresh, { secure: true, sameSite: "Strict" });
+        Cookies.set("accessToken", response.data.data.access);
+        Cookies.set("refreshToken", response.data.data.refresh);
         showToast("🎉 Hooray!", response.data.message, "success");
         return response;
       } else {
@@ -157,10 +167,10 @@ export const loginAPI = createAsyncThunk(
         return thunkAPI.rejectWithValue(response);
       }
     } catch (error) {
-      showToast("⚠️ Error", error.message, "error");
+      showToast("⚠️ Error", error.response.data.message, "error");
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 //----------------------Forgot-PasswordAPI------------------//
@@ -177,15 +187,14 @@ export const forgotAPI = createAsyncThunk(
         return thunkAPI.rejectWithValue(response);
       }
     } catch (error) {
-      showToast("⚠️ Error", error.message, "error");
+      showToast("⚠️ Error", error.response.data.message, "error");
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 //---------------------Logout API---------------------------//
 export const logoutAPI = createAsyncThunk("logout", async (body, thunkAPI) => {
-  
   try {
     const accessToken = Cookies.get("accessToken");
 
@@ -203,22 +212,20 @@ export const logoutAPI = createAsyncThunk("logout", async (body, thunkAPI) => {
       Cookies.remove("accessToken");
       Cookies.remove("refreshToken");
       showToast("🎉 Hooray!", response.data.message, "success");
-     
+
       return response.data;
     } else {
       showToast("⚠️ Error", response.data.message, "error");
       return thunkAPI.rejectWithValue(response);
     }
   } catch (error) {
-    showToast("⚠️ Error", error.message, "error");
+    showToast("⚠️ Error", error.response.data.message, "error");
     return thunkAPI.rejectWithValue(error);
   }
 });
 
-
 //---------------------userInfo API---------------------------//
-export const userInfo = createAsyncThunk("auth/userInfo", async ( thunkAPI) => {
-  
+export const userInfo = createAsyncThunk("auth/userInfo", async (thunkAPI) => {
   try {
     const accessToken = Cookies.get("accessToken");
 
@@ -233,16 +240,15 @@ export const userInfo = createAsyncThunk("auth/userInfo", async ( thunkAPI) => {
       },
     });
     if (response.data.success === true) {
-      
       showToast("🎉 Hooray!", response.data.message, "success");
-     
+
       return response.data;
     } else {
       showToast("⚠️ Error", response.data.message, "error");
       return thunkAPI.rejectWithValue(response);
     }
   } catch (error) {
-    showToast("⚠️ Error", error.message, "error");
+    showToast("⚠️ Error", error.response.data.message, "error");
     return thunkAPI.rejectWithValue(error);
   }
 });
@@ -253,8 +259,12 @@ export const requestPhoneOtpAPI = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const accessToken = Cookies.get("accessToken");
-      const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
-      const res = await axios.post(`${userUrl}/request-phone-otp/`, body, { headers });
+      const headers = accessToken
+        ? { Authorization: `Bearer ${accessToken}` }
+        : {};
+      const res = await axios.post(`${userUrl}/request-phone-otp/`, body, {
+        headers,
+      });
       if (res.data.success === true) {
         showToast("🎉 Hooray!", res.data.message, "success");
         return res;
@@ -263,10 +273,10 @@ export const requestPhoneOtpAPI = createAsyncThunk(
         return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
-      showToast("⚠️ Error", error.message, "error");
+      showToast("⚠️ Error", error.response.data.message, "error");
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
 
 //------------------ Verify Phone OTP API ---------------//
@@ -275,8 +285,12 @@ export const verifyPhoneOtpAPI = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const accessToken = Cookies.get("accessToken");
-      const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
-      const res = await axios.post(`${userUrl}/verify-phone-otp/`, body, { headers });
+      const headers = accessToken
+        ? { Authorization: `Bearer ${accessToken}` }
+        : {};
+      const res = await axios.post(`${userUrl}/verify-phone-otp/`, body, {
+        headers,
+      });
       if (res.data.success === true) {
         showToast("🎉 Hooray!", res.data.message, "success");
         return res;
@@ -285,10 +299,8 @@ export const verifyPhoneOtpAPI = createAsyncThunk(
         return thunkAPI.rejectWithValue(res.data);
       }
     } catch (error) {
-      showToast("⚠️ Error", error.message, "error");
+      showToast("⚠️ Error", error.response.data.message, "error");
       return thunkAPI.rejectWithValue(error);
     }
-  }
+  },
 );
-
-

@@ -6,7 +6,7 @@
     display: flex;;
     width: -webkit-fill-available;
     justify-content: space-evenly;
-    margin-left: 18.5%;
+    margin-left: 19%;
     box-sizing: border-box;
     margin-top: 8vh;
     gap: 1vw;
@@ -27,7 +27,6 @@
    display: flex;
    flex-direction: column;
    justify-content: space-around;
-
 
   }
 
@@ -82,6 +81,23 @@
   background-color: white;
   border: none;
 } */
+
+@media screen and (min-width: 1111px) and (max-width: 1340px) {
+  .MyStrategy {
+    margin-left: 20%;
+    gap: 2vw;
+  }
+ 
+}
+@media only screen and (max-width: 920px){
+  .MyStrategy {
+    margin-left: 23%;
+  }
+  .strhead{
+       font-size: 38px;
+  }
+}
+
 
 @media screen and (max-width: 768px) {
            .MyStrategy{

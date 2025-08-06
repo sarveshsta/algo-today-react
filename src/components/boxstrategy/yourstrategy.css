@@ -122,9 +122,7 @@
     left: 17vh;
 }
 
-.btn.btn-primary{
 
-}
 
 #custbtn0 {
     border-radius: 31px;
@@ -188,7 +186,11 @@
     /* position: relative; */
     left: 17vh;
 }
-
+@media only screen and (max-width: 830px){
+ .MainBox{
+    margin-left:21% ;
+ }
+}
 @media screen and (max-width: 768px) {
     .MainBox {
         margin-left: 0;

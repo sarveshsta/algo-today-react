@@ -18,7 +18,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import MicroModal from "micromodal"; // es6 module
 import { Circles } from "react-loader-spinner";
-
+import { LogViewer } from "./liveLogs";
 import "./ExpertStrategy.css";
 
 
@@ -77,6 +77,7 @@ export function ExpertStrategy(){
   const [isStrategyRunning, setIsStrategyRunning] = useState(false);
   const [starting, setStarting] = useState(false);
   const isMounted = useRef(true);
+  const [showLogsModal, setShowLogsModal] = useState(false);
 
   const [inputValues, setInputValues] = useState({
     strategy_id: "",
@@ -199,6 +200,7 @@ export function ExpertStrategy(){
       if (!isMounted.current) return;
       if (action.payload && action.payload.success) {
         setIsStrategyRunning(false);
+        setShowLogsModal(false); // Hide logs modal if open
       }
     });
   }, [inputValues.strategy_id]);
@@ -437,7 +439,7 @@ export function ExpertStrategy(){
               }
             />
           </div>
-          <div className="thirdddiv-btnn">
+          <div className="thirdddiv-btnn" style={{ display: 'flex', gap: 12 }}>
             <button
               type="button"
               id="thirdddiv-btnn1"
@@ -456,7 +458,65 @@ export function ExpertStrategy(){
             >
               Stop Strategy
             </button>
+            {/* See Logs button, only show when strategy is running */}
+            {isStrategyRunning && (
+              <button
+                type="button"
+                id="thirdddiv-btnn3"
+                className="btn btn-primary"
+                onClick={() => setShowLogsModal(true)}
+                style={{ marginLeft: 0 }}
+              >
+                See Logs
+              </button>
+            )}
           </div>
+         
+                {showLogsModal && (
+                <div style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  width: '100vw',
+                  height: '100vh',
+                  background: 'rgba(0, 0, 0, 0.5)',
+                  zIndex: 9999,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  {/* Cross button */}
+              <button
+                onClick={() => setShowLogsModal(false)}
+                style={{
+                  position: 'absolute',
+                  top: 24,
+                  right: 32,
+                  background: '#000000',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: 44,
+                  height: 44,
+                  lineHeight :1,
+                  fontSize: 28,
+                  cursor: 'pointer',
+                  zIndex: 10001,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
+                  paddingBottom : '5px'
+                }}
+                aria-label="Close logs"
+              >
+                &times;
+              </button>
+              <div style={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <LogViewer />
+              </div>
+            </div>
+          )}
         </div>
       </div>
       {/* New container for all strategies grid */}

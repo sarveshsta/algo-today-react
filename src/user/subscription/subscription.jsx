@@ -6,9 +6,11 @@ import styles from "./subscription.module.css";
 import HorizontalNav from "../../components/navbar/HorizontalNav";
 import Navbar from "../../components/navbar/Navbar";
 import Cookies from "js-cookie";
-
+import { showToast } from "../../utility";
+import { useDispatch } from "react-redux";
+import { getSubscriptionStatusApi } from "../features/customdata/custAuthentication";
 const RAZORPAY_KEY = process.env.REACT_APP_RAZORPAY_KEY || "YOUR_RAZORPAY_KEY"; // Replace with your key or use env
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL  // Replace with your backend URL
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL; // Replace with your backend URL
 
 function loadRazorpayScript() {
   return new Promise((resolve) => {
@@ -29,11 +31,27 @@ function loadRazorpayScript() {
 }
 
 export const Subscription = () => {
+  const dispatch = useDispatch();
+  const [subscriptionStatus, setSubscriptionStatus] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [loadingPlanId, setLoadingPlanId] = useState(null);
   const [paymentDetails, setPaymentDetails] = useState(null);
   const [plans, setPlans] = useState([]);
   const [plansLoading, setPlansLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    dispatch(getSubscriptionStatusApi())
+      .unwrap()
+      .then((data) => {
+        setSubscriptionStatus(data.success);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error("AngelOne status fetch error:", err);
+        setIsLoading(false);
+      });
+  }, [dispatch]);
 
   useEffect(() => {
     let isMounted = true;
@@ -48,19 +66,24 @@ export const Subscription = () => {
           {
             headers: {
               "Content-Type": "application/json",
-              ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+              ...(accessToken
+                ? { Authorization: `Bearer ${accessToken}` }
+                : {}),
             },
             signal: controller.signal,
-          }
+          },
         );
         if (isMounted) {
-          setPlans(Array.isArray(data) ? data.filter(plan => plan.is_active === true) : []);
+          // Always show only active plans
+          setPlans(
+            Array.isArray(data)
+              ? data.filter((plan) => plan.is_active === true)
+              : [],
+          );
         }
       } catch (err) {
         if (isMounted) {
-          if (err.name !== 'CanceledError' && err.name !== 'AbortError') {
-            setError("Failed to load subscription plans.");
-          }
+          showToast(err.response.data.message);
         }
       }
       if (isMounted) setPlansLoading(false);
@@ -98,7 +121,7 @@ export const Subscription = () => {
             ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
           },
           signal: controller.signal,
-        }
+        },
       );
       const orderId = data.razorpay_order_id || data.orderId || data.id;
       // 2. Open Razorpay modal
@@ -126,15 +149,22 @@ export const Subscription = () => {
               {
                 headers: {
                   "Content-Type": "application/json",
-                  ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+                  ...(accessToken
+                    ? { Authorization: `Bearer ${accessToken}` }
+                    : {}),
                 },
-              }
+              },
             );
-            if (isMountedRef.current) toast.success(verifyRes.data.message || "Subscription verified successfully!");
+            if (isMountedRef.current)
+              toast.success(
+                verifyRes.data.message || "Subscription verified successfully!",
+              );
           } catch (err) {
-            if (isMountedRef.current) toast.error(
-              err?.response?.data?.message || "Subscription verification failed."
-            );
+            if (isMountedRef.current)
+              toast.error(
+                err?.response?.data?.message ||
+                  "Subscription verification failed.",
+              );
           }
         },
         prefill: {
@@ -149,7 +179,8 @@ export const Subscription = () => {
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (err) {
-      if (isMountedRef.current) alert("Error initiating payment. Please try again.");
+      if (isMountedRef.current)
+        alert("Error initiating payment. Please try again.");
     }
     if (isMountedRef.current) setLoadingPlanId(null);
     // Cleanup for async
@@ -165,11 +196,16 @@ export const Subscription = () => {
       <Navbar />
       <div className={styles.subscriptionMain}>
         <div className={styles.container}>
-          <ToastContainer autoClose={2000} pauseOnFocusLoss closeOnClick draggable />
+          <ToastContainer
+            autoClose={2000}
+            pauseOnFocusLoss
+            closeOnClick
+            draggable
+          />
           {plansLoading ? (
             <div>Loading plans...</div>
           ) : error ? (
-            <div style={{ color: 'red' }}>{error}</div>
+            <div style={{ color: "red" }}>{error}</div>
           ) : plans.length === 0 ? (
             <div>No active subscription plans available.</div>
           ) : (
@@ -178,7 +214,10 @@ export const Subscription = () => {
                 // If the first feature is a summary (e.g., "Everything in Pro, plus"), separate it
                 let featureIntro = null;
                 let features = plan.features || [];
-                if (features.length > 0 && features[0].toLowerCase().includes('plus')) {
+                if (
+                  features.length > 0 &&
+                  features[0].toLowerCase().includes("plus")
+                ) {
                   featureIntro = features[0];
                   features = features.slice(1);
                 }
@@ -189,33 +228,67 @@ export const Subscription = () => {
                       <span className={styles.subscriptionPrice}>
                         ₹{Number(plan.price).toFixed(2)}
                       </span>
-                      <span className={styles.subscriptionDuration}>monthly ({plan.duration_value})</span>
+                      <span className={styles.subscriptionDuration}>
+                        {plan.duration_type} ({plan.duration_value})
+                      </span>
                     </div>
                     <hr className={styles.subscriptionDivider} />
-                    <p className={styles.subscriptionDesc}>{plan.description}</p>
+                    <p className={styles.subscriptionDesc}>
+                      {plan.description || "No description available."}
+                    </p>
                     {featureIntro && (
-                      <div style={{fontWeight: 600, color: '#2563eb', marginBottom: 8, fontSize: '1.08rem'}}>{featureIntro}</div>
-                    )}
-                    <ul className={styles.subscriptionFeatures}>
-                      {features.map((f, i) => (
-                        <li key={i}>{f}</li>
-                      ))}
-                    </ul>
-                  <button
-                    className={styles.subscriptionBtn}
-                    onClick={() => handleSubscribe(plan)}
-                    disabled={loadingPlanId === plan.id}
-                  >
-                    {loadingPlanId === plan.id ? "Processing..." : "Subscribe"}
-                  </button>
-                    {paymentDetails && paymentDetails.razorpay_order_id === plan.razorpay_order_id && (
-                      <div className="subscription-payment-details">
-                        <h4>Payment Details</h4>
-                        <div><b>Payment ID:</b> {paymentDetails.razorpay_payment_id}</div>
-                        <div><b>Order ID:</b> {paymentDetails.razorpay_order_id}</div>
-                        <div><b>Signature:</b> {paymentDetails.razorpay_signature}</div>
+                      <div
+                        style={{
+                          fontWeight: 600,
+                          color: "#2563eb",
+                          marginBottom: 8,
+                          fontSize: "1.08rem",
+                        }}
+                      >
+                        {featureIntro}
                       </div>
                     )}
+                    <ul className={styles.subscriptionFeatures}>
+                      {features.length > 0 ? (
+                        features.map((f, i) => <li key={i}>{f}</li>)
+                      ) : (
+                        <li>No features listed.</li>
+                      )}
+                    </ul>
+                    {isLoading ? (
+                      <span className="text-muted">Checking status...</span>
+                    ) : subscriptionStatus === true ? (
+                      <span className="text-success fw-bold">Subscribed</span>
+                    ) : (
+                      <button
+                        className={styles.subscriptionBtn}
+                        onClick={() => handleSubscribe(plan)}
+                        disabled={loadingPlanId === plan.id}
+                      >
+                        {loadingPlanId === plan.id
+                          ? "Processing..."
+                          : "Subscribe"}
+                      </button>
+                    )}
+
+                    {paymentDetails &&
+                      paymentDetails.razorpay_order_id ===
+                        plan.razorpay_order_id && (
+                        <div className="subscription-payment-details">
+                          <h4>Payment Details</h4>
+                          <div>
+                            <b>Payment ID:</b>{" "}
+                            {paymentDetails.razorpay_payment_id}
+                          </div>
+                          <div>
+                            <b>Order ID:</b> {paymentDetails.razorpay_order_id}
+                          </div>
+                          <div>
+                            <b>Signature:</b>{" "}
+                            {paymentDetails.razorpay_signature}
+                          </div>
+                        </div>
+                      )}
                   </div>
                 );
               })}
@@ -226,5 +299,3 @@ export const Subscription = () => {
     </div>
   );
 };
-
-

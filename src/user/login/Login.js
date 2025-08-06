@@ -1,6 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
 import * as Yup from "yup";
 import "../signup/signup.css";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +14,12 @@ import Formbutton from "../../components/formcomponent/Formbutton";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const auth = useSelector((state) => state?.auth?.user?.data);
   const success = auth?.success;
@@ -49,10 +57,18 @@ const Login = () => {
       //   "You must agree to the Terms & Conditions"
       // ),
     }),
-    onSubmit: (values) => {
-      const result = dispatch(loginAPI(values));
-      console.log(result, "result")
-      
+    onSubmit: async (values) => {
+      try {
+        const resultAction = await dispatch(loginAPI(values)).unwrap();
+        console.log(resultAction, "result");
+
+        if (resultAction && resultAction.data && resultAction.data.data) {
+          const userName = resultAction.data.data.name;
+          localStorage.setItem("userName", userName); // Store username in local storage
+        }
+      } catch (error) {
+        console.error("Login error: ", error);
+      }
     },
   });
 
@@ -64,7 +80,13 @@ const Login = () => {
         closeOnClick={true}
         draggable={true}
       />
-      <div style={{ padding: "2.3rem", background: "rgba(238, 242, 242, 1)", height: "100vh" }}>
+      <div
+        style={{
+          padding: "2.3rem",
+          background: "rgba(238, 242, 242, 1)",
+          height: "100vh",
+        }}
+      >
         <div className="signup-main-div">
           <div className="signup-firstdiv">
             <img
@@ -111,14 +133,43 @@ const Login = () => {
                   </div>
                 ) : null} */}
 
-                <Formcomp
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.password}
-                />
+                <div style={{ position: "relative" }}>
+                  <Formcomp
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    name="password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.password}
+                  />
+                  <span
+                    onClick={togglePasswordVisibility}
+                    style={{
+                      position: "absolute",
+                      right: "10px",
+                      top: "40%",
+                      transform: "translateY(-50%)",
+                      cursor: "pointer",
+                      fontSize: "18px",
+                      color: "#ffffff", // Ensure contrast against background
+                    }}
+                  >
+                    {showPassword ? <FaEye /> : <FaEyeSlash />}
+                  </span>
+                </div>
+                {/* <span
+                  onClick={togglePasswordVisibility}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "40%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    fontSize: "18px",
+                  }}
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </span> */}
                 {formik.touched.password && formik.errors.password ? (
                   <div className="error-message" style={{ color: "red" }}>
                     {formik.errors.password}
@@ -149,8 +200,8 @@ const Login = () => {
                   Forgot Password?
                 </Link>
                 <Link className="linking" to="/mobile">
-                   Signup
-              </Link>
+                  Signup
+                </Link>
               </p>
 
               <div className="signup-form-3-text-div">

@@ -108,7 +108,10 @@
 }
 @media screen and (max-width:  900px){
   .open-demat-heading{
-    margin-left:0%;
+    margin-left:14%;
+  }
+  .embark-para{
+    margin-left: 18vw;
   }
 }
 
@@ -137,8 +140,7 @@
     margin: 2vh;
   }
 
-  #firstLink-firstdiv {
-  }
+
 
   #firstLink-firstdiv-firstimg {
     width: -webkit-fill-available;
@@ -146,8 +148,7 @@
     object-fit: cover;
   }
 
-  #firstLink-seconddiv {
-  }
+
 
   #firstLink-firstdiv-seconddiv {
     width: -webkit-fill-available;
@@ -155,8 +156,7 @@
     object-fit: cover;
   }
 
-  #firstLink-thirddiv {
-  }
+ 
 
   #firstLink-firstdiv-thirdimg {
     width: -webkit-fill-available;
@@ -164,8 +164,7 @@
     object-fit: cover;
   }
 
-  #firstLink-fourthdiv {
-  }
+ 
 
   #firstLink-firstdiv-fourthimg {
     width: -webkit-fill-available;

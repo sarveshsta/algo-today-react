@@ -1,7 +1,7 @@
 import "./signup.css";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { Link, useNavigate  ,useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -14,17 +14,15 @@ const Signup = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const email = location.state?.email;
-  console.log("email ",email)
+  console.log("email ", email);
   const auth = useSelector((state) => state.auth);
 
   const signupMessage = auth?.user;
 
-  
   const { message, success } = signupMessage || {};
 
   const dd = JSON.parse(localStorage.getItem("authdetail"));
   const { otp, phone } = dd;
-
 
   const isMounted = useRef(true);
   useEffect(() => {
@@ -64,22 +62,29 @@ const Signup = () => {
       email: Yup.string()
         .matches(
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-          "Enter Valid Email"
+          "Enter Valid Email",
         )
         .email("Invalid email address")
         .required("Email is required"),
     }),
 
-    onSubmit: (values) => { 
+    onSubmit: async (values) => {
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("phone", values.phone);
       // formData.append("otp", otp);
       formData.append("password", values.password);
       formData.append("email", email);
-      dispatch(registerAPI(formData));
 
-      
+      try {
+        const resultAction = await dispatch(registerAPI(formData)).unwrap();
+        if (resultAction && resultAction.data && resultAction.data.name) {
+          const userName = resultAction.data.name;
+          localStorage.setItem("userName", userName); // Store username in local storage
+        }
+      } catch (error) {
+        console.error("Signup error: ", error);
+      }
     },
   });
   // const togglePasswordVisibility = () => {
@@ -174,7 +179,7 @@ const Signup = () => {
                   </div>
                 ) : null}
 
-                <Formcomp  
+                <Formcomp
                   type="email"
                   placeholder="Email"
                   name="email"
