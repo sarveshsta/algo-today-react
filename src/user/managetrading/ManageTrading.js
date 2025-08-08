@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import {
   managetradingApi,
   stopStrategy,
+  checkStrategyStatusApi,
 } from "./../features/customdata/custAuthentication";
 
 const BACKEND_URL = process.env.REACT_APP_FAST_BACKEND_URL;
@@ -16,6 +17,7 @@ const ManageTrading = () => {
   const dispatch = useDispatch();
   const [isConnected, setIsConnected] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState("Connecting...");
+  const [strategyRunningStatus, setStrategyRunningStatus] = useState({});
 
   useEffect(() => {
     const fetchTrades = async () => {
@@ -54,6 +56,15 @@ const ManageTrading = () => {
           console.log("TRADE_SAVED event detected → calling fetchTrades");
           fetchTrades();
         }
+        
+    // New: handle strategy running status
+      if (message.key === "STRATEGY_RUNNING") {
+        const { strategy_id, is_running } = message;
+        setStrategyRunningStatus((prevStatus) => ({
+          ...prevStatus,
+          [strategy_id]: is_running,
+        }));
+      }
       } catch (err) {
         // Non-JSON message (just log output or debug text)
         console.log("Non-JSON message:", event.data);
@@ -77,6 +88,9 @@ const ManageTrading = () => {
     };
   }, [dispatch]);
 
+// 
+
+
   const handleStopStrategy = (strategyId) => {
     dispatch(stopStrategy(strategyId));
   };
@@ -99,6 +113,7 @@ const ManageTrading = () => {
                   <div className="left-text">Qty</div>
                   <div className="left-text">Symbol</div>
                   <div className="left-text">Trade Type</div>
+                  <div className="left-text">Trade Time</div>
                 </div>
                 <div className="text-second-div">
                   <div className="right-text">Order Type</div>
@@ -127,6 +142,25 @@ const ManageTrading = () => {
                       <div className="left-text">
                         {trade.trade_type || "N/A"}
                       </div>
+                      <div className="left-text">
+                        {trade.created_at
+                          ? (() => {
+                              const parts = trade.created_at.split(".")[0]; // removes microseconds
+                              const date = new Date(parts + "Z"); // ensures UTC parsing
+                              return date
+                                .toLocaleString("en-US", {
+                                  year: "numeric",
+                                  month: "2-digit",
+                                  day: "2-digit",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  hour12: true,
+                                  timeZone: "UTC", // Force UTC, no conversion
+                                })
+                                .replace(",", "");
+                            })()
+                          : "N/A"}
+                      </div>
                     </div>
                     <div className="text-second-div">
                       <div
@@ -136,7 +170,9 @@ const ManageTrading = () => {
                         {trade.order_type}
                       </div>
                       <div
-                        className={`right-text right-text-pnl ${trade.pnl >= 0 ? "pnl-positive" : "pnl-negative"}`}
+                        className={`right-text right-text-pnl ${
+                          trade.pnl >= 0 ? "pnl-positive" : "pnl-negative"
+                        }`}
                       >
                         <IoTriangle
                           style={{
@@ -162,6 +198,7 @@ const ManageTrading = () => {
                       <button
                         className="modern-btn primary-btn"
                         onClick={() => handleStopStrategy(trade.strategy_id)}
+                        disabled={!strategyRunningStatus[trade.strategy_id]}
                       >
                         Stop Algoo
                       </button>
