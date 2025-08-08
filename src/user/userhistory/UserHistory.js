@@ -5,7 +5,6 @@ import Navbar from "../../components/navbar/Navbar";
 import HorizontalNav from "../../components/navbar/HorizontalNav";
 import { useDispatch, useSelector } from "react-redux";
 import { tradeHistoryApi } from "../features/customdata/custAuthentication";
-
 const UserHistory = () => {
   const dispatch = useDispatch();
   const groupByDate = (data) => {
@@ -17,26 +16,21 @@ const UserHistory = () => {
     });
     return grouped;
   };
-
   const isMounted = useRef(true);
   useEffect(() => {
     isMounted.current = true;
     if (isMounted.current) dispatch(tradeHistoryApi());
-
     const interval = setInterval(() => {
       if (isMounted.current) dispatch(tradeHistoryApi());
     }, 30000);
-
     // Clean up on unmount
     return () => {
       isMounted.current = false;
       clearInterval(interval);
     };
   }, [dispatch]);
-
   const tradeHistory = useSelector((state) => state?.index?.tradeHistory?.data);
   console.log("trade history ", tradeHistory);
-
   return (
     <>
       <HorizontalNav />
@@ -67,20 +61,18 @@ const UserHistory = () => {
                         <th>Name</th>
                         <th>Strike</th>
                         <th>Order Type</th>
-                        <th>Expiry</th>
-
+                        <th>Symbol</th>
                         <th>Price</th>
                       </tr>
                     </thead>
                     <tbody>
                       {trades.map((item, index) => (
                         <tr key={index}>
-                          <td>{item.token.lotsize} Qty</td>
-                          <td>{item.token.name}</td>
-                          <td>{parseFloat(item.token.strike) / 100}</td>
+                          <td>{item.quantity} Qty</td>
+                          <td>{item.name}</td>
+                          <td>{parseFloat(item.strike_price) / 100}</td>
                           <td>{item.signal.toUpperCase()}</td>
-                          <td>{item.token.expiry}</td>
-
+                          <td>{item.symbol}</td>
                           <td>{item.price}</td>
                         </tr>
                       ))}
@@ -112,7 +104,7 @@ const UserHistory = () => {
                     <th>Quantity</th>
                     <th>Name</th>
                     <th>Order Type</th>
-                    <th>Expiry</th>
+                    <th>Symbol</th>
                     <th>Price</th>
                   </tr>
                 </thead>
@@ -131,5 +123,4 @@ const UserHistory = () => {
     </>
   );
 };
-
 export default React.memo(UserHistory);

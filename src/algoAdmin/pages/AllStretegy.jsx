@@ -1,5 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
-import { getAllStrategies, deleteStrategy } from "../routes/apiRoutes";
+import {
+  getAllStrategies,
+  deleteStrategy,
+  setStrategyStatus,
+} from "../routes/apiRoutes";
 import ConfirmModal from "../components/ConfirmModal";
 import Toast from "../components/Toast";
 import EditStrategiesModal from "../components/editStrategies";
@@ -18,18 +22,22 @@ export function AllStretegy() {
   const [selectedStrategy, setSelectedStrategy] = useState(null);
   // Only used for modal delete button
   const [modalDeleting, setModalDeleting] = useState(false);
-  const [confirmModal, setConfirmModal] = useState({ open: false, strategyId: null });
+  const [confirmModal, setConfirmModal] = useState({
+    open: false,
+    strategyId: null,
+  });
   const [editModal, setEditModal] = useState({ open: false, strategy: null });
+  const [statusLoading, setStatusLoading] = useState({});
 
   // Simple toast function
   const showToast = (success, message) => {
     if (message) {
-      const toastEvent = new CustomEvent('showToast', {
+      const toastEvent = new CustomEvent("showToast", {
         detail: {
           variant: success ? "success" : "error",
           title: success ? "Success" : "Error",
-          description: message
-        }
+          description: message,
+        },
       });
       window.dispatchEvent(toastEvent);
     }
@@ -41,14 +49,16 @@ export function AllStretegy() {
     try {
       const res = await deleteStrategy({ strategy_id: id });
       if (res?.success || res?.data?.success) {
-        const apiMsg = res?.message || res?.data?.message || "Strategy deleted successfully";
+        const apiMsg =
+          res?.message || res?.data?.message || "Strategy deleted successfully";
         showToast(true, apiMsg);
         setConfirmModal({ open: false, strategyId: null });
         setModalDeleting(false);
         // Always refetch strategies after successful delete
         fetchStrategies(page, pageSize, isMounted);
       } else {
-        const apiMsg = res?.message || res?.data?.message || "Failed to delete strategy";
+        const apiMsg =
+          res?.message || res?.data?.message || "Failed to delete strategy";
         showToast(false, apiMsg);
         setConfirmModal({ open: false, strategyId: null });
         setModalDeleting(false);
@@ -60,7 +70,41 @@ export function AllStretegy() {
     }
   };
 
-  const fetchStrategies = async (pageNum = page, size = pageSize, isMountedRef) => {
+  // Status toggle handler
+  const handleStatusToggle = async (strategyId, currentStatus) => {
+    setStatusLoading((prev) => ({ ...prev, [strategyId]: true }));
+    try {
+      const res = await setStrategyStatus({
+        strategy_id: strategyId,
+        is_active: !currentStatus,
+      });
+      if (res?.success || res?.data?.success) {
+        const apiMsg =
+          res?.message ||
+          res?.data?.message ||
+          `Strategy ${!currentStatus ? "activated" : "deactivated"} successfully`;
+        showToast(true, apiMsg);
+        // Refetch strategies to update the UI
+        fetchStrategies(page, pageSize, isMounted);
+      } else {
+        const apiMsg =
+          res?.message ||
+          res?.data?.message ||
+          "Failed to update strategy status";
+        showToast(false, apiMsg);
+      }
+    } catch (err) {
+      showToast(false, err?.message || "Failed to update strategy status");
+    } finally {
+      setStatusLoading((prev) => ({ ...prev, [strategyId]: false }));
+    }
+  };
+
+  const fetchStrategies = async (
+    pageNum = page,
+    size = pageSize,
+    isMountedRef,
+  ) => {
     if (isMountedRef && !isMountedRef.current) return;
     setLoading(true);
     setError("");
@@ -70,10 +114,16 @@ export function AllStretegy() {
       if (res?.data?.success && Array.isArray(res.data.data)) {
         setStrategies(res.data.data);
         const meta = res.meta || {};
-        setTotalItems(typeof meta.total_items === 'number' ? meta.total_items : res.data.data.length);
-        setTotalPages(typeof meta.total_pages === 'number' ? meta.total_pages : 1);
-        setPage(typeof meta.current_page === 'number' ? meta.current_page : 1);
-        setPageSize(typeof meta.page_size === 'number' ? meta.page_size : size);
+        setTotalItems(
+          typeof meta.total_items === "number"
+            ? meta.total_items
+            : res.data.data.length,
+        );
+        setTotalPages(
+          typeof meta.total_pages === "number" ? meta.total_pages : 1,
+        );
+        setPage(typeof meta.current_page === "number" ? meta.current_page : 1);
+        setPageSize(typeof meta.page_size === "number" ? meta.page_size : size);
       } else {
         setError(res?.data?.message || "Failed to fetch strategies");
       }
@@ -106,7 +156,14 @@ export function AllStretegy() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: 24,
+          }}
+        >
           <div className={styles.cardTitle}>All Strategies</div>
           <button
             className={styles.addConditionBtn}
@@ -133,25 +190,35 @@ export function AllStretegy() {
                 <div
                   key={s.id}
                   className={styles.card}
-                  style={{ cursor: 'pointer', position: 'relative' }}
+                  style={{ cursor: "pointer", position: "relative" }}
                 >
                   <div onClick={() => setSelectedStrategy(s)}>
                     <div className={styles.cardName}>{s.name}</div>
-                    <div className={styles.cardDescription}>{s.description}</div>
+                    <div className={styles.cardDescription}>
+                      {s.description}
+                    </div>
                   </div>
                   <div className={styles.cardFooter}>
                     <div>
-                      <span className={s.is_active ? styles.active : styles.inactive}>
-                        {s.is_active ? 'Active' : 'Inactive'}
+                      <span
+                        className={
+                          s.is_active ? styles.active : styles.inactive
+                        }
+                      >
+                        {s.is_active ? "Active" : "Inactive"}
                       </span>
                       <span className={styles.cardDate}>
-                        {new Date(s.created_at).toLocaleDateString()} {new Date(s.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        {new Date(s.created_at).toLocaleDateString()}{" "}
+                        {new Date(s.created_at).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
                       </span>
                     </div>
                     <div className={styles.actionBtns}>
                       <button
                         className={styles.deleteBtn}
-                        onClick={e => {
+                        onClick={(e) => {
                           e.stopPropagation();
                           setConfirmModal({ open: true, strategyId: s.id });
                         }}
@@ -160,12 +227,28 @@ export function AllStretegy() {
                       </button>
                       <button
                         className={styles.editBtn}
-                        onClick={e => {
+                        onClick={(e) => {
                           e.stopPropagation();
                           setEditModal({ open: true, strategy: s });
                         }}
                       >
                         Edit
+                      </button>
+                      <button
+                        className={
+                          s.is_active ? styles.inactiveBtn : styles.activeBtn
+                        }
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleStatusToggle(s.id, s.is_active);
+                        }}
+                        disabled={statusLoading[s.id]}
+                      >
+                        {statusLoading[s.id]
+                          ? "Updating..."
+                          : s.is_active
+                            ? "Set Inactive"
+                            : "Set Active"}
                       </button>
                     </div>
                   </div>
@@ -180,9 +263,12 @@ export function AllStretegy() {
               cancelText={modalDeleting ? "" : "Cancel"}
               loading={modalDeleting}
               onConfirm={() => {
-                if (!modalDeleting && confirmModal.strategyId) handleDelete(confirmModal.strategyId);
+                if (!modalDeleting && confirmModal.strategyId)
+                  handleDelete(confirmModal.strategyId);
               }}
-              onCancel={() => setConfirmModal({ open: false, strategyId: null })}
+              onCancel={() =>
+                setConfirmModal({ open: false, strategyId: null })
+              }
             />
             <div className={styles.showingText}>
               {totalItems > 0
@@ -194,7 +280,10 @@ export function AllStretegy() {
                 <button
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={page <= 1}
-                  className={styles.paginationBtn + (page <= 1 ? ' ' + styles.disabled : '')}
+                  className={
+                    styles.paginationBtn +
+                    (page <= 1 ? " " + styles.disabled : "")
+                  }
                 >
                   Previous
                 </button>
@@ -203,7 +292,10 @@ export function AllStretegy() {
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={page >= totalPages}
-                  className={styles.paginationBtn + (page >= totalPages ? ' ' + styles.disabled : '')}
+                  className={
+                    styles.paginationBtn +
+                    (page >= totalPages ? " " + styles.disabled : "")
+                  }
                 >
                   Next
                 </button>
@@ -213,14 +305,14 @@ export function AllStretegy() {
                   min={1}
                   max={100}
                   value={pageSizeInput}
-                  onChange={e => {
+                  onChange={(e) => {
                     let val = Number(e.target.value);
                     if (val < 1) val = 1;
                     if (val > 100) val = 100;
                     setPageSizeInput(val);
                   }}
-                  onKeyDown={e => {
-                    if (e.key === 'Enter') {
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
                       setPageSize(pageSizeInput);
                       setPage(1);
                     }
@@ -236,48 +328,48 @@ export function AllStretegy() {
       {selectedStrategy && (
         <div
           style={{
-            position: 'fixed',
+            position: "fixed",
             top: 0,
             left: 0,
-            width: '100vw',
-            height: '100vh',
-            background: 'rgba(0,0,0,0.35)',
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0,0,0,0.35)",
             zIndex: 1000,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
           onClick={closeModal}
         >
           <div
             style={{
-              background: '#fff',
+              background: "#fff",
               borderRadius: 16,
-              boxShadow: '0 4px 24px rgba(0,0,0,0.13)',
+              boxShadow: "0 4px 24px rgba(0,0,0,0.13)",
               padding: 40,
               minWidth: 420,
               maxWidth: 700,
               minHeight: 220,
-              width: '95vw',
-              maxHeight: '80vh',
-              position: 'relative',
-              cursor: 'auto',
-              display: 'flex',
-              flexDirection: 'column',
+              width: "95vw",
+              maxHeight: "80vh",
+              position: "relative",
+              cursor: "auto",
+              display: "flex",
+              flexDirection: "column",
             }}
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={closeModal}
               style={{
-                position: 'absolute',
+                position: "absolute",
                 top: 18,
                 right: 18,
-                background: 'transparent',
-                border: 'none',
+                background: "transparent",
+                border: "none",
                 fontSize: 26,
-                color: '#888',
-                cursor: 'pointer',
+                color: "#888",
+                cursor: "pointer",
                 fontWeight: 700,
                 zIndex: 2,
               }}
@@ -285,31 +377,54 @@ export function AllStretegy() {
             >
               ×
             </button>
-            <div style={{
-              overflowY: 'auto',
-              maxHeight: 'calc(80vh - 60px)',
-              paddingRight: 8,
-              flex: 1,
-            }}>
-              <div style={{ fontWeight: 700, fontSize: 26, marginBottom: 12 }}>{selectedStrategy.name}</div>
-              <div style={{ color: '#666', fontSize: 17, marginBottom: 20, whiteSpace: 'pre-line' }}>{selectedStrategy.description}</div>
+            <div
+              style={{
+                overflowY: "auto",
+                maxHeight: "calc(80vh - 60px)",
+                paddingRight: 8,
+                flex: 1,
+              }}
+            >
+              <div style={{ fontWeight: 700, fontSize: 26, marginBottom: 12 }}>
+                {selectedStrategy.name}
+              </div>
+              <div
+                style={{
+                  color: "#666",
+                  fontSize: 17,
+                  marginBottom: 20,
+                  whiteSpace: "pre-line",
+                }}
+              >
+                {selectedStrategy.description}
+              </div>
               <div style={{ marginBottom: 12 }}>
-                <span style={{
-                  display: 'inline-block',
-                  padding: '2px 12px',
-                  borderRadius: 8,
-                  background: selectedStrategy.is_active ? '#e0f7fa' : '#ffebee',
-                  color: selectedStrategy.is_active ? '#00796b' : '#d32f2f',
-                  fontWeight: 600,
-                  fontSize: 15,
-                  marginRight: 8
-                }}>{selectedStrategy.is_active ? 'Active' : 'Inactive'}</span>
-                <span style={{ color: '#888', fontSize: 14 }}>
-                  {new Date(selectedStrategy.created_at).toLocaleDateString()} {new Date(selectedStrategy.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                <span
+                  style={{
+                    display: "inline-block",
+                    padding: "2px 12px",
+                    borderRadius: 8,
+                    background: selectedStrategy.is_active
+                      ? "#e0f7fa"
+                      : "#ffebee",
+                    color: selectedStrategy.is_active ? "#00796b" : "#d32f2f",
+                    fontWeight: 600,
+                    fontSize: 15,
+                    marginRight: 8,
+                  }}
+                >
+                  {selectedStrategy.is_active ? "Active" : "Inactive"}
+                </span>
+                <span style={{ color: "#888", fontSize: 14 }}>
+                  {new Date(selectedStrategy.created_at).toLocaleDateString()}{" "}
+                  {new Date(selectedStrategy.created_at).toLocaleTimeString(
+                    [],
+                    { hour: "2-digit", minute: "2-digit" },
+                  )}
                 </span>
               </div>
               {selectedStrategy.details && (
-                <div style={{ marginTop: 20, color: '#444', fontSize: 16 }}>
+                <div style={{ marginTop: 20, color: "#444", fontSize: 16 }}>
                   <b>Details:</b> {selectedStrategy.details}
                 </div>
               )}
@@ -317,7 +432,7 @@ export function AllStretegy() {
           </div>
         </div>
       )}
-      
+
       <EditStrategiesModal
         open={editModal.open}
         strategy={editModal.strategy}

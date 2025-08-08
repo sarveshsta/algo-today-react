@@ -7,23 +7,23 @@ import Cookies from "js-cookie";
 // const tradeURL = "https://cf44-2405-201-302a-d836-39ab-e05c-f606-1bba.ngrok-free.app";
 const tradeURL = process.env.REACT_APP_BACKEND_URL;
 
-const token = Cookies.get("accessToken");
-const headerconfig = {
+// Always get the latest token
+const getHeaderConfig = () => ({
   headers: {
-    // "ngrok-skip-browser-warning": "69420",
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${Cookies.get("accessToken")}`,
   },
-};
+});
 
 //------------------ Banknifty Index data API---------------//
 export const indexExpiryDataApi = createAsyncThunk(
   "bankniftyExpiry",
   async (index, thunkAPI) => {
     try {
-      const response = await axios.get(`${tradeURL}/token/${index}/`, {
-        headers: headerconfig.headers,
-      });
+      const response = await axios.get(
+        `${tradeURL}/token/${index}/`,
+        getHeaderConfig(),
+      );
       if (response.status == 200) {
         showToast("🎉 Hooray!", response.data.message, "success");
         return response;
@@ -31,10 +31,7 @@ export const indexExpiryDataApi = createAsyncThunk(
         return response;
       }
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 401 )
-      ) {
+      if (error.response && error.response.status === 401) {
         if (typeof window !== "undefined") {
           window.location.href = "/login";
         }
@@ -52,7 +49,7 @@ export const indexStrikePriceDataApi = createAsyncThunk(
     try {
       const response = await axios.get(
         `${tradeURL}/token/${index}/${expiry}/`,
-        { headers: headerconfig.headers },
+        getHeaderConfig(),
       );
       if (response.status == 200) {
         showToast("🎉 Hooray!", response.data.message, "success");
@@ -83,12 +80,9 @@ export const getStrategyDataApi = createAsyncThunk(
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
-        // If cross-origin cookies or credentials are involved:
       };
-      console.log(accessToken, "accessToken");
 
       const res = await axios.post(`${tradeURL}/start/`, body, config);
-      console.log("res", res);
       if (res.data.success === true) {
         showToast("🎉 Hooray!", res.data.message, "success");
         return res.data;
@@ -97,16 +91,13 @@ export const getStrategyDataApi = createAsyncThunk(
         return thunkAPI.rejectWithValue(res.data.message);
       }
     } catch (error) {
-      if (
-        error.response &&
-        (error.response.status === 401 )
-      ) {
+      if (error.response && error.response.status === 401) {
         if (typeof window !== "undefined") {
           window.location.href = "/login";
         }
         return;
       }
-      showToast("⚠️ Error",error.response.data.message, "error");
+      showToast("⚠️ Error", error.response.data.message, "error");
       return error;
     }
   },
@@ -117,9 +108,10 @@ export const tradeHistoryApi = createAsyncThunk(
   "tradeHistoryApi",
   async (body, thunkAPI, index) => {
     try {
-      const response = await axios.get(`${tradeURL}/trade-details/`, {
-        headers: headerconfig.headers,
-      });
+      const response = await axios.get(
+        `${tradeURL}/trade-details/`,
+        getHeaderConfig(),
+      );
       if (response.status == 200) {
         showToast(
           "🎉 Hooray!",
@@ -133,9 +125,6 @@ export const tradeHistoryApi = createAsyncThunk(
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        if (typeof window !== "undefined") {
-          window.location.href = "/login";
-        }
         return;
       }
       showToast("⚠️ Error", error.response.data.message, "error");
@@ -152,7 +141,7 @@ export const stopStrategy = createAsyncThunk(
       const res = await axios.post(
         `${tradeURL}/api/strategy/stop-strategy/${strategy_id}`,
         {}, // No body, so pass an empty object
-        { headers: headerconfig.headers },
+        getHeaderConfig(),
       );
 
       if (res.status == 200) {
@@ -195,7 +184,7 @@ export const tradingData = createAsyncThunk(
         }
         return;
       }
-      showToast("⚠️ Error",error.response.data.message, "error");
+      showToast("⚠️ Error", error.response.data.message, "error");
       return error;
     }
   },
@@ -209,7 +198,7 @@ export const getStrategyLiveData = createAsyncThunk(
       const res = await axios.post(
         `${tradeURL}/strategy/live_strategy_data/`,
         body,
-        { headers: headerconfig.headers },
+        getHeaderConfig(),
       );
       if (res.data.success === true) {
         showToast("🎉 Hooray!", res.data.message, "success");
@@ -239,7 +228,7 @@ export const getAllStrategiesApi = createAsyncThunk(
         params,
       };
       const response = await axios.get(
-        `${tradeURL}/api/strategy/all-strategy/`,
+        `${tradeURL}/api/strategy/all-strategy/?is_active=true`,
         config,
       );
       if (response.status === 200) {
@@ -349,7 +338,7 @@ export const createSubscription = createAsyncThunk(
       const response = await axios.post(
         `${tradeURL}api/subscription/create`,
         payload,
-        { headers: headerconfig.headers },
+        getHeaderConfig(),
       );
       if (response.status === 200 || response.status === 201) {
         showToast("🎉 Hooray!", "Subscription created successfully", "success");
@@ -442,8 +431,6 @@ export const getSubscriptionStatusApi = createAsyncThunk(
   },
 );
 
-
-
 export const getNseIndicesApi = createAsyncThunk(
   "getNseIndicesApi",
   async (params = {}, thunkAPI) => {
@@ -456,10 +443,7 @@ export const getNseIndicesApi = createAsyncThunk(
         },
         params,
       };
-      const response = await axios.get(
-        `${tradeURL}/nse-indices/`,
-        config,
-      );
+      const response = await axios.get(`${tradeURL}/nse-indices/`, config);
       if (response.status === 200) {
         return response.data;
       }
@@ -472,6 +456,51 @@ export const getNseIndicesApi = createAsyncThunk(
       }
       showToast("⚠️ Error", error.response.data.message, "error");
       return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+  },
+);
+
+//------------------ Manage Trading API ---------------//
+export const managetradingApi = createAsyncThunk(
+  "managetradingApi",
+  async (params = {}, thunkAPI) => {
+    try {
+      const accessToken = Cookies.get("accessToken");
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      const response = await axios.get(
+        `${tradeURL}/trades/`,
+
+        config,
+      );
+      if (response.status === 200 || response.status === 201) {
+        showToast(
+          "🎉 Hooray!",
+          response.data.message || "Trade successful",
+          "success",
+        );
+        return response.data;
+      } else {
+        showToast("⚠️ Error", response.data.message || "Trade failed", "error");
+        return thunkAPI.rejectWithValue(response.data.message);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        if (typeof window !== "undefined") {
+          window.location.href = "/login";
+        }
+        return;
+      }
+      showToast(
+        "⚠️ Error",
+        error.response?.data?.message || error.message,
+        "error",
+      );
+      return thunkAPI.rejectWithValue(error.message);
     }
   },
 );
