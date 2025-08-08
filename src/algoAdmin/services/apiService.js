@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
-
+import { showToast } from "./../../utility";
 // Set the base URL for API calls
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -77,7 +77,7 @@ export async function apiRequest({
     });
 
     // Check for unauthorized status (401 or 403)
-    if (response.status === 401 || response.status === 403) {
+    if (response.status === 401 ) {
       // Redirect to /login
       if (typeof window !== 'undefined') {
         window.location.href = '/login';
@@ -86,15 +86,17 @@ export async function apiRequest({
       return;
     }
 
+       showToast("🎉 Hooray!", response.data?.data?.message, "success");
     return response.data;
   } catch (error) {
     if (error.response) {
-      if (error.response.status === 401 || error.response.status === 403) {
+      if (error.response.status === 401) {
         if (typeof window !== 'undefined') {
           window.location.href = '/login';
         }
         return;
       }
+      showToast("🎉 Hooray!", error.data.message, "success");
       throw new Error(error.response.data.message || "API Error");
     }
     throw error;

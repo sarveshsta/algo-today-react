@@ -1,0 +1,96 @@
+.app-container {
+    padding: 20px;
+  }
+  
+  .box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  #first-box {
+    background-color: #f9f9f9;
+  }
+  
+  .managetrading-bottomborder {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .managetrading-bottomborder:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  
+  .box-para {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .green-point {
+    width: 10px;
+    height: 10px;
+    background-color: #27ae60;
+    border-radius: 50%;
+    margin-left: 10px;
+  }
+  
+  .text-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .text-first-div,
+  .text-second-div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .left-text,
+  .right-text {
+    margin-bottom: 5px;
+  }
+  
+  #nrml {
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+  
+  .button-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .first-btn,
+  .second-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .first-btn {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .second-btn {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  .spacer {
+    width: 10px;
+  }
+  
+  .btn-wala-para {
+    cursor: pointer;
+    color: #e74c3c;
+    font-weight: bold;
+  }
+  

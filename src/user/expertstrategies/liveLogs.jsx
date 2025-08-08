@@ -1,17 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react';
-import './LogViewer.css';
+import React, { useEffect, useState, useRef } from "react";
+import "./LogViewer.css";
 
 const BACKEND_URL = process.env.REACT_APP_FAST_BACKEND_URL;
 
 export function LogViewer() {
   const [logs, setLogs] = useState([]);
   const [isConnected, setIsConnected] = useState(false);
-  const [connectionStatus, setConnectionStatus] = useState('Connecting...');
+  const [connectionStatus, setConnectionStatus] = useState("Connecting...");
   const logsEndRef = useRef(null);
   const logContainerRef = useRef(null);
 
   const scrollToBottom = () => {
-    logsEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    logsEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -20,11 +20,11 @@ export function LogViewer() {
 
   useEffect(() => {
     const ws = new WebSocket(`${BACKEND_URL}/ws/logs`);
-    
+
     ws.onopen = () => {
       setIsConnected(true);
-      setConnectionStatus('Connected');
-      console.log('WebSocket connected');
+      setConnectionStatus("Connected");
+      console.log("WebSocket connected");
     };
 
     ws.onmessage = (event) => {
@@ -33,15 +33,15 @@ export function LogViewer() {
     };
 
     ws.onerror = (error) => {
-      console.error('WebSocket error:', error);
+      console.error("WebSocket error:", error);
       setIsConnected(false);
-      setConnectionStatus('Connection Error');
+      setConnectionStatus("Connection Error");
     };
 
     ws.onclose = () => {
-      console.log('WebSocket closed');
+      console.log("WebSocket closed");
       setIsConnected(false);
-      setConnectionStatus('Disconnected');
+      setConnectionStatus("Disconnected");
     };
 
     return () => {
@@ -69,15 +69,17 @@ export function LogViewer() {
             <span className="log-count">{logs.length} entries</span>
           </div>
         </div>
-        
+
         <div className="header-right">
-          <div className={`connection-status ${isConnected ? 'connected' : 'disconnected'}`}>
+          <div
+            className={`connection-status ${isConnected ? "connected" : "disconnected"}`}
+          >
             <div className="status-indicator"></div>
             <span className="status-text">{connectionStatus}</span>
           </div>
-          
-          <button 
-            className="clear-button" 
+
+          <button
+            className="clear-button"
             onClick={clearLogs}
             title="Clear all logs"
           >

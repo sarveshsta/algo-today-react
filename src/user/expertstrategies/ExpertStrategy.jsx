@@ -6,7 +6,7 @@ import Newshape from "../../components/shape/custshape/Newshape";
 import HorizontalNav from "../../components/navbar/HorizontalNav";
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import Orangenewshape from "../../components/shape/custshape/Orangenewshape";
-import {Stretegies} from "./Stretegies.jsx"
+import { Stretegies } from "./Stretegies.jsx";
 import {
   getBankniftyDataApi,
   indexExpiryDataApi,
@@ -21,53 +21,51 @@ import { Circles } from "react-loader-spinner";
 import { LogViewer } from "./liveLogs";
 import "./ExpertStrategy.css";
 
-
 const option4 = [
-    { value: "CE", label: "CE" },
-    { value: "PE", label: "PE" },
-  ];
-  
-  const custStyle = {
-    option: (provided, state) => ({
-      ...provided,
-      // backgroundColor: state.isSelected ? "#ff00ff" : "#ffd1dc",
-      color: "black",
-      padding: 20,
-      border: state.isSelected ? "2px solid #32CD32" : "1px solid #0000ff",
-      "&:hover": {
-        // backgroundColor: "#7fffd4",
-        color: "#0000ff",
-      },
-    }),
-    control: (provided) => ({
-      ...provided,
-      // minHeight: 50,
-      extAlign: "center",
-      // backgroundColor: "#3498DB",
-      borderRadius: 25,
-      backgroundColor: "rgba(52, 152, 219, 0.2)",
-      border: "1px solid rgba(52, 152, 219, 1)",
-      // border: "2px solid #ff00ff",
-      // fontSize: 20,
-      "&:hover": {
-        // borderColor: "#7fffd4",
-      },
-    }),
-    singleValue: (provided) => ({
-      ...provided,
-      color: "black",
-      fontSize: 20,
-    }),
-    placeholder: (provided) => ({
-      ...provided,
-      color: "black",
-      fontSize: 20,
-    }),
-  };
-  // const tradeURL ="http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8000";  
+  { value: "CE", label: "CE" },
+  { value: "PE", label: "PE" },
+];
 
+const custStyle = {
+  option: (provided, state) => ({
+    ...provided,
+    // backgroundColor: state.isSelected ? "#ff00ff" : "#ffd1dc",
+    color: "black",
+    padding: 20,
+    border: state.isSelected ? "2px solid #32CD32" : "1px solid #0000ff",
+    "&:hover": {
+      // backgroundColor: "#7fffd4",
+      color: "#0000ff",
+    },
+  }),
+  control: (provided) => ({
+    ...provided,
+    // minHeight: 50,
+    extAlign: "center",
+    // backgroundColor: "#3498DB",
+    borderRadius: 25,
+    backgroundColor: "rgba(52, 152, 219, 0.2)",
+    border: "1px solid rgba(52, 152, 219, 1)",
+    // border: "2px solid #ff00ff",
+    // fontSize: 20,
+    "&:hover": {
+      // borderColor: "#7fffd4",
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: "black",
+    fontSize: 20,
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    color: "black",
+    fontSize: 20,
+  }),
+};
+// const tradeURL ="http://ec2-65-0-101-156.ap-south-1.compute.amazonaws.com:8000";
 
-export function ExpertStrategy(){
+export function ExpertStrategy() {
   const [checkedCheckBox, setCheckedCheckBox] = useState(false);
   const [selectedInput, setSelectedInput] = useState("");
   const [btnDisable, setBtnDisable] = useState(true);
@@ -100,14 +98,11 @@ export function ExpertStrategy(){
   const dispatch = useDispatch();
   const getStrategy = useSelector((state) => state?.index?.strategy || []);
 
-
-  
-
   let IndexData = useSelector(
-    (state) => state?.index?.indexExpiryDataApi.data || []
+    (state) => state?.index?.indexExpiryDataApi.data || [],
   );
   let StrikData = useSelector(
-    (state) => state?.index?.indexStrikePriceDataApi || []
+    (state) => state?.index?.indexStrikePriceDataApi || [],
   );
 
   useEffect(() => {
@@ -167,7 +162,7 @@ export function ExpertStrategy(){
         indexStrikePriceDataApi({
           index: inputValues?.index_list[0]?.index,
           expiry: inputValues?.index_list[0]?.expiry,
-        })
+        }),
       );
     }
   }, [inputValues?.index_list[0]?.index, inputValues?.index_list[0]?.expiry]);
@@ -186,13 +181,17 @@ export function ExpertStrategy(){
       target_profit: inputValues.target_profit,
       candle_duration: firstIndex.chart_time,
     };
-    dispatch(startStrategyApi(payload)).then((action) => {
-      if (!isMounted.current) return;
-      setStarting(false);
-      if (action.payload && action.payload.success) {
-        setIsStrategyRunning(true);
-      }
-    }).catch(() => { if (isMounted.current) setStarting(false); });
+    dispatch(startStrategyApi(payload))
+      .then((action) => {
+        if (!isMounted.current) return;
+        setStarting(false);
+        if (action.payload && action.payload.success) {
+          setIsStrategyRunning(true);
+        }
+      })
+      .catch(() => {
+        if (isMounted.current) setStarting(false);
+      });
   }, [inputValues]);
 
   const handleStopStrategy = useCallback(() => {
@@ -206,7 +205,10 @@ export function ExpertStrategy(){
   }, [inputValues.strategy_id]);
 
   useEffect(() => {
-    if (getStrategy?.message === "Live strategy data fetched from WebSocket successfully") {
+    if (
+      getStrategy?.message ===
+      "Live strategy data fetched from WebSocket successfully"
+    ) {
       if (isMounted.current) setBtnDisable(false);
     }
   }, [getStrategy?.message]);
@@ -214,15 +216,12 @@ export function ExpertStrategy(){
   useEffect(() => {
     dispatch(getStrategiesDropdownApi()).then((action) => {
       if (!isMounted.current) return;
-      if (
-        action.payload &&
-        Array.isArray(action.payload.data)
-      ) {
+      if (action.payload && Array.isArray(action.payload.data)) {
         setStrategyOptions(
           action.payload.data.map((strategy) => ({
             value: strategy.id,
             label: strategy.name,
-          }))
+          })),
         );
       }
     });
@@ -254,31 +253,34 @@ export function ExpertStrategy(){
     .filter(
       (item, index, self) =>
         // Filter out duplicates by checking if the current item's label exists earlier in the array
-        index === self.findIndex((t) => t.label === item.label)
+        index === self.findIndex((t) => t.label === item.label),
     );
   const finalSortedData = sortedIndexData?.map(({ value, label }) => ({
     value,
     label,
   }));
 
-
-
-    return (
-        <>
-        {starting && (
-          <div style={{
+  return (
+    <>
+      {starting && (
+        <div
+          style={{
             position: "fixed",
-            top: 0, left: 0, right: 0, bottom: 0,
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
             background: "rgba(255,255,255,0.7)",
             zIndex: 9999,
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
-          }}>
-            <Circles color="#3399cc" height={80} width={80} />
-          </div>
-        )}
-           <HorizontalNav />
+            justifyContent: "center",
+          }}
+        >
+          <Circles color="#3399cc" height={80} width={80} />
+        </div>
+      )}
+      <HorizontalNav />
       <Orangenewshape />
       <Newshape />
       <Navbar />
@@ -303,6 +305,8 @@ export function ExpertStrategy(){
                 options={[
                   { value: "NIFTY", label: "NIFTY" },
                   { value: "BANKNIFTY", label: "BANKNIFTY" },
+                  { value: "FINNIFTY", label: "FINNIFTY" },
+                  { value: "MIDCPNIFTY", label: "MIDCPNIFTY" },
                 ]}
                 styles={custStyle}
                 onChange={handleInputChange}
@@ -369,7 +373,6 @@ export function ExpertStrategy(){
               <Select
                 options={[
                   { value: "ONE_MINUTE", label: "ONE_MINUTE" },
-                  { value: "TWO_MINUTE", label: "TWO_MINUTE" },
                   { value: "THREE_MINUTE", label: "THREE_MINUTE" },
                   { value: "FIVE_MINUTE", label: "FIVE_MINUTE" },
                   { value: "FIFTEEN_MINUTE", label: "FIFTEEN_MINUTE" },
@@ -439,7 +442,7 @@ export function ExpertStrategy(){
               }
             />
           </div>
-          <div className="thirdddiv-btnn" style={{ display: 'flex', gap: 12 }}>
+          <div className="thirdddiv-btnn" style={{ display: "flex", gap: 12 }}>
             <button
               type="button"
               id="thirdddiv-btnn1"
@@ -471,48 +474,58 @@ export function ExpertStrategy(){
               </button>
             )}
           </div>
-         
-                {showLogsModal && (
-                <div style={{
-                  position: 'fixed',
-                  top: 0,
-                  left: 0,
-                  width: '100vw',
-                  height: '100vh',
-                  background: 'rgba(0, 0, 0, 0.5)',
-                  zIndex: 9999,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                  {/* Cross button */}
+
+          {showLogsModal && (
+            <div
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100vw",
+                height: "100vh",
+                background: "rgba(0, 0, 0, 0.5)",
+                zIndex: 9999,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {/* Cross button */}
               <button
                 onClick={() => setShowLogsModal(false)}
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   top: 24,
                   right: 32,
-                  background: '#000000',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '50%',
+                  background: "#000000",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "50%",
                   width: 44,
                   height: 44,
-                  lineHeight :1,
+                  lineHeight: 1,
                   fontSize: 28,
-                  cursor: 'pointer',
+                  cursor: "pointer",
                   zIndex: 10001,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.18)',
-                  paddingBottom : '5px'
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.18)",
+                  paddingBottom: "5px",
                 }}
                 aria-label="Close logs"
               >
                 &times;
               </button>
-              <div style={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div
+                style={{
+                  width: "100vw",
+                  height: "100vh",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
                 <LogViewer />
               </div>
             </div>
@@ -520,9 +533,12 @@ export function ExpertStrategy(){
         </div>
       </div>
       {/* New container for all strategies grid */}
-     <div className="customstrategies-main-container" style={{ textAlign: "left" }}>
-<Stretegies/>
-     </div>
-        </>
-    )
+      <div
+        className="customstrategies-main-container"
+        style={{ textAlign: "left" }}
+      >
+        <Stretegies />
+      </div>
+    </>
+  );
 }
