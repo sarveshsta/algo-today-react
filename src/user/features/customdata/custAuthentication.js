@@ -504,3 +504,49 @@ export const managetradingApi = createAsyncThunk(
     }
   },
 );
+
+
+//------------------ check strategy status  API ---------------//
+export const checkStrategyStatusApi = createAsyncThunk(
+  "managetradingApi",
+  async (strategy_id, thunkAPI) => {
+    try {
+      const accessToken = Cookies.get("accessToken");
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      const response = await axios.post(
+        `${tradeURL}/api/strategy/strategy-status/${strategy_id}`,
+
+        config,
+      );
+      if (response.status === 200 || response.status === 201) {
+        showToast(
+          "🎉 Hooray!",
+          response.data.message || "Trade successful",
+          "success",
+        );
+        return response.data;
+      } else {
+        showToast("⚠️ Error", response.data.message || "Trade failed", "error");
+        return thunkAPI.rejectWithValue(response.data.message);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        if (typeof window !== "undefined") {
+          window.location.href = "/login";
+        }
+        return;
+      }
+      showToast(
+        "⚠️ Error",
+        error.response?.data?.message || error.message,
+        "error",
+      );
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  },
+);
