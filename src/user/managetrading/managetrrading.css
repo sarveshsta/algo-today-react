@@ -224,6 +224,38 @@
     box-shadow: 0 2px 24px rgba(52, 152, 219, 0.08);
 }
 
+
+.top-profit-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 20px 8px 20px;
+}
+
+.today-profit-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #e0e0e0;
+    background: #ffffff;
+}
+
+.today-profit-badge .profit-value {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.today-profit-badge.profit-positive {
+    color: #27ae60;
+}
+.today-profit-badge.profit-negative {
+    color: #ff0000;
+}
+
 .button-container {
     gap: 1rem;
     align-items: center;

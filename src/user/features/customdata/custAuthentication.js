@@ -505,11 +505,10 @@ export const managetradingApi = createAsyncThunk(
   },
 );
 
-
-//------------------ check strategy status  API ---------------//
-export const checkStrategyStatusApi = createAsyncThunk(
-  "managetradingApi",
-  async (strategy_id, thunkAPI) => {
+//------------------ Get Day Profit API ---------------//
+export const getDayprofitApi = createAsyncThunk(
+  "getDayprofitApi",
+  async (params = {}, thunkAPI) => {
     try {
       const accessToken = Cookies.get("accessToken");
       const config = {
@@ -517,22 +516,26 @@ export const checkStrategyStatusApi = createAsyncThunk(
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
+        params,
       };
-      const response = await axios.post(
-        `${tradeURL}/api/strategy/strategy-status/${strategy_id}`,
-
+      const response = await axios.get(
+        `${tradeURL}/dayprofit/`,
         config,
       );
-      if (response.status === 200 || response.status === 201) {
+      if (response.status === 200) {
         showToast(
           "🎉 Hooray!",
-          response.data.message || "Trade successful",
+          response.data?.message || "Day profit fetched successfully",
           "success",
         );
         return response.data;
       } else {
-        showToast("⚠️ Error", response.data.message || "Trade failed", "error");
-        return thunkAPI.rejectWithValue(response.data.message);
+        showToast(
+          "⚠️ Error",
+          response.data?.message || "Failed to fetch day profit",
+          "error",
+        );
+        return thunkAPI.rejectWithValue(response.data?.message);
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -544,6 +547,100 @@ export const checkStrategyStatusApi = createAsyncThunk(
       showToast(
         "⚠️ Error",
         error.response?.data?.message || error.message,
+        "error",
+      );
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  },
+);
+
+//------------------ Fetch Running Strategies API ---------------//
+export const fetchLastStretegy = createAsyncThunk(
+  "fetchRunningStretegy",
+  async (params = {}, thunkAPI) => {
+    try {
+      const accessToken = Cookies.get("accessToken");
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params,
+      };
+      const response = await axios.get(
+        `${tradeURL}/api/strategy/get_strategy_payload/`,
+        config,
+      );
+      if (response.status === 200) {
+        showToast(
+          "🎉 Hooray!",
+          response.data?.message || "Running strategies fetched successfully",
+          "success",
+        );
+        return response.data;
+      } else {
+        showToast(
+          "⚠️ Error",
+          response.data?.message || "Failed to fetch running strategies",
+          "error",
+        );
+        return thunkAPI.rejectWithValue(response.data?.message);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        if (typeof window !== "undefined") {
+          window.location.href = "/login";
+        }
+        return;
+      }
+      showToast(
+        "⚠️ Error",
+        error?.response?.data?.message || error.message,
+        "error",
+      );
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  },
+);
+
+//------------------ Get Strategy Status API ---------------//
+export const getStrategyStatusApi = createAsyncThunk(
+  "getStrategyStatusApi",
+  async (strategy_id, thunkAPI) => {
+    try {
+      const accessToken = Cookies.get("accessToken");
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      const response = await axios.post(
+        `${tradeURL}/api/strategy/strategy-status/${strategy_id}`,
+        {},
+        config,
+      );
+      if (response.status === 200) {
+        // Avoid noisy toast here; status may be polled
+        return response.data;
+      } else {
+        showToast(
+          "⚠️ Error",
+          response.data?.message || "Failed to fetch strategy status",
+          "error",
+        );
+        return thunkAPI.rejectWithValue(response.data?.message);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        if (typeof window !== "undefined") {
+          window.location.href = "/login";
+        }
+        return;
+      }
+      showToast(
+        "⚠️ Error",
+        error?.response?.data?.message || error.message,
         "error",
       );
       return thunkAPI.rejectWithValue(error.message);

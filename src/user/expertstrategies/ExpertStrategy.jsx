@@ -14,12 +14,15 @@ import {
   stopStrategy,
   getStrategiesDropdownApi,
   startStrategyApi,
+  fetchLastStretegy,
+  getStrategyStatusApi,
 } from "../features/customdata/custAuthentication";
 import { useNavigate } from "react-router-dom";
 import MicroModal from "micromodal"; // es6 module
 import { Circles } from "react-loader-spinner";
 import { LogViewer } from "./liveLogs";
 import "./ExpertStrategy.css";
+import { showToast } from "../../utility";
 
 const option4 = [
   { value: "CE", label: "CE" },
@@ -74,8 +77,10 @@ export function ExpertStrategy() {
   const [strategyOptions, setStrategyOptions] = useState([]);
   const [isStrategyRunning, setIsStrategyRunning] = useState(false);
   const [starting, setStarting] = useState(false);
+  const [preloading, setPreloading] = useState(false);
   const isMounted = useRef(true);
   const [showLogsModal, setShowLogsModal] = useState(false);
+  const [preselectedStrategyId, setPreselectedStrategyId] = useState(null);
 
   const [inputValues, setInputValues] = useState({
     strategy_id: "",
@@ -116,6 +121,65 @@ export function ExpertStrategy() {
       isMounted.current = false;
     };
   }, [isModalOpen]);
+
+  // Preload last strategy and, if running, populate fields
+  useEffect(() => {
+    let cancelled = false;
+    setPreloading(true);
+    dispatch(fetchLastStretegy())
+      .then(async (action) => {
+        if (!isMounted.current || cancelled) return;
+        const payload = action?.payload;
+        if (!payload) return;
+        // Only proceed when API indicates success
+        if (payload?.success !== true) return;
+        const raw = payload?.data || payload;
+        // If API returns an object with { detail: "No strategy payload..." }, skip
+        if (!raw || (raw && raw.detail)) return;
+
+        const mappedStrategyId = raw.strategy_id || raw.strategy || "";
+        if (!mappedStrategyId) return;
+        const statusAction = await dispatch(getStrategyStatusApi(mappedStrategyId));
+        const statusPayload = statusAction?.payload;
+        const isRunning = statusPayload?.is_running ?? statusPayload?.data?.is_running ?? false;
+        if (isRunning) {
+          setPreselectedStrategyId(mappedStrategyId);
+          const mappedIndex = raw.index || raw.index_name || "";
+          const mappedExpiry = raw.expiry || "";
+          const mappedStrike = (raw.strike_price ?? raw.strike) || 0;
+          const mappedOption = raw.option_type || raw.option || "";
+          const mappedCandle = raw.candle_duration || raw.chart_time || "";
+          const mappedQty = raw.quantity || 0;
+          const mappedTradeAmt = raw.trade_amount || raw.trading_amount || 0;
+          const mappedTarget = raw.target_profit || 0;
+
+          setInputValues((prev) => ({
+            ...prev,
+            strategy_id: mappedStrategyId,
+            target_profit: parseInt(mappedTarget) || 0,
+            index_list: [
+              {
+                index: mappedIndex,
+                strike_price: typeof mappedStrike === "string" ? parseFloat(mappedStrike) : mappedStrike,
+                expiry: mappedExpiry,
+                option: mappedOption,
+                chart_time: mappedCandle,
+                quantity: parseInt(mappedQty) || 0,
+                trading_amount: parseInt(mappedTradeAmt) || 0,
+              },
+            ],
+          }));
+          setIsStrategyRunning(true);
+        }
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (!cancelled && isMounted.current) setPreloading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [dispatch]);
 
   const handleSubmit1 = useCallback(() => {
     if (checkedCheckBox) {
@@ -168,13 +232,50 @@ export function ExpertStrategy() {
   }, [inputValues?.index_list[0]?.index, inputValues?.index_list[0]?.expiry]);
 
   const submitButton = useCallback(() => {
-    setStarting(true);
     const firstIndex = inputValues.index_list[0] || {};
+    // Basic validation to prevent bad payloads
+    if (!inputValues.strategy_id) {
+      showToast("⚠️ Error", "Please select a strategy", "error");
+      return;
+    }
+    if (!firstIndex.index) {
+      showToast("⚠️ Error", "Please select index", "error");
+      return;
+    }
+    if (!firstIndex.expiry) {
+      showToast("⚠️ Error", "Please select expiry", "error");
+      return;
+    }
+    if (firstIndex.strike_price === undefined || firstIndex.strike_price === null || firstIndex.strike_price === "") {
+      showToast("⚠️ Error", "Please select strike price", "error");
+      return;
+    }
+    if (!firstIndex.option) {
+      showToast("⚠️ Error", "Please select option type (CE/PE)", "error");
+      return;
+    }
+    if (!firstIndex.chart_time) {
+      showToast("⚠️ Error", "Please select chart time", "error");
+      return;
+    }
+    if (!firstIndex.quantity || Number(firstIndex.quantity) <= 0) {
+      showToast("⚠️ Error", "Please enter a valid quantity", "error");
+      return;
+    }
+    if (!firstIndex.trading_amount || Number(firstIndex.trading_amount) <= 0) {
+      showToast("⚠️ Error", "Please enter a valid trading amount", "error");
+      return;
+    }
+    if (!inputValues.target_profit || Number(inputValues.target_profit) <= 0) {
+      showToast("⚠️ Error", "Please enter a valid target profit", "error");
+      return;
+    }
+    setStarting(true);
     const payload = {
       strategy_id: inputValues.strategy_id,
       index: firstIndex.index,
       expiry: firstIndex.expiry,
-      strike_price: firstIndex.strike_price,
+      strike_price: Number(firstIndex.strike_price) / 100,
       option_type: firstIndex.option,
       quantity: firstIndex.quantity,
       trade_amount: firstIndex.trading_amount,
@@ -223,9 +324,15 @@ export function ExpertStrategy() {
             label: strategy.name,
           })),
         );
+        if (preselectedStrategyId) {
+          const found = action.payload.data
+            .map((s) => ({ value: s.id, label: s.name }))
+            .find((o) => String(o.value) === String(preselectedStrategyId));
+          if (found) setSelectedStrategy(found);
+        }
       }
     });
-  }, [dispatch]);
+  }, [dispatch, preselectedStrategyId]);
 
   // When a strategy is selected, update inputValues.strategy_id
   const handleStrategyChange = (selected) => {
@@ -262,7 +369,7 @@ export function ExpertStrategy() {
 
   return (
     <>
-      {starting && (
+      {(starting || preloading) && (
         <div
           style={{
             position: "fixed",
@@ -313,10 +420,12 @@ export function ExpertStrategy() {
                 placeholder="Index"
                 name="index"
                 value={
-                  inputValues.index && {
-                    value: inputValues.index_list[0].index,
-                    label: inputValues.index_list[0].index,
-                  }
+                  inputValues?.index_list?.[0]?.index
+                    ? {
+                        value: inputValues.index_list[0].index,
+                        label: inputValues.index_list[0].index,
+                      }
+                    : null
                 }
               />
             </div>
@@ -328,17 +437,19 @@ export function ExpertStrategy() {
                 placeholder="Expiry"
                 name="expiry"
                 value={
-                  inputValues?.expiry && {
-                    value: inputValues?.index_list[0]?.expiry,
-                    label: inputValues?.index_list[0]?.expiry,
-                  }
+                  inputValues?.index_list?.[0]?.expiry
+                    ? {
+                        value: inputValues?.index_list[0]?.expiry,
+                        label: inputValues?.index_list[0]?.expiry,
+                      }
+                    : null
                 }
               />
             </div>
             <div className="select-container">
               <Select
                 options={StrikData?.map((item) => ({
-                  value: parseInt(item?.strike_price) / 100,
+                  value: parseInt(item?.strike_price),
                   label: parseInt(item?.strike_price) / 100,
                 }))}
                 styles={custStyle}
@@ -346,11 +457,15 @@ export function ExpertStrategy() {
                 placeholder="Strike Price"
                 name="strike_price"
                 value={
-                  inputValues.strike_price && {
-                    value: inputValues?.index_list[0]?.strike_price,
-                    label:
-                      inputValues?.index_list[0]?.strike_price.split(" . "),
-                  }
+                  inputValues?.index_list?.[0]?.strike_price || inputValues?.index_list?.[0]?.strike_price === 0
+                    ? {
+                        value: inputValues?.index_list[0]?.strike_price,
+                        label:
+                          (typeof inputValues?.index_list[0]?.strike_price === "number"
+                            ? inputValues?.index_list[0]?.strike_price
+                            : parseFloat(inputValues?.index_list[0]?.strike_price)) / 100,
+                      }
+                    : null
                 }
               />
             </div>
@@ -362,10 +477,12 @@ export function ExpertStrategy() {
                 placeholder="CE/PE"
                 name="option"
                 value={
-                  inputValues?.option && {
-                    value: inputValues?.index_list[0]?.option,
-                    label: inputValues?.index_list[0]?.option,
-                  }
+                  inputValues?.index_list?.[0]?.option
+                    ? {
+                        value: inputValues?.index_list[0]?.option,
+                        label: inputValues?.index_list[0]?.option,
+                      }
+                    : null
                 }
               />
             </div>
@@ -382,10 +499,12 @@ export function ExpertStrategy() {
                 onChange={handleInputChange}
                 name="chart_time"
                 value={
-                  inputValues?.chart_time && {
-                    value: inputValues?.index_list[0]?.chart_time,
-                    label: inputValues?.index_list[0]?.chart_time,
-                  }
+                  inputValues?.index_list?.[0]?.chart_time
+                    ? {
+                        value: inputValues?.index_list[0]?.chart_time,
+                        label: inputValues?.index_list[0]?.chart_time,
+                      }
+                    : null
                 }
               />
             </div>
@@ -394,52 +513,85 @@ export function ExpertStrategy() {
               className="cust-inputbtn"
               type="text"
               placeholder="Number of lots"
-              onChange={(e) =>
-                setInputValues((prev) => ({
-                  ...prev,
-                  index_list:
-                    prev?.index_list && prev?.index_list.length > 0
-                      ? [
-                          {
-                            ...prev?.index_list[0],
-                            quantity: parseInt(e.target.value),
-                          },
-                        ]
-                      : [{ quantity: parseInt(e.target.value) }],
-                }))
+              value={
+                inputValues?.index_list?.[0]?.quantity !== undefined && inputValues?.index_list?.[0]?.quantity !== null
+                  ? inputValues?.index_list?.[0]?.quantity
+                  : ""
               }
+              onChange={(e) => {
+                const { value } = e.target;
+                // Allow empty and digits only for quantity
+                if (value === "" || /^\d+$/.test(value)) {
+                  setInputValues((prev) => ({
+                    ...prev,
+                    index_list:
+                      prev?.index_list && prev?.index_list.length > 0
+                        ? [
+                            {
+                              ...prev?.index_list[0],
+                              quantity: value === "" ? "" : parseInt(value, 10),
+                            },
+                          ]
+                        : [{ quantity: value === "" ? "" : parseInt(value, 10) }],
+                  }));
+                }
+              }}
             />
             <input
               name="target_profit"
               className="cust-inputbtn"
               type="text"
               placeholder="Target Profit"
-              onChange={(e) =>
-                setInputValues((prev) => ({
-                  ...prev,
-                  target_profit: parseInt(e.target.value),
-                }))
+              value={
+                inputValues?.target_profit !== undefined && inputValues?.target_profit !== null
+                  ? inputValues?.target_profit
+                  : ""
               }
+              onChange={(e) => {
+                const { value } = e.target;
+                // Allow empty, digits, and one decimal point
+                if (value === "" || /^\d*\.?\d*$/.test(value)) {
+                  setInputValues((prev) => ({
+                    ...prev,
+                    target_profit: value === "" ? "" : parseFloat(value),
+                  }));
+                }
+              }}
             />
             <input
               className="cust-inputbtn"
               type="text"
               placeholder="Trading Amount"
               name="trading_amount"
-              onChange={(e) =>
-                setInputValues((prev) => ({
-                  ...prev,
-                  index_list:
-                    prev?.index_list && prev?.index_list.length > 0
-                      ? [
-                          {
-                            ...prev?.index_list[0],
-                            trading_amount: parseInt(e.target.value),
-                          },
-                        ]
-                      : [{ trading_amount: parseInt(e.target.value) }],
-                }))
+              value={
+                inputValues?.index_list?.[0]?.trading_amount !== undefined && inputValues?.index_list?.[0]?.trading_amount !== null
+                  ? inputValues?.index_list?.[0]?.trading_amount
+                  : ""
               }
+              onChange={(e) => {
+                const { value } = e.target;
+                // Allow empty, digits, and one decimal point
+                if (value === "" || /^\d*\.?\d*$/.test(value)) {
+                  setInputValues((prev) => ({
+                    ...prev,
+                    index_list:
+                      prev?.index_list && prev?.index_list.length > 0
+                        ? [
+                            {
+                              ...prev?.index_list[0],
+                              trading_amount:
+                                value === "" ? "" : parseFloat(value),
+                            },
+                          ]
+                        : [
+                            {
+                              trading_amount:
+                                value === "" ? "" : parseFloat(value),
+                            },
+                          ],
+                  }));
+                }
+              }}
             />
           </div>
           <div className="thirdddiv-btnn" style={{ display: "flex", gap: 12 }}>
