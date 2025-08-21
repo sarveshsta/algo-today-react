@@ -7,25 +7,37 @@ import { useDispatch } from "react-redux";
 import {
   managetradingApi,
   stopStrategy,
-  checkStrategyStatusApi,
 } from "./../features/customdata/custAuthentication";
 
 const BACKEND_URL = process.env.REACT_APP_FAST_BACKEND_URL;
 
 const ManageTrading = () => {
   const [trades, setTrades] = useState([]);
+  const [dayPnl, setDayPnl] = useState(0);
   const dispatch = useDispatch();
   const [isConnected, setIsConnected] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState("Connecting...");
-  const [strategyRunningStatus, setStrategyRunningStatus] = useState({});
 
   useEffect(() => {
     const fetchTrades = async () => {
       try {
         const response = await dispatch(managetradingApi({})).unwrap();
 
-        if (response.success && Array.isArray(response.data)) {
-          setTrades(response.data);
+        // New response shape: { success, data: { day_profit_and_loss, result: [] } }
+        if (response?.success) {
+          const payload = response?.data;
+          // Prefer new structure
+          if (payload && Array.isArray(payload?.result)) {
+            setTrades(payload.result);
+            if (typeof payload?.day_profit_and_loss === "number") {
+              setDayPnl(payload.day_profit_and_loss);
+            }
+          } else if (Array.isArray(response?.data)) {
+            // Backward compatibility
+            setTrades(response.data);
+          } else {
+            setTrades([]);
+          }
         } else {
           setTrades([]);
         }
@@ -56,15 +68,6 @@ const ManageTrading = () => {
           console.log("TRADE_SAVED event detected → calling fetchTrades");
           fetchTrades();
         }
-        
-    // New: handle strategy running status
-      if (message.key === "STRATEGY_RUNNING") {
-        const { strategy_id, is_running } = message;
-        setStrategyRunningStatus((prevStatus) => ({
-          ...prevStatus,
-          [strategy_id]: is_running,
-        }));
-      }
       } catch (err) {
         // Non-JSON message (just log output or debug text)
         console.log("Non-JSON message:", event.data);
@@ -88,9 +91,6 @@ const ManageTrading = () => {
     };
   }, [dispatch]);
 
-// 
-
-
   const handleStopStrategy = (strategyId) => {
     dispatch(stopStrategy(strategyId));
   };
@@ -106,6 +106,25 @@ const ManageTrading = () => {
               Active Position <span className="green-point"></span>
             </p>
 
+            {/* Top badge for today's total PnL */}
+            <div className="top-profit-bar">
+              <div
+                className={`today-profit-badge ${dayPnl >= 0 ? "profit-positive" : "profit-negative"}`}
+                aria-label="Today's Profit and Loss"
+                title="Today's Profit and Loss"
+              >
+                <span>Today PnL:</span>
+                <span className="profit-value">
+                  <IoTriangle
+                    style={{
+                      transform: dayPnl >= 0 ? "rotate(0deg)" : "rotate(180deg)",
+                    }}
+                  />
+                  {Number(dayPnl || 0).toFixed(2)}
+                </span>
+              </div>
+            </div>
+
             {/* Header Row */}
             {trades.length > 0 && (
               <div className="managetrading-header-row">
@@ -113,7 +132,6 @@ const ManageTrading = () => {
                   <div className="left-text">Qty</div>
                   <div className="left-text">Symbol</div>
                   <div className="left-text">Trade Type</div>
-                  <div className="left-text">Trade Time</div>
                 </div>
                 <div className="text-second-div">
                   <div className="right-text">Order Type</div>
@@ -142,25 +160,6 @@ const ManageTrading = () => {
                       <div className="left-text">
                         {trade.trade_type || "N/A"}
                       </div>
-                      <div className="left-text">
-                        {trade.created_at
-                          ? (() => {
-                              const parts = trade.created_at.split(".")[0]; // removes microseconds
-                              const date = new Date(parts + "Z"); // ensures UTC parsing
-                              return date
-                                .toLocaleString("en-US", {
-                                  year: "numeric",
-                                  month: "2-digit",
-                                  day: "2-digit",
-                                  hour: "2-digit",
-                                  minute: "2-digit",
-                                  hour12: true,
-                                  timeZone: "UTC", // Force UTC, no conversion
-                                })
-                                .replace(",", "");
-                            })()
-                          : "N/A"}
-                      </div>
                     </div>
                     <div className="text-second-div">
                       <div
@@ -170,9 +169,7 @@ const ManageTrading = () => {
                         {trade.order_type}
                       </div>
                       <div
-                        className={`right-text right-text-pnl ${
-                          trade.pnl >= 0 ? "pnl-positive" : "pnl-negative"
-                        }`}
+                        className={`right-text right-text-pnl ${trade.pnl >= 0 ? "pnl-positive" : "pnl-negative"}`}
                       >
                         <IoTriangle
                           style={{
@@ -198,7 +195,6 @@ const ManageTrading = () => {
                       <button
                         className="modern-btn primary-btn"
                         onClick={() => handleStopStrategy(trade.strategy_id)}
-                        disabled={!strategyRunningStatus[trade.strategy_id]}
                       >
                         Stop Algoo
                       </button>
